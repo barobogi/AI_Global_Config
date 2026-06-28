@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "created": "2026-06-20",
+    "version": "1.0",
+    "description": "Cowork ↔ CLI 전역 자동화 시스템 - 프로젝트 등록부"
+  },
+  "projects": [
+    {
+      "name": "stock_dashboard",
+      "path": "D:\\AI\\260619_2_Daily_for_stock_TEMP",
+      "type": "static",
+      "description": "카카오 주식 대시보드",
+      "enabled": true
+    },
+    {
+      "name": "Diary_for_Barobogi",
+      "path": "D:\\AI\\Diary_for_Barobogi",
+      "type": "unknown",
+      "description": "신규 프로젝트 — 2026-06-20",
+      "enabled": true
+    },
+    {
+      "name": "260620_3_Multimedia_summary",
+      "path": "D:\\AI\\260620_3_Multimedia_summary",
+      "type": "unknown",
+      "description": "신규 프로젝트 — 2026-06-20",
+      "enabled": true
+    },
+    {
+      "name": "260623_1_study_all",
+      "path": "D:\\AI\\260623_1_study_all",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-23 23:21",
+      "enabled": true
+    },
+    {
+      "name": "260624_superpowers",
+      "path": "D:\\AI\\260624_superpowers",
+      "type": "unknown",
+      "description": "barobogi ↔ 만복이 협업 시스템 (Superpowers 커스텀 스킬)",
+      "enabled": true
+    },
+    {
+      "name": "claude-trading-skills",
+      "path": "D:\\AI\\claude-trading-skills",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-27 08:27",
+      "enabled": true
+    },
+    {
+      "name": "260622_1_Remote_claude",
+      "path": "D:\\AI\\260622_1_Remote_claude",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-28 07:25",
+      "enabled": true
+    },
+    {
+      "name": "260620_1_cowork_cli_automation",
+      "path": "D:\\AI\\260620_1_cowork_cli_automation",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-28 07:26",
+      "enabled": true
+    },
+    {
+      "name": "260619_1_claude_usage",
+      "path": "D:\\AI\\260619_1_claude_usage",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-28 07:26",
+      "enabled": true
+    },
+    {
+      "name": "260625_1_n8n_finance",
+      "path": "D:\\AI\\260625_1_n8n_finance",
+      "type": "unknown",
+      "description": "GitHub CLI 신규 생성: 2026-06-28 (n8n 금융 자동화)",
+      "enabled": true
+    },
+    {
+      "name": "260620_2_Daily_for_barobogi",
+      "path": "D:\\AI\\260620_2_Daily_for_barobogi",
+      "type": "unknown",
+      "description": "GitHub CLI 신규 생성: 2026-06-28 (바로보기 일일 대시보드)",
+      "enabled": true
+    },
+    {
+      "name": "Improve_stock",
+      "path": "D:\\AI\\Improve_stock",
+      "type": "python",
+      "description": "종가베팅 + VCP 분석 엔진 + KIS API 연동 (기존 주식 대시보드 대체 예정)",
+      "enabled": true
+    }
+  ]
+}

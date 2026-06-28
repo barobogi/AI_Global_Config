@@ -1,0 +1,30 @@
+{
+  "global_settings": {
+    "base_path": "D:\\AI",
+    "automation_enabled": true,
+    "debug_mode": false,
+    "log_level": "INFO",
+    "global_debounce": 1
+  },
+  "git_settings": {
+    "auto_push": true,
+    "push_retry_limit": 3,
+    "commit_prefix": "auto:"
+  },
+  "sync_settings": {
+    "bidirectional": true,
+    "conflict_resolution": "last_write_wins",
+    "backup_before_sync": false
+  },
+  "notification_settings": {
+    "enable_vs_code_notifications": true,
+    "enable_email_notifications": false,
+    "notification_channels": ["console", "log"]
+  },
+  "scheduler_settings": {
+    "windows_task_scheduler": true,
+    "task_name": "CoworkCLI_GlobalAutomation",
+    "start_at_boot": true,
+    "run_interval_minutes": 1
+  }
+}
