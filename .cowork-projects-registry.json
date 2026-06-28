@@ -88,6 +88,13 @@
       "type": "python",
       "description": "종가베팅 + VCP 분석 엔진 + KIS API 연동 (기존 주식 대시보드 대체 예정)",
       "enabled": true
+    },
+    {
+      "name": "AI_Global_Config",
+      "path": "D:\\AI",
+      "type": "config",
+      "description": "D:\\AI 전역 설정 — CLAUDE.md / NEXT_PROJECTS.md / 프로젝트 등록부 자동 push",
+      "enabled": true
     }
   ]
 }
