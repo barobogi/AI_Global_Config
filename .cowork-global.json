@@ -18,8 +18,15 @@
   },
   "notification_settings": {
     "enable_vs_code_notifications": true,
-    "enable_email_notifications": false,
-    "notification_channels": ["console", "log"]
+    "enable_email_notifications": true,
+    "notification_channels": ["console", "log", "email"],
+    "email_settings": {
+      "smtp_server": "smtp.daum.net",
+      "smtp_port": 465,
+      "from_email": "barobogi79@daum.net",
+      "to_email": "barobogi79@daum.net",
+      "password": ""
+    }
   },
   "scheduler_settings": {
     "windows_task_scheduler": true,
