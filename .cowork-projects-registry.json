@@ -95,6 +95,13 @@
       "type": "config",
       "description": "D:\\AI 전역 설정 — CLAUDE.md / NEXT_PROJECTS.md / 프로젝트 등록부 자동 push",
       "enabled": true
+    },
+    {
+      "name": "11_특허아이디어",
+      "path": "D:\\AI\\11_특허아이디어",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-29 05:51",
+      "enabled": true
     }
   ]
 }
