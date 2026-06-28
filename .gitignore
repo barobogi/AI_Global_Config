@@ -22,6 +22,7 @@ cline/
 
 # 시스템 파일
 .claude/
+.secrets.json
 *.log
 telegram_session.log
 task_masterwatch.xml
