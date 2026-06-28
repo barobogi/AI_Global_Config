@@ -102,6 +102,13 @@
       "type": "unknown",
       "description": "자동 감지: 2026-06-29 05:51",
       "enabled": true
+    },
+    {
+      "name": "Global_Define",
+      "path": "D:\\AI\\Global_Define",
+      "type": "unknown",
+      "description": "자동 감지: 2026-06-29 06:50",
+      "enabled": true
     }
   ]
 }
