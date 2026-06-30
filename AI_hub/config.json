@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "created": "2026-07-01",
+  "heartbeat_interval_minutes": 5,
+  "alive_threshold_minutes": 10,
+  "active_ais": ["만복", "코니"],
+  "quorum_rules": {
+    "debugging": ["만복"],
+    "design_review": ["코니"],
+    "parallel_collab": ["만복", "코니"],
+    "full_team": ["만복", "코니"]
+  },
+  "notes": "codex 등 추가 시 active_ais 배열 + quorum_rules에 추가"
+}

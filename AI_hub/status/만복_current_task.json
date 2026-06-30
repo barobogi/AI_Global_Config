@@ -1,0 +1,11 @@
+{
+  "ai": "만복",
+  "last_updated": "2026-07-01T00:00:00",
+  "current_task": null,
+  "next_task": null,
+  "blocker": null,
+  "needs_코니": false,
+  "needs_바로보기": false,
+  "project": null,
+  "note": "이벤트 발생 시 즉시 갱신. needs_코니: true 시 코니 세션 열면 자동 감지."
+}
