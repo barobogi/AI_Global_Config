@@ -1,7 +1,6 @@
 {
   "ai": "만복",
-  "last_updated": "2026-07-01T00:00:00",
-  "session_start": null,
-  "status": "initializing",
-  "note": "master_watch.py가 5분마다 자동 갱신. 10분 이상 미갱신 시 만복 다운 간주."
+  "last_updated": "2026-07-01T06:02:18",
+  "session_start": "2026-07-01T06:02:17",
+  "status": "alive"
 }
