@@ -12,7 +12,7 @@
     {
       "id": "T002",
       "title": "AI_hub P2 — master_watch.py heartbeat 추가",
-      "status": "in_progress",
+      "status": "completed",
       "required": ["만복"],
       "optional": ["코니"],
       "blocker": null,
