@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "n8n 첫 실행 & 계정 생성",
+      "status": "in_progress",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": "npm install 완료 대기 중",
+      "updated": "2026-07-01"
+    },
+    {
+      "id": "T002",
+      "title": "AI_hub P2 — master_watch.py heartbeat 추가",
+      "status": "in_progress",
+      "required": ["만복"],
+      "optional": ["코니"],
+      "blocker": null,
+      "updated": "2026-07-01"
+    },
+    {
+      "id": "T003",
+      "title": "텔레그램 inbound n8n 트리거로 대체",
+      "status": "pending",
+      "required": ["만복"],
+      "optional": ["코니"],
+      "blocker": "n8n 첫 실행 선행 필요",
+      "updated": "2026-07-01"
+    },
+    {
+      "id": "T004",
+      "title": "코니 D:\\AI\\ 전체 폴더 연결",
+      "status": "pending",
+      "required": ["바로보기"],
+      "optional": [],
+      "blocker": "바로보기님 Cowork 세션에서 직접 연결 필요",
+      "updated": "2026-07-01"
+    }
+  ]
+}
