@@ -95,3 +95,7 @@
 - 만복1과의 작업 진행 상황 확인
 - n8n_finance Phase 1 (MCP 딥다이브) 계획
 - Improve Stock: KIS API 승인 상태 확인
+
+
+## 📋 오늘 만복2 요약 (자동 업데이트)
+`D:\AI\TEMP_MANBOK\만복2_오늘정리_20260701.md` — 2026-07-01 19:03 생성
