@@ -36,6 +36,16 @@
       "blocker": null,
       "updated": "2026-07-01",
       "note": "코니가 직접 request_cowork_directory로 연결 완료 (06:02)"
+    },
+    {
+      "id": "T006",
+      "title": "23:30 특허 리스트+통합안 이메일 예약발송 (barobogi79@gmail.com, Daum SMTP)",
+      "status": "pending",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": null,
+      "updated": "2026-07-01",
+      "note": "파일 2개: 특허_검토_리스트_최종_20260701.md, 특허3_통합안_분산AI동기화및지식거버넌스_v1.0_20260701.md. 상세는 messages/코니→만복_20260701_004.md"
     }
   ]
 }
