@@ -5,6 +5,33 @@
 
 ---
 
+<!-- AUTO_STATUS_START -->
+## 🔄 최신 상태 (2026-07-02 05:41 자동 갱신)
+
+### 🔄 2026-07-01 진행 중 — 인프라 안정화 + AI_hub
+
+**완료:**
+- master_watch.py 인코딩 버그 수정 + 작업 스케줄러 등록 (재부팅 자동 시작)
+- 코니_sync.md 자동 갱신 복구
+- AI_hub D:\AI\AI_hub\ 구축 (P1 폴더구조 + P2 만복 heartbeat 5분 자동갱신)
+- 코니 D:\AI\ 전체 연결 → 병렬 협업 모드 첫 가동 확인
+- 특허 11_9(AI허브 상태동기화), 11_10(quorum 역할분배) 제목 등록
+
+**진행 중:**
+- n8n 재설치 (npm install -g n8n, Node v20) — 완료 후 첫 실행 + 계정 생성 예정
+
+**다음 (퇴근 후):**
+1. n8n 첫 실행 → localhost:5678 계정 생성
+2. 텔레그램 inbound → n8n 트리거 대체
+3. AI_hub P3~P5 (tasks/context 운용, 코니_sync 흡수)
+
+> 상세: `D:\AI\NEXT_PROJECTS.md` | 매일 19:03 master_watch.py 자동 생성
+
+---
+
+<!-- AUTO_STATUS_END -->
+
+
 ## 사용자 정보
 - 이름: 이한복 (닉네임: 바로보기/barobogi)
 - 이메일: barobogi79@gmail.com
