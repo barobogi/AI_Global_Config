@@ -75,5 +75,15 @@
       "updated": "2026-07-03",
       "note": "코니가 완료. 근거: 번호별정리_20260702/11_10_11_11_특허3_흡수처리_확정_20260703.md"
     }
+  ,{
+      "id": "T013",
+      "title": "개념노트 자동 보충 스크립트 구현",
+      "status": "pending",
+      "required": ["만복"],
+      "optional": ["코니"],
+      "blocker": "T001 선행 필요 (n8n 스케줄 트리거 활용)",
+      "updated": "2026-07-03",
+      "note": "study-dashboard.html '매일 오후 9시 자동 보충' 미구현 상태. n8n으로 스케줄 + Anthropic API로 개념 생성 → Firebase 저장"
+    }
   ]
 }
