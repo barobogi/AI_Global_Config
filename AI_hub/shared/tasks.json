@@ -68,11 +68,12 @@
     {
       "id": "T012",
       "title": "11_10, 11_11 특허3 흡수 처리 문서화",
-      "status": "pending",
+      "status": "completed",
       "required": ["코니"],
       "optional": ["만복"],
       "blocker": null,
-      "updated": "2026-07-03"
+      "updated": "2026-07-03",
+      "note": "코니가 완료. 근거: 번호별정리_20260702/11_10_11_11_특허3_흡수처리_확정_20260703.md"
     }
   ]
 }
