@@ -49,12 +49,12 @@
     {
       "id": "T010",
       "title": "코니 스케줄 폴링 설정 (n8n 전까지 임시 동기화)",
-      "status": "pending",
+      "status": "completed",
       "required": ["코니"],
       "optional": [],
       "blocker": null,
       "updated": "2026-07-03",
-      "note": "mcp__scheduled-tasks로 5분마다 코니_quick_sync.md 읽기 — 코니가 직접 설정"
+      "note": "coni-quick-sync-watch 등록 완료. 변경 시에만 알림, 필요 시 Scheduled 탭 확인 방식으로 운영"
     },
     {
       "id": "T011",
