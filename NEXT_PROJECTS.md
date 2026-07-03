@@ -13,8 +13,8 @@
 - 회사 3-AI 쿼럼 루틴 확인 (1_코덱스+1_코니2+1_만복2, AI_hub 운용)
 - AI Study 게시판 포스팅 완료 (20260704-1)
 
-**진행 중:**
-- n8n 재설치 (D:\Dev\nodejs\npm, Node v22) — package.json 생성 대기 중 → 완료 후 localhost:5680 계정 생성
+**완료 (2026-07-04 01:15):**
+- n8n 재설치 완료 ✅ (D:\Dev\npm\node_modules\n8n\package.json 생성 확인)
 
 **다음:**
 1. n8n 첫 실행 → localhost:5680 계정 생성 + 워크플로우 시작
