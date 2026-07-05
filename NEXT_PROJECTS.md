@@ -1,8 +1,8 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-05 저녁 (종료)  
-**상태**: n8n DB 분실 (T016 재구성 필요) / AI_hub P1~P5 ✅ / master_watch 정상 / D:\AI 폴더 정리 완료(코니 검증 완료) / 11_특허아이디어 구조 개편 완료 / CLAUDE.md Hall방지 원칙 추가 / AI Study 20260705-2 등록
+**최종 업데이트**: 2026-07-06 새벽 (종료)  
+**상태**: n8n DB 분실 (T016 재구성 필요) / AI_hub P1~P5 ✅ / master_watch 정상 / T017 telegram_history.md 구현 완료 / CLAUDE.md 텔레그램 세션 규칙 추가
 
 ### 🔴 다음 세션 최우선 — T015 텔레그램 `--channels` 세션 안정화
 
@@ -11,11 +11,17 @@
 
 **해야 할 것:**
 1. `start_telegram.bat` 재확인 — 단독 실행 시 정상 동작 검증
-2. 컨텍스트 유지 방안 검토 (대화 이력 파일 저장 or 세션 재시작 시 REF 로드)
+2. ~~컨텍스트 유지 방안 검토~~ → **✅ T017로 해결** (telegram_history.md 자동 로드)
 3. n8n GeekNews 워크플로우 재구성 (T016) — JSON 백업: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`
 
+### ✅ 2026-07-06 완료 — T017 텔레그램 세션 컨텍스트 기억 문제 해결
+
+- `D:\AI\AI_hub\telegram_history.md` 생성 — 세션 간 대화 이력 브릿지
+- `CLAUDE.md` 텔레그램 세션 시작 규칙 추가 — 세션 시작 시 telegram_history.md 자동 로드
+- **다음**: 데스크탑에서 텔레그램 세션 재시작 테스트 필요
+
 **다음 우선순위:**
-1. 🔴 T015 — 텔레그램 `--channels` 세션 안정화 (위 내용)
+1. 🔴 T015 — 텔레그램 `--channels` 세션 안정화 + 재시작 테스트 (T017 적용 확인)
 2. T016 — n8n GeekNews 워크플로우 재구성
 3. T011 — n8n + 코니 실시간 동기화
 4. T013 — 개념노트 자동 보충 스크립트
