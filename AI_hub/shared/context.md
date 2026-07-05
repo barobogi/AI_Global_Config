@@ -112,3 +112,22 @@
 - [만복] 경쟁 텔레그램 프로세스 제거: `start_telegram.bat` + `claude.exe --channels plugin:telegram` 모두 종료
 - **현재 상태**: 터미널 `--channels` 세션이 단독으로 텔레그램 수신. 이 VSCode 세션 종료 예정.
 - **n8n 상태**: GeekNews 워크플로우 재구성 필요 (T016). JSON 백업: `D:\Dev\n8n_scripts\telegram_inbound_workflow.json`
+
+### 2026-07-05 오후3 (만복 VSCode 세션 — 폴더 정리 + 코니 제안 실행)
+- [만복] 코니의 `D_AI_폴더구조_검토및정리안_20260705.md` 검토 및 A/B단계 실행 완료
+- [만복] D:\AI 폴더 정리 완료:
+  - `_archive/` 신설 → cline, claude-trading-skills, 260624_superpowers, 260619_1_claude_usage, 260620_1_cowork_cli_automation, 260620_2_Daily_for_barobogi, 260622_1_Remote_claude (7개 이동)
+  - `_personal/` 신설 → MYBOX 이동 (GD는 카카오톡 잠금으로 보류)
+  - `_DEPRECATED_260619_2_Daily_for_stock/` 삭제 (완전 중복 확인)
+  - `PROJECTS_INDEX.md` 신규 작성 (카테고리별 폴더 현황 문서화)
+  - registry.json: claude-trading-skills, 260620_2_Daily_for_barobogi, 260619_1_claude_usage, 260620_1_cowork_cli_automation, 260622_1_Remote_claude → enabled:false
+- [만복] 11_특허아이디어/번호별정리/ 구조 개편:
+  - 11_1~11_14 번호별 개별 폴더로 세분화
+  - 병합/ → 특허3·특허2에 흡수된 6개 (11_2①, 11_7, 11_9, 11_10, 11_11, 구특허03)
+  - minor/ → 드롭 확정 1개 (11_15)
+  - 00_특허현황표.md 경로 참조 업데이트 완료
+  - node_modules/ 삭제 (백그라운드 진행 중)
+  - 코니 분석 파일(CLAUDE_*.md, D_AI_*.md) → REF/로 이동
+- [만복] CLAUDE.md Hall 방지 원칙 + 자체검증 체크리스트 추가 (오늘 텔레그램 세션 실수 패턴 기반)
+- **T015 결론**: VS Code 세션에서 텔레그램 inbound 수신은 구조적 불가. `--channels` 터미널 세션이 유일한 방법. 다음 세션 최우선.
+- **다음 세션 우선순위**: T015(--channels 세션 안정화) → T016(n8n GeekNews 재구성) → T011(코니 실시간 동기화)
