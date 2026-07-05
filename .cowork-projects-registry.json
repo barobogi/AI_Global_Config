@@ -49,10 +49,10 @@
     },
     {
       "name": "260622_1_Remote_claude",
-      "path": "D:\\AI\\260622_1_Remote_claude",
+      "path": "D:\\AI\\_archive\\260622_1_Remote_claude",
       "type": "unknown",
-      "description": "자동 감지: 2026-06-28 07:25",
-      "enabled": true
+      "description": "Flutter 모바일 앱 — T015 방향 전환으로 역할 소멸, _archive 이동",
+      "enabled": false
     },
     {
       "name": "260620_1_cowork_cli_automation",
