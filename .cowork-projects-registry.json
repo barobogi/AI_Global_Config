@@ -63,10 +63,10 @@
     },
     {
       "name": "260619_1_claude_usage",
-      "path": "D:\\AI\\260619_1_claude_usage",
+      "path": "D:\\AI\\_archive\\260619_1_claude_usage",
       "type": "unknown",
-      "description": "자동 감지: 2026-06-28 07:26",
-      "enabled": true
+      "description": "Claude 사용량 모니터링 — Global_Define으로 대체됨, _archive 이동",
+      "enabled": false
     },
     {
       "name": "260625_1_n8n_finance",
