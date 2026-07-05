@@ -38,7 +38,7 @@
 |------|------|------------|
 | `260620_3_Multimedia_summary/` | 유튜브/영상 요약 자동화 | 2026-06-22 |
 | `260622_1_Remote_claude/` | 모바일 만복이 앱 (Flutter) | 2026-06-26 |
-| `260624_superpowers/` | Superpowers 커스텀 스킬 시스템 | 2026-06-24 |
+| `_archive/260624_superpowers/` | Superpowers 스킬 설계문서 (실제 스킬은 배포됨) | 이동 완료 (2026-07-05) |
 | `260619_1_claude_usage/` | Claude 사용량 추적 | 2026-06-21 |
 | `260623_1_study_all/` | Study Dashboard (Diary_for_Barobogi 통합 대기) | 2026-07-04 |
 
