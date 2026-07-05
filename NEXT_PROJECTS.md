@@ -1,27 +1,38 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-04 (코니 MCP memory 동기화 완성 + 회사 3-AI 특허 루틴 첫 가동 + n8n 설치 중)  
-**상태**: 만복-코니 memory 공유 완성 / 회사 3-AI 쿼럼 루틴 가동 / n8n 설치 진행 중 (포트 5680)
+**최종 업데이트**: 2026-07-05 (T003 텔레그램 inbound 완료)  
+**상태**: n8n v1.123.63 Active (포트 5680) / GeekNews 파이프라인 ✅ / AI_hub P1~P5 ✅ / 텔레그램 inbound ✅
 
-### 🔄 2026-07-04 진행 중 — 코니 MCP 확장 + 특허 싱크업
+### ✅ 2026-07-05 완료 — T003 텔레그램 inbound
+
+- @Brrobogi_stockbot + n8n 7노드 워크플로우 완성
+- 구조: Schedule(30s) → getUpdates → 메시지파싱 → Claude CLI(tg_claude.py) → 응답디코딩(base64) → sendMessage
+- 한글 인코딩 base64 우회로 해결
+- n8n Code 노드 샌드박스 제약 확인 (fetch/https/child_process 모두 차단 → HTTP Request + Execute Command 분리)
+- AI Study 게시판 포스팅 (20260705-1)
+
+**다음 세션 우선순위:**
+1. @barobogi_stockbot → 이 세션(만복이)이 직접 읽는 구조 (context 유지 대화)
+2. n8n + 코니 실시간 동기화 (T011)
+3. 개념노트 자동 보충 스크립트 (T013)
+4. **가족봇** (후순위) — 사모님 텔레그램 봇
+
+### ✅ 2026-07-04 완료 (오전) — n8n 설치 & GeekNews 자동화
 
 **완료:**
-- 코니 MCP에 C:\Users\82102\.claude 경로 추가 → 만복 memory를 코니가 직접 읽기 가능
-- 특허 PROCESS.md 싱크업: 특허2(방어용), 11_4(MID), 11_12/13(방어용), 11_14(방어수준)
-- 11_4 선행검색 상세 결과 md 업데이트 (US20050015323A1 유사, MID 판정)
-- 회사 3-AI 쿼럼 루틴 확인 (1_코덱스+1_코니2+1_만복2, AI_hub 운용)
-- AI Study 게시판 포스팅 완료 (20260704-1)
+- n8n v1.123.63 로컬 설치 (C:\n8n\, 포트 5680)
+- GeekNews 8시 자동 선별 → 텔레그램 전송 워크플로우 Active ✅
+- n8n 재부팅 자동 시작 등록 (시작 폴더 바로가기)
+- Study Dashboard 만복이 News 게시판 자동 등록 파이프라인 구축
+- 만복이 News 요구사항 문서 저장 (D:\AI\260623_1_study_all\REF\manbok_news_requirements.md)
+- AI Study 게시판 포스팅 (20260704-2): n8n 고생 히스토리
+- compact 프로토콜 메모리 저장 ("compact 해도 되니?" = 합의 저장 신호)
 
-**완료 (2026-07-04 01:15):**
-- n8n 재설치 완료 ✅ (D:\Dev\npm\node_modules\n8n\package.json 생성 확인)
-
-**다음:**
-1. n8n 첫 실행 → localhost:5680 계정 생성 + 워크플로우 시작
-2. docx → md 변환 워크플로우 (특허 폴더 121개 자동화 — 회사 n8n에서 51개 완료, 집은 처음부터)
-3. 텔레그램 inbound → n8n 트리거 대체
-4. AI_hub P3~P5 (tasks/context 운용, 코니_sync 흡수)
-5. Google Drive MCP 추가 (다른 Gmail 계정 OAuth — 주식 게시판 발전안 검토용)
+**n8n 안정화 이후 설치 후보 (기억만):**
+- LM Studio — 로컬 LLM (Phi-4 mini, RAM 16GB OK), API 크레딧 독립, 단순 분류/요약용
+- Qdrant — 벡터 DB, 의미 기반 검색. **단독으로 특허 선행검색 불가** — Playwright 크롤링 파이프라인 필요
+- Playwright — 웹 자동화 스크래핑 (Node.js 이미 있음, npm install playwright). GeekNews/주식 정보 수집
 
 ### 🔄 2026-06-29 진행 중 — 특허 선행검색
 

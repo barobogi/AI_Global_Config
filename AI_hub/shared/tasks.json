@@ -3,20 +3,32 @@
     {
       "id": "T001",
       "title": "n8n 첫 실행 & 계정 생성",
-      "status": "blocked",
+      "status": "completed",
       "required": ["바로보기"],
       "optional": ["만복"],
-      "blocker": "RAM 8GB 추가 도착 대기 (2026-07-03 예정)",
-      "updated": "2026-07-03"
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "Node.js 버전 문제 해결 후 설치 완료. 첫 워크플로(GeekNews 8시 자동 선별) Active 확인됨 (2026-07-04)"
+    },
+    {
+      "id": "T002",
+      "title": "n8n GeekNews 파싱 regex 수정",
+      "status": "completed",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "HTML 구조 변경(topic_row split 방식)으로 수정 완료. gn_url(긱뉴스 topic URL) 추출 추가. 텔레그램 전송 재확인."
     },
     {
       "id": "T003",
       "title": "텔레그램 inbound n8n 트리거로 대체",
-      "status": "pending",
+      "status": "completed",
       "required": ["만복"],
       "optional": ["코니"],
-      "blocker": "T001 선행 필요",
-      "updated": "2026-07-03"
+      "blocker": null,
+      "updated": "2026-07-05",
+      "note": "완료. @Brrobogi_stockbot(8335911134) + n8n 7노드 워크플로우 정상 작동. 구조: Schedule(30s)→오프셋계산→getUpdates→메시지파싱→Claude CLI실행(tg_claude.py)→응답디코딩(base64)→sendMessage. 한글 인코딩 base64 우회로 해결."
     },
     {
       "id": "T007",
@@ -31,20 +43,22 @@
     {
       "id": "T008",
       "title": "AI_hub P4 — shared/tasks.json + decisions.md 실제 운용",
-      "status": "in_progress",
+      "status": "completed",
       "required": ["만복", "코니"],
       "optional": [],
       "blocker": null,
-      "updated": "2026-07-03"
+      "updated": "2026-07-04",
+      "note": "tasks.json 실제 운용 중. decisions.md D001~D003 완료. context.md 오늘(2026-07-04) 기준 업데이트 완료. 코니→만복 미수신 메시지 5건 read 처리 완료."
     },
     {
       "id": "T009",
       "title": "AI_hub P5 — 코니_quick_sync.md → shared/context.md 마이그레이션",
-      "status": "pending",
+      "status": "completed",
       "required": ["만복", "코니"],
       "optional": [],
-      "blocker": "T008 선행 필요",
-      "updated": "2026-07-03"
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "코니_브리핑_최신.md가 context.md 기반으로 5분마다 자동 갱신 중. 코니가 MCP filesystem으로 직접 읽기 가능. TEMP_MANBOK 중복 파일 정리는 n8n 안정화 후 일괄 처리."
     },
     {
       "id": "T010",
@@ -62,8 +76,9 @@
       "status": "pending",
       "required": ["만복", "코니"],
       "optional": [],
-      "blocker": "T001 선행 필요",
-      "updated": "2026-07-03"
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "T001 완료로 블로커 해제됨 — 착수 가능"
     },
     {
       "id": "T012",
@@ -74,16 +89,46 @@
       "blocker": null,
       "updated": "2026-07-03",
       "note": "코니가 완료. 근거: 번호별정리_20260702/11_10_11_11_특허3_흡수처리_확정_20260703.md"
-    }
-  ,{
+    },
+    {
       "id": "T013",
       "title": "개념노트 자동 보충 스크립트 구현",
       "status": "pending",
       "required": ["만복"],
       "optional": ["코니"],
-      "blocker": "T001 선행 필요 (n8n 스케줄 트리거 활용)",
-      "updated": "2026-07-03",
-      "note": "study-dashboard.html '매일 오후 9시 자동 보충' 미구현 상태. n8n으로 스케줄 + Anthropic API로 개념 생성 → Firebase 저장"
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "study-dashboard.html '매일 오후 9시 자동 보충' 미구현. n8n으로 스케줄 + Claude CLI subprocess로 개념 생성 → Firebase 저장 패턴. Study Dashboard 통합안 v0.2 구조 재사용 가능."
+    },
+    {
+      "id": "T014",
+      "title": "만복이 News 상세 모달 구현",
+      "status": "completed",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": null,
+      "updated": "2026-07-04",
+      "note": "study-dashboard.html v1.2. 카드 클릭→상세 모달(원본링크/긱뉴스링크/만복요약/바로보기코멘트). localStorage 저장. update_geek_news.py gn_url 추가."
+    },
+    {
+      "id": "T015",
+      "title": "텔레그램 → MCP 직접 연결 (만복 세션 직접 수신)",
+      "status": "in_progress",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": null,
+      "updated": "2026-07-05",
+      "note": "n8n 방식 → MCP telegram 플러그인으로 전환 결정. .env에 @Brrobogi_stockbot 토큰 교체 완료. claude --channels plugin:telegram@claude-plugins-official 로 실행 필요. 두 세션 동시 실행 시 bun 충돌 문제 → 터미널 단독 세션으로 해결 예정."
+    },
+    {
+      "id": "T016",
+      "title": "n8n GeekNews 워크플로우 재구성",
+      "status": "pending",
+      "required": ["만복"],
+      "optional": [],
+      "blocker": null,
+      "updated": "2026-07-05",
+      "note": "n8n DB WAL 충돌로 워크플로우 0개 초기화됨. 재구성 메모: D:\\Dev\\n8n_scripts\\geek_news_workflow_memo.md. GeekNews 파싱 → Claude 선별 → 텔레그램(@Barobogi_real_stockbot) + Study Dashboard 업데이트 구조."
     }
   ]
 }

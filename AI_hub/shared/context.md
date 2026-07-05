@@ -56,11 +56,52 @@
 
 - 22:20 [코니] 특허3 통합 초안 작성 완료 — `특허3_통합안_분산AI동기화및지식거버넌스_v1.0_20260701.md` (11_9 + 특허03 검정엔진 병합, 청구항 독립항1 + 종속항5개 포함). decisions.md D002 해결 처리.
 
-### 2026-07-04
+### 2026-07-04 (만복 작업 완료 이력)
+- [만복] 260620_3_Multimedia_summary 프로젝트 초기화 + GitHub 연결 완료
+- [만복] n8n GeekNews 파싱 regex 수정 완료 — 구조 변경(`/p/` → `topic_row` split 방식) 대응, 텔레그램 전송 재확인
+- [만복] 만복이 News 상세 모달 구현 (study-dashboard.html v1.2) — 카드 클릭→상세, 원본/긱뉴스 링크, 바로보기 코멘트(localStorage)
+- [만복] n8n Code 노드 gn_url 추출 추가 (data-topic-state-id 파싱), update_geek_news.py parse_news/make_card 업데이트
+- [만복] 코니→만복 미수신 메시지 5건 확인 및 read 처리 (T008 완료 과정 중)
+- [만복] AI_hub P4 (T008) 완료: tasks.json 실제 운용, decisions.md D001~D003 완료 확인, context.md 오늘 기준 업데이트
+- [만복] AI_hub P5 (T009) 완료: 코니_quick_sync 마이그레이션 — 코니_브리핑_최신.md가 context.md 기반으로 이미 작동 중, TEMP_MANBOK 중복 생성 제거 예정
+
+**현재 프로젝트 실제 상태 (코니 검증 기반 수정)**:
+- n8n v1.123.63 Active (포트 5680) — GeekNews 파이프라인 정상 작동 ✅
+- Study Dashboard v1.2 — 만복이 News 상세 기능 추가 ✅
+- Improve Stock — KIS API mock 모드, 실제 연동 대기 (코니 검증: APP_KEY 빈값)
+- Daily for Barobogi — GitHub PAT 수동설정 의존, 자동화 불완전
+- 모바일 만복이 앱 — 텔레그램 봇(@barobogi_stockbot) 실사용 중, Flutter 앱 아키텍처 재설계 필요
+- Multimedia 요약 — 중단 상태 (6/22 이후 신규 요약 없음)
+
+### 2026-07-04 (원본)
 - [코니] D:\AI 전체 폴더 구조 점검 + 정리 의견 제공 (특허 3중중복 발견: 루트/DEV_ITEM/11_특허아이디어 동일파일, n8n_data 공백중복, 빈 폴더들). 정리는 n8n 완료 후로 연기 합의.
 - [바로보기] 회사 3AI 구조(1_만복/1_코니/1_코덱스) 및 인터페이스 변화(코덱스 데스크톱→CLI 전환, seeds 제한 쓰기) 공유. 관련 내용 project_ai_org_structure 메모리에 기록됨.
 - [바로보기] `C:\Users\82102\.claude` 경로를 claude_desktop_config.json에 추가 → 코니 재시작 후 전역 CLAUDE.md 직접 읽기 가능해짐. 공식 ID 체계(0_만복/0_코니/1_만복/1_코니/1_코덱스), 보안제약(회사→집 차단), 신규 폴더 네이밍 규칙(①②... prefix) 확인 완료.
 - [코니] 11_4(시장기반자동학습) 1차 선행검색 수행 — US20050015323A1 등 인접 선행기술 발견, 신규성 HIGH→MID 하향. 파일 업데이트 + Gmail 초안 저장 + Google Drive "특허검토" 폴더에 저장 완료.
 - [바로보기] Slack/Gmail/Google Drive 커넥터 신규 연결. 향후 특허 검토 자료는 Drive "특허검토" 폴더에 누적 예정.
+- [만복+코니] 만복 브레인스토밍(AI생태계자동구성, n8n후 큰뿌리 후보 3개) → 코니가 각각 검토/의견 제시. 특히 "가족 AI" 뒤집어_보기 온보딩 전략(텔레그램 "챙겨봐bot" 1단계부터 확장 사다리) 구체화 합의됨 — 상세: memory/project_family_ai_plan.md(코니 측).
+- [만복] 설치개념 기술 3가지 제안(로컬 LLM/LM Studio, 벡터DB/Qdrant, Playwright) — 바로보기 판단: n8n 안정화 후로 보류, 우선순위만 기억. Qdrant는 회사(1_만복/1_코니) 도입이 임팩트 큼다고 판단됨(특허 121개 보유 대비 회사 RF/폴더블 특허 물량).
+- **이슈 발견**: 만복이 이메일 발송 요청에 "SMTP 설정 없어서 못함"이라고 답함 → 사실과 다름(email_notify.py+Daum SMTP 이미 2026-07-01에 구축됨). 원인 추정: 해당 세션이 이 사실을 컨텍스트에 가지고 있지 않았음(n8n 설치 대기 도중 warn 루프로 컨텍스트 압박 추정). 개선 제안: 이미 구현된 기능 목록을 로그 더미에 묻지 말고 매 세션 시작 시 읽는 파일(CLAUDE.md 등)에 한 줄로 박아둘 것 권장.
+- **핵심 마일스톤**: n8n 설치 완료! (T001 완료, 2026-07-04). 첫 워크플로 "GeekNews 8시 자동 선별" Active 확인됨. 이로써 T003(텔레그램→n8n 트리거), T011(코니 실시간동기화), T013(개념노트 자동보충) 모두 블로커 해제됨. tasks.json 반영 완료.
+- [코니] 포트폴리오 6개 프로젝트 실제 동작여부 검증 수행 — Stock Dashboard만 정상, 나머지 5개는 API크레딧고갈(퀴즈/AI설명/채팅앱)·미완성연동(KIS,Railway)·수동설정의존(PAT) 이유로 카드 설명과 실제가 다름. 상세 및 n8n 재구성 반영안 → `messages/코니→만복_20260704_003.md`.
 - **오늘 보류**: n8n 설치(Node.js 버전 문제 해결)는 내일로 연기됨.
+- [코니] 세션 종료(2026-07-04, 컨텍스트 한도 근접). tasks.json/decisions.md/messages 전부 최신 상태로 동기화 완료, 미해결 판단대기 항목 없음. 다음 세션은 이 파일로 바로 이어가면 됨.
 - [코니] 11_15(컬맹용 AI 생태계 자동구성) 만복 요청으로 1차 선행검색 수행 — WO2021084510A1, US8589523, US12380315 등 인접 선행기술 발견. "위저드→개인화설정자동생성매포" 및 "사용패턴기반 AI추천" 둘 다 이미 선행특허 있음 → 신규성 MID, 등록 보류. 상세: `번호별정리/11_15_AI생태계자동구성_1차선행검색.md`. 만복이 판단한 "범위가 넓어서 특허보다 서비스에 가깜울 수 있다"는 말도 선행검색으로 뒷받침 확인.
+
+### 2026-07-04 저녁 (만복 세션2 — T003 진행)
+- [만복] 텔레그램 인바운드 n8n 워크플로우 설계 완료 — 봇: @Brrobogi_stockbot (토큰: 8335911134), chat_id: 465471725
+- [만복] n8n Code 노드 샌드박스 제약 확인: `fetch`, `require('https')`, `$helpers` 모두 차단됨 → HTTP Request 노드 + Execute Command 노드 분리 구조로 전환
+- [만복] Python 헬퍼 스크립트 생성: `D:\Dev\n8n_scripts\tg_claude.py` (base64 인코딩으로 안전한 텍스트 전달, Claude CLI --print 호출)
+- [만복] 6노드 워크플로우 설계 완료: Schedule(30s) → Code(폴링준비) → HTTP(getUpdates) → Code(메시지파싱/base64인코딩) → Execute Command(tg_claude.py) → HTTP(sendMessage)
+- **완료 (2026-07-05 06:20)**: n8n 7노드 워크플로우 정상 작동 확인. base64 인코딩으로 한글 깨짐 해결. @Brrobogi_stockbot이 display name @barobogi_stockbot으로 보임 — 정상. T003 완료.
+
+### 2026-07-05 오후 (만복 세션3 — MCP telegram 전환)
+- [만복] CLAUDE.md 업데이트 — 🔧 만복 실행 원칙 + 📋 작업 시작 시 체크리스트 2개 섹션 추가 (코니가 작성한 통합본 검토 후 적용)
+- [만복] MCP telegram 전환 작업 시작: @Brrobogi_stockbot 토큰을 MCP .env에 교체 완료
+  - 기존 MCP 봇 토큰(8807373323) = 401 Unauthorized (무효) → @Brrobogi_stockbot 토큰으로 교체
+  - `C:\Users\82102\.claude\channels\telegram\.env` 업데이트 완료
+- **⚠️ n8n DB 분실**: n8n 재시작 과정(잘못된 경로 시도 → 올바른 경로 재시작)에서 WAL 충돌로 워크플로우 0개로 초기화됨
+  - GeekNews 워크플로우: 분실 → 재구성 메모 저장: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`
+  - 텔레그램 인바운드 워크플로우: 분실 (JSON 백업 있음: `D:\Dev\n8n_scripts\telegram_inbound_workflow.json`)
+  - GeekNews 워크플로우 재구성 필요 (다음 세션)
+- **다음**: Claude Code 재시작 → MCP telegram @Brrobogi_stockbot 연결 확인 → n8n GeekNews 워크플로우 재구성

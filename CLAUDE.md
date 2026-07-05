@@ -32,15 +32,16 @@
 <!-- AUTO_STATUS_END -->
 
 
-## 세션 시작 시 필수 동기화
+## 세션 시작 시 필수 동기화 (AI_hub P5 완료 — 2026-07-04)
 
 새 세션이 시작되면 반드시 아래 순서로 실행:
 
-1. MCP filesystem으로 `D:\AI\TEMP_MANBOK\코니_quick_sync.md` 읽기
-2. 내용 기반으로 현재 프로젝트 상태 파악
+1. MCP filesystem으로 `D:\AI\AI_hub\status\코니_브리핑_최신.md` 읽기 (5분마다 자동 갱신)
+2. 내용 기반으로 현재 프로젝트 상태 + 읽지 않은 메시지 파악
 3. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
 
-> 파일이 없거나 읽기 실패 시: "코니_quick_sync.md 읽기 실패, 수동으로 붙여넣어 주세요"라고 안내
+> 실패 시 폴백: `D:\AI\AI_hub\shared\context.md` 또는 `D:\AI\NEXT_PROJECTS.md` 읽기
+> 더 이상 바로보기님이 수동으로 붙여넣기 불필요 (코니 MCP 직접 읽기 가능)
 
 ---
 
