@@ -1,22 +1,31 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-05 (T003 텔레그램 inbound 완료)  
-**상태**: n8n v1.123.63 Active (포트 5680) / GeekNews 파이프라인 ✅ / AI_hub P1~P5 ✅ / 텔레그램 inbound ✅
+**최종 업데이트**: 2026-07-05  
+**상태**: n8n DB 분실 (재구성 필요) / AI_hub P1~P5 ✅ / master_watch 정상
 
-### ✅ 2026-07-05 완료 — T003 텔레그램 inbound
+### 🔴 다음 세션 최우선 — T015 텔레그램 `--channels` 세션 안정화
 
-- @Brrobogi_stockbot + n8n 7노드 워크플로우 완성
+**결론 (2026-07-05 확정)**: VS Code 세션에서 텔레그램 inbound 수신은 구조적으로 불가.
+`--channels plugin:telegram@claude-plugins-official` 터미널 세션이 유일한 방법.
+
+**해야 할 것:**
+1. `start_telegram.bat` 재확인 — 단독 실행 시 정상 동작 검증
+2. 컨텍스트 유지 방안 검토 (대화 이력 파일 저장 or 세션 재시작 시 REF 로드)
+3. n8n GeekNews 워크플로우 재구성 (T016) — JSON 백업: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`
+
+**다음 우선순위:**
+1. 🔴 T015 — 텔레그램 `--channels` 세션 안정화 (위 내용)
+2. T016 — n8n GeekNews 워크플로우 재구성
+3. T011 — n8n + 코니 실시간 동기화
+4. T013 — 개념노트 자동 보충 스크립트
+5. **가족봇** (후순위) — 사모님 텔레그램 봇
+
+### ✅ 2026-07-05 완료 — T003 텔레그램 inbound (n8n 방식)
+
+- @Brrobogi_stockbot + n8n 7노드 워크플로우 완성 (이후 n8n DB 분실로 소실)
 - 구조: Schedule(30s) → getUpdates → 메시지파싱 → Claude CLI(tg_claude.py) → 응답디코딩(base64) → sendMessage
-- 한글 인코딩 base64 우회로 해결
-- n8n Code 노드 샌드박스 제약 확인 (fetch/https/child_process 모두 차단 → HTTP Request + Execute Command 분리)
 - AI Study 게시판 포스팅 (20260705-1)
-
-**다음 세션 우선순위:**
-1. @barobogi_stockbot → 이 세션(만복이)이 직접 읽는 구조 (context 유지 대화)
-2. n8n + 코니 실시간 동기화 (T011)
-3. 개념노트 자동 보충 스크립트 (T013)
-4. **가족봇** (후순위) — 사모님 텔레그램 봇
 
 ### ✅ 2026-07-04 완료 (오전) — n8n 설치 & GeekNews 자동화
 
