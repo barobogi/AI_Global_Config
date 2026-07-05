@@ -44,8 +44,8 @@
       "name": "claude-trading-skills",
       "path": "D:\\AI\\claude-trading-skills",
       "type": "unknown",
-      "description": "자동 감지: 2026-06-27 08:27",
-      "enabled": true
+      "description": "외부 레포(tradermonty 클론) — 자동 push 방지용 비활성화",
+      "enabled": false
     },
     {
       "name": "260622_1_Remote_claude",
@@ -79,8 +79,8 @@
       "name": "260620_2_Daily_for_barobogi",
       "path": "D:\\AI\\260620_2_Daily_for_barobogi",
       "type": "unknown",
-      "description": "GitHub CLI 신규 생성: 2026-06-28 (바로보기 일일 대시보드)",
-      "enabled": true
+      "description": "Diary_for_Barobogi 프로토타입(6/20) — 현재 Diary_for_Barobogi로 대체됨, 감시 비활성화",
+      "enabled": false
     },
     {
       "name": "Improve_stock",
