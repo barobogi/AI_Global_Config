@@ -129,6 +129,16 @@
       "blocker": null,
       "updated": "2026-07-05",
       "note": "n8n DB WAL 충돌로 워크플로우 0개 초기화됨. 재구성 메모: D:\\Dev\\n8n_scripts\\geek_news_workflow_memo.md. GeekNews 파싱 → Claude 선별 → 텔레그램(@Barobogi_real_stockbot) + Study Dashboard 업데이트 구조."
+    },
+    {
+      "id": "T017",
+      "title": "텔레그램 만복이 컨텍스트 자동 주입 설계",
+      "status": "pending",
+      "required": ["만복"],
+      "optional": ["코니"],
+      "blocker": null,
+      "updated": "2026-07-05",
+      "note": "터미널 --channels 만복이 아이디어(2026-07-05): 텔레그램 메시지 수신 시 AI_hub/코니_브리핑_최신.md 자동으로 먼저 읽고 답변 → 매번 현재 프로젝트 상태 파악 후 응답 가능. 컨텍스트 기억 문제 해결책. T015 안정화 후 진행."
     }
   ]
 }
