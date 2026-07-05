@@ -59,7 +59,7 @@
 
 | 폴더 | 설명 | 비고 |
 |------|------|------|
-| `claude-trading-skills/` | tradermonty 클론 (729파일) | registry 비활성화됨 |
+| `_archive/claude-trading-skills/` | tradermonty 오픈소스 클론 (Claude Skills 트레이딩 툴킷) — 참고용, 이동 완료 (2026-07-05) |
 | `_archive/cline/` | cline 실험 모음 (01~08) | 이동 완료 (2026-07-05) |
 
 ---
