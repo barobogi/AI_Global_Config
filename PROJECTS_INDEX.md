@@ -60,7 +60,7 @@
 | 폴더 | 설명 | 비고 |
 |------|------|------|
 | `claude-trading-skills/` | tradermonty 클론 (729파일) | registry 비활성화됨 |
-| `cline/` | cline 실험 모음 | 참고용 |
+| `_archive/cline/` | cline 실험 모음 (01~08) | 이동 완료 (2026-07-05) |
 
 ---
 
