@@ -27,6 +27,7 @@
 | `11_특허아이디어/` | 특허 아이디어 관리 (1~15번) | 진행 중 |
 | `Diary_for_Barobogi/` | AI Study / Logs 블로그 | 진행 중 |
 | `Improve_stock/` | 종가베팅+VCP 주식 분석 (KIS API 연동 대기) | 진행 중 |
+| `260619_2_Daily_for_stock_TEMP/` | 카카오 주식 대시보드 — kakao_watcher.py 자동 갱신 중 (⚠️ 이름에 _TEMP 붙었지만 운영 중) | 진행 중 |
 | `260625_1_n8n_finance/` | n8n 금융 자동화 파이프라인 | 진행 중 (DB 재구성 필요) |
 | `TEMP_MANBOK/` | 코니 싱크 임시 파일 저장소 | 운영 중 |
 
@@ -51,7 +52,7 @@
 | `260620_2_Daily_for_barobogi/` | Diary_for_Barobogi 프로토타입 (6/20) | registry 비활성화됨 |
 | `260620_1_cowork_cli_automation/` | Global_Define으로 승격 완료된 껍데기 | C단계 아카이브 예정 |
 | `DEV_ITEM/` | 구버전 특허 docx + global-review 스킬 기록 | 특허 docx만 이관 예정 |
-| `_DEPRECATED_260619_2_Daily_for_stock/` | 260619_2_Daily_for_stock_TEMP와 완전 중복 | 삭제 예정 (오늘) |
+| `_DEPRECATED_260619_2_Daily_for_stock/` | 삭제 완료 (2026-07-05) |  |
 
 ---
 
