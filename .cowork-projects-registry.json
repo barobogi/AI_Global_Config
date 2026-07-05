@@ -56,10 +56,10 @@
     },
     {
       "name": "260620_1_cowork_cli_automation",
-      "path": "D:\\AI\\260620_1_cowork_cli_automation",
+      "path": "D:\\AI\\_archive\\260620_1_cowork_cli_automation",
       "type": "unknown",
-      "description": "자동 감지: 2026-06-28 07:26",
-      "enabled": true
+      "description": "Cowork↔CLI 자동화 초기 설계문서 — Global_Define으로 승격 완료, _archive 이동",
+      "enabled": false
     },
     {
       "name": "260619_1_claude_usage",
