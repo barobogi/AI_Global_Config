@@ -35,16 +35,16 @@
     },
     {
       "name": "260624_superpowers",
-      "path": "D:\\AI\\260624_superpowers",
+      "path": "D:\\AI\\_archive\\260624_superpowers",
       "type": "unknown",
-      "description": "barobogi ↔ 만복이 협업 시스템 (Superpowers 커스텀 스킬)",
-      "enabled": true
+      "description": "Superpowers 커스텀 스킬 — 2026-06-28 이후 중단, _archive 이동",
+      "enabled": false
     },
     {
       "name": "claude-trading-skills",
-      "path": "D:\\AI\\claude-trading-skills",
+      "path": "D:\\AI\\_archive\\claude-trading-skills",
       "type": "unknown",
-      "description": "외부 레포(tradermonty 클론) — 자동 push 방지용 비활성화",
+      "description": "외부 레포(tradermonty 클론) — _archive 이동, 자동 push 방지용 비활성화",
       "enabled": false
     },
     {
