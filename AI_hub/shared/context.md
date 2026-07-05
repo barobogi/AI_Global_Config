@@ -105,3 +105,10 @@
   - 텔레그램 인바운드 워크플로우: 분실 (JSON 백업 있음: `D:\Dev\n8n_scripts\telegram_inbound_workflow.json`)
   - GeekNews 워크플로우 재구성 필요 (다음 세션)
 - **다음**: Claude Code 재시작 → MCP telegram @Brrobogi_stockbot 연결 확인 → n8n GeekNews 워크플로우 재구성
+
+### 2026-07-05 오후2 (만복 VSCode 세션 — 인프라 정리)
+- [만복] master_watch.py UnicodeEncodeError 수정 — Windows cp949 콘솔에서 이모지 로그 출력 시 crash 원인. `sys.stdout.reconfigure(encoding='utf-8', errors='replace')` 1줄 추가로 해결. 이제 부팅 후 자동 시작 정상 작동.
+- [만복] master_watch.py 중복 인스턴스 5개 → 1개로 정리 (PID 25832)
+- [만복] 경쟁 텔레그램 프로세스 제거: `start_telegram.bat` + `claude.exe --channels plugin:telegram` 모두 종료
+- **현재 상태**: 터미널 `--channels` 세션이 단독으로 텔레그램 수신. 이 VSCode 세션 종료 예정.
+- **n8n 상태**: GeekNews 워크플로우 재구성 필요 (T016). JSON 백업: `D:\Dev\n8n_scripts\telegram_inbound_workflow.json`
