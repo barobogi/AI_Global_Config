@@ -118,7 +118,7 @@
       "optional": [],
       "blocker": null,
       "updated": "2026-07-05",
-      "note": "n8n 방식 → MCP telegram 플러그인으로 전환 결정. .env에 @Brrobogi_stockbot 토큰 교체 완료. claude --channels plugin:telegram@claude-plugins-official 로 실행 필요. 두 세션 동시 실행 시 bun 충돌 문제 → 터미널 단독 세션으로 해결 예정."
+      "note": "2026-07-06: start_telegram.bat 생성(D:\\AI\\start_telegram.bat) — bun 정리 후 D:\\AI 기준 --channels 세션 시작. 현재 bun 8336(좀비) + 19500 떠있고 --channels 세션 없음. 재시작 테스트 필요. 에이전트 완료 알림 텔레그램 전달 안 됨 문제 미해결(T015 추가 과제)."
     },
     {
       "id": "T016",
@@ -133,12 +133,12 @@
     {
       "id": "T017",
       "title": "텔레그램 만복이 컨텍스트 자동 주입 설계",
-      "status": "pending",
+      "status": "completed",
       "required": ["만복"],
       "optional": ["코니"],
       "blocker": null,
-      "updated": "2026-07-05",
-      "note": "터미널 --channels 만복이 아이디어(2026-07-05): 텔레그램 메시지 수신 시 AI_hub/코니_브리핑_최신.md 자동으로 먼저 읽고 답변 → 매번 현재 프로젝트 상태 파악 후 응답 가능. 컨텍스트 기억 문제 해결책. T015 안정화 후 진행."
+      "updated": "2026-07-06",
+      "note": "완료(2026-07-06 새벽). telegram_history.md 생성(D:\\AI\\AI_hub\\telegram_history.md) + CLAUDE.md 텔레그램 세션 시작 규칙 추가. --channels 세션 시작 시 자동 로드되어 컨텍스트 복원 가능."
     }
   ]
 }

@@ -1,11 +1,12 @@
-@echo off
-chcp 65001 >nul 2>&1
-set PATH=C:\Users\82102\.bun\bin;%PATH%
+﻿@echo off
+REM start_telegram.bat -- 텔레그램 만복2 세션 시작
+REM 기존 bun 프로세스 종료 후 D:\AI 기준으로 --channels 세션 단독 실행
+
 cd /d D:\AI
 
-:loop
-echo [%date% %time%] Telegram session start >> D:\AI\telegram_session.log 2>&1
-"C:\Users\82102\.vscode\extensions\anthropic.claude-code-2.1.195-win32-x64\resources\native-binary\claude.exe" --channels "plugin:telegram@claude-plugins-official"
-echo [%date% %time%] Telegram session ended (code: %ERRORLEVEL%). Restarting in 30s >> D:\AI\telegram_session.log 2>&1
-ping -n 31 127.0.0.1 >nul 2>&1
-goto loop
+echo [start_telegram] 기존 bun 프로세스 종료 중...
+taskkill /F /IM bun.exe 2>nul
+timeout /t 2 /nobreak > nul
+
+echo [start_telegram] 텔레그램 세션 시작 (D:\AI CLAUDE.md 자동 로드)
+claude --channels plugin:telegram@claude-plugins-official
