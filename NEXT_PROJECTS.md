@@ -1,37 +1,27 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-06 새벽 (종료)  
-**상태**: n8n DB 분실 (T016 재구성 필요) / AI_hub P1~P5 ✅ / master_watch 정상 / T017 telegram_history.md 구현 완료 / CLAUDE.md 텔레그램 세션 규칙 추가
+**최종 업데이트**: 2026-07-06 저녁 (compact 전)  
+**상태**: T015/T017 ✅ 완료 / n8n DB 분실 (T016 재구성 필요) / Improve_stock v2.0 방향 확정 / Hall 방지 규칙 추가
 
-### 🔴 다음 세션 최우선 — T015 텔레그램 `--channels` 세션 안정화
+### ✅ 2026-07-06 완료
 
-**결론 (2026-07-05 확정)**: VS Code 세션에서 텔레그램 inbound 수신은 구조적으로 불가.
-`--channels plugin:telegram@claude-plugins-official` 터미널 세션이 유일한 방법.
-
-**해야 할 것:**
-1. `start_telegram.bat` 재확인 — 단독 실행 시 정상 동작 검증
-2. ~~컨텍스트 유지 방안 검토~~ → **✅ T017로 해결** (telegram_history.md 자동 로드)
-3. n8n GeekNews 워크플로우 재구성 (T016) — JSON 백업: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`
-
-### ✅ 2026-07-06 완료 — T017 텔레그램 세션 컨텍스트 기억 문제 해결
-
-- `D:\AI\AI_hub\telegram_history.md` 생성 — 세션 간 대화 이력 브릿지
-- `CLAUDE.md` 텔레그램 세션 시작 규칙 추가 — 세션 시작 시 telegram_history.md 자동 로드
-- **다음**: 데스크탑에서 텔레그램 세션 재시작 테스트 필요
+- **T015** — start_telegram.bat 생성, --channels 세션 정상 작동 확인 (두복이 메시지 수신+응답 OK)
+- **T017** — telegram_history.md 브릿지 + CLAUDE.md ⚡ 위임 섹션 즉시 실행 규칙 추가
+- **TradingAgents 분석** — Phase 1~2 (yfinance 실데이터 + 룰 기반 분석가) 지금 시작 가능
+- **CREAO AI 분석** — T018은 n8n 단독 구현 확정 (SaaS 한계로 로컬 파일 수정 불가)
+- **KIS API 방향 재확정** — 모의투자 전용, 신호 생성+바로보기 수동 실행 구조 (삼성증권 고정)
+- **Hall 방지 규칙** — CLAUDE.md에 ⚡ 위임 섹션 즉시 실행 규칙 추가
+- **Logs 게시판** `20260706-1` 등록
 
 **다음 우선순위:**
-1. 🔴 T015 — 텔레그램 `--channels` 세션 안정화 + 재시작 테스트 (T017 적용 확인)
-
-**T015 개선 필요 사항 (2026-07-06 발견):**
-- 서브에이전트(일복이·이복이) 실행 시 완료 알림이 텔레그램 세션에 전달 안 됨
-- 에이전트 결과 파일 저장도 확인 안 됨 → 에이전트 실행 자체가 텔레그램 세션에서 불완전한 것으로 추정
-- 개선 방향: 에이전트 완료 시 결과를 텔레그램으로 직접 전송하는 후처리 로직 필요 (또는 에이전트 실행은 데스크탑 세션에서만)
-2. T016 — n8n GeekNews 워크플로우 재구성
+1. 🔴 T016 — n8n GeekNews 워크플로우 재구성 (JSON 백업: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`)
+2. **Improve_stock v2.0 Phase 1** — yfinance `005930.KS` 형식으로 mock 교체 (LLM 비용 없음)
 3. T011 — n8n + 코니 실시간 동기화
-4. T013 — 개념노트 자동 보충 스크립트
-5. **가족봇** (후순위) — 사모님 텔레그램 봇
-6. T018 — 호두 채널 새 영상 자동 감지 → 멀티미디어 탭 자동 등록 (n8n 워크플로우)
+4. T018 — 호두 채널 자동 감지 → n8n 워크플로우
+5. **Moltbook** — 에이전트 커뮤니티 플랫폼, 직접 방문 후 평가 필요
+6. T013 — 개념노트 자동 보충 스크립트
+7. **가족봇** — 사모님 텔레그램 봇
 
 ### ✅ 2026-07-05 완료 — T003 텔레그램 inbound (n8n 방식)
 
