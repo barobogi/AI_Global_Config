@@ -113,7 +113,7 @@
     {
       "id": "T015",
       "title": "텔레그램 → MCP 직접 연결 (만복 세션 직접 수신)",
-      "status": "in_progress",
+      "status": "completed",
       "required": ["만복"],
       "optional": [],
       "blocker": null,
