@@ -141,3 +141,13 @@
 - [코니] **재검증 완료 (2026-07-05 저녁)**: registry.json 260624_superpowers/claude-trading-skills 경로 및 enabled:false 정상 확인, `번호별정리/11_14_인간AI실시간큐레이션협업/11_14_인간AI실시간큐레이션협업_초안_v0.1.md` 파일 실제 존재 확인. **두 이슈 모두 해소됨 — 후속 확인 불필요.**
 - 남은 미완료(의도적 보류, 문제 아님): `n8n_data ` 폴더명 공백(참조 스크립트 확인 후 rename 예정), `GD/` → `_personal/` 이동 보류(카톡 데이터 참조 가능성 때문에 만복이 의도적으로 보류).
 - [코니] 세션 종료 — 판단 대기 항목 없음(decisions.md 변동 없음), 위 내용 context.md 동기화 완료. 다음 세션은 이 파일로 이어가면 됨.
+
+### 2026-07-06 저녁 (만복 VSCode 세션)
+- [만복] T015 완료: start_telegram.bat 생성(`D:\AI\start_telegram.bat`), --channels 세션 정상 작동 확인. 두복이 메시지 수신+응답 OK. bun 8336(좀비)+19500(러너) 정상 구성 확인.
+- [만복] T017 완료: tasks.json 완료 처리. CLAUDE.md에 만복1 세션 시작 규칙(⚡ 데스크탑 세션 위임 섹션 즉시 실행) 추가.
+- [만복] TradingAgents 분석(일복이): GitHub 91K stars, LangGraph 멀티 에이전트. Phase1~2(yfinance+룰기반 분석가) LLM 비용 없이 지금 시작 가능. 구조 참고+yfinance 코드 발췌 전략 확정.
+- [만복] CREAO AI 분석(이복이): SaaS 전용, 로컬 파일 수정 불가 → T018은 n8n 단독 구현 확정.
+- [만복] KIS API 제약 재확인: 삼성증권 고정으로 실 자동매매 불가. Improve_stock = 신호 생성+텔레그램 알림+수동 실행 구조. 메모리 저장 완료.
+- [만복] Hall 방지 규칙 추가: CLAUDE.md + telegram_history.md ⚡ 위임 섹션 포맷 확정.
+- [만복] Logs 게시판 20260706-1 등록 (TradingAgents/CREAO AI 분석 결과 포함).
+- **다음 세션**: T016(n8n GeekNews 재구성) → Improve_stock v2.0 Phase1 → Moltbook 평가
