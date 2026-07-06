@@ -1,4 +1,8 @@
 @echo off
+if "%1"=="standalone" goto run
+start cmd /k "%~f0" standalone
+exit
+:run
 taskkill /F /IM bun.exe 2>nul
 timeout /t 2 /nobreak > nul
 cd /d D:\AI
