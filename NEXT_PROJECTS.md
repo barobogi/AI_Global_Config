@@ -1,8 +1,8 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-06 저녁  
-**상태**: T015/T016/T017 ✅ 완료 / Improve_stock v2.0 Phase 1 대기 중 / Hall 방지 규칙 추가
+**최종 업데이트**: 2026-07-06 저녁 (종료 전)  
+**상태**: T015/T016/T017 ✅ 완료 / Study Dashboard v1.2 완료 / Improve_stock v2.0 Phase 1 대기 중
 
 ### ✅ 2026-07-06 완료 (저녁)
 
