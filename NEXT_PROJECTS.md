@@ -1,10 +1,14 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-06 저녁 (compact 전)  
-**상태**: T015/T017 ✅ 완료 / n8n DB 분실 (T016 재구성 필요) / Improve_stock v2.0 방향 확정 / Hall 방지 규칙 추가
+**최종 업데이트**: 2026-07-06 저녁  
+**상태**: T015/T016/T017 ✅ 완료 / Improve_stock v2.0 Phase 1 대기 중 / Hall 방지 규칙 추가
 
-### ✅ 2026-07-06 완료
+### ✅ 2026-07-06 완료 (저녁)
+
+- **T016** — n8n "DB 분실"은 실제 분실 아님. n8n이 trailing space 경로(`n8n_data `)로 뜨면서 빈 DB처럼 보였던 것. 원본 DB(`n8n_data` 8자) 정상 확인. `n8n_start.bat` `n8n` → `n8n.cmd` 수정으로 재시작 시 환경변수 정상 적용. GeekNews 워크플로우 Active + 수동 실행 성공 (HTML push 확인).
+
+### ✅ 2026-07-06 완료 (저녁 compact 전)
 
 - **T015** — start_telegram.bat 생성, --channels 세션 정상 작동 확인 (두복이 메시지 수신+응답 OK)
 - **T017** — telegram_history.md 브릿지 + CLAUDE.md ⚡ 위임 섹션 즉시 실행 규칙 추가
@@ -15,9 +19,8 @@
 - **Logs 게시판** `20260706-1` 등록
 
 **다음 우선순위:**
-1. 🔴 T016 — n8n GeekNews 워크플로우 재구성 (JSON 백업: `D:\Dev\n8n_scripts\geek_news_workflow_memo.md`)
-2. **Improve_stock v2.0 Phase 1** — yfinance `005930.KS` 형식으로 mock 교체 (LLM 비용 없음)
-3. T011 — n8n + 코니 실시간 동기화
+1. **Improve_stock v2.0 Phase 1** — yfinance `005930.KS` 형식으로 mock 교체 (LLM 비용 없음)
+2. T011 — n8n + 코니 실시간 동기화
 4. T018 — 호두 채널 자동 감지 → n8n 워크플로우
 5. **Moltbook** — 에이전트 커뮤니티 플랫폼, 직접 방문 후 평가 필요
 6. T013 — 개념노트 자동 보충 스크립트
