@@ -13,8 +13,8 @@
       "enabled": true
     },
     {
-      "name": "Diary_for_Barobogi",
-      "path": "D:\\AI\\Diary_for_Barobogi",
+      "name": "Daily_for_Barobogi",
+      "path": "D:\\AI\\Daily_for_Barobogi",
       "type": "unknown",
       "description": "신규 프로젝트 — 2026-06-20",
       "enabled": true
@@ -79,7 +79,7 @@
       "name": "260620_2_Daily_for_barobogi",
       "path": "D:\\AI\\_archive\\260620_2_Daily_for_barobogi",
       "type": "unknown",
-      "description": "Diary_for_Barobogi 프로토타입(6/20) — 현재 Diary_for_Barobogi로 대체됨, 감시 비활성화",
+      "description": "Daily_for_Barobogi 프로토타입(6/20) — 현재 Daily_for_Barobogi로 대체됨, 감시 비활성화",
       "enabled": false
     },
     {

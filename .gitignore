@@ -9,7 +9,7 @@ _DEPRECATED_*/
 260625*/
 Improve_stock/
 claude-trading-skills/
-Diary_for_Barobogi/
+Daily_for_Barobogi/
 REF_DEBUG/
 
 # 개발 환경
@@ -20,7 +20,7 @@ MYBOX/
 GD/
 cline/
 n8n_data/
-"n8n_data /"
+"n8n_data/"
 n8n_data*/
 
 # 시스템 파일
