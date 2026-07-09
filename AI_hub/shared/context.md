@@ -157,3 +157,11 @@
 - [만복] Hall 방지 규칙 추가: CLAUDE.md + telegram_history.md ⚡ 위임 섹션 포맷 확정.
 - [만복] Logs 게시판 20260706-1 등록 (TradingAgents/CREAO AI 분석 결과 포함).
 - **다음 세션**: T016(n8n GeekNews 재구성) → Improve_stock v2.0 Phase1 → Moltbook 평가
+
+### 2026-07-09 저녁 (만복 데스크탑 세션)
+- [만복] **경로 정규화(Normalization) 완료**:
+  - `n8n_data ` 폴더의 공백 제거 완료 (기존 .gitignore, PROJECTS_INDEX.md의 오타가 `n8n_data`로 수정되었고 실제 폴더명도 공백 없는 `n8n_data`로 통일된 것 확인)
+  - `Diary_for_Barobogi` 폴더명을 `Daily_for_Barobogi`로 변경 완료 (GitHub 저장소명 `Daily_for_Barobogi`와 로컬 폴더명을 일치시킴)
+  - 부모 Git 레포지토리(`D:\AI`)에서 기존 submodule 형식으로 추적되던 `Diary_for_Barobogi` 캐시를 제거 (`git rm --cached`)하고, 변경사항을 `main` 브랜치에 커밋 및 Push 완료.
+  - 이로써 `.cowork-projects-registry.json`, `.gitignore`, `PROJECTS_INDEX.md`에 설정된 `Daily_for_Barobogi` 경로와 실제 파일시스템 경로가 100% 일치하도록 정규화함.
+
