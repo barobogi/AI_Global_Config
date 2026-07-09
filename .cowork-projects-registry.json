@@ -109,6 +109,13 @@
       "type": "unknown",
       "description": "자동 감지: 2026-06-29 06:50",
       "enabled": true
+    },
+    {
+      "name": "⑤_자동화_Daily_for_Barobogi",
+      "path": "D:\\AI\\⑤_자동화_Daily_for_Barobogi",
+      "type": "unknown",
+      "description": "신규 프로젝트 — 2026-07-09",
+      "enabled": true
     }
   ]
 }
