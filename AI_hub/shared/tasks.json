@@ -1,144 +1,60 @@
 {
+  "version": "1.0",
+  "last_updated": "2026-07-11T07:33:05",
   "tasks": [
     {
-      "id": "T001",
-      "title": "n8n 첫 실행 & 계정 생성",
-      "status": "completed",
-      "required": ["바로보기"],
-      "optional": ["만복"],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "Node.js 버전 문제 해결 후 설치 완료. 첫 워크플로(GeekNews 8시 자동 선별) Active 확인됨 (2026-07-04)"
-    },
-    {
-      "id": "T002",
-      "title": "n8n GeekNews 파싱 regex 수정",
-      "status": "completed",
-      "required": ["만복"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "HTML 구조 변경(topic_row split 방식)으로 수정 완료. gn_url(긱뉴스 topic URL) 추출 추가. 텔레그램 전송 재확인."
-    },
-    {
-      "id": "T003",
-      "title": "텔레그램 inbound n8n 트리거로 대체",
-      "status": "completed",
-      "required": ["만복"],
-      "optional": ["코니"],
-      "blocker": null,
-      "updated": "2026-07-05",
-      "note": "완료. @Brrobogi_stockbot(8335911134) + n8n 7노드 워크플로우 정상 작동. 구조: Schedule(30s)→오프셋계산→getUpdates→메시지파싱→Claude CLI실행(tg_claude.py)→응답디코딩(base64)→sendMessage. 한글 인코딩 base64 우회로 해결."
-    },
-    {
-      "id": "T007",
-      "title": "AI_hub P3 — 코니 MCP filesystem 연결",
-      "status": "completed",
-      "required": ["바로보기"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-03",
-      "note": "claude_desktop_config.json + Cowork 프로젝트에 D:\\AI\\TEMP_MANBOK 직접 추가로 해결"
-    },
-    {
-      "id": "T008",
-      "title": "AI_hub P4 — shared/tasks.json + decisions.md 실제 운용",
-      "status": "completed",
-      "required": ["만복", "코니"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "tasks.json 실제 운용 중. decisions.md D001~D003 완료. context.md 오늘(2026-07-04) 기준 업데이트 완료. 코니→만복 미수신 메시지 5건 read 처리 완료."
-    },
-    {
-      "id": "T009",
-      "title": "AI_hub P5 — 코니_quick_sync.md → shared/context.md 마이그레이션",
-      "status": "completed",
-      "required": ["만복", "코니"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "코니_브리핑_최신.md가 context.md 기반으로 5분마다 자동 갱신 중. 코니가 MCP filesystem으로 직접 읽기 가능. TEMP_MANBOK 중복 파일 정리는 n8n 안정화 후 일괄 처리."
-    },
-    {
-      "id": "T010",
-      "title": "코니 스케줄 폴링 설정 (n8n 전까지 임시 동기화)",
-      "status": "completed",
-      "required": ["코니"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-03",
-      "note": "coni-quick-sync-watch 등록 완료. 변경 시에만 알림, 필요 시 Scheduled 탭 확인 방식으로 운영"
+      "id": "Improve_stock_v2_0_Phase_1",
+      "title": "Improve_stock v2.0 Phase 1",
+      "뿌리": 61,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "yfinance `005930.KS` 형식으로 mock 교체 (LLM 비용 없음)"
     },
     {
       "id": "T011",
-      "title": "n8n setup 후 코니 실시간 동기화",
-      "status": "pending",
-      "required": ["만복", "코니"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "T001 완료로 블로커 해제됨 — 착수 가능"
+      "title": "",
+      "뿌리": 52,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "n8n + 코니 실시간 동기화"
     },
     {
-      "id": "T012",
-      "title": "11_10, 11_11 특허3 흡수 처리 문서화",
-      "status": "completed",
-      "required": ["코니"],
-      "optional": ["만복"],
-      "blocker": null,
-      "updated": "2026-07-03",
-      "note": "코니가 완료. 근거: 번호별정리_20260702/11_10_11_11_특허3_흡수처리_확정_20260703.md"
+      "id": "T018",
+      "title": "",
+      "뿌리": 52,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "호두 채널 자동 감지 → n8n 워크플로우"
+    },
+    {
+      "id": "Moltbook",
+      "title": "Moltbook",
+      "뿌리": 42,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "에이전트 커뮤니티 플랫폼, 직접 방문 후 평가 필요"
     },
     {
       "id": "T013",
-      "title": "개념노트 자동 보충 스크립트 구현",
-      "status": "pending",
-      "required": ["만복"],
-      "optional": ["코니"],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "study-dashboard.html '매일 오후 9시 자동 보충' 미구현. n8n으로 스케줄 + Claude CLI subprocess로 개념 생성 → Firebase 저장 패턴. Study Dashboard 통합안 v0.2 구조 재사용 가능."
+      "title": "",
+      "뿌리": 51,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "개념노트 자동 보충 스크립트"
     },
     {
-      "id": "T014",
-      "title": "만복이 News 상세 모달 구현",
-      "status": "completed",
-      "required": ["만복"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-04",
-      "note": "study-dashboard.html v1.2. 카드 클릭→상세 모달(원본링크/긱뉴스링크/만복요약/바로보기코멘트). localStorage 저장. update_geek_news.py gn_url 추가."
-    },
-    {
-      "id": "T015",
-      "title": "텔레그램 → MCP 직접 연결 (만복 세션 직접 수신)",
-      "status": "completed",
-      "required": ["만복"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-05",
-      "note": "2026-07-06: start_telegram.bat 생성(D:\\AI\\start_telegram.bat) — bun 정리 후 D:\\AI 기준 --channels 세션 시작. 현재 bun 8336(좀비) + 19500 떠있고 --channels 세션 없음. 재시작 테스트 필요. 에이전트 완료 알림 텔레그램 전달 안 됨 문제 미해결(T015 추가 과제)."
-    },
-    {
-      "id": "T016",
-      "title": "n8n GeekNews 워크플로우 재구성",
-      "status": "pending",
-      "required": ["만복"],
-      "optional": [],
-      "blocker": null,
-      "updated": "2026-07-05",
-      "note": "n8n DB WAL 충돌로 워크플로우 0개 초기화됨. 재구성 메모: D:\\Dev\\n8n_scripts\\geek_news_workflow_memo.md. GeekNews 파싱 → Claude 선별 → 텔레그램(@Barobogi_real_stockbot) + Study Dashboard 업데이트 구조."
-    },
-    {
-      "id": "T017",
-      "title": "텔레그램 만복이 컨텍스트 자동 주입 설계",
-      "status": "completed",
-      "required": ["만복"],
-      "optional": ["코니"],
-      "blocker": null,
-      "updated": "2026-07-06",
-      "note": "완료(2026-07-06 새벽). telegram_history.md 생성(D:\\AI\\AI_hub\\telegram_history.md) + CLAUDE.md 텔레그램 세션 시작 규칙 추가. --channels 세션 시작 시 자동 로드되어 컨텍스트 복원 가능."
+      "id": "가족봇",
+      "title": "가족봇",
+      "뿌리": 71,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "사모님 텔레그램 봇"
     }
   ]
 }

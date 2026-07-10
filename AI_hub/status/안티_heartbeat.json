@@ -1,11 +1,5 @@
 {
-  "ai_id": "안티",
-  "ai_name": "Antigravity",
-  "status": "standby",
-  "last_updated": "2026-07-11",
-  "current_task": null,
-  "next_task": "NEXT_PROJECTS.md → tasks.json 변환",
-  "blocker": null,
-  "needs_만복": false,
-  "needs_코니": false
+  "ai": "안티",
+  "status": "alive",
+  "last_updated": "2026-07-11T07:33:00"
 }
