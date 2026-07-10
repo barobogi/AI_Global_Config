@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3AI 뿌리체계 대시보드</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --bg-dark: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --text-light: #2c3e50;
+            --text-dark: #ecf0f1;
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-bg-dark: rgba(30, 30, 30, 0.6);
+            --glass-border-light: rgba(255, 255, 255, 0.4);
+            --glass-border-dark: rgba(255, 255, 255, 0.1);
+            --primary: #1976D2;
+            --success: #4CAF50;
+            --warning: #FBC02D;
+            --danger: #F44336;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-light);
+            color: var(--text-light);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .glass-panel {
+            background: var(--glass-bg-light);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .glass-panel {
+            background: var(--glass-bg-dark);
+            border: 1px solid var(--glass-border-dark);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 { margin: 0; font-size: 28px; font-weight: 700; }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .theme-toggle:hover { transform: scale(1.1); }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1024px) {
+            .layout { grid-template-columns: 1fr; }
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            padding-bottom: 10px;
+        }
+        .dark-mode .section-title { border-bottom-color: rgba(255,255,255,0.1); }
+
+        /* Tree Styles */
+        .tree-list { list-style: none; padding-left: 0; margin: 0; }
+        .tree-item {
+            margin: 8px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        .tree-content {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.5);
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .dark-mode .tree-content { background: rgba(0,0,0,0.3); }
+        .tree-content:hover { transform: translateX(5px); background: rgba(255,255,255,0.8); }
+        .dark-mode .tree-content:hover { background: rgba(255,255,255,0.1); }
+        
+        .tree-children {
+            padding-left: 20px;
+            margin-top: 5px;
+            display: none;
+        }
+        .tree-item.open > .tree-children { display: block; }
+        .tree-content::before {
+            content: "▶";
+            font-size: 10px;
+            margin-right: 10px;
+            transition: transform 0.2s;
+        }
+        .tree-item.open > .tree-content::before { transform: rotate(90deg); }
+        .tree-item.leaf > .tree-content::before { content: "•"; transform: none; }
+
+        /* AI Status Cards */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .ai-card {
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+        }
+        .ai-manbok::before { background: var(--primary); }
+        .ai-cony::before { background: var(--success); }
+        .ai-anti::before { background: var(--warning); }
+        
+        .ai-name { font-size: 20px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .status-dot { font-size: 14px; }
+        .ai-task { font-size: 13px; opacity: 0.8; margin-top: 10px; }
+
+        /* Tasks Grid */
+        .tasks-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .tasks-container { grid-template-columns: 1fr; }
+        }
+
+        .task-col {
+            background: rgba(0,0,0,0.03);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .dark-mode .task-col { background: rgba(255,255,255,0.03); }
+        
+        .col-header {
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        .bg-short { background: rgba(244, 67, 54, 0.1); color: #d32f2f; }
+        .bg-mid { background: rgba(25, 118, 210, 0.1); color: #1976D2; }
+        .bg-long { background: rgba(76, 175, 80, 0.1); color: #388E3C; }
+        
+        .dark-mode .bg-short { color: #ef9a9a; }
+        .dark-mode .bg-mid { color: #90caf9; }
+        .dark-mode .bg-long { color: #a5d6a7; }
+
+        .task-card {
+            background: var(--glass-bg-light);
+            border: 1px solid var(--glass-border-light);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .dark-mode .task-card {
+            background: var(--glass-bg-dark);
+            border-color: var(--glass-border-dark);
+        }
+        .task-card:hover { transform: translateY(-3px); }
+        
+        .task-title { font-weight: 600; margin-bottom: 8px; font-size: 15px; }
+        .task-desc { font-size: 12px; opacity: 0.7; margin-bottom: 12px; line-height: 1.4; }
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            align-items: center;
+        }
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .badge-pending { background: #FFCDD2; color: #C62828; }
+        .badge-in_progress { background: #FFF9C4; color: #F57F17; }
+        .badge-completed { background: #C8E6C9; color: #1B5E20; }
+        
+        .dark-mode .badge-pending { background: #4a1c1c; color: #ffb4b4; }
+        .dark-mode .badge-in_progress { background: #4a3f12; color: #ffe680; }
+        .dark-mode .badge-completed { background: #1a3a1f; color: #a5d6a7; }
+        
+        .root-badge {
+            background: rgba(0,0,0,0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .dark-mode .root-badge { background: rgba(255,255,255,0.1); }
+        
+        .refresh-indicator {
+            font-size: 12px;
+            opacity: 0.6;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌱 3AI 뿌리체계 대시보드</h1>
+        <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
+    </header>
+
+    <div class="layout">
+        <!-- Left: Tree View -->
+        <div class="glass-panel">
+            <div class="section-title">📂 뿌리체계 트리</div>
+            <ul class="tree-list" id="root-tree">
+                <li class="tree-item leaf"><div class="tree-content">1 Question</div></li>
+                <li class="tree-item leaf"><div class="tree-content">2 Global Define</div></li>
+                <li class="tree-item leaf"><div class="tree-content">3 Diary</div></li>
+                
+                <li class="tree-item open">
+                    <div class="tree-content" onclick="toggleTree(this)">24 도구뿌리</div>
+                    <ul class="tree-children">
+                        <li class="tree-item leaf"><div class="tree-content">41 Superpowers</div></li>
+                        <li class="tree-item leaf"><div class="tree-content">42 만복이들</div></li>
+                    </ul>
+                </li>
+                
+                <li class="tree-item open">
+                    <div class="tree-content" onclick="toggleTree(this)">25 학습뿌리</div>
+                    <ul class="tree-children">
+                        <li class="tree-item leaf"><div class="tree-content">51 공부방</div></li>
+                        <li class="tree-item leaf"><div class="tree-content">52 n8n금융</div></li>
+                    </ul>
+                </li>
+                
+                <li class="tree-item open">
+                    <div class="tree-content" onclick="toggleTree(this)">26 실전뿌리</div>
+                    <ul class="tree-children">
+                        <li class="tree-item leaf"><div class="tree-content">61 주식대시보드</div></li>
+                        <li class="tree-item leaf"><div class="tree-content">62 멀티미디어</div></li>
+                    </ul>
+                </li>
+                
+                <li class="tree-item open">
+                    <div class="tree-content" onclick="toggleTree(this)">27 생활뿌리</div>
+                    <ul class="tree-children">
+                        <li class="tree-item leaf"><div class="tree-content">71 밀리이북</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Right: Content -->
+        <div>
+            <!-- AI Status -->
+            <div class="glass-panel" style="margin-bottom: 24px;">
+                <div class="section-title">🤖 AI 현황판</div>
+                <div class="ai-grid">
+                    <div class="ai-card ai-manbok glass-panel">
+                        <div class="ai-name">만복 <span class="status-dot" id="manbok-dot">⚫</span></div>
+                        <div class="ai-task" id="manbok-status">오프라인</div>
+                    </div>
+                    <div class="ai-card ai-cony glass-panel">
+                        <div class="ai-name">코니 <span class="status-dot" id="cony-dot">⚫</span></div>
+                        <div class="ai-task" id="cony-status">오프라인</div>
+                    </div>
+                    <div class="ai-card ai-anti glass-panel">
+                        <div class="ai-name">안티 <span class="status-dot" id="anti-dot">⚫</span></div>
+                        <div class="ai-task" id="anti-status">오프라인</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <div class="glass-panel">
+                <div class="section-title">📋 전체 할 일 목록</div>
+                <div class="tasks-container">
+                    <div class="task-col">
+                        <div class="col-header bg-short">📍 단기 목표</div>
+                        <div id="tasks-short"></div>
+                    </div>
+                    <div class="task-col">
+                        <div class="col-header bg-mid">📋 중기 목표</div>
+                        <div id="tasks-mid"></div>
+                    </div>
+                    <div class="task-col">
+                        <div class="col-header bg-long">🔭 장기 목표</div>
+                        <div id="tasks-long"></div>
+                    </div>
+                </div>
+                <div class="refresh-indicator" id="last-refresh">마지막 갱신: -</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+        
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Tree Toggle
+        function toggleTree(element) {
+            const li = element.parentElement;
+            li.classList.toggle('open');
+        }
+
+        // Fetch Data
+        async function fetchAIStatus() {
+            const ais = ['만복', '코니', '안티'];
+            for (const ai of ais) {
+                try {
+                    // Fallback to offline if fetch fails
+                    const response = await fetch(`./status/${ai}_heartbeat.json?t=${Date.now()}`);
+                    const statusDot = document.getElementById(`${ai === '코니' ? 'cony' : (ai === '만복' ? 'manbok' : 'anti')}-dot`);
+                    const statusText = document.getElementById(`${ai === '코니' ? 'cony' : (ai === '만복' ? 'manbok' : 'anti')}-status`);
+                    
+                    if(response.ok) {
+                        const data = await response.json();
+                        if(data.status === 'alive') {
+                            statusDot.textContent = '🟢';
+                            statusText.textContent = `최근 활동: ${data.last_updated.split('T')[1] || data.last_updated}`;
+                        } else {
+                            statusDot.textContent = '🟡';
+                            statusText.textContent = '대기 중';
+                        }
+                    } else {
+                        throw new Error('Not found');
+                    }
+                } catch(e) {
+                    // If JSON doesn't exist, leave it offline
+                    console.log(`Could not fetch ${ai} status.`);
+                }
+            }
+        }
+
+        async function fetchTasks() {
+            try {
+                const response = await fetch(`./shared/tasks.json?t=${Date.now()}`);
+                if(response.ok) {
+                    const data = await response.json();
+                    renderTasks(data.tasks);
+                    
+                    const d = new Date();
+                    document.getElementById('last-refresh').textContent = `마지막 갱신: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`;
+                }
+            } catch(e) {
+                console.error("Failed to load tasks", e);
+            }
+        }
+
+        function renderTasks(tasks) {
+            const shortContainer = document.getElementById('tasks-short');
+            const midContainer = document.getElementById('tasks-mid');
+            const longContainer = document.getElementById('tasks-long');
+            
+            shortContainer.innerHTML = '';
+            midContainer.innerHTML = '';
+            longContainer.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                
+                const statusLabel = task.상태 === 'completed' ? '완료' : (task.상태 === 'in_progress' ? '진행 중' : '대기 중');
+                
+                card.innerHTML = `
+                    <div class="task-title">${task.title || task.id}</div>
+                    <div class="task-desc">${task.설명 || ''}</div>
+                    <div class="task-footer">
+                        <span class="root-badge">🌱 Root ${task.뿌리}</span>
+                        <span class="badge badge-${task.상태}">${statusLabel}</span>
+                    </div>
+                `;
+                
+                if (task.기간 === '장기') longContainer.appendChild(card);
+                else if (task.기간 === '중기') midContainer.appendChild(card);
+                else shortContainer.appendChild(card); // Default 단기
+            });
+        }
+
+        // Init
+        fetchAIStatus();
+        fetchTasks();
+        
+        // Polling every 30s
+        setInterval(() => {
+            fetchAIStatus();
+            fetchTasks();
+        }, 30000);
+    </script>
+</body>
+</html>
