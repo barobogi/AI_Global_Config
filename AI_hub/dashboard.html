@@ -255,40 +255,40 @@
     <div class="layout">
         <!-- Left: Tree View -->
         <div class="glass-panel">
-            <div class="section-title">📂 뿌리체계 트리</div>
+            <div class="section-title">📂 뿌리체계 트리 <button style="margin-left:auto; font-size:12px; cursor:pointer; padding:4px 8px; border-radius:4px; border:none; background:var(--primary); color:white;" onclick="filterByRoot(null)">전체 보기</button></div>
             <ul class="tree-list" id="root-tree">
-                <li class="tree-item leaf"><div class="tree-content">1 Question</div></li>
-                <li class="tree-item leaf"><div class="tree-content">2 Global Define</div></li>
-                <li class="tree-item leaf"><div class="tree-content">3 Diary</div></li>
+                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(1)">1 Question</div></li>
+                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(2)">2 Global Define</div></li>
+                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(3)">3 Diary</div></li>
                 
                 <li class="tree-item open">
                     <div class="tree-content" onclick="toggleTree(this)">24 도구뿌리</div>
                     <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content">41 Superpowers</div></li>
-                        <li class="tree-item leaf"><div class="tree-content">42 만복이들</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(41)">41 Superpowers</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(42)">42 만복이들</div></li>
                     </ul>
                 </li>
                 
                 <li class="tree-item open">
                     <div class="tree-content" onclick="toggleTree(this)">25 학습뿌리</div>
                     <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content">51 공부방</div></li>
-                        <li class="tree-item leaf"><div class="tree-content">52 n8n금융</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(51)">51 공부방</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(52)">52 n8n금융</div></li>
                     </ul>
                 </li>
                 
                 <li class="tree-item open">
                     <div class="tree-content" onclick="toggleTree(this)">26 실전뿌리</div>
                     <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content">61 주식대시보드</div></li>
-                        <li class="tree-item leaf"><div class="tree-content">62 멀티미디어</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(61)">61 주식대시보드</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(62)">62 멀티미디어</div></li>
                     </ul>
                 </li>
                 
                 <li class="tree-item open">
                     <div class="tree-content" onclick="toggleTree(this)">27 생활뿌리</div>
                     <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content">71 밀리이북</div></li>
+                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(71)">71 밀리이북</div></li>
                     </ul>
                 </li>
             </ul>
@@ -355,20 +355,29 @@
         }
 
         // Fetch Data
+        let allTasks = [];
+        let currentFilter = null;
+        
+        function filterByRoot(rootNum) {
+            currentFilter = rootNum;
+            renderTasks();
+        }
+
         async function fetchAIStatus() {
             const ais = ['만복', '코니', '안티'];
             for (const ai of ais) {
                 try {
                     // Fallback to offline if fetch fails
-                    const response = await fetch(`./status/${ai}_heartbeat.json?t=${Date.now()}`);
+                    const filename = ai === '코니' ? '코니_presence.json' : `${ai}_heartbeat.json`;
+                    const response = await fetch(`./status/${filename}?t=${Date.now()}`);
                     const statusDot = document.getElementById(`${ai === '코니' ? 'cony' : (ai === '만복' ? 'manbok' : 'anti')}-dot`);
                     const statusText = document.getElementById(`${ai === '코니' ? 'cony' : (ai === '만복' ? 'manbok' : 'anti')}-status`);
                     
                     if(response.ok) {
                         const data = await response.json();
-                        if(data.status === 'alive') {
+                        if(data.status === 'alive' || data.status === 'active') {
                             statusDot.textContent = '🟢';
-                            statusText.textContent = `최근 활동: ${data.last_updated.split('T')[1] || data.last_updated}`;
+                            statusText.textContent = `최근 활동: ${data.last_updated ? (data.last_updated.includes('T') ? data.last_updated.split('T')[1] : data.last_updated) : '진행중'}`;
                         } else {
                             statusDot.textContent = '🟡';
                             statusText.textContent = '대기 중';
@@ -388,7 +397,8 @@
                 const response = await fetch(`./shared/tasks.json?t=${Date.now()}`);
                 if(response.ok) {
                     const data = await response.json();
-                    renderTasks(data.tasks);
+                    allTasks = data.tasks;
+                    renderTasks();
                     
                     const d = new Date();
                     document.getElementById('last-refresh').textContent = `마지막 갱신: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`;
@@ -398,7 +408,7 @@
             }
         }
 
-        function renderTasks(tasks) {
+        function renderTasks() {
             const shortContainer = document.getElementById('tasks-short');
             const midContainer = document.getElementById('tasks-mid');
             const longContainer = document.getElementById('tasks-long');
@@ -407,7 +417,12 @@
             midContainer.innerHTML = '';
             longContainer.innerHTML = '';
             
-            tasks.forEach(task => {
+            let tasksToRender = allTasks;
+            if(currentFilter !== null) {
+                tasksToRender = allTasks.filter(t => t.뿌리 === currentFilter);
+            }
+            
+            tasksToRender.forEach(task => {
                 const card = document.createElement('div');
                 card.className = 'task-card';
                 
