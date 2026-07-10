@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-07-11",
+  "note": "3AI + 바로보기님 합의로 배분. 남은 할 일 기준으로 세션마다 재협의.",
+  "assignments": {
+    "Improve_stock":              { "primary": null, "backup": null },
+    "260623_1_study_all":         { "primary": null, "backup": null },
+    "⑤_자동화_Daily_for_Barobogi": { "primary": null, "backup": null },
+    "Daily_for_Barobogi":         { "primary": null, "backup": null },
+    "260625_1_n8n_finance":       { "primary": null, "backup": null },
+    "11_특허아이디어":              { "primary": null, "backup": null },
+    "Global_Define":              { "primary": null, "backup": null },
+    "AI_hub":                     { "primary": null, "backup": null }
+  }
+}

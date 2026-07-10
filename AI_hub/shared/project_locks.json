@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-07-11",
+  "rules": {
+    "stale_timeout_hours": 24,
+    "barobogi_can_override": true,
+    "workspace_path": "_ai_workspace (초안/테스트 전용, Lock 불필요)",
+    "main_path": "프로젝트 메인 디렉토리 (Lock 필수)"
+  },
+  "locks": {
+    "Improve_stock":              { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "260623_1_study_all":         { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "⑤_자동화_Daily_for_Barobogi": { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "Daily_for_Barobogi":         { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "260625_1_n8n_finance":       { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "11_특허아이디어":              { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "Global_Define":              { "owner": null, "acquired_at": null, "expires_at": null, "reason": null },
+    "AI_hub":                     { "owner": null, "acquired_at": null, "expires_at": null, "reason": null }
+  }
+}
