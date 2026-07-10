@@ -1,0 +1,237 @@
+{
+  "version": "1.0",
+  "created": "2026-07-11",
+  "author": "코니",
+  "description": "3AI 협업 대시보드 색상 팔레트",
+
+  "뿌리_colors": {
+    "1_Question": {
+      "light": {
+        "bg": "#E3F2FD",
+        "text": "#0D47A1",
+        "border": "#1976D2",
+        "icon": "❓"
+      },
+      "dark": {
+        "bg": "#0D47A1",
+        "text": "#E3F2FD",
+        "border": "#64B5F6",
+        "icon": "❓"
+      }
+    },
+    "2_GlobalDefine": {
+      "light": {
+        "bg": "#F3E5F5",
+        "text": "#4A148C",
+        "border": "#7B1FA2",
+        "icon": "⚙️"
+      },
+      "dark": {
+        "bg": "#4A148C",
+        "text": "#F3E5F5",
+        "border": "#BA68C8",
+        "icon": "⚙️"
+      }
+    },
+    "3_Diary": {
+      "light": {
+        "bg": "#FFF3E0",
+        "text": "#E65100",
+        "border": "#FF6F00",
+        "icon": "📔"
+      },
+      "dark": {
+        "bg": "#E65100",
+        "text": "#FFF3E0",
+        "border": "#FFB74D",
+        "icon": "📔"
+      }
+    },
+    "24_도구뿌리": {
+      "light": {
+        "bg": "#E0F2F1",
+        "text": "#00695C",
+        "border": "#00897B",
+        "icon": "🔧"
+      },
+      "dark": {
+        "bg": "#00695C",
+        "text": "#E0F2F1",
+        "border": "#4DB6AC",
+        "icon": "🔧"
+      }
+    },
+    "25_학습뿌리": {
+      "light": {
+        "bg": "#E8F5E9",
+        "text": "#1B5E20",
+        "border": "#388E3C",
+        "icon": "📚"
+      },
+      "dark": {
+        "bg": "#1B5E20",
+        "text": "#E8F5E9",
+        "border": "#81C784",
+        "icon": "📚"
+      }
+    },
+    "26_실전뿌리": {
+      "light": {
+        "bg": "#FCE4EC",
+        "text": "#880E4F",
+        "border": "#C2185B",
+        "icon": "📈"
+      },
+      "dark": {
+        "bg": "#880E4F",
+        "text": "#FCE4EC",
+        "border": "#F48FB1",
+        "icon": "📈"
+      }
+    },
+    "27_생활뿌리": {
+      "light": {
+        "bg": "#FFF8E1",
+        "text": "#F57F17",
+        "border": "#FBC02D",
+        "icon": "🏠"
+      },
+      "dark": {
+        "bg": "#F57F17",
+        "text": "#FFF8E1",
+        "border": "#FFD54F",
+        "icon": "🏠"
+      }
+    }
+  },
+
+  "ai_status_colors": {
+    "active": {
+      "light": {
+        "bg": "#C8E6C9",
+        "text": "#1B5E20",
+        "hex": "#4CAF50",
+        "emoji": "🟢"
+      },
+      "dark": {
+        "bg": "#1B5E20",
+        "text": "#C8E6C9",
+        "hex": "#81C784",
+        "emoji": "🟢"
+      }
+    },
+    "standby": {
+      "light": {
+        "bg": "#FFF9C4",
+        "text": "#F57F17",
+        "hex": "#FBC02D",
+        "emoji": "🟡"
+      },
+      "dark": {
+        "bg": "#F57F17",
+        "text": "#FFF9C4",
+        "hex": "#FFD54F",
+        "emoji": "🟡"
+      }
+    },
+    "offline": {
+      "light": {
+        "bg": "#EEEEEE",
+        "text": "#424242",
+        "hex": "#757575",
+        "emoji": "⚫"
+      },
+      "dark": {
+        "bg": "#424242",
+        "text": "#EEEEEE",
+        "hex": "#BDBDBD",
+        "emoji": "⚫"
+      }
+    }
+  },
+
+  "task_status_colors": {
+    "pending": {
+      "light": "#FFCDD2",
+      "dark": "#C62828",
+      "hex": "#F44336",
+      "label": "대기 중"
+    },
+    "in_progress": {
+      "light": "#FFF9C4",
+      "dark": "#F57F17",
+      "hex": "#FBC02D",
+      "label": "진행 중"
+    },
+    "completed": {
+      "light": "#C8E6C9",
+      "dark": "#1B5E20",
+      "hex": "#4CAF50",
+      "label": "완료"
+    }
+  },
+
+  "lock_colors": {
+    "locked": {
+      "light": "#FFEBEE",
+      "dark": "#B71C1C",
+      "hex": "#D32F2F",
+      "emoji": "🔒"
+    },
+    "unlocked": {
+      "light": "#E8F5E9",
+      "dark": "#1B5E20",
+      "hex": "#4CAF50",
+      "emoji": "🔓"
+    }
+  },
+
+  "ui_system": {
+    "primary": "#1976D2",
+    "secondary": "#7B1FA2",
+    "success": "#4CAF50",
+    "warning": "#FBC02D",
+    "error": "#F44336",
+    "info": "#2196F3",
+    "neutral": "#757575"
+  },
+
+  "typography": {
+    "heading": {
+      "fontFamily": "Segoe UI, -apple-system, BlinkMacSystemFont",
+      "fontWeight": "bold",
+      "fontSize": "18px"
+    },
+    "body": {
+      "fontFamily": "Segoe UI, -apple-system, BlinkMacSystemFont",
+      "fontWeight": "normal",
+      "fontSize": "14px"
+    },
+    "label": {
+      "fontFamily": "Segoe UI, -apple-system, BlinkMacSystemFont",
+      "fontWeight": "500",
+      "fontSize": "12px"
+    }
+  },
+
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px"
+  },
+
+  "border_radius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "full": "20px"
+  },
+
+  "shadows": {
+    "light": "0 2px 4px rgba(0,0,0,0.1)",
+    "medium": "0 4px 8px rgba(0,0,0,0.15)",
+    "heavy": "0 8px 16px rgba(0,0,0,0.2)"
+  }
+}
