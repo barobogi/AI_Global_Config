@@ -1,10 +1,17 @@
 # 📋 Next Projects — Barobogi + 만복
 
 **최초 작성**: 2026-06-21  
-**최종 업데이트**: 2026-07-11  
-**상태**: 3AI 협업 구조 완성 / Improve_stock v2.0 Phase 1 완료
+**최종 업데이트**: 2026-07-11 21:48  
+**상태**: T011/T018/T019 completed / 3AI 거버넌스 5대 원칙 확정
 
-### ✅ 2026-07-11 완료
+### ✅ 2026-07-11 완료 (저녁)
+
+- **T011/T018/T019 completed** — master_watch.py push 즉시 브리핑 갱신, youtube_pobbagi.py --video-id 추가
+- **T020/T021/T022 등록** — Human-in-the-loop(안티), 저작권게이트(만복), AutoSecurityPatch(만복)
+- **3AI 거버넌스 5대 원칙** — CC 의무화, WIP 제한, 증거첨부, infra_decisions.md, Hall 재발방지
+- **내일 필수**: n8n 포트 문제 해결 → T018 end-to-end 테스트 → T020 착수
+
+### ✅ 2026-07-11 완료 (오전/오후)
 
 - **3AI 협업 구조 설계 + 구현** — 만복(Claude) + 코니(Cowork) + 안티(Antigravity) 3AI 분업 체계 확립
   - `AI_hub/shared/project_locks.json` — Lock 시스템
@@ -20,10 +27,13 @@
   - `demo/run_yfinance.py` 실행 확인 (`$env:PYTHONUTF8='1'` 필수)
 - **뿌리체계 확정 저장** — `memory/project_root_system.md` (출처: logs.html 2026-06-28)
 
-**다음 우선순위:**
-1. T011 — n8n + 코니 실시간 동기화
-2. T018 — 호두 채널 자동 감지 → n8n 워크플로우
-3. T013 — 개념노트 자동 보충 스크립트
+**다음 우선순위 (2026-07-12):**
+1. n8n 포트 문제 해결 (System PID 4 → 5678 점유)
+2. T018 end-to-end 테스트 (YouTube API Key 필요)
+3. T020 착수 (안티, n8n 안정화 후)
+4. T021 저작권 게이트 문서화 (만복)
+5. T022 AutoSecurityPatch 기획 (만복, T020 후)
+6. T013 — 개념노트 자동 보충 스크립트
 4. **Moltbook** — 에이전트 커뮤니티 플랫폼, 직접 방문 후 평가 필요
 5. **가족봇** — 사모님 텔레그램 봇
 6. 아키텍처 개선 1 (새벽 쿨다운) → 2 (워치독 격리) 순차 진행
