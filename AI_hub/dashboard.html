@@ -155,8 +155,23 @@
             top: 0;
             background: inherit;
             z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .dark-mode .section-title { border-bottom-color: var(--glass-border-dark); }
+
+        .btn-show-all {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-show-all:hover { background: #1565C0; }
 
         .summary-container {
             padding: 16px;
@@ -230,7 +245,6 @@
             left: 0;
         }
 
-        /* Horizontal line connecting to the right child */
         .tree li::before {
             border-top: 2px solid var(--primary-light);
             top: 50%;
@@ -238,7 +252,6 @@
             height: 0;
         }
 
-        /* Vertical line dropping from parent */
         .tree li::after {
             border-left: 2px solid var(--primary-light);
             height: 100%;
@@ -257,7 +270,6 @@
             display: none;
         }
 
-        /* Distinctive connectors for Task Cards */
         .tree li.task-item::before {
             border-top-style: dashed;
             border-top-color: var(--warning);
@@ -283,13 +295,14 @@
             z-index: 10;
             transition: transform 0.2s;
             white-space: nowrap;
+            cursor: pointer;
         }
         .dark-mode .node-box {
             background: var(--glass-bg-dark);
             border-color: var(--glass-border-dark);
             color: var(--text-dark);
         }
-        .node-box:hover { transform: translateY(-3px); }
+        .node-box:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(25, 118, 210, 0.3); border-color: var(--primary);}
 
         .node-root {
             background: var(--primary);
@@ -348,7 +361,7 @@
 
     <header class="glass-panel">
         <div class="header-left">
-            <h1>🌱 대시보드 v2.1 (하이브리드 마인드맵)</h1>
+            <h1>🌱 대시보드 v2.2 (하이브리드 마인드맵 + 필터)</h1>
             <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
             <span class="last-refresh" id="last-refresh">마지막 갱신: -</span>
         </div>
@@ -372,69 +385,71 @@
     <div class="layout-hybrid">
         <!-- Left Panel: 2/3 width, Horizontal Tree -->
         <div class="left-panel glass-panel">
-            <h2 class="section-title">📂 뿌리 체계 (마인드맵)</h2>
+            <div class="section-title">
+                <span>📂 뿌리 체계 (마인드맵)</span>
+                <span style="font-size:12px; opacity:0.8; font-weight:normal;">(뿌리를 클릭하면 우측 보드 필터링)</span>
+            </div>
             <div class="tree-container">
                 <div class="tree">
                     <ul>
                         <li>
-                            <div class="node-box node-root">🌱 3AI Root System</div>
+                            <div class="node-box node-root" onclick="filterTasks(null)">🌱 3AI Root System</div>
                             <ul id="children-root">
                                 <li>
-                                    <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
+                                    <div class="node-box" style="opacity:0.7" onclick="filterTasks(0)">0 전역/미분류</div>
                                     <ul id="children-0"></ul>
                                 </li>
                                 <li>
-                                    <div class="node-box">1 Question</div>
+                                    <div class="node-box" onclick="filterTasks(1)">1 Question</div>
                                     <ul id="children-1"></ul>
                                 </li>
                                 <li>
-                                    <div class="node-box">2 Global Define</div>
+                                    <div class="node-box" onclick="filterTasks(2)">2 Global Define</div>
                                     <ul id="children-2">
-                                        <!-- Root 24, 25, 26, 27 belong here hierarchically -->
                                         <li>
-                                            <div class="node-box">24 도구뿌리</div>
+                                            <div class="node-box" onclick="filterTasks(24)">24 도구뿌리</div>
                                             <ul id="children-24">
                                                 <li>
-                                                    <div class="node-box">41 Superpowers</div>
+                                                    <div class="node-box" onclick="filterTasks(41)">41 Superpowers</div>
                                                     <ul id="children-41"></ul>
                                                 </li>
                                                 <li>
-                                                    <div class="node-box">42 만복이들</div>
+                                                    <div class="node-box" onclick="filterTasks(42)">42 만복이들</div>
                                                     <ul id="children-42"></ul>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <div class="node-box">25 학습뿌리</div>
+                                            <div class="node-box" onclick="filterTasks(25)">25 학습뿌리</div>
                                             <ul id="children-25">
                                                 <li>
-                                                    <div class="node-box">51 공부방</div>
+                                                    <div class="node-box" onclick="filterTasks(51)">51 공부방</div>
                                                     <ul id="children-51"></ul>
                                                 </li>
                                                 <li>
-                                                    <div class="node-box">52 n8n금융</div>
+                                                    <div class="node-box" onclick="filterTasks(52)">52 n8n금융</div>
                                                     <ul id="children-52"></ul>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <div class="node-box">26 실전뿌리</div>
+                                            <div class="node-box" onclick="filterTasks(26)">26 실전뿌리</div>
                                             <ul id="children-26">
                                                 <li>
-                                                    <div class="node-box">61 주식대시보드</div>
+                                                    <div class="node-box" onclick="filterTasks(61)">61 주식대시보드</div>
                                                     <ul id="children-61"></ul>
                                                 </li>
                                                 <li>
-                                                    <div class="node-box">62 멀티미디어</div>
+                                                    <div class="node-box" onclick="filterTasks(62)">62 멀티미디어</div>
                                                     <ul id="children-62"></ul>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <div class="node-box">27 생활뿌리</div>
+                                            <div class="node-box" onclick="filterTasks(27)">27 생활뿌리</div>
                                             <ul id="children-27">
                                                 <li>
-                                                    <div class="node-box">71 밀리이북</div>
+                                                    <div class="node-box" onclick="filterTasks(71)">71 밀리이북</div>
                                                     <ul id="children-71"></ul>
                                                 </li>
                                             </ul>
@@ -442,7 +457,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <div class="node-box">3 Diary</div>
+                                    <div class="node-box" onclick="filterTasks(3)">3 Diary</div>
                                     <ul id="children-3"></ul>
                                 </li>
                             </ul>
@@ -454,7 +469,10 @@
 
         <!-- Right Panel: 1/3 width, Summary List -->
         <div class="right-panel glass-panel">
-            <h2 class="section-title">📋 할 일 요약보드</h2>
+            <div class="section-title">
+                <span>📋 할 일 요약보드</span>
+                <button class="btn-show-all" onclick="filterTasks(null)">👀 전체 보기</button>
+            </div>
             <div class="summary-container">
                 <div class="task-col">
                     <div class="col-header bg-short">📍 단기 목표</div>
@@ -495,9 +513,11 @@
                     
                     if(response.ok) {
                         const data = await response.json();
-                        if(data.status === 'alive' || data.status === 'active') {
+                        // Fix: Support both standard status and session_active for Cony
+                        if(data.status === 'alive' || data.status === 'active' || data.session_active === true) {
                             statusDot.textContent = '🟢';
-                            const time = data.last_updated ? (data.last_updated.includes('T') ? data.last_updated.split('T')[1] : data.last_updated) : '진행중';
+                            const timeStr = data.last_updated || data.last_active;
+                            const time = timeStr ? (timeStr.includes('T') ? timeStr.split('T')[1] : timeStr) : '진행중';
                             statusText.textContent = time.substring(0, 8);
                         } else {
                             statusDot.textContent = '🟡';
@@ -523,6 +543,16 @@
             } catch(e) {
                 console.error("Failed to load tasks", e);
             }
+        }
+
+        function filterTasks(rootId) {
+            document.querySelectorAll('.task-summary-wrapper').forEach(wrapper => {
+                if (rootId === null || parseInt(wrapper.dataset.root) === rootId) {
+                    wrapper.style.display = 'block';
+                } else {
+                    wrapper.style.display = 'none';
+                }
+            });
         }
 
         function renderTasks(tasks) {
@@ -565,6 +595,8 @@
 
                 // B. Append to Summary Board (Right)
                 const summaryWrapper = document.createElement('div');
+                summaryWrapper.className = 'task-summary-wrapper';
+                summaryWrapper.dataset.root = rootId; // For filtering
                 summaryWrapper.style.marginBottom = "10px";
                 summaryWrapper.innerHTML = cardHTML;
                 const badges = summaryWrapper.querySelector('.badge-container');
