@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3AI 뿌리체계 대시보드</title>
+    <title>3AI 뿌리체계 대시보드 v2.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,6 +16,7 @@
             --glass-border-light: rgba(255, 255, 255, 0.4);
             --glass-border-dark: rgba(255, 255, 255, 0.1);
             --primary: #1976D2;
+            --primary-light: rgba(25, 118, 210, 0.3);
             --success: #4CAF50;
             --warning: #FBC02D;
             --danger: #F44336;
@@ -28,6 +29,7 @@
             background: var(--bg-light);
             color: var(--text-light);
             min-height: 100vh;
+            overflow: auto;
             transition: all 0.3s ease;
         }
 
@@ -43,7 +45,6 @@
             border-radius: 16px;
             border: 1px solid var(--glass-border-light);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            padding: 24px;
             transition: all 0.3s ease;
         }
 
@@ -54,173 +55,199 @@
         }
 
         header {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            gap: 15px;
+            padding: 10px 20px;
         }
 
-        h1 { margin: 0; font-size: 28px; font-weight: 700; }
+        h1 { margin: 0; font-size: 20px; font-weight: 700; }
 
         .theme-toggle {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            padding: 8px;
+            padding: 4px;
             border-radius: 50%;
             transition: transform 0.2s;
         }
         .theme-toggle:hover { transform: scale(1.1); }
 
-        .layout {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .last-refresh {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-left: 10px;
         }
 
-        @media (max-width: 1024px) {
-            .layout { grid-template-columns: 1fr; }
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
+        /* Floating AI Status */
+        .ai-floating-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
-            padding-bottom: 10px;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
         }
-        .dark-mode .section-title { border-bottom-color: rgba(255,255,255,0.1); }
 
-        /* Tree Styles */
-        .tree-list { list-style: none; padding-left: 0; margin: 0; }
-        .tree-item {
-            margin: 8px 0;
-            cursor: pointer;
-            user-select: none;
-        }
-        .tree-content {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.5);
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-        .dark-mode .tree-content { background: rgba(0,0,0,0.3); }
-        .tree-content:hover { transform: translateX(5px); background: rgba(255,255,255,0.8); }
-        .dark-mode .tree-content:hover { background: rgba(255,255,255,0.1); }
-        
-        .tree-children {
-            padding-left: 20px;
-            margin-top: 5px;
-            display: none;
-        }
-        .tree-item.open > .tree-children { display: block; }
-        .tree-content::before {
-            content: "▶";
-            font-size: 10px;
-            margin-right: 10px;
-            transition: transform 0.2s;
-        }
-        .tree-item.open > .tree-content::before { transform: rotate(90deg); }
-        .tree-item.leaf > .tree-content::before { content: "•"; transform: none; }
-
-        /* AI Status Cards */
-        .ai-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
         .ai-card {
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.4);
         }
-        .ai-card::before {
+        .dark-mode .ai-card { background: rgba(0,0,0,0.3); }
+        
+        .status-dot { font-size: 14px; }
+        .ai-detail {
+            font-size: 11px;
+            opacity: 0.7;
+            font-weight: normal;
+        }
+
+        /* Horizontal Tree Layout */
+        .tree-container {
+            margin-top: 80px; /* Space for fixed header */
+            padding: 40px;
+            display: inline-block;
+            min-width: 100%;
+        }
+
+        .tree {
+            display: flex;
+        }
+
+        .tree ul {
+            padding-left: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+        }
+
+        .tree > ul {
+            padding-left: 0;
+        }
+
+        .tree li {
+            position: relative;
+            padding: 15px 0 15px 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tree > ul > li {
+            padding-left: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /* Connectors */
+        .tree li::before, .tree li::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
-        }
-        .ai-manbok::before { background: var(--primary); }
-        .ai-cony::before { background: var(--success); }
-        .ai-anti::before { background: var(--warning); }
-        
-        .ai-name { font-size: 20px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
-        .status-dot { font-size: 14px; }
-        .ai-task { font-size: 13px; opacity: 0.8; margin-top: 10px; }
-
-        /* Tasks Grid */
-        .tasks-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .tasks-container { grid-template-columns: 1fr; }
+            left: 0;
         }
 
-        .task-col {
-            background: rgba(0,0,0,0.03);
-            border-radius: 12px;
-            padding: 16px;
+        /* Horizontal line */
+        .tree li::before {
+            border-top: 2px solid var(--primary-light);
+            top: 50%;
+            width: 40px;
+            height: 0;
         }
-        .dark-mode .task-col { background: rgba(255,255,255,0.03); }
-        
-        .col-header {
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-        }
-        .bg-short { background: rgba(244, 67, 54, 0.1); color: #d32f2f; }
-        .bg-mid { background: rgba(25, 118, 210, 0.1); color: #1976D2; }
-        .bg-long { background: rgba(76, 175, 80, 0.1); color: #388E3C; }
-        
-        .dark-mode .bg-short { color: #ef9a9a; }
-        .dark-mode .bg-mid { color: #90caf9; }
-        .dark-mode .bg-long { color: #a5d6a7; }
 
-        .task-card {
+        /* Vertical line */
+        .tree li::after {
+            border-left: 2px solid var(--primary-light);
+            height: 100%;
+            width: 0px;
+            top: 0;
+        }
+
+        /* First and last child corrections */
+        .tree ul > li:first-child::after {
+            top: 50%;
+            height: 50%;
+        }
+        .tree ul > li:last-child::after {
+            height: 50%;
+        }
+        .tree > ul > li::before, .tree > ul > li::after {
+            display: none; /* No lines for root */
+        }
+
+        /* Nodes */
+        .node-box {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
             background: var(--glass-bg-light);
             border: 1px solid var(--glass-border-light);
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            backdrop-filter: blur(12px);
+            color: var(--text-light);
+            font-weight: 600;
+            min-width: 140px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            z-index: 10;
             transition: transform 0.2s;
         }
-        .dark-mode .task-card {
+        .dark-mode .node-box {
             background: var(--glass-bg-dark);
             border-color: var(--glass-border-dark);
+            color: var(--text-dark);
         }
-        .task-card:hover { transform: translateY(-3px); }
+        .node-box:hover { transform: translateY(-3px); }
+
+        .node-root {
+            background: var(--primary);
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+            font-size: 18px;
+            padding: 16px 24px;
+        }
+        .dark-mode .node-root { color: white; background: var(--primary); }
+
+        /* Task Cards */
+        .task-card {
+            background: rgba(255,255,255,0.9);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-width: 250px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        .dark-mode .task-card {
+            background: rgba(40,40,40,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            border-left-color: var(--primary);
+        }
+
+        .task-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .task-desc { font-size: 12px; opacity: 0.8; margin-bottom: 10px; line-height: 1.4; word-wrap: break-word;}
         
-        .task-title { font-weight: 600; margin-bottom: 8px; font-size: 15px; }
-        .task-desc { font-size: 12px; opacity: 0.7; margin-bottom: 12px; line-height: 1.4; }
-        .task-footer {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            align-items: center;
-        }
+        .badge-container { display: flex; gap: 8px; }
         .badge {
-            padding: 4px 8px;
+            padding: 3px 8px;
             border-radius: 12px;
-            font-weight: 600;
+            font-size: 10px;
+            font-weight: 700;
         }
+        
         .badge-pending { background: #FFCDD2; color: #C62828; }
         .badge-in_progress { background: #FFF9C4; color: #F57F17; }
         .badge-completed { background: #C8E6C9; color: #1B5E20; }
@@ -228,112 +255,125 @@
         .dark-mode .badge-pending { background: #4a1c1c; color: #ffb4b4; }
         .dark-mode .badge-in_progress { background: #4a3f12; color: #ffe680; }
         .dark-mode .badge-completed { background: #1a3a1f; color: #a5d6a7; }
-        
-        .root-badge {
-            background: rgba(0,0,0,0.05);
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-        .dark-mode .root-badge { background: rgba(255,255,255,0.1); }
-        
-        .refresh-indicator {
-            font-size: 12px;
-            opacity: 0.6;
-            text-align: right;
-            margin-top: 10px;
-        }
 
+        .badge-period { background: rgba(0,0,0,0.1); color: inherit; }
+        .dark-mode .badge-period { background: rgba(255,255,255,0.1); }
+
+        /* Emphasize branch lines connecting to tasks */
+        ul[id^="tasks-"] li::before { border-top-style: dashed; border-top-color: var(--warning); }
+        ul[id^="tasks-"] li::after { border-left-style: dashed; border-left-color: var(--warning); }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>🌱 3AI 뿌리체계 대시보드</h1>
+    <header class="glass-panel">
+        <h1>🌱 뿌리체계 대시보드 v2.0</h1>
         <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
+        <span class="last-refresh" id="last-refresh">마지막 갱신: -</span>
     </header>
 
-    <div class="layout">
-        <!-- Left: Tree View -->
-        <div class="glass-panel">
-            <div class="section-title">📂 뿌리체계 트리 <button style="margin-left:auto; font-size:12px; cursor:pointer; padding:4px 8px; border-radius:4px; border:none; background:var(--primary); color:white;" onclick="filterByRoot(null)">전체 보기</button></div>
-            <ul class="tree-list" id="root-tree">
-                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(1)">1 Question</div></li>
-                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(2)">2 Global Define</div></li>
-                <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(3)">3 Diary</div></li>
-                
-                <li class="tree-item open">
-                    <div class="tree-content" onclick="toggleTree(this)">24 도구뿌리</div>
-                    <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(41)">41 Superpowers</div></li>
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(42)">42 만복이들</div></li>
-                    </ul>
-                </li>
-                
-                <li class="tree-item open">
-                    <div class="tree-content" onclick="toggleTree(this)">25 학습뿌리</div>
-                    <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(51)">51 공부방</div></li>
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(52)">52 n8n금융</div></li>
-                    </ul>
-                </li>
-                
-                <li class="tree-item open">
-                    <div class="tree-content" onclick="toggleTree(this)">26 실전뿌리</div>
-                    <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(61)">61 주식대시보드</div></li>
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(62)">62 멀티미디어</div></li>
-                    </ul>
-                </li>
-                
-                <li class="tree-item open">
-                    <div class="tree-content" onclick="toggleTree(this)">27 생활뿌리</div>
-                    <ul class="tree-children">
-                        <li class="tree-item leaf"><div class="tree-content" onclick="filterByRoot(71)">71 밀리이북</div></li>
+    <!-- Floating AI Status Panel -->
+    <div class="ai-floating-panel glass-panel">
+        <div class="ai-card">
+            <span class="status-dot" id="manbok-dot">⚫</span>
+            <div>
+                만복 <div class="ai-detail" id="manbok-status">오프라인</div>
+            </div>
+        </div>
+        <div class="ai-card">
+            <span class="status-dot" id="cony-dot">⚫</span>
+            <div>
+                코니 <div class="ai-detail" id="cony-status">오프라인</div>
+            </div>
+        </div>
+        <div class="ai-card">
+            <span class="status-dot" id="anti-dot">⚫</span>
+            <div>
+                안티 <div class="ai-detail" id="anti-status">오프라인</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Tree Map -->
+    <div class="tree-container">
+        <div class="tree">
+            <ul>
+                <li>
+                    <div class="node-box node-root">🌱 3AI Root System</div>
+                    <ul>
+                        <li>
+                            <div class="node-box">1 Question</div>
+                            <ul id="tasks-1"></ul>
+                        </li>
+                        <li>
+                            <div class="node-box">2 Global Define</div>
+                            <ul id="tasks-2"></ul>
+                        </li>
+                        <li>
+                            <div class="node-box">3 Diary</div>
+                            <ul id="tasks-3"></ul>
+                        </li>
+                        
+                        <li>
+                            <div class="node-box">24 도구뿌리</div>
+                            <ul>
+                                <li>
+                                    <div class="node-box">41 Superpowers</div>
+                                    <ul id="tasks-41"></ul>
+                                </li>
+                                <li>
+                                    <div class="node-box">42 만복이들</div>
+                                    <ul id="tasks-42"></ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <div class="node-box">25 학습뿌리</div>
+                            <ul>
+                                <li>
+                                    <div class="node-box">51 공부방</div>
+                                    <ul id="tasks-51"></ul>
+                                </li>
+                                <li>
+                                    <div class="node-box">52 n8n금융</div>
+                                    <ul id="tasks-52"></ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <div class="node-box">26 실전뿌리</div>
+                            <ul>
+                                <li>
+                                    <div class="node-box">61 주식대시보드</div>
+                                    <ul id="tasks-61"></ul>
+                                </li>
+                                <li>
+                                    <div class="node-box">62 멀티미디어</div>
+                                    <ul id="tasks-62"></ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <div class="node-box">27 생활뿌리</div>
+                            <ul>
+                                <li>
+                                    <div class="node-box">71 밀리이북</div>
+                                    <ul id="tasks-71"></ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- For unclassified or Root 0 tasks -->
+                        <li>
+                            <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
+                            <ul id="tasks-0"></ul>
+                        </li>
                     </ul>
                 </li>
             </ul>
-        </div>
-
-        <!-- Right: Content -->
-        <div>
-            <!-- AI Status -->
-            <div class="glass-panel" style="margin-bottom: 24px;">
-                <div class="section-title">🤖 AI 현황판</div>
-                <div class="ai-grid">
-                    <div class="ai-card ai-manbok glass-panel">
-                        <div class="ai-name">만복 <span class="status-dot" id="manbok-dot">⚫</span></div>
-                        <div class="ai-task" id="manbok-status">오프라인</div>
-                    </div>
-                    <div class="ai-card ai-cony glass-panel">
-                        <div class="ai-name">코니 <span class="status-dot" id="cony-dot">⚫</span></div>
-                        <div class="ai-task" id="cony-status">오프라인</div>
-                    </div>
-                    <div class="ai-card ai-anti glass-panel">
-                        <div class="ai-name">안티 <span class="status-dot" id="anti-dot">⚫</span></div>
-                        <div class="ai-task" id="anti-status">오프라인</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Task List -->
-            <div class="glass-panel">
-                <div class="section-title">📋 전체 할 일 목록</div>
-                <div class="tasks-container">
-                    <div class="task-col">
-                        <div class="col-header bg-short">📍 단기 목표</div>
-                        <div id="tasks-short"></div>
-                    </div>
-                    <div class="task-col">
-                        <div class="col-header bg-mid">📋 중기 목표</div>
-                        <div id="tasks-mid"></div>
-                    </div>
-                    <div class="task-col">
-                        <div class="col-header bg-long">🔭 장기 목표</div>
-                        <div id="tasks-long"></div>
-                    </div>
-                </div>
-                <div class="refresh-indicator" id="last-refresh">마지막 갱신: -</div>
-            </div>
         </div>
     </div>
 
@@ -348,26 +388,11 @@
             document.body.classList.add('dark-mode');
         }
 
-        // Tree Toggle
-        function toggleTree(element) {
-            const li = element.parentElement;
-            li.classList.toggle('open');
-        }
-
         // Fetch Data
-        let allTasks = [];
-        let currentFilter = null;
-        
-        function filterByRoot(rootNum) {
-            currentFilter = rootNum;
-            renderTasks();
-        }
-
         async function fetchAIStatus() {
             const ais = ['만복', '코니', '안티'];
             for (const ai of ais) {
                 try {
-                    // Fallback to offline if fetch fails
                     const filename = ai === '코니' ? '코니_presence.json' : `${ai}_heartbeat.json`;
                     const response = await fetch(`./status/${filename}?t=${Date.now()}`);
                     const statusDot = document.getElementById(`${ai === '코니' ? 'cony' : (ai === '만복' ? 'manbok' : 'anti')}-dot`);
@@ -377,16 +402,14 @@
                         const data = await response.json();
                         if(data.status === 'alive' || data.status === 'active') {
                             statusDot.textContent = '🟢';
-                            statusText.textContent = `최근 활동: ${data.last_updated ? (data.last_updated.includes('T') ? data.last_updated.split('T')[1] : data.last_updated) : '진행중'}`;
+                            const time = data.last_updated ? (data.last_updated.includes('T') ? data.last_updated.split('T')[1] : data.last_updated) : '진행중';
+                            statusText.textContent = time.substring(0, 8); // hh:mm:ss
                         } else {
                             statusDot.textContent = '🟡';
                             statusText.textContent = '대기 중';
                         }
-                    } else {
-                        throw new Error('Not found');
                     }
                 } catch(e) {
-                    // If JSON doesn't exist, leave it offline
                     console.log(`Could not fetch ${ai} status.`);
                 }
             }
@@ -397,49 +420,43 @@
                 const response = await fetch(`./shared/tasks.json?t=${Date.now()}`);
                 if(response.ok) {
                     const data = await response.json();
-                    allTasks = data.tasks;
-                    renderTasks();
+                    renderTasks(data.tasks);
                     
                     const d = new Date();
-                    document.getElementById('last-refresh').textContent = `마지막 갱신: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`;
+                    document.getElementById('last-refresh').textContent = `갱신: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`;
                 }
             } catch(e) {
                 console.error("Failed to load tasks", e);
             }
         }
 
-        function renderTasks() {
-            const shortContainer = document.getElementById('tasks-short');
-            const midContainer = document.getElementById('tasks-mid');
-            const longContainer = document.getElementById('tasks-long');
-            
-            shortContainer.innerHTML = '';
-            midContainer.innerHTML = '';
-            longContainer.innerHTML = '';
-            
-            let tasksToRender = allTasks;
-            if(currentFilter !== null) {
-                tasksToRender = allTasks.filter(t => t.뿌리 === currentFilter);
-            }
-            
-            tasksToRender.forEach(task => {
-                const card = document.createElement('div');
-                card.className = 'task-card';
+        function renderTasks(tasks) {
+            // 1. Clear all existing task lists to prevent duplicates
+            const allTaskLists = document.querySelectorAll('ul[id^="tasks-"]');
+            allTaskLists.forEach(ul => ul.innerHTML = '');
+
+            // 2. Append tasks to their respective root DOM
+            tasks.forEach(task => {
+                let rootId = task.뿌리 || 0;
+                let container = document.getElementById(`tasks-${rootId}`);
                 
+                // If container not found (e.g. new root not in HTML yet), fallback to 0
+                if(!container) container = document.getElementById('tasks-0');
+                
+                const li = document.createElement('li');
                 const statusLabel = task.상태 === 'completed' ? '완료' : (task.상태 === 'in_progress' ? '진행 중' : '대기 중');
                 
-                card.innerHTML = `
-                    <div class="task-title">${task.title || task.id}</div>
-                    <div class="task-desc">${task.설명 || ''}</div>
-                    <div class="task-footer">
-                        <span class="root-badge">🌱 Root ${task.뿌리}</span>
-                        <span class="badge badge-${task.상태}">${statusLabel}</span>
+                li.innerHTML = `
+                    <div class="task-card">
+                        <div class="task-title">${task.title || task.id}</div>
+                        ${task.설명 ? `<div class="task-desc">${task.설명}</div>` : ''}
+                        <div class="badge-container">
+                            <span class="badge badge-${task.상태}">${statusLabel}</span>
+                            <span class="badge badge-period">${task.기간 || '단기'}</span>
+                        </div>
                     </div>
                 `;
-                
-                if (task.기간 === '장기') longContainer.appendChild(card);
-                else if (task.기간 === '중기') midContainer.appendChild(card);
-                else shortContainer.appendChild(card); // Default 단기
+                container.appendChild(li);
             });
         }
 
