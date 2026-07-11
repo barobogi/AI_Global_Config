@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3AI 뿌리체계 대시보드 v2.0 (수직형)</title>
+    <title>3AI 뿌리체계 대시보드 (하이브리드형)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -25,12 +25,12 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 20px;
             background: var(--bg-light);
             color: var(--text-light);
-            min-height: 100vh;
-            overflow: auto;
+            height: 100vh;
+            overflow: hidden;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         body.dark-mode {
@@ -56,13 +56,21 @@
 
         header {
             position: fixed;
-            top: 20px;
+            top: 15px;
             left: 20px;
+            right: 20px;
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: space-between;
             padding: 10px 20px;
+            height: 50px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         h1 { margin: 0; font-size: 20px; font-weight: 700; }
@@ -84,44 +92,108 @@
             margin-left: 10px;
         }
 
-        /* Floating AI Status */
-        .ai-floating-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
+        /* Top Horizontal AI Status */
+        .ai-status-bar {
             display: flex;
-            flex-direction: column;
             gap: 12px;
-            padding: 16px;
         }
 
         .ai-card {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             font-weight: 600;
-            font-size: 15px;
-            padding: 8px 12px;
+            font-size: 14px;
+            padding: 6px 12px;
             border-radius: 8px;
             background: rgba(255,255,255,0.4);
         }
         .dark-mode .ai-card { background: rgba(0,0,0,0.3); }
         
-        .status-dot { font-size: 14px; }
+        .status-dot { font-size: 12px; }
         .ai-detail {
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.7;
             font-weight: normal;
         }
 
+        /* Hybrid Layout */
+        .layout-hybrid {
+            display: flex;
+            gap: 20px;
+            margin-top: 95px; /* header space */
+            height: calc(100vh - 110px);
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Left Panel 2/3 */
+        .left-panel {
+            flex: 2;
+            overflow: auto;
+            position: relative;
+            padding-right: 10px;
+            padding-bottom: 40px;
+        }
+
+        /* Right Panel 1/3 */
+        .right-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            margin: 0;
+            border-bottom: 1px solid var(--glass-border-light);
+        }
+        .dark-mode .section-title { border-bottom-color: var(--glass-border-dark); }
+
+        /* Task Summary Columns */
+        .summary-container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .task-col {
+            background: rgba(0,0,0,0.03);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .dark-mode .task-col { background: rgba(255,255,255,0.03); }
+        
+        .col-header {
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .bg-short { background: rgba(244, 67, 54, 0.1); color: #d32f2f; }
+        .bg-mid { background: rgba(25, 118, 210, 0.1); color: #1976D2; }
+        .bg-long { background: rgba(76, 175, 80, 0.1); color: #388E3C; }
+        
+        .dark-mode .bg-short { color: #ef9a9a; }
+        .dark-mode .bg-mid { color: #90caf9; }
+        .dark-mode .bg-long { color: #a5d6a7; }
+
         /* Top-Down Vertical Tree Layout */
         .tree-container {
-            margin-top: 100px; /* Space for fixed header */
-            padding: 40px;
             display: inline-block;
             min-width: 100%;
             text-align: center;
+            padding-top: 20px;
         }
 
         .tree ul {
@@ -178,14 +250,15 @@
         /* Nodes */
         .node-box {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 10px;
             background: var(--glass-bg-light);
             border: 1px solid var(--glass-border-light);
             backdrop-filter: blur(12px);
             color: var(--text-light);
             font-weight: 600;
-            min-width: 140px;
+            min-width: 120px;
+            font-size: 14px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             z-index: 10;
             transition: transform 0.2s;
@@ -202,8 +275,8 @@
             background: var(--primary);
             color: white;
             border-color: rgba(255,255,255,0.2);
-            font-size: 18px;
-            padding: 16px 24px;
+            font-size: 16px;
+            padding: 14px 20px;
         }
         .dark-mode .node-root { color: white; background: var(--primary); }
 
@@ -233,8 +306,8 @@
             padding: 12px 16px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 250px;
-            max-width: 300px;
+            min-width: 220px;
+            max-width: 280px;
             text-align: left;
             z-index: 10;
         }
@@ -244,10 +317,10 @@
             border-top-color: var(--primary);
         }
 
-        .task-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
-        .task-desc { font-size: 12px; opacity: 0.8; margin-bottom: 10px; line-height: 1.4; word-wrap: break-word;}
+        .task-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
+        .task-desc { font-size: 11px; opacity: 0.8; margin-bottom: 10px; line-height: 1.4; word-wrap: break-word;}
         
-        .badge-container { display: flex; gap: 8px; justify-content: flex-start;}
+        .badge-container { display: flex; gap: 8px; justify-content: flex-start; flex-wrap: wrap;}
         .badge {
             padding: 3px 8px;
             border-radius: 12px;
@@ -265,118 +338,140 @@
 
         .badge-period { background: rgba(0,0,0,0.1); color: inherit; }
         .dark-mode .badge-period { background: rgba(255,255,255,0.1); }
+        .badge-root { background: rgba(0,0,0,0.05); color: inherit; }
+        .dark-mode .badge-root { background: rgba(255,255,255,0.1); }
+
     </style>
 </head>
 <body>
 
     <header class="glass-panel">
-        <h1>🌱 뿌리체계 대시보드 v2.0 (수직형 미리보기)</h1>
-        <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
-        <span class="last-refresh" id="last-refresh">마지막 갱신: -</span>
+        <div class="header-left">
+            <h1>🌱 대시보드 v2.0 (하이브리드 2/3 : 1/3)</h1>
+            <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
+            <span class="last-refresh" id="last-refresh">마지막 갱신: -</span>
+        </div>
+        
+        <!-- AI Status moved to Header for space saving -->
+        <div class="ai-status-bar">
+            <div class="ai-card">
+                <span class="status-dot" id="manbok-dot">⚫</span>
+                <div>만복 <div class="ai-detail" id="manbok-status">오프라인</div></div>
+            </div>
+            <div class="ai-card">
+                <span class="status-dot" id="cony-dot">⚫</span>
+                <div>코니 <div class="ai-detail" id="cony-status">오프라인</div></div>
+            </div>
+            <div class="ai-card">
+                <span class="status-dot" id="anti-dot">⚫</span>
+                <div>안티 <div class="ai-detail" id="anti-status">오프라인</div></div>
+            </div>
+        </div>
     </header>
 
-    <!-- Floating AI Status Panel -->
-    <div class="ai-floating-panel glass-panel">
-        <div class="ai-card">
-            <span class="status-dot" id="manbok-dot">⚫</span>
-            <div>
-                만복 <div class="ai-detail" id="manbok-status">오프라인</div>
-            </div>
-        </div>
-        <div class="ai-card">
-            <span class="status-dot" id="cony-dot">⚫</span>
-            <div>
-                코니 <div class="ai-detail" id="cony-status">오프라인</div>
-            </div>
-        </div>
-        <div class="ai-card">
-            <span class="status-dot" id="anti-dot">⚫</span>
-            <div>
-                안티 <div class="ai-detail" id="anti-status">오프라인</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fullscreen Tree Map -->
-    <div class="tree-container">
-        <div class="tree">
-            <ul>
-                <li>
-                    <div class="node-box node-root">🌱 3AI Root System</div>
+    <div class="layout-hybrid">
+        <!-- Left Panel: 2/3 width, Vertical Tree -->
+        <div class="left-panel">
+            <div class="tree-container">
+                <div class="tree">
                     <ul>
                         <li>
-                            <div class="node-box">1 Question</div>
-                            <ul id="tasks-1"></ul>
-                        </li>
-                        <li>
-                            <div class="node-box">2 Global Define</div>
-                            <ul id="tasks-2"></ul>
-                        </li>
-                        <li>
-                            <div class="node-box">3 Diary</div>
-                            <ul id="tasks-3"></ul>
-                        </li>
-                        
-                        <li>
-                            <div class="node-box">24 도구뿌리</div>
+                            <div class="node-box node-root">🌱 3AI Root System</div>
                             <ul>
                                 <li>
-                                    <div class="node-box">41 Superpowers</div>
-                                    <ul id="tasks-41"></ul>
+                                    <div class="node-box">1 Question</div>
+                                    <ul id="tasks-1"></ul>
                                 </li>
                                 <li>
-                                    <div class="node-box">42 만복이들</div>
-                                    <ul id="tasks-42"></ul>
+                                    <div class="node-box">2 Global Define</div>
+                                    <ul id="tasks-2"></ul>
+                                </li>
+                                <li>
+                                    <div class="node-box">3 Diary</div>
+                                    <ul id="tasks-3"></ul>
+                                </li>
+                                
+                                <li>
+                                    <div class="node-box">24 도구뿌리</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node-box">41 Superpowers</div>
+                                            <ul id="tasks-41"></ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">42 만복이들</div>
+                                            <ul id="tasks-42"></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <div class="node-box">25 학습뿌리</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node-box">51 공부방</div>
+                                            <ul id="tasks-51"></ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">52 n8n금융</div>
+                                            <ul id="tasks-52"></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <div class="node-box">26 실전뿌리</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node-box">61 주식대시보드</div>
+                                            <ul id="tasks-61"></ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">62 멀티미디어</div>
+                                            <ul id="tasks-62"></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <div class="node-box">27 생활뿌리</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node-box">71 밀리이북</div>
+                                            <ul id="tasks-71"></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <!-- For unclassified or Root 0 tasks -->
+                                <li>
+                                    <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
+                                    <ul id="tasks-0"></ul>
                                 </li>
                             </ul>
-                        </li>
-                        
-                        <li>
-                            <div class="node-box">25 학습뿌리</div>
-                            <ul>
-                                <li>
-                                    <div class="node-box">51 공부방</div>
-                                    <ul id="tasks-51"></ul>
-                                </li>
-                                <li>
-                                    <div class="node-box">52 n8n금융</div>
-                                    <ul id="tasks-52"></ul>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <div class="node-box">26 실전뿌리</div>
-                            <ul>
-                                <li>
-                                    <div class="node-box">61 주식대시보드</div>
-                                    <ul id="tasks-61"></ul>
-                                </li>
-                                <li>
-                                    <div class="node-box">62 멀티미디어</div>
-                                    <ul id="tasks-62"></ul>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <div class="node-box">27 생활뿌리</div>
-                            <ul>
-                                <li>
-                                    <div class="node-box">71 밀리이북</div>
-                                    <ul id="tasks-71"></ul>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <!-- For unclassified or Root 0 tasks -->
-                        <li>
-                            <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
-                            <ul id="tasks-0"></ul>
                         </li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: 1/3 width, Summary List -->
+        <div class="right-panel glass-panel">
+            <h2 class="section-title">📋 목표 / 할 일 요약보드</h2>
+            <div class="summary-container">
+                <div class="task-col">
+                    <div class="col-header bg-short">📍 단기 목표</div>
+                    <div id="summary-short"></div>
+                </div>
+                <div class="task-col">
+                    <div class="col-header bg-mid">📋 중기 목표</div>
+                    <div id="summary-mid"></div>
+                </div>
+                <div class="task-col">
+                    <div class="col-header bg-long">🔭 장기 목표</div>
+                    <div id="summary-long"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -391,7 +486,7 @@
             document.body.classList.add('dark-mode');
         }
 
-        // Fetch Data
+        // Fetch AI Status
         async function fetchAIStatus() {
             const ais = ['만복', '코니', '안티'];
             for (const ai of ais) {
@@ -406,7 +501,7 @@
                         if(data.status === 'alive' || data.status === 'active') {
                             statusDot.textContent = '🟢';
                             const time = data.last_updated ? (data.last_updated.includes('T') ? data.last_updated.split('T')[1] : data.last_updated) : '진행중';
-                            statusText.textContent = time.substring(0, 8); // hh:mm:ss
+                            statusText.textContent = time.substring(0, 8);
                         } else {
                             statusDot.textContent = '🟡';
                             statusText.textContent = '대기 중';
@@ -434,21 +529,25 @@
         }
 
         function renderTasks(tasks) {
-            // 1. Clear all existing task lists
-            const allTaskLists = document.querySelectorAll('ul[id^="tasks-"]');
-            allTaskLists.forEach(ul => ul.innerHTML = '');
+            // 1. Clear all containers
+            document.querySelectorAll('ul[id^="tasks-"]').forEach(ul => ul.innerHTML = '');
+            const shortContainer = document.getElementById('summary-short');
+            const midContainer = document.getElementById('summary-mid');
+            const longContainer = document.getElementById('summary-long');
+            shortContainer.innerHTML = '';
+            midContainer.innerHTML = '';
+            longContainer.innerHTML = '';
 
-            // 2. Append tasks to their respective root DOM
+            // 2. Render tasks in both Tree (Left) and Summary (Right)
             tasks.forEach(task => {
                 let rootId = task.뿌리 || 0;
-                let container = document.getElementById(`tasks-${rootId}`);
+                let treeContainer = document.getElementById(`tasks-${rootId}`);
+                if(!treeContainer) treeContainer = document.getElementById('tasks-0');
                 
-                if(!container) container = document.getElementById('tasks-0');
-                
-                const li = document.createElement('li');
                 const statusLabel = task.상태 === 'completed' ? '완료' : (task.상태 === 'in_progress' ? '진행 중' : '대기 중');
                 
-                li.innerHTML = `
+                // HTML for the card
+                const cardHTML = `
                     <div class="task-card">
                         <div class="task-title">${task.title || task.id}</div>
                         ${task.설명 ? `<div class="task-desc">${task.설명}</div>` : ''}
@@ -458,7 +557,27 @@
                         </div>
                     </div>
                 `;
-                container.appendChild(li);
+
+                // A. Append to Tree (Left)
+                const treeLi = document.createElement('li');
+                treeLi.innerHTML = cardHTML;
+                treeContainer.appendChild(treeLi);
+
+                // B. Append to Summary Board (Right)
+                const summaryWrapper = document.createElement('div');
+                summaryWrapper.style.marginBottom = "10px";
+                summaryWrapper.innerHTML = cardHTML;
+                // Add Root Badge to summary so it's clear where it belongs
+                const badges = summaryWrapper.querySelector('.badge-container');
+                badges.insertAdjacentHTML('afterbegin', `<span class="badge badge-root">🌱 Root ${rootId}</span>`);
+
+                if (task.기간 === '장기') {
+                    longContainer.appendChild(summaryWrapper);
+                } else if (task.기간 === '중기') {
+                    midContainer.appendChild(summaryWrapper);
+                } else {
+                    shortContainer.appendChild(summaryWrapper);
+                }
             });
         }
 
