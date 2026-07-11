@@ -1,0 +1,57 @@
+{
+  "name": "T011_Cony_Briefing_Sync",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cony-briefing",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "e0d046c0-2646-4c48-a006-25f0a0c4f877",
+      "name": "Webhook (GitHub Push)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "cony-briefing-trigger"
+    },
+    {
+      "parameters": {
+        "command": "python D:\\AI\\Global_Define\\update_cony_briefing.py"
+      },
+      "id": "f5127161-0f79-42b7-a3f1-d00d41936e76",
+      "name": "Execute Python Script",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook (GitHub Push)": {
+      "main": [
+        [
+          {
+            "node": "Execute Python Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "65fc12d5-455b-4835-86f7-b8969a53fa4b",
+  "id": "t011_cony_briefing",
+  "meta": {
+    "instanceId": "local"
+  },
+  "tags": []
+}
