@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3AI 뿌리체계 대시보드 (하이브리드형)</title>
+    <title>3AI 뿌리체계 대시보드 (하이브리드형 - 가로 마인드맵 트리)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +16,7 @@
             --glass-border-light: rgba(255, 255, 255, 0.4);
             --glass-border-dark: rgba(255, 255, 255, 0.1);
             --primary: #1976D2;
-            --primary-light: rgba(25, 118, 210, 0.3);
+            --primary-light: rgba(25, 118, 210, 0.4);
             --success: #4CAF50;
             --warning: #FBC02D;
             --danger: #F44336;
@@ -131,7 +131,7 @@
         /* Left Panel 2/3 */
         .left-panel {
             flex: 2;
-            overflow: auto;
+            overflow: auto; /* Allow scrolling for the tree */
             position: relative;
             padding-right: 10px;
             padding-bottom: 40px;
@@ -154,6 +154,10 @@
             padding: 16px;
             margin: 0;
             border-bottom: 1px solid var(--glass-border-light);
+            position: sticky;
+            top: 0;
+            background: inherit;
+            z-index: 10;
         }
         .dark-mode .section-title { border-bottom-color: var(--glass-border-dark); }
 
@@ -188,63 +192,75 @@
         .dark-mode .bg-mid { color: #90caf9; }
         .dark-mode .bg-long { color: #a5d6a7; }
 
-        /* Top-Down Vertical Tree Layout */
+        /* Left-to-Right Horizontal Tree Layout */
         .tree-container {
-            display: inline-block;
-            min-width: 100%;
-            text-align: center;
-            padding-top: 20px;
+            padding: 20px;
+        }
+
+        .tree {
+            display: flex;
         }
 
         .tree ul {
-            padding-top: 20px; 
+            padding-left: 40px;
             position: relative;
-            display: flex; 
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            list-style: none; 
-            padding-left: 0; 
+            list-style: none;
             margin: 0;
-            flex-wrap: nowrap;
+        }
+
+        .tree > ul {
+            padding-left: 0;
         }
 
         .tree li {
-            text-align: center;
-            list-style-type: none;
             position: relative;
-            padding: 20px 10px 0 10px;
+            padding: 15px 0 15px 40px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            align-items: center; /* Horizontally align the node and its children */
+        }
+
+        .tree > ul > li {
+            padding-left: 0;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         /* Connectors */
-        .tree li::before, .tree li::after{
-            content: ''; 
-            position: absolute; 
-            top: 0; right: 50%;
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Horizontal line connecting to the right child */
+        .tree li::before {
             border-top: 2px solid var(--primary-light);
-            width: 50%; height: 20px;
-        }
-        .tree li::after{
-            right: auto; left: 50%;
-            border-left: 2px solid var(--primary-light);
+            top: 50%;
+            width: 40px;
+            height: 0;
         }
 
-        .tree li:only-child::after, .tree li:only-child::before { display: none; }
-        .tree li:only-child{ padding-top: 0;}
-        .tree li:first-child::before, .tree li:last-child::after{ border: 0 none; }
-        .tree li:last-child::before{
-            border-right: 2px solid var(--primary-light);
-            border-radius: 0 5px 0 0;
-        }
-        .tree li:first-child::after{
-            border-radius: 5px 0 0 0;
+        /* Vertical line dropping from parent */
+        .tree li::after {
+            border-left: 2px solid var(--primary-light);
+            height: 100%;
+            width: 0px;
+            top: 0;
         }
 
-        .tree ul ul::before{
-            content: ''; position: absolute; top: 0; left: 50%;
-            border-left: 2px solid var(--primary-light);
-            width: 0; height: 20px;
+        /* First and last child corrections to not overshoot vertical lines */
+        .tree ul > li:first-child::after {
+            top: 50%;
+            height: 50%;
+        }
+        .tree ul > li:last-child::after {
+            height: 50%;
+        }
+        .tree > ul > li::before, .tree > ul > li::after {
+            display: none; /* No lines for root */
         }
 
         /* Nodes */
@@ -280,41 +296,39 @@
         }
         .dark-mode .node-root { color: white; background: var(--primary); }
 
-        /* Tasks Container (Vertical Stack below project node) */
+        /* Tasks Container (Horizontal Stack to the right of project node) */
         ul[id^="tasks-"] {
             display: flex;
-            flex-direction: column;
-            padding-top: 20px;
+            flex-direction: column; /* Stack tasks vertically... */
+            padding-left: 40px;
             gap: 12px;
         }
-        ul[id^="tasks-"]::before {
-            border-left-style: dashed;
-            border-left-color: var(--warning);
+        ul[id^="tasks-"] li::before { 
+            border-top-style: dashed; 
+            border-top-color: var(--warning); 
+            width: 40px;
         }
-        ul[id^="tasks-"] li {
-            padding: 0;
-            display: flex;
-        }
-        ul[id^="tasks-"] li::before, ul[id^="tasks-"] li::after {
-            display: none; /* Hide horizontal connecting lines for tasks */
+        ul[id^="tasks-"] li::after { 
+            border-left-style: dashed; 
+            border-left-color: var(--warning); 
         }
 
         /* Task Cards */
         .task-card {
             background: rgba(255,255,255,0.9);
-            border-top: 4px solid var(--primary);
+            border-left: 4px solid var(--primary);
             padding: 12px 16px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 220px;
-            max-width: 280px;
+            min-width: 250px;
+            max-width: 320px;
             text-align: left;
             z-index: 10;
         }
         .dark-mode .task-card {
             background: rgba(40,40,40,0.95);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            border-top-color: var(--primary);
+            border-left-color: var(--primary);
         }
 
         .task-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
@@ -347,12 +361,11 @@
 
     <header class="glass-panel">
         <div class="header-left">
-            <h1>🌱 대시보드 v2.0 (하이브리드 2/3 : 1/3)</h1>
+            <h1>🌱 대시보드 v2.1 (하이브리드 마인드맵)</h1>
             <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">🌗</button>
             <span class="last-refresh" id="last-refresh">마지막 갱신: -</span>
         </div>
         
-        <!-- AI Status moved to Header for space saving -->
         <div class="ai-status-bar">
             <div class="ai-card">
                 <span class="status-dot" id="manbok-dot">⚫</span>
@@ -370,8 +383,9 @@
     </header>
 
     <div class="layout-hybrid">
-        <!-- Left Panel: 2/3 width, Vertical Tree -->
-        <div class="left-panel">
+        <!-- Left Panel: 2/3 width, Horizontal Tree -->
+        <div class="left-panel glass-panel">
+            <h2 class="section-title">📂 뿌리 체계 (마인드맵)</h2>
             <div class="tree-container">
                 <div class="tree">
                     <ul>
@@ -443,7 +457,7 @@
                                     </ul>
                                 </li>
                                 
-                                <!-- For unclassified or Root 0 tasks -->
+                                <!-- For unclassified tasks -->
                                 <li>
                                     <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
                                     <ul id="tasks-0"></ul>
@@ -457,7 +471,7 @@
 
         <!-- Right Panel: 1/3 width, Summary List -->
         <div class="right-panel glass-panel">
-            <h2 class="section-title">📋 목표 / 할 일 요약보드</h2>
+            <h2 class="section-title">📋 할 일 요약보드</h2>
             <div class="summary-container">
                 <div class="task-col">
                     <div class="col-header bg-short">📍 단기 목표</div>
@@ -567,7 +581,7 @@
                 const summaryWrapper = document.createElement('div');
                 summaryWrapper.style.marginBottom = "10px";
                 summaryWrapper.innerHTML = cardHTML;
-                // Add Root Badge to summary so it's clear where it belongs
+                // Add Root Badge to summary
                 const badges = summaryWrapper.querySelector('.badge-container');
                 badges.insertAdjacentHTML('afterbegin', `<span class="badge badge-root">🌱 Root ${rootId}</span>`);
 
