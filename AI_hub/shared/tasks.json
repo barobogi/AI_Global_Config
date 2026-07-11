@@ -89,7 +89,7 @@
       "뿌리": 41,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수·연동)",
-      "상태": "in_progress",
+      "상태": "completed",
       "설명": "duckduckgo-search 라이브러리 기반 비동기 병렬 검색 스크립트. 위치: D:\\AI\\Global_Define\\parallel_search.py. 안티 즉시 착수 / 만복 검수 후 승인 / 코니 연동은 n8n(T011) 완료 후. [n8n 확장 조건 내장]: HTTP 엔드포인트 래퍼 가능한 구조 + JSON 입출력 표준화 필수."
     }
     ,{
