@@ -168,3 +168,12 @@
   - 부모 Git 레포지토리(`D:\AI`)에서 기존 submodule 형식으로 추적되던 `Diary_for_Barobogi` 캐시를 제거 (`git rm --cached`)하고, 변경사항을 `main` 브랜치에 커밋 및 Push 완료.
   - 이로써 `.cowork-projects-registry.json`, `.gitignore`, `PROJECTS_INDEX.md`에 설정된 `Daily_for_Barobogi` 경로와 실제 파일시스템 경로가 100% 일치하도록 정규화함.
 
+### 2026-07-11 (코니 세션 — 감독관 역할)
+- [코니] 63번 띄리(유튜브채널) 신설 확인 + T063 역할 제안(썸네일/타이틀템플릿/SEO/성과대시보드/SRT) — 만복·바로보기 승인 완료.
+- [코니] logs.html 오늘자 Hall 반성문 3건(만복 2, 안티 1) 감독관 관점으로 검토 — 개선안 5건 도출(완료보고 증거첨부 의무화, Hall 삼진아웃제, infra_decisions.md 신설, WIP 제한, 저작권 게이트 마감 지정) → 만복·안티 양쪽 전달, 바로보기 검토.
+- [바로보기] Hall 삼진아웃제(D004) 조건부 승인 → 만복 수정안(1개월 유예, Hall시 반성문+예방룰 세트 의무화, 2026-08-11까지 개선 없으면 즉시 전환)으로 최종 확정. decisions.md D004 반영.
+- [코니] D004 최종안 확인 전에 "내일부터 즉시 적용"이라고 만복·안티에게 오공지한 것 발견 → decisions.md 정정, 양쪽 정정 메시지 발송, logs.html에 코니Hall로 자체 등록(data-id: 20260711-5). 교훈: 확정 공지 전 메시지함/decisions.md 최신상태 재확인 원칙화.
+- [만복] 전역 CLAUDE.md에 3AI CC 규칙(A→B 메시지 시 C 항상 CC) 추가. 코니·안티 확인 완료.
+- [만복+안티] T011(n8n+코니동기화), T018(다중채널 RSS 감시), T019(병렬리서치 스킬) 모두 completed. T020(Human-in-the-loop)은 T018 실동작 테스트 후 착수 예정(n8n 포트 충돌로 내일 연기). T021(저작권 체크리스트, 만복 담당)는 T063 착수 전 마감.
+- **세션 종료 (2026-07-11)** — 판단 대기 항목 없음(decisions.md 비우). tasks.json/decisions.md/infra_decisions.md/messages 전부 최신 상태로 동기화 완료. 내일 이어받을 것: (1) n8n 포트(5679) 변경 후 T018 실동작 테스트 → T020 착수, (2) Auto-Security-Patch 제안 tasks.json 등록 여부 만복 확인 필요.
+
