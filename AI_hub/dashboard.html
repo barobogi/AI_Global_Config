@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3AI 뿌리체계 대시보드 (하이브리드형 - 가로 마인드맵 트리)</title>
+    <title>3AI 뿌리체계 대시보드 (하이브리드 마인드맵)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -92,7 +92,6 @@
             margin-left: 10px;
         }
 
-        /* Top Horizontal AI Status */
         .ai-status-bar {
             display: flex;
             gap: 12px;
@@ -121,23 +120,21 @@
         .layout-hybrid {
             display: flex;
             gap: 20px;
-            margin-top: 95px; /* header space */
+            margin-top: 95px;
             height: calc(100vh - 110px);
             width: 100%;
             padding: 0 20px;
             box-sizing: border-box;
         }
 
-        /* Left Panel 2/3 */
         .left-panel {
             flex: 2;
-            overflow: auto; /* Allow scrolling for the tree */
+            overflow: auto;
             position: relative;
             padding-right: 10px;
             padding-bottom: 40px;
         }
 
-        /* Right Panel 1/3 */
         .right-panel {
             flex: 1;
             overflow-y: auto;
@@ -161,7 +158,6 @@
         }
         .dark-mode .section-title { border-bottom-color: var(--glass-border-dark); }
 
-        /* Task Summary Columns */
         .summary-container {
             padding: 16px;
             display: flex;
@@ -209,6 +205,7 @@
             justify-content: center;
             list-style: none;
             margin: 0;
+            gap: 5px; /* Spacing between siblings */
         }
 
         .tree > ul {
@@ -217,15 +214,13 @@
 
         .tree li {
             position: relative;
-            padding: 15px 0 15px 40px;
+            padding: 10px 0 10px 40px;
             display: flex;
-            align-items: center; /* Horizontally align the node and its children */
+            align-items: center;
         }
 
         .tree > ul > li {
             padding-left: 0;
-            padding-top: 0;
-            padding-bottom: 0;
         }
 
         /* Connectors */
@@ -251,7 +246,6 @@
             top: 0;
         }
 
-        /* First and last child corrections to not overshoot vertical lines */
         .tree ul > li:first-child::after {
             top: 50%;
             height: 50%;
@@ -260,7 +254,17 @@
             height: 50%;
         }
         .tree > ul > li::before, .tree > ul > li::after {
-            display: none; /* No lines for root */
+            display: none;
+        }
+
+        /* Distinctive connectors for Task Cards */
+        .tree li.task-item::before {
+            border-top-style: dashed;
+            border-top-color: var(--warning);
+        }
+        .tree li.task-item::after {
+            border-left-style: dashed;
+            border-left-color: var(--warning);
         }
 
         /* Nodes */
@@ -295,23 +299,6 @@
             padding: 14px 20px;
         }
         .dark-mode .node-root { color: white; background: var(--primary); }
-
-        /* Tasks Container (Horizontal Stack to the right of project node) */
-        ul[id^="tasks-"] {
-            display: flex;
-            flex-direction: column; /* Stack tasks vertically... */
-            padding-left: 40px;
-            gap: 12px;
-        }
-        ul[id^="tasks-"] li::before { 
-            border-top-style: dashed; 
-            border-top-color: var(--warning); 
-            width: 40px;
-        }
-        ul[id^="tasks-"] li::after { 
-            border-left-style: dashed; 
-            border-left-color: var(--warning); 
-        }
 
         /* Task Cards */
         .task-card {
@@ -391,74 +378,72 @@
                     <ul>
                         <li>
                             <div class="node-box node-root">🌱 3AI Root System</div>
-                            <ul>
+                            <ul id="children-root">
                                 <li>
                                     <div class="node-box" style="opacity:0.7">0 전역/미분류</div>
-                                    <ul id="tasks-0"></ul>
+                                    <ul id="children-0"></ul>
                                 </li>
                                 <li>
                                     <div class="node-box">1 Question</div>
-                                    <ul id="tasks-1"></ul>
+                                    <ul id="children-1"></ul>
                                 </li>
                                 <li>
                                     <div class="node-box">2 Global Define</div>
-                                    <ul id="tasks-2"></ul>
+                                    <ul id="children-2">
+                                        <!-- Root 24, 25, 26, 27 belong here hierarchically -->
+                                        <li>
+                                            <div class="node-box">24 도구뿌리</div>
+                                            <ul id="children-24">
+                                                <li>
+                                                    <div class="node-box">41 Superpowers</div>
+                                                    <ul id="children-41"></ul>
+                                                </li>
+                                                <li>
+                                                    <div class="node-box">42 만복이들</div>
+                                                    <ul id="children-42"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">25 학습뿌리</div>
+                                            <ul id="children-25">
+                                                <li>
+                                                    <div class="node-box">51 공부방</div>
+                                                    <ul id="children-51"></ul>
+                                                </li>
+                                                <li>
+                                                    <div class="node-box">52 n8n금융</div>
+                                                    <ul id="children-52"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">26 실전뿌리</div>
+                                            <ul id="children-26">
+                                                <li>
+                                                    <div class="node-box">61 주식대시보드</div>
+                                                    <ul id="children-61"></ul>
+                                                </li>
+                                                <li>
+                                                    <div class="node-box">62 멀티미디어</div>
+                                                    <ul id="children-62"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node-box">27 생활뿌리</div>
+                                            <ul id="children-27">
+                                                <li>
+                                                    <div class="node-box">71 밀리이북</div>
+                                                    <ul id="children-71"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <div class="node-box">3 Diary</div>
-                                    <ul id="tasks-3"></ul>
-                                </li>
-                                
-                                <li>
-                                    <div class="node-box">24 도구뿌리</div>
-                                    <ul>
-                                        <li>
-                                            <div class="node-box">41 Superpowers</div>
-                                            <ul id="tasks-41"></ul>
-                                        </li>
-                                        <li>
-                                            <div class="node-box">42 만복이들</div>
-                                            <ul id="tasks-42"></ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <div class="node-box">25 학습뿌리</div>
-                                    <ul>
-                                        <li>
-                                            <div class="node-box">51 공부방</div>
-                                            <ul id="tasks-51"></ul>
-                                        </li>
-                                        <li>
-                                            <div class="node-box">52 n8n금융</div>
-                                            <ul id="tasks-52"></ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <div class="node-box">26 실전뿌리</div>
-                                    <ul>
-                                        <li>
-                                            <div class="node-box">61 주식대시보드</div>
-                                            <ul id="tasks-61"></ul>
-                                        </li>
-                                        <li>
-                                            <div class="node-box">62 멀티미디어</div>
-                                            <ul id="tasks-62"></ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                
-                                <li>
-                                    <div class="node-box">27 생활뿌리</div>
-                                    <ul>
-                                        <li>
-                                            <div class="node-box">71 밀리이북</div>
-                                            <ul id="tasks-71"></ul>
-                                        </li>
-                                    </ul>
+                                    <ul id="children-3"></ul>
                                 </li>
                             </ul>
                         </li>
@@ -541,8 +526,7 @@
         }
 
         function renderTasks(tasks) {
-            // 1. Clear all containers
-            document.querySelectorAll('ul[id^="tasks-"]').forEach(ul => ul.innerHTML = '');
+            // 1. Clear summary containers
             const shortContainer = document.getElementById('summary-short');
             const midContainer = document.getElementById('summary-mid');
             const longContainer = document.getElementById('summary-long');
@@ -550,11 +534,14 @@
             midContainer.innerHTML = '';
             longContainer.innerHTML = '';
 
-            // 2. Render tasks in both Tree (Left) and Summary (Right)
+            // 1.5 Clear old task items from the tree
+            document.querySelectorAll('.task-item').forEach(el => el.remove());
+
+            // 2. Render tasks
             tasks.forEach(task => {
                 let rootId = task.뿌리 || 0;
-                let treeContainer = document.getElementById(`tasks-${rootId}`);
-                if(!treeContainer) treeContainer = document.getElementById('tasks-0');
+                let treeContainer = document.getElementById(`children-${rootId}`);
+                if(!treeContainer) treeContainer = document.getElementById('children-0');
                 
                 const statusLabel = task.상태 === 'completed' ? '완료' : (task.상태 === 'in_progress' ? '진행 중' : '대기 중');
                 
@@ -570,8 +557,9 @@
                     </div>
                 `;
 
-                // A. Append to Tree (Left)
+                // A. Append to Tree (Left) as a new branch
                 const treeLi = document.createElement('li');
+                treeLi.className = 'task-item'; // Special class for dashed connecting lines
                 treeLi.innerHTML = cardHTML;
                 treeContainer.appendChild(treeLi);
 
@@ -579,7 +567,6 @@
                 const summaryWrapper = document.createElement('div');
                 summaryWrapper.style.marginBottom = "10px";
                 summaryWrapper.innerHTML = cardHTML;
-                // Add Root Badge to summary
                 const badges = summaryWrapper.querySelector('.badge-container');
                 badges.insertAdjacentHTML('afterbegin', `<span class="badge badge-root">🌱 Root ${rootId}</span>`);
 
