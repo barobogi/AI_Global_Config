@@ -10,6 +10,6 @@
     "260625_1_n8n_finance":       { "primary": null, "backup": null },
     "11_특허아이디어":              { "primary": null, "backup": null },
     "Global_Define":              { "primary": null, "backup": null },
-    "AI_hub":                     { "primary": null, "backup": null }
+    "AI_hub":                     { "primary": "만복", "backup": "안티" }
   }
 }
