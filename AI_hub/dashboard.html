@@ -443,6 +443,10 @@
                                                     <div class="node-box" onclick="filterTasks(62)">62 멀티미디어</div>
                                                     <ul id="children-62"></ul>
                                                 </li>
+                                                <li>
+                                                    <div class="node-box" onclick="filterTasks(63)">63 유튜브채널</div>
+                                                    <ul id="children-63"></ul>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>
@@ -545,13 +549,22 @@
             }
         }
 
+        // 상위 뿌리 → 포함되는 모든 하위 뿌리 번호
+        const ROOT_CHILDREN = {
+            2:  [2, 24, 25, 26, 27, 41, 42, 51, 52, 61, 62, 71],
+            24: [24, 41, 42],
+            25: [25, 51, 52],
+            26: [26, 61, 62, 63],
+            27: [27, 71],
+        };
+
         function filterTasks(rootId) {
+            const included = rootId === null ? null
+                : (ROOT_CHILDREN[rootId] || [rootId]);
             document.querySelectorAll('.task-summary-wrapper').forEach(wrapper => {
-                if (rootId === null || parseInt(wrapper.dataset.root) === rootId) {
-                    wrapper.style.display = 'block';
-                } else {
-                    wrapper.style.display = 'none';
-                }
+                const wr = parseInt(wrapper.dataset.root);
+                const visible = included === null || included.includes(wr);
+                wrapper.style.display = visible ? 'block' : 'none';
             });
         }
 
