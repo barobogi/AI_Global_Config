@@ -6,28 +6,31 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-11 20:29 수동 갱신)
+## 🔄 최신 상태 (2026-07-11 21:35 수동 갱신)
 
-### ✅ 2026-07-11 완료 (오후 추가)
+### ✅ 2026-07-11 완료 (저녁)
 
-- **T011 지시서 발송** — n8n(C:\n8n v1.123.63) GitHub push → 코니_브리핑 즉시 갱신 워크플로우
-- **T018 지시서 발송** — 다중채널 RSS(호두/알렉) + youtube_pobbagi.py 자동 뽀개기 파이프라인
-- **T019 신규 등록** — 41 도구뿌리, duckduckgo-search 병렬 리서치 스킬 (안티 즉시 착수)
-- **승인 SLA 추가** — CLAUDE.md: 만복 2시간 미응답 시 UI 수정 자동 승인
-- **63_youtube_creator\README.md** — R&R + 착수 조건 + 저작권 철칙 문서화
-- **n8n Hall 수정** — C:\n8n 기존 설치본 확인, memory 저장 완료 (D 드라이브 재설치 시도 Hall)
-- **Logs 반성문 등록** — 20260711-1 (만복Hall: compact 후 n8n 재설치 낭비)
+- **T011/T018/T019 모두 completed** — tasks.json 반영
+- **master_watch.py** — push 즉시 `_generate_koni_briefing()` 호출 추가 (n8n/webhook 불필요, 1줄로 T011 진짜 완성)
+- **T020 등록** — Human-in-the-loop 모듈 (뿌리 52, pending, T018 완료 후 착수)
+- **T021 등록** — T063 착수 전 저작권 체크리스트 문서화 (만복 담당)
+- **CLAUDE.md 5건 추가** — CC 의무화 / Hall 재발방지(삼진아웃제 1개월 유예) / WIP 제한 / 완료보고 증거첨부 / infra_decisions.md 신설
+- **infra_decisions.md 신설** — `D:\AI\AI_hub\shared\infra_decisions.md` (compact 생존용)
+- **반성문 2건** — 만복 20260711-1(n8n 재설치), 만복 20260711-2(T011 n8n 헛설계)
+- **AI Study 20260711-6** — 3AI 거버넌스 Day 5대 원칙
 
-### ✅ 2026-07-11 완료 (오전)
+### ✅ 2026-07-11 완료 (오전/오후)
 
-- 3AI 협업 정책 확정 → CLAUDE.md 반영 (대시보드권한/작당모의규칙/업무분산원칙/저작권철칙)
-- 63번 뿌리 신설, T063 R&R 확정 (바로보기의 3AI 연구소 @3ai-lab)
-- concept_booster.py 21:00 연동, 대시보드 v2.2 filterTasks 버그 수정
-- 게시판 5건 등록, 스케줄러 4개 21:00 통일, 알렉님 채널 447건 완료
+- 3AI 협업 정책 확정, 63번 뿌리 신설, T063 R&R 확정
+- concept_booster.py 21:00 연동, 대시보드 v2.2 버그 수정
+- 게시판 5건, 스케줄러 4개 21:00 통일, 알렉님 채널 447건
 
-### 🔄 진행 중
+### 🔄 내일 할 일
 
-- **안티 T011** — GitHub push → n8n → 코니_브리핑 즉시 갱신 (착수 중)
+- **n8n 포트 문제 해결** — System(PID 4)이 5678 점유, Node.js 22로 전환 후 재시도
+- **T018 end-to-end 테스트** — YouTube API Key 필요 (바로보기님 확인)
+- **T020 착수** — n8n 안정화 후 안티가 파이썬 봇 구현
+- **AutoSecurityPatch 제안 검토** — 안티 신규 제안, 만복이 직접 구현은 불가 (업무분산 원칙)
 - **안티 T018** — 호두/알렉 채널 RSS + youtube_pobbagi.py 자동 뽀개기 (착수 중)
 - **안티 T019** — Global_Define\parallel_search.py 병렬 리서치 스킬 (착수 중)
 - **안티 @with2511 뽀개기** — 완료 시 T018 ③번 채널 추가
@@ -170,28 +173,31 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-11 20:29 수동 갱신)
+## 🔄 최신 상태 (2026-07-11 21:35 수동 갱신)
 
-### ✅ 2026-07-11 완료 (오후 추가)
+### ✅ 2026-07-11 완료 (저녁)
 
-- **T011 지시서 발송** — n8n(C:\n8n v1.123.63) GitHub push → 코니_브리핑 즉시 갱신 워크플로우
-- **T018 지시서 발송** — 다중채널 RSS(호두/알렉) + youtube_pobbagi.py 자동 뽀개기 파이프라인
-- **T019 신규 등록** — 41 도구뿌리, duckduckgo-search 병렬 리서치 스킬 (안티 즉시 착수)
-- **승인 SLA 추가** — CLAUDE.md: 만복 2시간 미응답 시 UI 수정 자동 승인
-- **63_youtube_creator\README.md** — R&R + 착수 조건 + 저작권 철칙 문서화
-- **n8n Hall 수정** — C:\n8n 기존 설치본 확인, memory 저장 완료 (D 드라이브 재설치 시도 Hall)
-- **Logs 반성문 등록** — 20260711-1 (만복Hall: compact 후 n8n 재설치 낭비)
+- **T011/T018/T019 모두 completed** — tasks.json 반영
+- **master_watch.py** — push 즉시 `_generate_koni_briefing()` 호출 추가 (n8n/webhook 불필요, 1줄로 T011 진짜 완성)
+- **T020 등록** — Human-in-the-loop 모듈 (뿌리 52, pending, T018 완료 후 착수)
+- **T021 등록** — T063 착수 전 저작권 체크리스트 문서화 (만복 담당)
+- **CLAUDE.md 5건 추가** — CC 의무화 / Hall 재발방지(삼진아웃제 1개월 유예) / WIP 제한 / 완료보고 증거첨부 / infra_decisions.md 신설
+- **infra_decisions.md 신설** — `D:\AI\AI_hub\shared\infra_decisions.md` (compact 생존용)
+- **반성문 2건** — 만복 20260711-1(n8n 재설치), 만복 20260711-2(T011 n8n 헛설계)
+- **AI Study 20260711-6** — 3AI 거버넌스 Day 5대 원칙
 
-### ✅ 2026-07-11 완료 (오전)
+### ✅ 2026-07-11 완료 (오전/오후)
 
-- 3AI 협업 정책 확정 → CLAUDE.md 반영 (대시보드권한/작당모의규칙/업무분산원칙/저작권철칙)
-- 63번 뿌리 신설, T063 R&R 확정 (바로보기의 3AI 연구소 @3ai-lab)
-- concept_booster.py 21:00 연동, 대시보드 v2.2 filterTasks 버그 수정
-- 게시판 5건 등록, 스케줄러 4개 21:00 통일, 알렉님 채널 447건 완료
+- 3AI 협업 정책 확정, 63번 뿌리 신설, T063 R&R 확정
+- concept_booster.py 21:00 연동, 대시보드 v2.2 버그 수정
+- 게시판 5건, 스케줄러 4개 21:00 통일, 알렉님 채널 447건
 
-### 🔄 진행 중
+### 🔄 내일 할 일
 
-- **안티 T011** — GitHub push → n8n → 코니_브리핑 즉시 갱신 (착수 중)
+- **n8n 포트 문제 해결** — System(PID 4)이 5678 점유, Node.js 22로 전환 후 재시도
+- **T018 end-to-end 테스트** — YouTube API Key 필요 (바로보기님 확인)
+- **T020 착수** — n8n 안정화 후 안티가 파이썬 봇 구현
+- **AutoSecurityPatch 제안 검토** — 안티 신규 제안, 만복이 직접 구현은 불가 (업무분산 원칙)
 - **안티 T018** — 호두/알렉 채널 RSS + youtube_pobbagi.py 자동 뽀개기 (착수 중)
 - **안티 T019** — Global_Define\parallel_search.py 병렬 리서치 스킬 (착수 중)
 - **안티 @with2511 뽀개기** — 완료 시 T018 ③번 채널 추가
