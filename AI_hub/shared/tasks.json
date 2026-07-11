@@ -16,8 +16,8 @@
       "title": "다중 채널 RSS 감시 + 자동 뽀개기 파이프라인",
       "뿌리": 52,
       "기간": "단기",
-      "담당": null,
-      "상태": "pending",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
       "설명": "n8n RSS Trigger로 신규 영상 감지 → youtube_pobbagi.py → 학습카드 생성 → Firebase 개념노트 자동 등록. 감시 채널: ①호두(기존) ②기술노트with알렉(UCBtG00ljZ8R_DBQCTR4C00A, 447건 기완료) ③@with2511(안티 완료 후 추가)"
     },
     {
