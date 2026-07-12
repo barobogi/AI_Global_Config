@@ -6,40 +6,28 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-11 21:35 수동 갱신)
+## 🔄 최신 상태 (2026-07-12 09:54 수동 갱신)
 
-### ✅ 2026-07-11 완료 (저녁)
+### ✅ 2026-07-12 완료 (오전)
 
-- **T011/T018/T019 모두 completed** — tasks.json 반영
-- **master_watch.py** — push 즉시 `_generate_koni_briefing()` 호출 추가 (n8n/webhook 불필요, 1줄로 T011 진짜 완성)
-- **T020 등록** — Human-in-the-loop 모듈 (뿌리 52, pending, T018 완료 후 착수)
-- **T021 등록** — T063 착수 전 저작권 체크리스트 문서화 (만복 담당)
-- **CLAUDE.md 5건 추가** — CC 의무화 / Hall 재발방지(삼진아웃제 1개월 유예) / WIP 제한 / 완료보고 증거첨부 / infra_decisions.md 신설
-- **infra_decisions.md 신설** — `D:\AI\AI_hub\shared\infra_decisions.md` (compact 생존용)
-- **반성문 2건** — 만복 20260711-1(n8n 재설치), 만복 20260711-2(T011 n8n 헛설계)
-- **AI Study 20260711-6** — 3AI 거버넌스 Day 5대 원칙
+- **정기 작업** — D:\AI 폴더 네이밍 점검 (현상태 유지 확정), Memory 3개 업데이트
+- **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
+- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 02~06시 쿨다운
+- **n8n 포트 10678 해결** — 안티 `D:\Dev\n8n_start.bat` 작성. 데이터: `D:\Dev\n8n_data`
+- **n8n 로그인 복구** — DB 직접 계정 생성 (barobogi79@gmail.com)
+- **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
+- **T020 안티 착수 지시** — Human-in-the-loop 승인 모듈
 
-### ✅ 2026-07-11 완료 (오전/오후)
+### 🔄 진행 중
 
-- 3AI 협업 정책 확정, 63번 뿌리 신설, T063 R&R 확정
-- concept_booster.py 21:00 연동, 대시보드 v2.2 버그 수정
-- 게시판 5건, 스케줄러 4개 21:00 통일, 알렉님 채널 447건
-
-### 🔄 내일 할 일
-
-- **n8n 포트 문제 해결** — System(PID 4)이 5678 점유, Node.js 22로 전환 후 재시도
-- **T018 end-to-end 테스트** — YouTube API Key 필요 (바로보기님 확인)
-- **T020 착수** — n8n 안정화 후 안티가 파이썬 봇 구현
-- **AutoSecurityPatch 제안 검토** — 안티 신규 제안, 만복이 직접 구현은 불가 (업무분산 원칙)
-- **안티 T018** — 호두/알렉 채널 RSS + youtube_pobbagi.py 자동 뽀개기 (착수 중)
-- **안티 T019** — Global_Define\parallel_search.py 병렬 리서치 스킬 (착수 중)
-- **안티 @with2511 뽀개기** — 완료 시 T018 ③번 채널 추가
+- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 (착수 중)
 
 ### 📋 다음 할 일
 
-1. 안티 T011/T018/T019 완료 보고 → 만복 검수 → 승인
-2. T018 ③번(@with2511) — 안티 뽀개기 완료 후 추가 지시
-3. T063 코니 선행 작업(썸네일/SEO) — T011/T018 완료 후 착수
+1. 안티 T020 완료 보고 → 만복 검수 → 승인
+2. 아키텍처 개선 2 (워치독 격리) — 안티 T020 완료 후 착수
+3. T063 착수 — T020/T021 완료 후 3AI 유튜브 파이프라인
+4. T013 개념노트 자동 보충 스크립트 — 담당 미정, 검토 필요
 
 ---
 
@@ -173,40 +161,28 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-11 21:35 수동 갱신)
+## 🔄 최신 상태 (2026-07-12 09:54 수동 갱신)
 
-### ✅ 2026-07-11 완료 (저녁)
+### ✅ 2026-07-12 완료 (오전)
 
-- **T011/T018/T019 모두 completed** — tasks.json 반영
-- **master_watch.py** — push 즉시 `_generate_koni_briefing()` 호출 추가 (n8n/webhook 불필요, 1줄로 T011 진짜 완성)
-- **T020 등록** — Human-in-the-loop 모듈 (뿌리 52, pending, T018 완료 후 착수)
-- **T021 등록** — T063 착수 전 저작권 체크리스트 문서화 (만복 담당)
-- **CLAUDE.md 5건 추가** — CC 의무화 / Hall 재발방지(삼진아웃제 1개월 유예) / WIP 제한 / 완료보고 증거첨부 / infra_decisions.md 신설
-- **infra_decisions.md 신설** — `D:\AI\AI_hub\shared\infra_decisions.md` (compact 생존용)
-- **반성문 2건** — 만복 20260711-1(n8n 재설치), 만복 20260711-2(T011 n8n 헛설계)
-- **AI Study 20260711-6** — 3AI 거버넌스 Day 5대 원칙
+- **정기 작업** — D:\AI 폴더 네이밍 점검 (현상태 유지 확정), Memory 3개 업데이트
+- **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
+- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 02~06시 쿨다운
+- **n8n 포트 10678 해결** — 안티 `D:\Dev\n8n_start.bat` 작성. 데이터: `D:\Dev\n8n_data`
+- **n8n 로그인 복구** — DB 직접 계정 생성 (barobogi79@gmail.com)
+- **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
+- **T020 안티 착수 지시** — Human-in-the-loop 승인 모듈
 
-### ✅ 2026-07-11 완료 (오전/오후)
+### 🔄 진행 중
 
-- 3AI 협업 정책 확정, 63번 뿌리 신설, T063 R&R 확정
-- concept_booster.py 21:00 연동, 대시보드 v2.2 버그 수정
-- 게시판 5건, 스케줄러 4개 21:00 통일, 알렉님 채널 447건
-
-### 🔄 내일 할 일
-
-- **n8n 포트 문제 해결** — System(PID 4)이 5678 점유, Node.js 22로 전환 후 재시도
-- **T018 end-to-end 테스트** — YouTube API Key 필요 (바로보기님 확인)
-- **T020 착수** — n8n 안정화 후 안티가 파이썬 봇 구현
-- **AutoSecurityPatch 제안 검토** — 안티 신규 제안, 만복이 직접 구현은 불가 (업무분산 원칙)
-- **안티 T018** — 호두/알렉 채널 RSS + youtube_pobbagi.py 자동 뽀개기 (착수 중)
-- **안티 T019** — Global_Define\parallel_search.py 병렬 리서치 스킬 (착수 중)
-- **안티 @with2511 뽀개기** — 완료 시 T018 ③번 채널 추가
+- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 (착수 중)
 
 ### 📋 다음 할 일
 
-1. 안티 T011/T018/T019 완료 보고 → 만복 검수 → 승인
-2. T018 ③번(@with2511) — 안티 뽀개기 완료 후 추가 지시
-3. T063 코니 선행 작업(썸네일/SEO) — T011/T018 완료 후 착수
+1. 안티 T020 완료 보고 → 만복 검수 → 승인
+2. 아키텍처 개선 2 (워치독 격리) — 안티 T020 완료 후 착수
+3. T063 착수 — T020/T021 완료 후 3AI 유튜브 파이프라인
+4. T013 개념노트 자동 보충 스크립트 — 담당 미정, 검토 필요
 
 ---
 
