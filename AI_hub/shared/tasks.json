@@ -18,6 +18,7 @@
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
       "상태": "completed",
+      "완료일": "2026-07-12",
       "설명": "n8n RSS Trigger로 신규 영상 감지 → youtube_pobbagi.py → 학습카드 생성 → Firebase 개념노트 자동 등록. 감시 채널: ①호두(기존) ②기술노트with알렉(UCBtG00ljZ8R_DBQCTR4C00A, 447건 기완료) ③@with2511(안티 완료 후 추가)"
     },
     {
