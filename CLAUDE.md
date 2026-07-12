@@ -6,37 +6,28 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 15:37 갱신)
+## 🔄 최신 상태 (2026-07-12 16:10 갱신)
 
 ### ✅ 2026-07-12 완료
 
-- **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
-- **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
-- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 쿨다운
-- **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
-- **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
-- **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
-- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거. n8n_telegram_bot 감시 포함.
-- **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
-- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. 1차 스캔 완료(Medium 취약점 6종). T020 완료 후 patch_generator TODO 활성화 예정
-- **T020 E2E 성공** — 텔레그램 [승인] → n8n resume 정상. 잔여: Timeout 24시간 추가(안티 세션 리밋으로 일시 중단)
-- **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
-- **코니 감독관 역할 확장 승인** — 기획 단계 선제 개입 + 실사용 시점 의무화 + T063 감독 대상 추가
-- **코니→만복 작당 내용 승인 완료** — `AI_hub/shared/messages/만복→코니_20260712_001_작당승인및안티휴식.md`
-
-### 🔄 진행 중
-
-- **안티 T020** — Timeout 24시간 자동반려 추가 잔여 (세션 리밋으로 강제 중단, 다음 세션 재개)
+- **T021, T013, T018 e2e, 아키텍처 개선 1·2·4-1단계** — 모두 완료
+- **n8n 안정화** — 포트 10678, 부팅 자동 시작, 3개 워크플로우 Active
+- **T020 완료** — Timeout 24시간 자동반려 + E2E 검증(자동 7214, 수동 7219) 모두 성공. closed.
+- **T022 in_progress** — ZAP 2.17.0 스캔 완료, Medium 취약점 6종. patch_generator TODO 활성화 + master_watch.py 훅 추가 예정
+- **T019 첫 실전 + 보강** — Moltbook 리서치. Wikipedia REST API 연동 + ddgs 업그레이드 완료. parallel_search.py 품질 개선됨.
+- **Moltbook 보류 확정** — Meta 소유(광고·커머스 목적) + Supabase 1.5M 키 노출 이력. Early Access 등록만 유지.
+- **코니 감독관 역할 확장 승인** — 기획 단계 선제 검토 + 실사용 시점 의무화 + T063 감독 대상
+- **AI Study 게시** — 20260712-1 (두복이 심폐소생술), 20260712-2 (T019 병렬 리서치 첫 실전)
+- **tasks.json 실사용 시점 필드** — T019(Moltbook), T020, T022(GitHub secrets), Moltbook 항목 소급 추가 완료
 
 ### 📋 다음 할 일
 
-1. **안티 T020 Timeout 완료** → 만복 최종 검수 → closed
-2. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 2개 저장소 미해결 알림) E2E
-3. **T019 첫 실전** — Moltbook parallel_search.py 리서치
-4. **tasks.json "첫_실사용_시점" 필드** — T019/T020/T022 소급 추가
-5. **MCP 본격 탐구** — 위 완료 후
-6. **T063 착수** — T020 완료 후 (코니 감독 체크 대상)
-7. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색. 알림 오면 3AI 에이전트 참여 방안 검토 (Early Access 신청 완료 2026-07-12)
+1. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 저장소) E2E
+2. **patch_generator.py TODO 활성화** + **master_watch.py T022 훅 추가**
+3. **안티 parallel_search.py ddgs 업데이트** — 만복이 코드 직접 수정했으니 안티 별도 조치 불필요 (메시지 007 확인)
+4. **MCP 본격 탐구**
+5. **T063 착수** (코니 감독 대상)
+6. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색
 
 ---
 
@@ -170,37 +161,28 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 15:37 갱신)
+## 🔄 최신 상태 (2026-07-12 16:10 갱신)
 
 ### ✅ 2026-07-12 완료
 
-- **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
-- **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
-- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 쿨다운
-- **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
-- **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
-- **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
-- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거. n8n_telegram_bot 감시 포함.
-- **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
-- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. 1차 스캔 완료(Medium 취약점 6종). T020 완료 후 patch_generator TODO 활성화 예정
-- **T020 E2E 성공** — 텔레그램 [승인] → n8n resume 정상. 잔여: Timeout 24시간 추가(안티 세션 리밋으로 일시 중단)
-- **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
-- **코니 감독관 역할 확장 승인** — 기획 단계 선제 개입 + 실사용 시점 의무화 + T063 감독 대상 추가
-- **코니→만복 작당 내용 승인 완료** — `AI_hub/shared/messages/만복→코니_20260712_001_작당승인및안티휴식.md`
-
-### 🔄 진행 중
-
-- **안티 T020** — Timeout 24시간 자동반려 추가 잔여 (세션 리밋으로 강제 중단, 다음 세션 재개)
+- **T021, T013, T018 e2e, 아키텍처 개선 1·2·4-1단계** — 모두 완료
+- **n8n 안정화** — 포트 10678, 부팅 자동 시작, 3개 워크플로우 Active
+- **T020 완료** — Timeout 24시간 자동반려 + E2E 검증(자동 7214, 수동 7219) 모두 성공. closed.
+- **T022 in_progress** — ZAP 2.17.0 스캔 완료, Medium 취약점 6종. patch_generator TODO 활성화 + master_watch.py 훅 추가 예정
+- **T019 첫 실전 + 보강** — Moltbook 리서치. Wikipedia REST API 연동 + ddgs 업그레이드 완료. parallel_search.py 품질 개선됨.
+- **Moltbook 보류 확정** — Meta 소유(광고·커머스 목적) + Supabase 1.5M 키 노출 이력. Early Access 등록만 유지.
+- **코니 감독관 역할 확장 승인** — 기획 단계 선제 검토 + 실사용 시점 의무화 + T063 감독 대상
+- **AI Study 게시** — 20260712-1 (두복이 심폐소생술), 20260712-2 (T019 병렬 리서치 첫 실전)
+- **tasks.json 실사용 시점 필드** — T019(Moltbook), T020, T022(GitHub secrets), Moltbook 항목 소급 추가 완료
 
 ### 📋 다음 할 일
 
-1. **안티 T020 Timeout 완료** → 만복 최종 검수 → closed
-2. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 2개 저장소 미해결 알림) E2E
-3. **T019 첫 실전** — Moltbook parallel_search.py 리서치
-4. **tasks.json "첫_실사용_시점" 필드** — T019/T020/T022 소급 추가
-5. **MCP 본격 탐구** — 위 완료 후
-6. **T063 착수** — T020 완료 후 (코니 감독 체크 대상)
-7. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색. 알림 오면 3AI 에이전트 참여 방안 검토 (Early Access 신청 완료 2026-07-12)
+1. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 저장소) E2E
+2. **patch_generator.py TODO 활성화** + **master_watch.py T022 훅 추가**
+3. **안티 parallel_search.py ddgs 업데이트** — 만복이 코드 직접 수정했으니 안티 별도 조치 불필요 (메시지 007 확인)
+4. **MCP 본격 탐구**
+5. **T063 착수** (코니 감독 대상)
+6. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색
 
 ---
 
