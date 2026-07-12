@@ -128,6 +128,25 @@
       "설명": "E2E 완료(2026-07-12). ZAP→Claude CLI 패치→T020 승인 버튼→git push 전체 흐름 검증. patch_generator.py T022 모드 + n8n_telegram_bot.py T022 케이스 추가. master_watch.py GitHub Pages push 후 3분 대기→보안 스캔 자동 훅 추가(1시간 쿨다운). 커밋: e167b16 (Daily_for_Barobogi CSP fix). [잔여] 1차 스캔 발견 취약점 5건(Anti-clickjacking, SRI 누락 등) 순차 처리 + 자동패치 화이트리스트 정의 (정적파일 수정=자동OK, 서버설정류=추가 리뷰) — 안티 제안1 병합 반영(2026-07-12)."
     }
     ,{
+      "id": "T_inbox",
+      "title": "3AI 통합 수신함 (inbox.md) 단일화",
+      "뿌리": 0,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "수신함 분산(messages/+tasks+코니브리핑+텔레그램) → AI_hub/status/inbox.md 단일 집계. master_watch.py 5분마다 + messages/ 변경 시 즉시 갱신. 세션 시작 시 이 파일만 읽으면 누락 제로. 3AI 단체 Hall(확인 없이 결론) 재발 방지 목적."
+    }
+    ,{
+      "id": "T_sotto",
+      "title": "Sotto Pro — 음성 vibe coding (마이크 홀드 CLI 지시)",
+      "뿌리": 24,
+      "기간": "단기",
+      "담당": null,
+      "상태": "pending",
+      "설명": "안티 제안3. Whisper(STT)+로컬LLM으로 음성→텍스트→Claude CLI 지시. 착수 전 리소스 측정 필요: ①Qwen 파라미터 수별 VRAM/RAM 점유 ②단축키 충돌 여부 ③상시대기 CPU 사용량. 코니 검토 완료, 만복 리소스 측정 후 최종 승인."
+    }
+    ,{
       "id": "T063",
       "title": "3AI 유튜브 채널 자동화 파이프라인",
       "뿌리": 63,
