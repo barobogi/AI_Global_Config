@@ -125,7 +125,7 @@
       "상태": "completed",
       "완료일": "2026-07-12",
       "첫_실사용_시점": "Daily_for_Barobogi CSP 취약점 — T020 텔레그램 승인 → git push 자동 완료 (2026-07-12)",
-      "설명": "E2E 완료(2026-07-12). ZAP→Claude CLI 패치→T020 승인 버튼→git push 전체 흐름 검증. patch_generator.py T022 모드 + n8n_telegram_bot.py T022 케이스 추가. master_watch.py GitHub Pages push 후 3분 대기→보안 스캔 자동 훅 추가(1시간 쿨다운). 커밋: e167b16 (Daily_for_Barobogi CSP fix)."
+      "설명": "E2E 완료(2026-07-12). ZAP→Claude CLI 패치→T020 승인 버튼→git push 전체 흐름 검증. patch_generator.py T022 모드 + n8n_telegram_bot.py T022 케이스 추가. master_watch.py GitHub Pages push 후 3분 대기→보안 스캔 자동 훅 추가(1시간 쿨다운). 커밋: e167b16 (Daily_for_Barobogi CSP fix). [잔여] 1차 스캔 발견 취약점 5건(Anti-clickjacking, SRI 누락 등) 순차 처리 + 자동패치 화이트리스트 정의 (정적파일 수정=자동OK, 서버설정류=추가 리뷰) — 안티 제안1 병합 반영(2026-07-12)."
     }
     ,{
       "id": "T063",
