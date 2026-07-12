@@ -1,0 +1,40 @@
+{
+  "targets": [
+    {
+      "name": "Study Dashboard",
+      "url": "https://barobogi.github.io/Study_Dashboard/",
+      "mode": "passive",
+      "local_path": "D:\\AI\\260623_1_study_all\\study-dashboard.html"
+    },
+    {
+      "name": "Daily for Barobogi",
+      "url": "https://barobogi.github.io/Daily_for_Barobogi/",
+      "mode": "passive",
+      "local_path": "D:\\AI\\Daily_for_Barobogi"
+    },
+    {
+      "name": "Stock Dashboard",
+      "url": "https://barobogi.github.io/stock_dashboard/",
+      "mode": "passive",
+      "local_path": "D:\\AI\\Improve_stock"
+    },
+    {
+      "name": "Improve Stock",
+      "url": "https://barobogi.github.io/Improve_stock/",
+      "mode": "passive",
+      "local_path": "D:\\AI\\Improve_stock"
+    },
+    {
+      "name": "AI Hub Dashboard",
+      "url": "https://barobogi.github.io/AI_Global_Config/AI_hub/dashboard.html",
+      "mode": "passive",
+      "local_path": "D:\\AI\\AI_hub\\dashboard.html"
+    }
+  ],
+  "zap": {
+    "jar": "D:\\Dev\\ZAP\\zap-2.15.0.jar",
+    "java": "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+    "timeout_sec": 300
+  },
+  "alert_threshold": ["High", "Medium"]
+}
