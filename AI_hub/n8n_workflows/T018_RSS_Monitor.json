@@ -40,42 +40,6 @@
         300
       ]
     },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://YOUR_FIREBASE_PROJECT.firebaseio.com/videos.json",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "video_id",
-              "value": "={{$json.video_id}}"
-            },
-            {
-              "name": "title",
-              "value": "={{$json.title}}"
-            },
-            {
-              "name": "channel",
-              "value": "={{$json.channel}}"
-            },
-            {
-              "name": "transcript",
-              "value": "={{$json.transcript}}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f5127161-0f79-42b7-a3f1-d00d41936e78",
-      "name": "HTTP to Firebase",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        850,
-        300
-      ]
-    }
   ],
   "pinData": {},
   "connections": {
@@ -95,17 +59,6 @@
         [
           {
             "node": "Parse JSON",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parse JSON": {
-      "main": [
-        [
-          {
-            "node": "HTTP to Firebase",
             "type": "main",
             "index": 0
           }
