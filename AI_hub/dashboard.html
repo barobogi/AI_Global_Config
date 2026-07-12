@@ -456,6 +456,10 @@
                                                     <div class="node-box" onclick="filterTasks(71)">71 밀리이북</div>
                                                     <ul id="children-71"></ul>
                                                 </li>
+                                                <li>
+                                                    <div class="node-box" onclick="filterTasks(72)">72 가족봇</div>
+                                                    <ul id="children-72"></ul>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -551,11 +555,11 @@
 
         // 상위 뿌리 → 포함되는 모든 하위 뿌리 번호
         const ROOT_CHILDREN = {
-            2:  [2, 24, 25, 26, 27, 41, 42, 51, 52, 61, 62, 71],
+            2:  [2, 24, 25, 26, 27, 41, 42, 51, 52, 61, 62, 71, 72],
             24: [24, 41, 42],
             25: [25, 51, 52],
             26: [26, 61, 62, 63],
-            27: [27, 71],
+            27: [27, 71, 72],
         };
 
         function filterTasks(rootId) {
