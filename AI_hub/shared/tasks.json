@@ -75,8 +75,9 @@
       "뿌리": 0,
       "기간": "단기",
       "담당": "만복 (총괄) / 안티 (2단계 구현)",
-      "상태": "in_progress",
-      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계 착수(2026-07-12): Firebase → 로컬 SQLite 마이그레이션 — local_db.py 신설 + concept_booster.py + youtube_pobbagi.py 수정, 옵션A(n8n HTTP 노드 삭제, 스크립트 내 직접 insert). 안티 구현 중."
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료: CLI subprocess 교체. 2단계 완료(2026-07-12): Firebase → 로컬 SQLite 마이그레이션 — local_db.py 신설(D:\\AI\\Global_Define\\), concept_booster.py + youtube_pobbagi.py 수정, n8n HTTP→Firebase 노드 삭제. concepts.json/videos.json D:\\AI\\AI_hub\\shared\\data\\ 자동 익스포트."
     },
     {
       "id": "아키텍처_개선_5_(지능형_라우팅)",
