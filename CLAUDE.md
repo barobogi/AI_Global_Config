@@ -6,9 +6,9 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 10:53 갱신)
+## 🔄 최신 상태 (2026-07-12 15:37 갱신)
 
-### ✅ 2026-07-12 완료 (오전~오후)
+### ✅ 2026-07-12 완료
 
 - **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
 - **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
@@ -16,22 +16,26 @@
 - **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
 - **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
 - **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
-- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거
+- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거. n8n_telegram_bot 감시 포함.
 - **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
-- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. T020 후 TODO 활성화 예정
-- **T020 착수 승인** — 안티 수정사항 3개 포함 지시. barobogi_approval_bot 생성 완료
+- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. 1차 스캔 완료(Medium 취약점 6종). T020 완료 후 patch_generator TODO 활성화 예정
+- **T020 E2E 성공** — 텔레그램 [승인] → n8n resume 정상. 잔여: Timeout 24시간 추가(안티 세션 리밋으로 일시 중단)
 - **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
+- **코니 감독관 역할 확장 승인** — 기획 단계 선제 개입 + 실사용 시점 의무화 + T063 감독 대상 추가
+- **코니→만복 작당 내용 승인 완료** — `AI_hub/shared/messages/만복→코니_20260712_001_작당승인및안티휴식.md`
 
 ### 🔄 진행 중
 
-- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 구현 중
+- **안티 T020** — Timeout 24시간 자동반려 추가 잔여 (세션 리밋으로 강제 중단, 다음 세션 재개)
 
 ### 📋 다음 할 일
 
-1. 안티 T020 완료 보고 → 만복 검수 → 승인
-2. T020 완료 후: supervisor.py에 n8n_telegram_bot 감시 추가 + patch_generator.py TODO 활성화 + T022 master_watch.py 훅 추가
-3. MCP 본격 탐구
-4. T063 착수 — T020 완료 후
+1. **안티 T020 Timeout 완료** → 만복 최종 검수 → closed
+2. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 2개 저장소 미해결 알림) E2E
+3. **T019 첫 실전** — Moltbook parallel_search.py 리서치
+4. **tasks.json "첫_실사용_시점" 필드** — T019/T020/T022 소급 추가
+5. **MCP 본격 탐구** — 위 완료 후
+6. **T063 착수** — T020 완료 후 (코니 감독 체크 대상)
 
 ---
 
@@ -165,9 +169,9 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 10:53 갱신)
+## 🔄 최신 상태 (2026-07-12 15:37 갱신)
 
-### ✅ 2026-07-12 완료 (오전~오후)
+### ✅ 2026-07-12 완료
 
 - **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
 - **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
@@ -175,22 +179,26 @@
 - **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
 - **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
 - **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
-- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거
+- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거. n8n_telegram_bot 감시 포함.
 - **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
-- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. T020 후 TODO 활성화 예정
-- **T020 착수 승인** — 안티 수정사항 3개 포함 지시. barobogi_approval_bot 생성 완료
+- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. 1차 스캔 완료(Medium 취약점 6종). T020 완료 후 patch_generator TODO 활성화 예정
+- **T020 E2E 성공** — 텔레그램 [승인] → n8n resume 정상. 잔여: Timeout 24시간 추가(안티 세션 리밋으로 일시 중단)
 - **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
+- **코니 감독관 역할 확장 승인** — 기획 단계 선제 개입 + 실사용 시점 의무화 + T063 감독 대상 추가
+- **코니→만복 작당 내용 승인 완료** — `AI_hub/shared/messages/만복→코니_20260712_001_작당승인및안티휴식.md`
 
 ### 🔄 진행 중
 
-- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 구현 중
+- **안티 T020** — Timeout 24시간 자동반려 추가 잔여 (세션 리밋으로 강제 중단, 다음 세션 재개)
 
 ### 📋 다음 할 일
 
-1. 안티 T020 완료 보고 → 만복 검수 → 승인
-2. T020 완료 후: supervisor.py에 n8n_telegram_bot 감시 추가 + patch_generator.py TODO 활성화 + T022 master_watch.py 훅 추가
-3. MCP 본격 탐구
-4. T063 착수 — T020 완료 후
+1. **안티 T020 Timeout 완료** → 만복 최종 검수 → closed
+2. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 2개 저장소 미해결 알림) E2E
+3. **T019 첫 실전** — Moltbook parallel_search.py 리서치
+4. **tasks.json "첫_실사용_시점" 필드** — T019/T020/T022 소급 추가
+5. **MCP 본격 탐구** — 위 완료 후
+6. **T063 착수** — T020 완료 후 (코니 감독 체크 대상)
 
 ---
 
