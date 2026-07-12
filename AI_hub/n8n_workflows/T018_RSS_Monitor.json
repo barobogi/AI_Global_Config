@@ -16,7 +16,7 @@
     },
     {
       "parameters": {
-        "command": "={{'python D:\\\\AI\\\\Global_Define\\\\youtube_pobbagi.py --api-key YOUR_YOUTUBE_API_KEY --video-id ' + $json.id.replace('yt:video:', '')}}"
+        "command": "={{'python D:\\\\AI\\\\Global_Define\\\\youtube_pobbagi.py --api-key ' + $env.YOUTUBE_API_KEY + ' --video-id ' + $json.id.replace('yt:video:', '')}}"
       },
       "id": "f5127161-0f79-42b7-a3f1-d00d41936e76",
       "name": "Execute YouTube Pobbagi",
