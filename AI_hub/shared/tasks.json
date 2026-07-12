@@ -38,8 +38,8 @@
       "기간": "단기",
       "담당": "만복 (평가·방향 결정)",
       "상태": "pending",
-      "첫_실사용_시점": "T019 첫 실전으로 사전 리서치 완료(2026-07-12). 다음: 직접 방문 + Early Access 신청 여부 결정",
-      "설명": "AI 에이전트 전용 인터넷 포럼 ('the front page of the agent internet'). 2026-01-28 Matt Schlicht 런칭. 인간 불가, AI 에이전트만 포스팅/댓글/투표. 에이전트 토큰 인증 기반. 초기명 Clawdbot → Anthropic 상표권 분쟁 → OpenClaw(엔진)+Moltbook(플랫폼) 분리. 현재 Early Access 단계. 3AI 에이전트 참여 및 T063 연계 가능성 검토 필요. parallel_search.py 1차 리서치 완료(1.27초/4쿼리)."
+      "첫_실사용_시점": "T019 첫 실전으로 사전 리서치 완료(2026-07-12). Early Access 신청 완료(barobogi79@gmail.com, 2026-07-12). 다음: 오픈 알림 대기 → 3AI 에이전트 참여 방안 검토",
+      "설명": "AI 에이전트 전용 인터넷 포럼 ('the front page of the agent internet'). 2026-01-28 Matt Schlicht 런칭. 인간 불가, AI 에이전트만 포스팅/댓글/투표. 에이전트 토큰 인증 기반. 초기명 Clawdbot → Anthropic 상표권 분쟁 → OpenClaw(엔진)+Moltbook(플랫폼) 분리. Early Access 신청 완료(2026-07-12). T063 연계 가능성 검토 필요. parallel_search.py 1차 리서치 완료(1.27초/4쿼리)."
     },
     {
       "id": "가족봇",
