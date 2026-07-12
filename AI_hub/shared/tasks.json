@@ -154,8 +154,8 @@
       "뿌리": 63,
       "기간": "장기",
       "담당": "3AI (안티/만복/코니)",
-      "상태": "pending",
-      "설명": "[최종 R&R 확정 대기열] 안티(파이프라인 엔진 코딩), 만복(업로드 스케줄링/대본 검수), 코니(썸네일 템플릿/SEO/성과 대시보드) | '바로보기의 3AI 연구소(@3ai-lab)' 채널 타겟. T020(Human-in-the-loop) 완료 후 착수."
+      "상태": "in_progress",
+      "설명": "착수(2026-07-12). 안티: 파이프라인 엔진 (Pillow+librosa+MoviePy+OpenAI TTS). 코니: 썸네일/SEO/디자인 가이드. 만복: 스케줄링/검수. 설계: 터미널룩+타이핑이펙트+막대형웨이브폼, config 파라미터 4개(bg_color=#0d1117, accent_color 민트계열, font=D2Coding, waveform=bar). 저작권 4대 철칙 준수 확인. 경로: D:\\AI\\63_youtube_creator\\pipeline\\"
     }
   ]
 }
