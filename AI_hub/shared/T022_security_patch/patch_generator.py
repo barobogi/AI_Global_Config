@@ -1,6 +1,9 @@
 # patch_generator.py — 취약점 → Claude CLI 패치 생성 → T020 승인 연동
-import subprocess, json, logging, sys
+import subprocess, json, logging, sys, uuid, tempfile, os
 from pathlib import Path
+
+PYTHON = sys.executable
+SEND_APPROVAL = str(Path(__file__).parent.parent / "T020_human_in_the_loop" / "send_approval.py")
 
 log = logging.getLogger(__name__)
 

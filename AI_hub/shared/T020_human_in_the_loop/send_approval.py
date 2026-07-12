@@ -71,10 +71,66 @@ def main():
             print(f"에러: 텔레그램 API 호출 실패. {e}", file=sys.stderr)
             sys.exit(1)
 
+    elif args.patch_json:
+        # T022 패치 직접 적용 모드 (n8n 없이 동작)
+        try:
+            with open(args.patch_json, "r", encoding="utf-8") as f:
+                patch_info = json.load(f)
+        except Exception as e:
+            print(f"에러: patch-json 읽기 실패: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        chat_id = os.environ.get("TELEGRAM_CHAT_ID", "465471725")
+        request_id = f"t022_{uuid.uuid4().hex[:8]}"
+
+        # approvals_db.json에 T022 패치 정보 저장
+        try:
+            if os.path.exists(DB_PATH):
+                with open(DB_PATH, "r", encoding="utf-8") as f:
+                    db = json.load(f)
+            else:
+                db = {}
+        except Exception:
+            db = {}
+
+        db[request_id] = {"type": "t022", **patch_info}
+
+        with open(DB_PATH, "w", encoding="utf-8") as f:
+            json.dump(db, f, ensure_ascii=False, indent=2)
+
+        # 텔레그램 메시지 전송
+        tg_url = f"https://api.telegram.org/bot{token}/sendMessage"
+        message_text = (
+            f"<b>🔐 [T022 보안 패치] 승인 요청</b>\n\n"
+            f"{args.text}\n\n"
+            f"패치를 적용하시겠습니까?"
+        )
+        inline_keyboard = {
+            "inline_keyboard": [[
+                {"text": "🟢 승인 (Apply)", "callback_data": f"approve:{request_id}"},
+                {"text": "🔴 반려 (Skip)", "callback_data": f"reject:{request_id}"}
+            ]]
+        }
+        payload = {"chat_id": chat_id, "text": message_text, "parse_mode": "HTML", "reply_markup": inline_keyboard}
+        req_data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(tg_url, data=req_data, headers={"Content-Type": "application/json"}, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=10) as response:
+                res_json = json.loads(response.read().decode("utf-8"))
+                if res_json.get("ok"):
+                    print(json.dumps({"status": "success", "mode": "t022_patch", "request_id": request_id}))
+                    sys.exit(0)
+                else:
+                    print(f"에러: 텔레그램 전송 실패.", file=sys.stderr)
+                    sys.exit(1)
+        except Exception as e:
+            print(f"에러: 텔레그램 API 호출 실패. {e}", file=sys.stderr)
+            sys.exit(1)
+
     else:
         # 일반 승인 요청 송신 모드
         if not args.resume_url:
-            print("에러: 일반 모드에서는 --resume-url이 필수입니다.", file=sys.stderr)
+            print("에러: 일반 모드에서는 --resume-url 또는 --patch-json 이 필수입니다.", file=sys.stderr)
             sys.exit(1)
 
         chat_id = os.environ.get("TELEGRAM_CHAT_ID", "465471725")

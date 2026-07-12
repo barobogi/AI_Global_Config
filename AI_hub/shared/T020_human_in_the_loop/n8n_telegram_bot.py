@@ -1,10 +1,12 @@
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.request
 import urllib.parse
 from datetime import datetime
+from pathlib import Path
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "approvals_db.json")
 
@@ -23,6 +25,42 @@ def tg_api_call(token, method, payload):
     except Exception as e:
         print(f"[{datetime.now()}] Telegram API Error ({method}): {e}", file=sys.stderr)
         return None
+
+def apply_t022_patch(patch_info: dict, action: str) -> bool:
+    """T022 패치 직접 적용 (승인 시 파일 쓰기 + git push)"""
+    if action != "approve":
+        print(f"[{datetime.now()}] T022 패치 반려됨: {patch_info.get('local_path', '?')}")
+        return True
+
+    local_path = patch_info.get("local_path", "")
+    code = patch_info.get("code", "")
+    cwd = patch_info.get("cwd", str(Path(local_path).parent) if local_path else ".")
+
+    if not local_path or not code:
+        print(f"[{datetime.now()}] T022 패치 정보 불완전 (local_path 또는 code 없음)", file=sys.stderr)
+        return False
+
+    try:
+        Path(local_path).write_text(code, encoding="utf-8")
+        print(f"[{datetime.now()}] T022 패치 적용 완료: {local_path}")
+    except Exception as e:
+        print(f"[{datetime.now()}] T022 파일 쓰기 실패: {e}", file=sys.stderr)
+        return False
+
+    try:
+        subprocess.run(["git", "add", local_path], cwd=cwd, check=True, capture_output=True)
+        alert_name = patch_info.get("alert_name", "보안 취약점")
+        subprocess.run(
+            ["git", "commit", "-m", f"fix(security): T022 자동 패치 — {alert_name}"],
+            cwd=cwd, check=True, capture_output=True
+        )
+        subprocess.run(["git", "push"], cwd=cwd, check=True, capture_output=True)
+        print(f"[{datetime.now()}] T022 git push 완료: {cwd}")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"[{datetime.now()}] T022 git 작업 실패: {e}", file=sys.stderr)
+        return False
+
 
 def resume_n8n(resume_url, action):
     req_data = json.dumps({"action": action}).encode("utf-8")
@@ -79,17 +117,17 @@ def main():
                     action, request_id = data.split(":", 1)
                     print(f"[{datetime.now()}] 승인 신호 수신 - Action: {action}, Request ID: {request_id}")
 
-                    # approvals_db.json 에서 resume_url 조회
-                    resume_url = None
+                    # approvals_db.json 에서 요청 정보 조회
+                    db_entry = None
                     if os.path.exists(DB_PATH):
                         try:
                             with open(DB_PATH, "r", encoding="utf-8") as f:
                                 db = json.load(f)
-                            resume_url = db.get(request_id)
+                            db_entry = db.get(request_id)
                         except Exception as e:
                             print(f"DB 읽기 실패: {e}", file=sys.stderr)
 
-                    if not resume_url:
+                    if not db_entry:
                         tg_api_call(token, "answerCallbackQuery", {
                             "callback_query_id": callback_id,
                             "text": "⚠️ 만료되었거나 찾을 수 없는 요청입니다.",
@@ -97,8 +135,12 @@ def main():
                         })
                         continue
 
-                    # n8n 재개 시도
-                    success = resume_n8n(resume_url, action)
+                    # T022 패치 직접 적용 vs n8n resume 분기
+                    is_t022 = isinstance(db_entry, dict) and db_entry.get("type") == "t022"
+                    if is_t022:
+                        success = apply_t022_patch(db_entry, action)
+                    else:
+                        success = resume_n8n(db_entry, action)
 
                     if success:
                         # 텔레그램 스피너 해제
