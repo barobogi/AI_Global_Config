@@ -118,8 +118,8 @@
       "뿌리": 52,
       "기간": "단기",
       "담당": "만복",
-      "상태": "pending",
-      "설명": "배포 후 ZAP 등 보안 스캐너 자동 실행 → 취약점 발견 시 AI 패치 요청 → 통과 시 T020(Human-in-the-loop) 승인 노드로 연결. 바로보기님 지시로 만복 직접 구현. 착수 조건: T020 완료 후."
+      "상태": "in_progress",
+      "설명": "배포 후 ZAP 스캔 → 취약점 시 Claude CLI 패치 생성 → T020 승인 연동. 만복 전담. 뼈대 완료(2026-07-12): security_scan.py / patch_generator.py / scan_targets.json (D:\\AI\\AI_hub\\shared\\T022_security_patch\\). ZAP 설치 진행 중. T020 완료 후 patch_generator.py TODO 활성화 + master_watch.py 훅 추가."
     }
     ,{
       "id": "T063",
