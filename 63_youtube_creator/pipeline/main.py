@@ -1,6 +1,6 @@
 import os
 import json
-from moviepy.editor import AudioFileClip, ImageSequenceClip
+from moviepy import AudioFileClip, ImageSequenceClip
 import numpy as np
 
 # 모듈 임포트
