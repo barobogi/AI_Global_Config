@@ -11,4 +11,4 @@ if "%APPROVAL_BOT_TOKEN%"=="" (
 )
 
 set PATH=D:\Dev\nodejs;%PATH%
-python n8n_telegram_bot.py
+python -u n8n_telegram_bot.py
