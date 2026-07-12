@@ -140,12 +140,12 @@
     }
     ,{
       "id": "T_sotto",
-      "title": "Sotto Pro — 음성 vibe coding (마이크 홀드 CLI 지시)",
+      "title": "Sotto Pro — 음성 vibe coding (Whisper STT Only)",
       "뿌리": 24,
       "기간": "단기",
-      "담당": null,
-      "상태": "pending",
-      "설명": "안티 제안3. Whisper(STT)+로컬LLM으로 음성→텍스트→Claude CLI 지시. 착수 전 리소스 측정 필요: ①Qwen 파라미터 수별 VRAM/RAM 점유 ②단축키 충돌 여부 ③상시대기 CPU 사용량. 코니 검토 완료, 만복 리소스 측정 후 최종 승인."
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
+      "설명": "Whisper tiny(STT)만으로 경량 구현 확정(2026-07-12). 마이크 홀드 단축키→음성녹음→Whisper→Claude CLI 입력 자동 전달. Qwen 로컬LLM 제외(RAM 부족). 설치: D:\\Dev\\sotto_pro\\. 완료 조건: idle CPU≈0% + 단축키 충돌 없음 확인."
     }
     ,{
       "id": "T063",
