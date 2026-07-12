@@ -5,6 +5,13 @@ from pathlib import Path
 PYTHON = sys.executable
 SEND_APPROVAL = str(Path(__file__).parent.parent / "T020_human_in_the_loop" / "send_approval.py")
 
+# Claude Code CLI 바이너리 경로 (Windows VSCode 확장 기준)
+import glob as _glob
+_claude_candidates = _glob.glob(
+    r"C:\Users\*\.vscode\extensions\anthropic.claude-code-*\resources\native-binary\claude.exe"
+)
+CLAUDE_EXE = _claude_candidates[0] if _claude_candidates else "claude"
+
 log = logging.getLogger(__name__)
 
 
@@ -32,7 +39,7 @@ def generate_patch(alert: dict, local_path: str) -> str | None:
 취약점을 수정한 전체 파일 내용만 출력하세요 (설명 없이 코드만)."""
 
     result = subprocess.run(
-        ["claude", "--output-format", "json", "--print"],
+        [CLAUDE_EXE, "--output-format", "json", "--print"],
         input=prompt.encode("utf-8"),
         capture_output=True, timeout=120
     )
