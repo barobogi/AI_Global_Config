@@ -5,11 +5,14 @@
 
 ---
 
-## D001 — n8n 설치 위치 (2026-07-11 확정)
+## D001 — n8n 설치 위치 및 포트 (2026-07-12 확정)
 - **결정**: n8n = `C:\n8n` v1.123.63 (SSD 전용)
 - **이유**: D드라이브(HDD)는 IOPS 부족으로 설치 반복 실패
-- **명령**: `& "C:\n8n\node_modules\.bin\n8n.cmd" start`
-- **UI**: http://localhost:5678
+- **포트**: 10678 (5678은 System PID4 점유로 사용 불가)
+- **데이터 경로**: `D:\Dev\n8n_data` (N8N_USER_FOLDER)
+- **시작 명령**: `D:\Dev\n8n_start.bat` (안티 작성, 환경변수 포함)
+- **UI**: http://localhost:10678
+- **계정**: barobogi79@gmail.com
 - **⚠️ D드라이브 재설치 절대 금지** — compact 후 기억 리셋되어도 이 파일 읽으면 됨
 
 ## D002 — Python 경로 (확정)
