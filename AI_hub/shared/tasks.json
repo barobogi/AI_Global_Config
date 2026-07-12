@@ -101,8 +101,8 @@
       "뿌리": 52,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "pending",
-      "설명": "모든 자동화 파이프라인 마지막 관문에 텔레그램 Approve/Reject 공통 승인 모듈 삽입. n8n Webhook 대기 패턴 구현 필수. 착수 조건: T018 실제 동작 테스트 완료 후. T063 착수 전 완료 필수."
+      "상태": "in_progress",
+      "설명": "E2E 테스트 성공(2026-07-12): 텔레그램 [승인] 버튼 → n8n resume → Approved Action 정상. 산출물: D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\. supervisor.py에 n8n_telegram_bot 감시 추가 완료. 잔여: 안티 Timeout 24시간 자동반려 추가 후 최종 완료."
     }
     ,{
       "id": "T021",
