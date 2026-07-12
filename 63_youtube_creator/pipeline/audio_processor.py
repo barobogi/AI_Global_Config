@@ -4,14 +4,23 @@ import librosa
 from openai import OpenAI
 import json
 
+from dotenv import load_dotenv
+
 # 로컬 설정 파일 로드
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
     config = json.load(f)["youtube_pipeline"]
 
+# .env 파일 로드
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(env_path)
+
 # OpenAI API 키 (환경 변수에서 로드 또는 직접 입력 필요)
-# TODO: 사용자 환경변수에 맞게 수정 필요
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key or api_key == "YOUR_API_KEY_HERE":
+    raise ValueError("OpenAI API Key가 설정되지 않았습니다. .env 파일에 OPENAI_API_KEY를 입력해주세요.")
+
+client = OpenAI(api_key=api_key)
 
 def generate_tts(text, output_path="output.mp3"):
     """OpenAI TTS를 사용하여 텍스트를 음성으로 변환"""
