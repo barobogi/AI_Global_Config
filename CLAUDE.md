@@ -6,28 +6,32 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 09:54 수동 갱신)
+## 🔄 최신 상태 (2026-07-12 10:53 갱신)
 
-### ✅ 2026-07-12 완료 (오전)
+### ✅ 2026-07-12 완료 (오전~오후)
 
-- **정기 작업** — D:\AI 폴더 네이밍 점검 (현상태 유지 확정), Memory 3개 업데이트
+- **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
 - **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
-- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 02~06시 쿨다운
-- **n8n 포트 10678 해결** — 안티 `D:\Dev\n8n_start.bat` 작성. 데이터: `D:\Dev\n8n_data`
-- **n8n 로그인 복구** — DB 직접 계정 생성 (barobogi79@gmail.com)
+- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 쿨다운
+- **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
 - **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
-- **T020 안티 착수 지시** — Human-in-the-loop 승인 모듈
+- **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
+- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거
+- **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
+- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. T020 후 TODO 활성화 예정
+- **T020 착수 승인** — 안티 수정사항 3개 포함 지시. barobogi_approval_bot 생성 완료
+- **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
 
 ### 🔄 진행 중
 
-- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 (착수 중)
+- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 구현 중
 
 ### 📋 다음 할 일
 
 1. 안티 T020 완료 보고 → 만복 검수 → 승인
-2. 아키텍처 개선 2 (워치독 격리) — 안티 T020 완료 후 착수
-3. T063 착수 — T020/T021 완료 후 3AI 유튜브 파이프라인
-4. T013 개념노트 자동 보충 스크립트 — 담당 미정, 검토 필요
+2. T020 완료 후: supervisor.py에 n8n_telegram_bot 감시 추가 + patch_generator.py TODO 활성화 + T022 master_watch.py 훅 추가
+3. MCP 본격 탐구
+4. T063 착수 — T020 완료 후
 
 ---
 
@@ -161,28 +165,32 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 09:54 수동 갱신)
+## 🔄 최신 상태 (2026-07-12 10:53 갱신)
 
-### ✅ 2026-07-12 완료 (오전)
+### ✅ 2026-07-12 완료 (오전~오후)
 
-- **정기 작업** — D:\AI 폴더 네이밍 점검 (현상태 유지 확정), Memory 3개 업데이트
+- **정기 작업** — D:\AI 폴더 네이밍 점검, Memory 3개 업데이트, geek_news 메모리 삭제
 - **T021 완료** — 저작권 게이트 체크리스트 (`D:\AI\63_youtube_creator\copyright_checklist.md`)
-- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 02~06시 쿨다운
-- **n8n 포트 10678 해결** — 안티 `D:\Dev\n8n_start.bat` 작성. 데이터: `D:\Dev\n8n_data`
-- **n8n 로그인 복구** — DB 직접 계정 생성 (barobogi79@gmail.com)
+- **아키텍처 개선 1 완료** — master_watch.py `_is_quiet_hours()` 추가, 새벽 쿨다운
+- **n8n 안정화** — 포트 10678, 로그인 복구, 3개 워크플로우 Active, 부팅 자동 시작 등록
 - **T018 e2e 완료** — RSS Feed Trigger Active, YouTube API Key 환경변수 적용
-- **T020 안티 착수 지시** — Human-in-the-loop 승인 모듈
+- **T013 완료** — concept_booster.py 버그 수정, master_watch.py 21:00 스케줄 연결 확인
+- **아키텍처 개선 2 완료** — supervisor.py (`D:\AI\Global_Define\supervisor.py`). bun 좀비 근본 해결. master_watch.py _telegram_watchdog 제거
+- **아키텍처 개선 4 1단계 완료** — Multimedia_summary claude_service.py API Zero (CLI subprocess)
+- **T022 in_progress** — security_scan.py / patch_generator.py / ZAP 2.17.0 설치 완료. T020 후 TODO 활성화 예정
+- **T020 착수 승인** — 안티 수정사항 3개 포함 지시. barobogi_approval_bot 생성 완료
+- **AI Study 게시** — 두복이 심폐소생술 (20260712-1)
 
 ### 🔄 진행 중
 
-- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 (착수 중)
+- **안티 T020** — Human-in-the-loop 텔레그램 승인 모듈 구현 중
 
 ### 📋 다음 할 일
 
 1. 안티 T020 완료 보고 → 만복 검수 → 승인
-2. 아키텍처 개선 2 (워치독 격리) — 안티 T020 완료 후 착수
-3. T063 착수 — T020/T021 완료 후 3AI 유튜브 파이프라인
-4. T013 개념노트 자동 보충 스크립트 — 담당 미정, 검토 필요
+2. T020 완료 후: supervisor.py에 n8n_telegram_bot 감시 추가 + patch_generator.py TODO 활성화 + T022 master_watch.py 훅 추가
+3. MCP 본격 탐구
+4. T063 착수 — T020 완료 후
 
 ---
 
