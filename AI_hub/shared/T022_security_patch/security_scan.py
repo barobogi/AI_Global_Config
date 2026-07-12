@@ -87,9 +87,7 @@ if __name__ == "__main__":
     if findings:
         summary = save_summary(findings)
         log.warning(f"총 {len(findings)}개 대상에서 취약점 발견 → {summary}")
-        log.info("patch_generator.py 호출 (T020 연동 완료 후 활성화)")
-        # TODO: T020 완료 후 아래 활성화
-        # from patch_generator import run_patch_pipeline
-        # run_patch_pipeline(findings)
+        from patch_generator import run_patch_pipeline
+        run_patch_pipeline(findings)
     else:
         log.info("=== 전체 스캔 완료 — 취약점 없음 ✅ ===")

@@ -57,32 +57,45 @@ def apply_patch(local_path: str, patched_code: str) -> bool:
 
 def run_patch_pipeline(findings: list):
     """취약점 목록 → 패치 생성 → T020 승인 요청"""
-    # TODO: T020 완료 후 승인 모듈 import 경로 확정
-    # from D_AI_AI_hub_shared_T020.send_approval import request_approval
-
     for finding in findings:
         target = finding["target"]
         local_path = target.get("local_path", "")
+        # 폴더 경로인 경우 index.html로 보정
+        if local_path and Path(local_path).is_dir():
+            candidate = Path(local_path) / "index.html"
+            local_path = str(candidate) if candidate.exists() else local_path
+
         for alert in finding["alerts"]:
             log.info(f"패치 생성 중: [{target['name']}] {alert['name']}")
             patched = generate_patch(alert, local_path)
             if not patched:
                 continue
 
-            # T020 승인 요청 메시지 구성
-            approval_msg = (
-                f"🔐 보안 패치 승인 요청\n"
+            # 패치 정보를 임시 JSON으로 저장 → send_approval.py에 전달
+            cwd = str(Path(local_path).parent)
+            patch_info = {
+                "local_path": local_path,
+                "code": patched,
+                "cwd": cwd,
+                "alert_name": alert["name"],
+                "target_name": target["name"],
+            }
+            tmp_path = Path(tempfile.mktemp(suffix=".json", dir=Path(__file__).parent / "scan_reports"))
+            tmp_path.write_text(json.dumps(patch_info, ensure_ascii=False), encoding="utf-8")
+
+            approval_text = (
                 f"대상: {target['name']}\n"
                 f"취약점: {alert['name']} ({alert['riskdesc']})\n"
-                f"파일: {local_path}\n\n"
-                f"패치 코드가 생성되었습니다. 적용하시겠습니까?"
+                f"파일: {local_path}"
             )
-            log.info(f"[T020 연동 대기] 승인 메시지:\n{approval_msg}")
-
-            # TODO: T020 완료 후 아래 활성화
-            # approved = request_approval(approval_msg, context={"path": local_path, "code": patched})
-            # if approved:
-            #     apply_patch(local_path, patched)
-            #     subprocess.run(["git", "add", local_path], cwd=Path(local_path).parent)
-            #     subprocess.run(["git", "commit", "-m", f"fix: 보안 패치 — {alert['name']}"])
-            #     subprocess.run(["git", "push"])
+            result = subprocess.run(
+                [PYTHON, SEND_APPROVAL,
+                 "--text", approval_text,
+                 "--patch-json", str(tmp_path)],
+                capture_output=True, text=True, timeout=30,
+                env={**os.environ, "APPROVAL_BOT_TOKEN": os.environ.get("APPROVAL_BOT_TOKEN", "")}
+            )
+            if result.returncode == 0:
+                log.info(f"T020 승인 요청 전송 완료: {result.stdout.strip()}")
+            else:
+                log.error(f"T020 승인 요청 실패: {result.stderr.strip()}")
