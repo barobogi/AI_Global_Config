@@ -7,7 +7,7 @@
       },
       "id": "e0d046c0-2646-4c48-a006-25f0a0c4f877",
       "name": "RSS Trigger",
-      "type": "n8n-nodes-base.rssFeedRead",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
       "typeVersion": 1,
       "position": [
         250,
