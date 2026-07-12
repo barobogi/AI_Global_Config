@@ -13,6 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="T020 텔레그램 승인 요청 송신 및 상태 관리 스크립트")
     parser.add_argument("--text", required=True, help="승인 요청 본문 요약")
     parser.add_argument("--resume-url", help="n8n 대기 노드 재개 URL (resume URL)")
+    parser.add_argument("--patch-json", help="T022 패치 적용 정보 JSON 파일 경로 (resume-url 없이 동작)")
     parser.add_argument("--edit-timeout", action="store_true", help="타임아웃 자동 반려 메시지 편집 모드")
     parser.add_argument("--chat-id", help="메시지 편집 시 필요한 Chat ID")
     parser.add_argument("--message-id", help="메시지 편집 시 필요한 Message ID")
