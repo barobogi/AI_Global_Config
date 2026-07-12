@@ -18,7 +18,7 @@ def tg_api_call(token, method, payload):
         method="POST"
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as response:
+        with urllib.request.urlopen(req, timeout=35) as response:
             return json.loads(response.read().decode("utf-8"))
     except Exception as e:
         print(f"[{datetime.now()}] Telegram API Error ({method}): {e}", file=sys.stderr)
