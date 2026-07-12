@@ -52,13 +52,13 @@
     },
     {
       "id": "아키텍처_개선_1_(새벽_쿨다운)_→_2_(워치독_격리)_순차_진행",
-      "title": "아키텍처 개선 1 (새벽 쿨다운) → 2 (워치독 격리) 순차 진행",
+      "title": "아키텍처 개선 1·2 + supervisor.py 고도화",
       "뿌리": 0,
       "기간": "단기",
       "담당": "만복",
       "상태": "completed",
       "완료일": "2026-07-12",
-      "설명": "개선1 완료: master_watch.py _is_quiet_hours() 추가. 개선2 완료(2026-07-12): supervisor.py (D:\\AI\\Global_Define\\supervisor.py) 신규 구현. 두복이 재시작 전 bun 전체 kill → 좀비 누적 근본 해결. master_watch.py _telegram_watchdog 제거. 부팅 자동 시작 레지스트리 등록(AI_Supervisor). T020 완료 후 n8n_telegram_bot 감시 대상 추가 예정."
+      "설명": "개선1: master_watch.py 새벽 쿨다운. 개선2: supervisor.py 신규+n8n_telegram_bot 감시 등록. 고도화(2026-07-12): 지수 백오프(60→120→240초) + 알림 전용 모드(3회 초과 시 재시작 중단+텔레그램 경고). 안티 제안2 채택 반영."
     },
     {
       "id": "아키텍처_개선_3_(CI/CD)",
@@ -74,9 +74,9 @@
       "title": "아키텍처 개선 4 (API Zero 메모리)",
       "뿌리": 0,
       "기간": "단기",
-      "담당": "만복",
+      "담당": "만복 (총괄) / 안티 (2단계 구현)",
       "상태": "in_progress",
-      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계(Firebase → 로컬 SQLite) 안티 위임 예정. 기획서: D:\\AI\\AI_hub\\shared\\아키텍처_개선4_API_Zero_기획.md"
+      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계 착수(2026-07-12): Firebase → 로컬 SQLite 마이그레이션 — local_db.py 신설 + concept_booster.py + youtube_pobbagi.py 수정, 옵션A(n8n HTTP 노드 삭제, 스크립트 내 직접 insert). 안티 구현 중."
     },
     {
       "id": "아키텍처_개선_5_(지능형_라우팅)",
