@@ -7,5 +7,50 @@
     "studied": false,
     "created": "2026-07-12T17:33:01.008607",
     "updated": "2026-07-12T17:33:01.008607"
+  },
+  "2": {
+    "name": "다중 채널 RSS 감시 + 자동 뽀개기 파이프라인",
+    "body": "n8n RSS Trigger로 신규 영상 감지 → youtube_pobbagi.py → 학습카드 생성 → Firebase 개념노트 자동 등록. 감시 채널: ①호두(기존) ②기술노트with알렉(UCBtG00ljZ8R_DBQCTR4C00A, 447건 기완료) ③@with2511(안티 완료 후 추가)",
+    "category": "학습",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:34:06.749843",
+    "updated": "2026-07-12T17:34:06.749843"
+  },
+  "3": {
+    "name": "개념노트 자동 보충 스크립트",
+    "body": "concept_booster.py (D:\\AI\\260623_1_study_all\\) 구현 완료. master_watch.py _daily_scheduler()에서 매일 21:00 자동 실행 연결. Firebase study_all/concepts 미이해 6개 미만 시 tasks.json에서 자동 채움. 버그 수정: line 58 count → total.",
+    "category": "학습",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:34:06.856967",
+    "updated": "2026-07-12T17:34:06.856967"
+  },
+  "4": {
+    "name": "아키텍처 개선 1 (새벽 쿨다운) → 2 (워치독 격리) 순차 진행",
+    "body": "개선1 완료: master_watch.py _is_quiet_hours() 추가. 개선2 완료(2026-07-12): supervisor.py (D:\\AI\\Global_Define\\supervisor.py) 신규 구현. 두복이 재시작 전 bun 전체 kill → 좀비 누적 근본 해결. master_watch.py _telegram_watchdog 제거. 부팅 자동 시작 레지스트리 등록(AI_Supervisor). T020 완료 후 n8n_telegram_bot 감시 대상 추가 예정.",
+    "category": "기타",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:34:06.949214",
+    "updated": "2026-07-12T17:34:06.949214"
+  },
+  "5": {
+    "name": "아키텍처 개선 4 (API Zero 메모리)",
+    "body": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계(Firebase → 로컬 SQLite) 안티 위임 예정. 기획서: D:\\AI\\AI_hub\\shared\\아키텍처_개선4_API_Zero_기획.md",
+    "category": "기타",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:34:07.065623",
+    "updated": "2026-07-12T17:34:07.065623"
+  },
+  "6": {
+    "name": "3AI 병렬 리서치 스킬 (Genspark급 API 우회 검색)",
+    "body": "ddgs + Wikipedia REST API 보강 완료(2026-07-12). 위치: D:\\AI\\Global_Define\\parallel_search.py. 보강 내용: ①duckduckgo_search→ddgs 패키지 업그레이드 ②검색결과 중 Wikipedia URL 자동 감지→전문 summary 추가(키 불필요) ③stdout UTF-8 강제(Windows cp949 충돌 해결). 검증: Moltbook Meta 인수/보안사고 쿼리에서 TechCrunch·Wiz 발견 기사 정상 반환. 한계: DuckDuckGo 특성상 쿼리가 모호하면 동일 소스 반복 — 구체적 쿼리 작성이 품질 관건. Brave Search API 추가는 추후 옵션.",
+    "category": "도구/자동화",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:34:07.174056",
+    "updated": "2026-07-12T17:34:07.174056"
   }
 }
