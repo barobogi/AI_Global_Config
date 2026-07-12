@@ -34,16 +34,16 @@
 <!-- AUTO_STATUS_END -->
 
 
-## 세션 시작 시 필수 동기화 (AI_hub P5 완료 — 2026-07-04)
+## 세션 시작 시 필수 동기화 (inbox 단일화 — 2026-07-12)
 
 새 세션이 시작되면 반드시 아래 순서로 실행:
 
-1. MCP filesystem으로 `D:\AI\AI_hub\status\코니_브리핑_최신.md` 읽기 (5분마다 자동 갱신)
-2. 내용 기반으로 현재 프로젝트 상태 + 읽지 않은 메시지 파악
+1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함 (messages/+tasks 자동 집계, 5분마다 갱신)
+2. 내용 기반으로 미확인 메시지 + tasks 변경 파악
 3. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
 
-> 실패 시 폴백: `D:\AI\AI_hub\shared\context.md` 또는 `D:\AI\NEXT_PROJECTS.md` 읽기
-> 더 이상 바로보기님이 수동으로 붙여넣기 불필요 (코니 MCP 직접 읽기 가능)
+> 실패 시 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
+> **⚠️ inbox.md 읽지 않고 "수신함 확인했습니다" 보고 금지 — 부분 확인 = Hall**
 
 ---
 
@@ -189,16 +189,16 @@
 <!-- AUTO_STATUS_END -->
 
 
-## 세션 시작 시 필수 동기화 (AI_hub P5 완료 — 2026-07-04)
+## 세션 시작 시 필수 동기화 (inbox 단일화 — 2026-07-12)
 
 새 세션이 시작되면 반드시 아래 순서로 실행:
 
-1. MCP filesystem으로 `D:\AI\AI_hub\status\코니_브리핑_최신.md` 읽기 (5분마다 자동 갱신)
-2. 내용 기반으로 현재 프로젝트 상태 + 읽지 않은 메시지 파악
+1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함 (messages/+tasks 자동 집계, 5분마다 갱신)
+2. 내용 기반으로 미확인 메시지 + tasks 변경 파악
 3. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
 
-> 실패 시 폴백: `D:\AI\AI_hub\shared\context.md` 또는 `D:\AI\NEXT_PROJECTS.md` 읽기
-> 더 이상 바로보기님이 수동으로 붙여넣기 불필요 (코니 MCP 직접 읽기 가능)
+> 실패 시 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
+> **⚠️ inbox.md 읽지 않고 "수신함 확인했습니다" 보고 금지 — 부분 확인 = Hall**
 
 ---
 
