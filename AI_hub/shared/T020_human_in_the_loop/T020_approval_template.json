@@ -1,0 +1,157 @@
+{
+  "name": "T020_Human_In_The_Loop_Template",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "t020-test-trigger",
+        "options": {}
+      },
+      "id": "2d1f7c2a-9b1e-4c3d-8f2a-7e3d1c4b5a6f",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        180,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=python D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\send_approval.py --text \"[T020 테스트] 자동 생성된 유튜브 대본 최종 승인 요청\" --resume-url \"http://localhost:10678/webhook-waiting/t020-resume-{{$executionId}}\""
+      },
+      "id": "3a1c2d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e",
+      "name": "Send Approval Request",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        400,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "webhookPath": "=t020-resume-{{$executionId}}",
+        "options": {}
+      },
+      "id": "4b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6f",
+      "name": "Wait for Approval",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        620,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.action}}",
+              "value2": "approve"
+            }
+          ]
+        }
+      },
+      "id": "5c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f",
+      "name": "Is Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        840,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "🟢 승인되어 다음 단계로 진행합니다."
+      },
+      "id": "6d4e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f8a",
+      "name": "Approved Action",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "🔴 반려되어 파이프라인이 중단되었습니다."
+      },
+      "id": "7e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8a9b",
+      "name": "Rejected Action",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        340
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Approval Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Approval Request": {
+      "main": [
+        [
+          {
+            "node": "Wait for Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Approval": {
+      "main": [
+        [
+          {
+            "node": "Is Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Approved?": {
+      "main": [
+        [
+          {
+            "node": "Approved Action",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "t020-template-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
