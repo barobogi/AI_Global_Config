@@ -32,7 +32,7 @@
     }
   ],
   "zap": {
-    "jar": "D:\\Dev\\ZAP\\zap-2.15.0.jar",
+    "jar": "D:\\Dev\\ZAP\\ZAP_2.17.0\\zap-2.17.0.jar",
     "java": "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
     "timeout_sec": 300
   },
