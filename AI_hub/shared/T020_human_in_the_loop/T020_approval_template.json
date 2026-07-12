@@ -35,6 +35,9 @@
         "resume": "webhook",
         "httpMethod": "POST",
         "webhookPath": "={{$executionId}}",
+        "limitWaitTime": true,
+        "limitAmount": 1,
+        "limitUnit": "minutes",
         "options": {}
       },
       "id": "4b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6f",
@@ -82,6 +85,26 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.action}}",
+              "value2": "reject"
+            }
+          ]
+        }
+      },
+      "id": "8f7a6b5c-4d3e-2f1a-0b9c-8d7e6f5a4b3c",
+      "name": "Is Timeout?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        340
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "text",
         "responseBody": "🔴 반려되어 파이프라인이 중단되었습니다."
       },
@@ -90,8 +113,21 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1080,
-        340
+        1300,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=python D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\send_approval.py --edit-timeout --chat-id \"{{ $('Send Approval Request').item.json.chat_id }}\" --message-id \"{{ $('Send Approval Request').item.json.message_id }}\" --text \"{{ $('Send Approval Request').item.json.text }}\""
+      },
+      "id": "9a8b7c6d-5e4f-3a2b-1c0d-9e8d7c6b5a4f",
+      "name": "Execute Timeout Action",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        440
       ]
     }
   ],
@@ -140,7 +176,25 @@
         ],
         [
           {
+            "node": "Is Timeout?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Timeout?": {
+      "main": [
+        [
+          {
             "node": "Rejected Action",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Timeout Action",
             "type": "main",
             "index": 0
           }
