@@ -1,0 +1,11 @@
+{
+  "1": {
+    "name": "n8n + 코니 실시간 동기화 워크플로우",
+    "body": "GitHub push 감지 → n8n → 코니_브리핑_최신.md 즉시 갱신. n8n: C:\\n8n v1.123.63. 워크플로우 저장: D:\\AI\\AI_hub\\n8n_workflows\\T011_코니동기화.json",
+    "category": "학습",
+    "projects": [],
+    "studied": false,
+    "created": "2026-07-12T17:33:01.008607",
+    "updated": "2026-07-12T17:33:01.008607"
+  }
+}
