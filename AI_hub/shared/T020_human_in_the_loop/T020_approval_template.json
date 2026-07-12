@@ -33,6 +33,7 @@
     {
       "parameters": {
         "resume": "webhook",
+        "httpMethod": "POST",
         "webhookPath": "={{$executionId}}",
         "options": {}
       },
