@@ -102,8 +102,9 @@
       "뿌리": 52,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "in_progress",
-      "설명": "E2E 테스트 성공(2026-07-12): 텔레그램 [승인] 버튼 → n8n resume → Approved Action 정상. 산출물: D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\. supervisor.py에 n8n_telegram_bot 감시 추가 완료. 잔여: 안티 Timeout 24시간 자동반려 추가 후 최종 완료."
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "최종 완료(2026-07-12). 텔레그램 [승인]/[반려] 버튼 → n8n resume 정상. 24시간 Timeout 자동반려 + 텔레그램 메시지 자동편집(--edit-timeout) 구현. E2E 검증: 자동반려(Exec 7214) + 수동반려(Exec 7219) 모두 성공. 산출물: D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\. supervisor.py 감시 등록 완료."
     }
     ,{
       "id": "T021",
