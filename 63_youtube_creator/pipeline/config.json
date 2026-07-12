@@ -1,0 +1,17 @@
+{
+  "youtube_pipeline": {
+    "visual_settings": {
+      "bg_color": "#0d1117",
+      "accent_color": "#00ff9d",
+      "font_name": "D2Coding",
+      "waveform_style": "bar",
+      "resolution": [1920, 1080],
+      "fps": 30
+    },
+    "tts_settings": {
+      "provider": "openai",
+      "voice": "alloy",
+      "speed": 1.0
+    }
+  }
+}
