@@ -55,8 +55,9 @@
       "뿌리": 0,
       "기간": "단기",
       "담당": "만복",
-      "상태": "in_progress",
-      "설명": "개선1 완료(2026-07-12): master_watch.py에 _is_quiet_hours() 추가, 새벽 02~06시 telegram_watchdog 건너뜀 + heartbeat 15분 간격. 개선2(워치독 격리) 착수 대기."
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "개선1 완료: master_watch.py _is_quiet_hours() 추가. 개선2 완료(2026-07-12): supervisor.py (D:\\AI\\Global_Define\\supervisor.py) 신규 구현. 두복이 재시작 전 bun 전체 kill → 좀비 누적 근본 해결. master_watch.py _telegram_watchdog 제거. 부팅 자동 시작 레지스트리 등록(AI_Supervisor). T020 완료 후 n8n_telegram_bot 감시 대상 추가 예정."
     },
     {
       "id": "아키텍처_개선_3_(CI/CD)",
