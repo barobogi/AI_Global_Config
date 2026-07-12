@@ -72,9 +72,9 @@
       "title": "아키텍처 개선 4 (API Zero 메모리)",
       "뿌리": 0,
       "기간": "단기",
-      "담당": null,
-      "상태": "pending",
-      "설명": "외부 API 요금 없는 로컬 지식 파이프라인 (만복 기획 세션 대기)"
+      "담당": "만복",
+      "상태": "in_progress",
+      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계(Firebase → 로컬 SQLite) 안티 위임 예정. 기획서: D:\\AI\\AI_hub\\shared\\아키텍처_개선4_API_Zero_기획.md"
     },
     {
       "id": "아키텍처_개선_5_(지능형_라우팅)",
