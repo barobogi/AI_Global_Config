@@ -1,0 +1,17 @@
+{
+  "channels": [
+    {
+      "name": "호두의 AI 분석실",
+      "channel_id": "UCmWgoMokR8Z9GKDjz28lJYw",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmWgoMokR8Z9GKDjz28lJYw",
+      "active": true
+    },
+    {
+      "name": "기술노트with알렉",
+      "channel_id": "UCBtG00ljZ8R_DBQCTR4C00A",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBtG00ljZ8R_DBQCTR4C00A",
+      "active": true
+    }
+  ],
+  "_note": "신규 채널 추가: channels 배열에 항목 추가. master_watch.py가 1시간마다 자동 감지."
+}
