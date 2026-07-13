@@ -27,6 +27,10 @@ n8n_data*/
 # 시스템 파일
 .claude/
 .secrets.json
+.env
+client_secret*.json
+*.pickle
+credentials*.json
 *.log
 telegram_session.log
 task_masterwatch.xml

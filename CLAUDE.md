@@ -6,28 +6,27 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 16:10 갱신)
+## 🔄 최신 상태 (2026-07-12 21:07 갱신)
 
-### ✅ 2026-07-12 완료
+### ✅ 2026-07-12 완료 (전체)
 
-- **T021, T013, T018 e2e, 아키텍처 개선 1·2·4-1단계** — 모두 완료
-- **n8n 안정화** — 포트 10678, 부팅 자동 시작, 3개 워크플로우 Active
-- **T020 완료** — Timeout 24시간 자동반려 + E2E 검증(자동 7214, 수동 7219) 모두 성공. closed.
-- **T022 in_progress** — ZAP 2.17.0 스캔 완료, Medium 취약점 6종. patch_generator TODO 활성화 + master_watch.py 훅 추가 예정
-- **T019 첫 실전 + 보강** — Moltbook 리서치. Wikipedia REST API 연동 + ddgs 업그레이드 완료. parallel_search.py 품질 개선됨.
-- **Moltbook 보류 확정** — Meta 소유(광고·커머스 목적) + Supabase 1.5M 키 노출 이력. Early Access 등록만 유지.
-- **코니 감독관 역할 확장 승인** — 기획 단계 선제 검토 + 실사용 시점 의무화 + T063 감독 대상
-- **AI Study 게시** — 20260712-1 (두복이 심폐소생술), 20260712-2 (T019 병렬 리서치 첫 실전)
-- **tasks.json 실사용 시점 필드** — T019(Moltbook), T020, T022(GitHub secrets), Moltbook 항목 소급 추가 완료
+- **3AI Hall 처리** — 단체 반성문, CLAUDE.md 예방룰 4개, 안티 경고 1회
+- **수신함 단일화(T_inbox)** — inbox.md, master_watch 5분+변경감지 자동갱신
+- **T022 E2E** — ZAP→패치→T020 승인→git push 전자동 + master_watch 보안 스캔 훅
+- **supervisor.py 고도화** — 지수백오프 + 알림전용모드 + 텔레그램 경고
+- **아키텍처 개선 3(CI/CD)** — _ai_workspace→syntax 체크→T020→메인 병합
+- **아키텍처 개선 4 2단계** — Firebase→SQLite 완전 이관
+- **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
+- **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
+- **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
+  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 (Private → Public 전환 필요)
+- **AI Study 게시** — 20260712-1~9 (총 9개)
 
 ### 📋 다음 할 일
 
-1. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 저장소) E2E
-2. **patch_generator.py TODO 활성화** + **master_watch.py T022 훅 추가**
-3. **안티 parallel_search.py ddgs 업데이트** — 만복이 코드 직접 수정했으니 안티 별도 조치 불필요 (메시지 007 확인)
-4. **MCP 본격 탐구**
-5. **T063 착수** (코니 감독 대상)
-6. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색
+1. **YouTube EP.12 Public 전환** — 바로보기님 직접 (Private 상태)
+2. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
+3. **MCP 본격 탐구**
 
 ---
 
@@ -161,28 +160,27 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 16:10 갱신)
+## 🔄 최신 상태 (2026-07-12 21:07 갱신)
 
-### ✅ 2026-07-12 완료
+### ✅ 2026-07-12 완료 (전체)
 
-- **T021, T013, T018 e2e, 아키텍처 개선 1·2·4-1단계** — 모두 완료
-- **n8n 안정화** — 포트 10678, 부팅 자동 시작, 3개 워크플로우 Active
-- **T020 완료** — Timeout 24시간 자동반려 + E2E 검증(자동 7214, 수동 7219) 모두 성공. closed.
-- **T022 in_progress** — ZAP 2.17.0 스캔 완료, Medium 취약점 6종. patch_generator TODO 활성화 + master_watch.py 훅 추가 예정
-- **T019 첫 실전 + 보강** — Moltbook 리서치. Wikipedia REST API 연동 + ddgs 업그레이드 완료. parallel_search.py 품질 개선됨.
-- **Moltbook 보류 확정** — Meta 소유(광고·커머스 목적) + Supabase 1.5M 키 노출 이력. Early Access 등록만 유지.
-- **코니 감독관 역할 확장 승인** — 기획 단계 선제 검토 + 실사용 시점 의무화 + T063 감독 대상
-- **AI Study 게시** — 20260712-1 (두복이 심폐소생술), 20260712-2 (T019 병렬 리서치 첫 실전)
-- **tasks.json 실사용 시점 필드** — T019(Moltbook), T020, T022(GitHub secrets), Moltbook 항목 소급 추가 완료
+- **3AI Hall 처리** — 단체 반성문, CLAUDE.md 예방룰 4개, 안티 경고 1회
+- **수신함 단일화(T_inbox)** — inbox.md, master_watch 5분+변경감지 자동갱신
+- **T022 E2E** — ZAP→패치→T020 승인→git push 전자동 + master_watch 보안 스캔 훅
+- **supervisor.py 고도화** — 지수백오프 + 알림전용모드 + 텔레그램 경고
+- **아키텍처 개선 3(CI/CD)** — _ai_workspace→syntax 체크→T020→메인 병합
+- **아키텍처 개선 4 2단계** — Firebase→SQLite 완전 이관
+- **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
+- **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
+- **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
+  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 (Private → Public 전환 필요)
+- **AI Study 게시** — 20260712-1~9 (총 9개)
 
 ### 📋 다음 할 일
 
-1. **T022 + T020 첫 실전** — GitHub secrets 실제 이슈 (Daily_for_Barobogi 저장소) E2E
-2. **patch_generator.py TODO 활성화** + **master_watch.py T022 훅 추가**
-3. **안티 parallel_search.py ddgs 업데이트** — 만복이 코드 직접 수정했으니 안티 별도 조치 불필요 (메시지 007 확인)
-4. **MCP 본격 탐구**
-5. **T063 착수** (코니 감독 대상)
-6. **Moltbook 오픈 알림 체크** — 세션 시작 시 Gmail `from:moltbook.com` 검색
+1. **YouTube EP.12 Public 전환** — 바로보기님 직접 (Private 상태)
+2. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
+3. **MCP 본격 탐구**
 
 ---
 

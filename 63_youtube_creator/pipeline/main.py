@@ -6,6 +6,7 @@ import numpy as np
 # 모듈 임포트
 from audio_processor import generate_tts, extract_waveform_data
 from video_renderer import create_frame, WIDTH, HEIGHT, VISUAL
+from study_scraper import get_latest_study_posts, post_to_script
 
 def main(script_text, output_filename="final_output.mp4"):
     print(f"========== [T063] 유튜브 파이프라인 엔진 시작 ==========")
@@ -55,7 +56,7 @@ def main(script_text, output_filename="final_output.mp4"):
     
     # 3. 오디오와 비디오 합성 (MoviePy)
     video_clip = ImageSequenceClip(frames, fps=fps)
-    video_clip = video_clip.set_audio(audio_clip)
+    video_clip = video_clip.with_audio(audio_clip)
     
     # 결과물 출력 (H.264 코덱 사용)
     video_clip.write_videofile(
@@ -74,7 +75,18 @@ def main(script_text, output_filename="final_output.mp4"):
     print(f"========== [T063] 파이프라인 엔진 완료: {output_filename} ==========")
 
 if __name__ == "__main__":
-    # 테스트 실행
-    sample_script = "안녕하세요. 3AI 유튜브 자동화 테스트 영상입니다. 지금 보시는 이 영상은 오직 파이썬 코드만으로 텍스트에서 영상까지 한 번에 렌더링 된 결과물입니다. 글씨가 타이핑되는 효과와, 제 목소리에 맞춰서 바닥에서 춤추는 웨이브폼 파형이 보이시나요? 디자인 템플릿만 자유롭게 바꾸면, 앞으로 3AI가 리서치한 자료를 단 1분 만에 유튜브 쇼츠로 찍어낼 수 있습니다."
+    # AI Study 최신 게시글 자동 수집
+    print("[Pipeline] AI Study 최신 게시글 수집 중...")
+    posts = get_latest_study_posts(count=1)
     
-    main(sample_script, "test_output.mp4")
+    if not posts:
+        print("[Pipeline] 게시글을 찾을 수 없습니다.")
+        exit(1)
+    
+    latest = posts[0]
+    print(f"[Pipeline] 게시글 선택: [{latest['id']}] {latest['title']}")
+    
+    script = post_to_script(latest)
+    output_file = f"output_{latest['id']}.mp4"
+    
+    main(script, output_file)

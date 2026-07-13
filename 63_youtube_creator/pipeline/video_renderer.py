@@ -1,7 +1,8 @@
 import os
 import json
 from PIL import Image, ImageDraw, ImageFont
-
+import numpy as np
+import logging
 # 로컬 설정 파일 로드
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -10,16 +11,17 @@ with open(CONFIG_PATH, "r", encoding="utf-8") as f:
 VISUAL = config["visual_settings"]
 WIDTH, HEIGHT = VISUAL["resolution"]
 
-# 폰트 로드 (기본 폰트 폴더 또는 특정 경로 필요)
-# TODO: D2Coding 등 지정된 폰트 파일(.ttf)이 실제 경로에 있어야 함
-# 여기서는 테스트를 위해 시스템 기본 폰트로 대체 처리할 수 있도록 구현
+# Font loading with fallback to system default if specified fonts not found (TODO resolved).
 def get_font(size):
-    try:
-        # Windows의 맑은 고딕 등을 대체재로 임시 사용, 실제로는 D2Coding.ttf 경로 지정 필요
-        font_name = VISUAL["font_name"]
-        return ImageFont.truetype("malgun.ttf", size) # D2Coding이 없을 경우를 대비한 하드코딩 회피
-    except Exception:
-        return ImageFont.load_default()
+    # 터미널 모노스페이스 폰트 우선순위: D2Coding → JetBrains Mono → Consolas → 기본
+    candidates = ["D2Coding.ttf", "JetBrainsMono-Regular.ttf", "consola.ttf"]
+    for name in candidates:
+        try:
+            return ImageFont.truetype(name, size)
+        except Exception:
+            continue
+    return ImageFont.load_default()
+logging.warning('Custom fonts not found; using default system font.')
 
 def draw_waveform(draw, wave_data, accent_color, width, height):
     """하단에 오디오 웨이브폼 바 그리기"""
