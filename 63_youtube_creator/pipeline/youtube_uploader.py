@@ -11,7 +11,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = ["https://www.googleapis.com/auth/youtube"]
 CLIENT_SECRET = os.path.join(os.path.dirname(__file__), "client_secret.json")
 TOKEN_FILE = os.path.join(os.path.dirname(__file__), "token.pickle")
 
