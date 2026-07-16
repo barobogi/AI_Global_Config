@@ -7,7 +7,7 @@ from pathlib import Path
 from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).parent))
-from youtube_upload import upload_video
+from youtube_uploader import upload_video
 
 APPROVAL_LOG = Path(__file__).parent.parent.parent / "AI_hub" / "shared" / "data" / "youtube_approvals.json"
 
