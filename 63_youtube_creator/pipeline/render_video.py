@@ -62,8 +62,8 @@ def export_pptx_to_images():
     finally:
         powerpoint.Quit()
 
-    # 추출된 이미지 파일명 확인 (보통 슬라이드1.PNG 등 로컬라이즈된 이름으로 생성됨)
-    exported_images = sorted(glob.glob(os.path.join(abs_img_dir, "*.png")) + glob.glob(os.path.join(abs_img_dir, "*.PNG")))
+    # 추출된 이미지 파일명 확인 (중복 방지를 위해 os.listdir 사용)
+    exported_images = sorted([os.path.join(abs_img_dir, f) for f in os.listdir(abs_img_dir) if f.lower().endswith('.png')])
     print(f"  → 변환 완료: {len(exported_images)}장")
     return exported_images
 
@@ -83,18 +83,43 @@ def generate_tts():
         
     return audio_files
 
+def format_srt_time(t):
+    h = int(t // 3600)
+    m = int((t % 3600) // 60)
+    s = int(t % 60)
+    ms = int((t * 1000) % 1000)
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
 def merge_video(images, audios):
     print("3. 이미지 + 오디오 병합 (MoviePy)...")
     if len(images) != len(audios):
         print("경고: 이미지 수와 오디오 수가 일치하지 않습니다.")
         
     clips = []
-    for img_path, aud_path in zip(images, audios):
+    srt_lines = []
+    current_time = 0.0
+    
+    for i, (img_path, aud_path) in enumerate(zip(images, audios)):
         audio_clip = AudioFileClip(aud_path)
         # 이미지 클립의 길이를 오디오 길이와 동일하게 설정
         image_clip = ImageClip(img_path).with_duration(audio_clip.duration)
         image_clip = image_clip.with_audio(audio_clip)
         clips.append(image_clip)
+        
+        # SRT 타임스탬프 계산
+        start_t = current_time
+        end_t = current_time + audio_clip.duration
+        srt_lines.append(str(i+1))
+        srt_lines.append(f"{format_srt_time(start_t)} --> {format_srt_time(end_t)}")
+        srt_lines.append(SCRIPTS[i])
+        srt_lines.append("")
+        current_time = end_t
+        
+    # SRT 파일 저장
+    srt_path = OUTPUT_DIR / "crisp_dm_shorts.srt"
+    with open(srt_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(srt_lines))
+    print(f"  → 자막 파일(SRT) 생성 완료: {srt_path}")
         
     final_clip = concatenate_videoclips(clips, method="compose")
     
