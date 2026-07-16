@@ -5,11 +5,26 @@ T063 YouTube 업로더
 import os
 import json
 import pickle
+import urllib.request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+
+TELEGRAM_TOKEN   = "8850996295:AAHXKedqZflR71jhDTR0MKutjxBdHWfxNAo"
+TELEGRAM_CHAT_ID = "465471725"
+
+def _send_telegram(msg: str):
+    try:
+        payload = json.dumps({"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "HTML"}).encode()
+        req = urllib.request.Request(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            data=payload, headers={"Content-Type": "application/json"}, method="POST",
+        )
+        urllib.request.urlopen(req, timeout=10)
+    except Exception as e:
+        print(f"[Telegram] 알림 실패: {e}")
 
 SCOPES = ["https://www.googleapis.com/auth/youtube"]
 CLIENT_SECRET = os.path.join(os.path.dirname(__file__), "client_secret.json")
