@@ -61,10 +61,7 @@ def create_shorts_pptx(output_path):
     add_run(p2, "그게 바로 CRISP-DM!\n", cyan_color, 50, bold=True)
     add_run(p2, "업계 표준 방법론이야.", white_color, 40)
 
-    # --- Slide 3 ~ 8: 6단계 설명 (한 슬라이드에 모두 표출하되 단계별 강조 또는 6장 생성)
-    # 코니 기획안에서는 [8초~20초] 6단계 설명을 애니메이션으로 요구했지만, 
-    # PPTX 파일 하나로 만들려면 한 장에 모아두고 영상 편집 시 분할하거나,
-    # 장표를 6개로 나누는 것이 좋습니다. 여기서는 1장에 깔끔하게 정리합니다.
+    # --- Slide 3: 6단계 설명 ---
     slide3 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide3)
     # 텍스트 박스 시작 높이를 위로 올리고 세로 길이를 늘림

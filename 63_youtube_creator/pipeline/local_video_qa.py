@@ -63,13 +63,16 @@ def auto_tune_font_size():
     with open(SHORTS_SCRIPT, 'r', encoding='utf-8') as f:
         content = f.read()
         
-    # 정규식으로 add_run() 함수 내의 폰트 사이즈 파라미터 값을 -2 시킴
+    # add_run() 함수 호출 시 전달되는 폰트 사이즈(숫자)만 찾아서 -2 시킴
+    # 예: add_run(p, text, color, 35, bold=True) -> 35를 33으로
     def decrease_size(match):
-        size = int(match.group(1))
-        new_size = max(10, size - 2) # 최소 10pt 제한
-        return f"{new_size},"
+        prefix = match.group(1)
+        size = int(match.group(2))
+        new_size = max(10, size - 2)
+        return f"{prefix}{new_size},"
         
-    new_content = re.sub(r'(\d+)\s*,', decrease_size, content)
+    # 'cyan_color, 60,' 와 같은 패턴에서 숫자만 매칭
+    new_content = re.sub(r'(color,\s*)(\d+)\s*,', decrease_size, content)
     
     with open(SHORTS_SCRIPT, 'w', encoding='utf-8') as f:
         f.write(new_content)
