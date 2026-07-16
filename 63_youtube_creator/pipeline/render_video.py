@@ -37,8 +37,12 @@ def export_pptx_to_images():
     IMAGES_DIR.mkdir(exist_ok=True)
     
     # Clean old images
-    for f in glob.glob(str(IMAGES_DIR / "*.png")) + glob.glob(str(IMAGES_DIR / "*.PNG")):
-        os.remove(f)
+    files = set(glob.glob(str(IMAGES_DIR / "*.png")) + glob.glob(str(IMAGES_DIR / "*.PNG")))
+    for f in files:
+        try:
+            os.remove(f)
+        except OSError:
+            pass
         
     powerpoint = win32com.client.Dispatch("PowerPoint.Application")
     # 파워포인트 창 띄우지 않기
