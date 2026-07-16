@@ -91,7 +91,12 @@ def generate_tts_openai():
     print("2. [OpenAI TTS] 음성(MP3) 생성 중... (tts-1 / onyx)")
     AUDIO_DIR.mkdir(exist_ok=True)
 
-    client = OpenAI()  # OPENAI_API_KEY 환경변수 자동 사용
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        print("❌ OPENAI_API_KEY가 설정되지 않았습니다.")
+        sys.exit(1)
+        
+    client = OpenAI(api_key=api_key)  # 명시적으로 api_key 전달
 
     audio_files = []
     for idx, text in enumerate(SCRIPTS):
