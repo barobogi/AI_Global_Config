@@ -5,7 +5,7 @@
       "accent_color": "#00ff9d",
       "font_name": "D2Coding",
       "waveform_style": "bar",
-      "resolution": [1920, 1080],
+      "resolution": [1080, 1920],
       "fps": 30
     },
     "tts_settings": {
