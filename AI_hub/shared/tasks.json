@@ -196,9 +196,9 @@
       "뿌리": 61,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "pending",
-      "예정일": "2026-07-18",
-      "설명": "ADSP CRISP-DM 기반 시계열 모듈 강화. Phase: MA 5/20/60 → 볼린저밴드 → 상관관계 → EDA 자동 리포트. Improve_stock v1.1 내러티브 모멘텀과 병행. 뿌리 61 하위."
+      "상태": "completed",
+      "완료일": "2026-07-16",
+      "설명": "ADSP CRISP-DM 기반 시계열 모듈 강화 완료(2026-07-16). Phase: MA 5/20/60 → 볼린저밴드 → EDA 자동 리포트. 산출물: time_series_analyzer.py + eda_reporter.py (D:\\AI\\Improve_stock\\). Global_Define/concepts.json 등록 완료. AI_Study 게시판 업로드 완료. ImproveStock v1.1 Phase 4(텔레그램 통합)에서 generate_chart() 호출로 이미지 자동 생성 가능."
     },
     {
       "id": "T063_슬라이드",
