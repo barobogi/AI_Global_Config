@@ -53,7 +53,7 @@ def upload_video(video_path, title, description, tags=None):
             "defaultLanguage": "ko",
         },
         "status": {
-            "privacyStatus": "private",  # 만복 최종 확인 후 public 전환
+            "privacyStatus": "public",   # 3AI 3단계 승인 완료 시 자동 공개
             "selfDeclaredMadeForKids": False,
         },
     }
