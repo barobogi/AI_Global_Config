@@ -4,8 +4,8 @@
       "1": {
         "ai": "안티",
         "ok": true,
-        "note": "1080x1920, 52.48초, TTS 정상",
-        "ts": "2026-07-16T18:45:55.846124"
+        "note": "기술스펙 1080p, Google TTS 정상",
+        "ts": "2026-07-16T22:44:59.324319"
       },
       "2": {
         "ai": "코니",
@@ -22,8 +22,8 @@
     },
     "created_at": "2026-07-16T18:45:55.846124",
     "uploaded": {
-      "url": "https://www.youtube.com/watch?v=pWyTEua9sVw",
-      "ts": "2026-07-16T18:46:01.751348"
+      "url": "https://www.youtube.com/watch?v=yQOvdvw9ElE",
+      "ts": "2026-07-16T22:45:04.895980"
     }
   }
 }
