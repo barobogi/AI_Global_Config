@@ -90,6 +90,13 @@ def upload_video(video_path, title, description, tags=None):
     video_id = response["id"]
     video_url = f"https://www.youtube.com/watch?v={video_id}"
     print(f"[Uploader] 업로드 완료! URL: {video_url}")
+
+    _send_telegram(
+        f"📱 <b>유튜브 업로드 완료</b>\n"
+        f"제목: {title}\n"
+        f"링크: {video_url}"
+    )
+
     return video_url
 
 
