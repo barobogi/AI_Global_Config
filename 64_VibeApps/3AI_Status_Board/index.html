@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3AI Status Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container glass">
+        <header>
+            <h1>🤖 3AI 현황판</h1>
+            <button id="refreshBtn">새로고침</button>
+        </header>
+        
+        <div class="status-panel">
+            <div class="ai-status">
+                <span class="dot alive"></span> 만복 (Alive)
+            </div>
+            <div class="ai-status">
+                <span class="dot offline"></span> 코니 (Offline)
+            </div>
+            <div class="ai-status">
+                <span class="dot alive"></span> 안티 (Alive)
+            </div>
+        </div>
+
+        <div class="tasks-container">
+            <div class="task-column">
+                <h2>📋 진행 중</h2>
+                <ul id="in-progress">
+                    <li class="glass-item">T024 VibeCoding 엔진 개발</li>
+                </ul>
+            </div>
+            <div class="task-column">
+                <h2>⏳ 대기 중</h2>
+                <ul id="pending">
+                    <li class="glass-item">T025 Docker 인프라 전환</li>
+                    <li class="glass-item">T026 MSA 로깅 시스템</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="inbox-panel glass-item">
+            📬 오늘 수신함: <strong id="msg-count">3</strong>건
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+
+:root {
+    --bg: #121212;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text: #e0e0e0;
+    --accent: #00F0FF;
+    --alive: #39FF14;
+    --offline: #FF3366;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 16px;
+}
+
+h1, h2 {
+    margin: 0;
+    font-weight: 600;
+}
+
+h1 { color: var(--accent); }
+h2 { font-size: 1.2rem; color: #aaa; margin-bottom: 16px; }
+
+button {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+.status-panel {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.dot.alive { background: var(--alive); box-shadow: 0 0 8px var(--alive); }
+.dot.offline { background: var(--offline); box-shadow: 0 0 8px var(--offline); }
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inbox-panel {
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+#msg-count {
+    color: var(--accent);
+    font-size: 1.3rem;
+}
