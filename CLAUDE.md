@@ -19,14 +19,13 @@
 - **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
 - **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
 - **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
-  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 (Private → Public 전환 필요)
+  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 ✅ Public 전환 완료 (2026-07-16)
 - **AI Study 게시** — 20260712-1~9 (총 9개)
 
 ### 📋 다음 할 일
 
-1. **YouTube EP.12 Public 전환** — 바로보기님 직접 (Private 상태)
-2. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
-3. **MCP 본격 탐구**
+1. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
+2. **MCP 본격 탐구**
 
 ---
 
@@ -173,14 +172,13 @@
 - **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
 - **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
 - **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
-  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 (Private → Public 전환 필요)
+  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 ✅ Public 전환 완료 (2026-07-16)
 - **AI Study 게시** — 20260712-1~9 (총 9개)
 
 ### 📋 다음 할 일
 
-1. **YouTube EP.12 Public 전환** — 바로보기님 직접 (Private 상태)
-2. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
-3. **MCP 본격 탐구**
+1. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
+2. **MCP 본격 탐구**
 
 ---
 
