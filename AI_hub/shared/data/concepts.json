@@ -1,65 +1,112 @@
-{
-  "1": {
+[
+  {
+    "id": 1,
     "name": "n8n + 코니 실시간 동기화 워크플로우",
     "body": "GitHub push 감지 → n8n → 코니_브리핑_최신.md 즉시 갱신. n8n: C:\\n8n v1.123.63. 워크플로우 저장: D:\\AI\\AI_hub\\n8n_workflows\\T011_코니동기화.json",
     "category": "학습",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:33:01.008607",
     "updated": "2026-07-12T17:33:01.008607"
   },
-  "2": {
+  {
+    "id": 2,
     "name": "다중 채널 RSS 감시 + 자동 뽀개기 파이프라인",
     "body": "n8n RSS Trigger로 신규 영상 감지 → youtube_pobbagi.py → 학습카드 생성 → Firebase 개념노트 자동 등록. 감시 채널: ①호두(기존) ②기술노트with알렉(UCBtG00ljZ8R_DBQCTR4C00A, 447건 기완료) ③@with2511(안티 완료 후 추가)",
     "category": "학습",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:34:06.749843",
     "updated": "2026-07-12T17:34:06.749843"
   },
-  "3": {
+  {
+    "id": 3,
     "name": "개념노트 자동 보충 스크립트",
     "body": "concept_booster.py (D:\\AI\\260623_1_study_all\\) 구현 완료. master_watch.py _daily_scheduler()에서 매일 21:00 자동 실행 연결. Firebase study_all/concepts 미이해 6개 미만 시 tasks.json에서 자동 채움. 버그 수정: line 58 count → total.",
     "category": "학습",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:34:06.856967",
     "updated": "2026-07-12T17:34:06.856967"
   },
-  "4": {
+  {
+    "id": 4,
     "name": "아키텍처 개선 1 (새벽 쿨다운) → 2 (워치독 격리) 순차 진행",
     "body": "개선1 완료: master_watch.py _is_quiet_hours() 추가. 개선2 완료(2026-07-12): supervisor.py (D:\\AI\\Global_Define\\supervisor.py) 신규 구현. 두복이 재시작 전 bun 전체 kill → 좀비 누적 근본 해결. master_watch.py _telegram_watchdog 제거. 부팅 자동 시작 레지스트리 등록(AI_Supervisor). T020 완료 후 n8n_telegram_bot 감시 대상 추가 예정.",
     "category": "기타",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:34:06.949214",
     "updated": "2026-07-12T17:34:06.949214"
   },
-  "5": {
+  {
+    "id": 5,
     "name": "아키텍처 개선 4 (API Zero 메모리)",
     "body": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료(2026-07-12): Multimedia_summary claude_service.py Anthropic API → CLI subprocess 교체. 2단계(Firebase → 로컬 SQLite) 안티 위임 예정. 기획서: D:\\AI\\AI_hub\\shared\\아키텍처_개선4_API_Zero_기획.md",
     "category": "기타",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:34:07.065623",
     "updated": "2026-07-12T17:34:07.065623"
   },
-  "6": {
+  {
+    "id": 6,
     "name": "3AI 병렬 리서치 스킬 (Genspark급 API 우회 검색)",
     "body": "ddgs + Wikipedia REST API 보강 완료(2026-07-12). 위치: D:\\AI\\Global_Define\\parallel_search.py. 보강 내용: ①duckduckgo_search→ddgs 패키지 업그레이드 ②검색결과 중 Wikipedia URL 자동 감지→전문 summary 추가(키 불필요) ③stdout UTF-8 강제(Windows cp949 충돌 해결). 검증: Moltbook Meta 인수/보안사고 쿼리에서 TechCrunch·Wiz 발견 기사 정상 반환. 한계: DuckDuckGo 특성상 쿼리가 모호하면 동일 소스 반복 — 구체적 쿼리 작성이 품질 관건. Brave Search API 추가는 추후 옵션.",
     "category": "도구/자동화",
-    "projects": [],
-    "studied": false,
+    "projects": "[]",
+    "studied": 0,
     "created": "2026-07-12T17:34:07.174056",
     "updated": "2026-07-12T17:34:07.174056"
   },
-  "7": {
-    "name": "???_??",
-    "body": "local_db ?? ???",
-    "category": "???",
-    "projects": [],
-    "studied": false,
-    "created": "2026-07-12T17:40:40.723662",
-    "updated": "2026-07-12T17:40:40.723662"
+  {
+    "id": 8,
+    "name": "로컬 SQLite 마이그레이션 (API Zero 메모리)",
+    "body": "## 아키텍처 개선 4 — Firebase → 로컬 SQLite 이관\n\n### 핵심 개념\n외부 유료 API(Firebase) 의존을 제거하고 로컬 SQLite로 완전 이관.\n비용 0 + 오프라인 동작 + 내부 데이터 직접 접근 가능.\n\n### 우리 시스템 적용\n- local_db.py 신설 (D:\\AI\\Global_Define\\)\n- concept_booster.py + youtube_pobbagi.py → SQLite 읽기/쓰기로 수정\n- n8n HTTP→Firebase 노드 삭제\n- concepts.json / videos.json → D:\\AI\\AI_hub\\shared\\data\\ 자동 익스포트\n\n### 연결 개념\n- SQLite: 서버 불필요, 단일 파일 DB, Python 내장 지원\n- API Zero: 외부 API 요금 없는 로컬 지식 파이프라인 설계 원칙",
+    "category": "인프라/자동화",
+    "projects": "[]",
+    "studied": 0,
+    "created": "2026-07-16T17:15:51.144927",
+    "updated": "2026-07-16T17:15:51.144927"
+  },
+  {
+    "id": 9,
+    "name": "CRISP-DM 데이터 분석 프로세스",
+    "body": "## CRISP-DM (Cross-Industry Standard Process for Data Mining)\n\n### 정의\n데이터 마이닝/분석 프로젝트의 표준 6단계 방법론.\n특정 도구나 언어에 종속되지 않는 범용 프레임워크.\n\n### 6단계 흐름\n1. **Business Understanding** — 비즈니스 목표 정의, 분석 목적 확정\n2. **Data Understanding** — 데이터 수집, 탐색, 품질 검증\n3. **Data Preparation** — 전처리, 정제, 피처 엔지니어링\n4. **Modeling** — 알고리즘 선택, 모델 학습·튜닝\n5. **Evaluation** — 비즈니스 관점 결과 검증\n6. **Deployment** — 운영 환경 배포, 자동화 적용\n\n### 우리 시스템 연결\n- n8n 워크플로우 설계 흐름 = CRISP-DM 그 자체\n- T018 RSS→뽀개기→DB 파이프라인: 데이터수집→전처리→저장→활용\n- Improve_stock: 종목 데이터 → 전처리 → 신호 생성 → 텔레그램 배포\n\n### 출처\n기술노트with알렉 영상 뽀개기 2번 (gBDD9GWESDg) — ADSP 과목②",
+    "category": "데이터분석/방법론",
+    "projects": "[\"Improve_stock\", \"n8n_finance\", \"260623_1_study_all\"]",
+    "studied": 0,
+    "created": "2026-07-16T17:17:29.825976",
+    "updated": "2026-07-16T17:17:29.825976"
+  },
+  {
+    "id": 10,
+    "name": "빅데이터 3V 이론",
+    "body": "## 빅데이터 3V (Volume · Velocity · Variety)\n\n### 정의\n빅데이터를 정의하는 3가지 핵심 특성.\n데이터가 '빅'한지 판단하는 기준이자, 처리 전략 결정 기준.\n\n### 3V 상세\n| V | 의미 | 관련 기술 |\n|---|------|-----------|\n| **Volume** (크기) | 저장·처리해야 할 데이터 양 | 분산 저장, SQLite→PostgreSQL 확장 |\n| **Velocity** (속도) | 데이터 생성·처리 속도 | 실시간 스트리밍, 배치 처리 |\n| **Variety** (다양성) | 정형/반정형/비정형 혼합 | 통합 파이프라인, 표준화 |\n\n### 우리 시스템 실사례 (직접 경험)\n- **Volume**: global_watcher.log 18MB 폭주 → 로그 관리 이슈 직접 경험\n- **Velocity**: master_watch.py 5분마다 실시간 감지 + inbox.md 즉시 갱신\n- **Variety**: JSON(tasks) / MD(inbox) / SQLite(concepts) / 텔레그램(메시지) 혼재\n  → inbox.md 단일화로 Variety 문제 해결 (T_inbox 완료)\n\n### 확장 V\n- **Veracity** (정확성): 데이터 신뢰도 — 우리: 3AI Hall 방지 규칙\n- **Value** (가치): 분석 결과의 비즈니스 가치\n\n### 출처\n기술노트with알렉 영상 뽀개기 2번 (gBDD9GWESDg) — ADSP 과목①",
+    "category": "데이터분석/이론",
+    "projects": "[\"Global_Define\", \"AI_hub\", \"Improve_stock\"]",
+    "studied": 0,
+    "created": "2026-07-16T17:17:29.829954",
+    "updated": "2026-07-16T17:17:29.829954"
+  },
+  {
+    "id": 11,
+    "name": "EDA 탐색적 데이터 분석 흐름",
+    "body": "## EDA (Exploratory Data Analysis)\n\n### 정의\n모델링 전에 데이터를 탐색·이해하는 단계.\n가설 없이 데이터 자체에서 패턴·이상치·분포를 발견하는 과정.\n\n### EDA 표준 흐름\n1. **데이터 로드** — 형태 확인 (shape, dtypes, head)\n2. **기초 통계** — mean/std/min/max/quartile\n3. **결측치 확인** — null 비율, 처리 전략 결정\n4. **이상치 탐지** — IQR, Z-score, 박스플롯\n5. **분포 시각화** — 히스토그램, 밀도 곡선\n6. **상관관계** — heatmap, 산점도\n7. **인사이트 도출** — 패턴 발견 → 가설 수립\n\n### 우리 시스템 적용 (Improve_stock)\n```\nyfinance 43개 종목 원시 데이터 수집\n  → 결측치 제거 (상장폐지·거래정지 종목)\n  → 종가·거래량 분포 확인\n  → 이동평균 기반 추세 시각화\n  → VCP 패턴 발견\n  → 종가베팅 신호 생성\n= EDA 교과서 흐름과 완전히 동일\n```\n\n### 핵심 도구\n- Python: pandas, matplotlib, seaborn, plotly\n- 우리 환경: yfinance + matplotlib (Improve_stock)\n\n### 출처\n기술노트with알렉 영상 뽀개기 2번 (gBDD9GWESDg) — ADSP 과목④",
+    "category": "데이터분석/방법론",
+    "projects": "[\"Improve_stock\", \"260623_1_study_all\"]",
+    "studied": 0,
+    "created": "2026-07-16T17:17:29.829954",
+    "updated": "2026-07-16T17:17:29.829954"
+  },
+  {
+    "id": 12,
+    "name": "리서치→콘텐츠 원스톱 파이프라인",
+    "body": "## 리서치→콘텐츠 원스톱 파이프라인\n\n### 정의\n주제 입력 하나로 → 자동 리서치 → 구조화 → 결과물 생성까지\n단일 파이프라인으로 처리하는 설계 패턴.\n\n### 젠스파크(Genspark) 구현 사례\n```\n프롬프트 (주제 1줄)\n  ↓\nSuper Agents (병렬 웹 리서치)\n  ↓\n결과 취합·구조화 (목차·흐름 자동 생성)\n  ↓\nSlides or Web 자동 생성\n```\n\n### 우리 3AI 구현 현황 비교\n| 단계 | 젠스파크 | 우리 시스템 |\n|------|---------|------------|\n| 리서치 | Super Agents | parallel_search.py ✅ |\n| 구조화 | 내장 AI | Claude CLI |\n| 웹 생성 | Genspark Web | T024 VibeCoding ⏳ |\n| 슬라이드 | Genspark Slides | T063_슬라이드 ⏳ |\n\n### 우리 강점 (젠스파크 대비)\n- 내부 데이터 직접 접근: tasks.json / inbox.md / local_store.db\n- 로컬 파일 수정·자동화 연동 가능\n- 비용 0 (외부 SaaS 의존 없음)\n\n### T063 확장 적용 방향\n```\nAI Study 주제\n  → parallel_search.py (리서치)\n  → Claude CLI (대본 구조화)\n  → python-pptx (슬라이드 자동 생성)  ← T063_슬라이드\n  → TTS + 화면녹화\n  → YouTube 업로드\n```\n\n### 출처\n기술노트with알렉 영상 뽀개기 3번 (kyYqzfQasE0) — 젠스파크 AI 실전 활용",
+    "category": "자동화/파이프라인",
+    "projects": "[\"63_youtube_creator\", \"Global_Define\", \"AI_hub\"]",
+    "studied": 0,
+    "created": "2026-07-16T17:17:29.829954",
+    "updated": "2026-07-16T17:17:29.829954"
   }
-}
+]
