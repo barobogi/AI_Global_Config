@@ -67,9 +67,10 @@ def create_shorts_pptx(output_path):
     # 장표를 6개로 나누는 것이 좋습니다. 여기서는 1장에 깔끔하게 정리합니다.
     slide3 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide3)
-    tf3 = create_text_box(slide3, Inches(0.5), Inches(3), Inches(8), Inches(10))
+    # 텍스트 박스 시작 높이를 위로 올리고 세로 길이를 늘림
+    tf3 = create_text_box(slide3, Inches(0.5), Inches(1.5), Inches(8), Inches(13))
     p3 = tf3.paragraphs[0]
-    add_run(p3, "CRISP-DM 6단계\n\n", cyan_color, 55, bold=True)
+    add_run(p3, "CRISP-DM 6단계\n", cyan_color, 60, bold=True)
     
     steps = [
         ("Step 1", "Business Understanding", "비즈니스 목표 정의"),
@@ -82,10 +83,11 @@ def create_shorts_pptx(output_path):
     
     for s_num, s_eng, s_kor in steps:
         p = tf3.add_paragraph()
-        add_run(p, f"{s_num} ", cyan_color, 35, bold=True)
-        add_run(p, f"{s_eng}\n", white_color, 35, bold=True)
+        # 단락 간격 조절을 위해 불필요한 \n 제거, 폰트 사이즈 조정
+        add_run(p, f"{s_num} ", cyan_color, 32, bold=True)
+        add_run(p, f"{s_eng}", white_color, 32, bold=True)
         p_sub = tf3.add_paragraph()
-        add_run(p_sub, f"  → {s_kor}\n", green_color, 30)
+        add_run(p_sub, f"  → {s_kor}", green_color, 28)
 
     # --- Slide 4: 우리 사례 ---
     slide4 = prs.slides.add_slide(blank_slide_layout)
