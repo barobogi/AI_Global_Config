@@ -58,18 +58,44 @@ def create_frame(text, wave_data, frame_index, total_frames):
     chars_to_show = int(len(text) * progress)
     visible_text = text[:chars_to_show]
     
-    # 3. 텍스트 그리기 (중앙 정렬)
+    # 3. 텍스트 그리기 (중앙 정렬 및 자동 줄바꿈)
     font = get_font(80) # 글자 크기 80
     
-    # getbbox()로 텍스트 크기 계산
-    bbox = draw.textbbox((0, 0), visible_text, font=font)
-    text_w = bbox[2] - bbox[0]
-    text_h = bbox[3] - bbox[1]
+    import textwrap
+    # 줄바꿈 기준 길이 (1080 해상도에서 크기 80 폰트는 대략 한 줄에 15~18자 내외)
+    wrap_width = 16 
     
-    x = (WIDTH - text_w) / 2
-    y = (HEIGHT - text_h) / 2.5 # 약간 위쪽 중앙
+    # 텍스트를 줄바꿈하여 리스트로 만들기
+    wrapped_lines = []
+    for line in visible_text.split('\n'):
+        if line.strip() == '':
+            wrapped_lines.append('')
+        else:
+            wrapped_lines.extend(textwrap.wrap(line, width=wrap_width))
+            
+    # 전체 텍스트 높이 계산
+    total_text_h = 0
+    line_heights = []
+    for line in wrapped_lines:
+        if line == '':
+            h = 80 # 빈 줄 높이
+        else:
+            bbox = draw.textbbox((0, 0), line, font=font)
+            h = bbox[3] - bbox[1] + 20 # 줄간격 20
+        line_heights.append(h)
+        total_text_h += h
+        
+    start_y = (HEIGHT - total_text_h) / 2.5 # 약간 위쪽 중앙
     
-    draw.text((x, y), visible_text, font=font, fill="#ffffff") # 글씨는 흰색
+    current_y = start_y
+    for i, line in enumerate(wrapped_lines):
+        if line != '':
+            bbox = draw.textbbox((0, 0), line, font=font)
+            text_w = bbox[2] - bbox[0]
+            x = (WIDTH - text_w) / 2
+            draw.text((x, current_y), line, font=font, fill="#ffffff")
+        current_y += line_heights[i]
+
     
     # 4. 하단 웨이브폼 그리기 (코니 포인트 컬러)
     draw_waveform(draw, wave_data, VISUAL["accent_color"], WIDTH, HEIGHT)
