@@ -85,30 +85,21 @@ def export_pptx_to_images():
     return exported
 
 
-def generate_tts_openai():
-    """✅ OpenAI TTS API (tts-1, onyx 보이스) — 저작권 철칙 준수"""
-    print("2. [OpenAI TTS] 음성(MP3) 생성 중... (tts-1 / onyx)")
-    AUDIO_DIR.mkdir(exist_ok=True)
+from audio_processor import generate_tts as generate_tts_wavenet
 
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        print("❌ OPENAI_API_KEY가 설정되지 않았습니다.")
-        sys.exit(1)
-        
-    client = OpenAI(api_key=api_key)  # 명시적으로 api_key 전달
+def generate_tts_google():
+    """✅ Google Cloud TTS (Wavenet) — 저작권 철칙 준수"""
+    print("2. [Google TTS] 음성(MP3) 생성 중... (Wavenet-D)")
+    AUDIO_DIR.mkdir(exist_ok=True)
 
     audio_files = []
     for idx, text in enumerate(SCRIPTS):
         mp3_path = AUDIO_DIR / f"slide_{idx+1}.mp3"
         print(f"  → 슬라이드 {idx+1} TTS 생성 중...")
 
-        response = client.audio.speech.create(
-            model="tts-1",
-            voice="onyx",        # 만복 지시: onyx 보이스
-            input=text,
-            speed=0.95           # 약간 천천히 — 자연스러운 영상
-        )
-        response.stream_to_file(str(mp3_path))
+        # audio_processor.py 의 generate_tts 함수 재사용
+        generate_tts_wavenet(text, str(mp3_path))
+        
         audio_files.append(str(mp3_path))
         print(f"  → 완료: slide_{idx+1}.mp3")
         time.sleep(0.3)
@@ -180,7 +171,7 @@ def main():
         print("❌ 이미지 추출 실패")
         sys.exit(1)
 
-    audios = generate_tts_openai()
+    audios = generate_tts_google()
     merge_video(images, audios)
 
     print(f"\n✅ [S.01] 재렌더링 완료!")
