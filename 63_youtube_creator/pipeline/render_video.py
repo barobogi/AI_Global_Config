@@ -88,8 +88,8 @@ def merge_video(images, audios):
     for img_path, aud_path in zip(images, audios):
         audio_clip = AudioFileClip(aud_path)
         # 이미지 클립의 길이를 오디오 길이와 동일하게 설정
-        image_clip = ImageClip(img_path).set_duration(audio_clip.duration)
-        image_clip = image_clip.set_audio(audio_clip)
+        image_clip = ImageClip(img_path).with_duration(audio_clip.duration)
+        image_clip = image_clip.with_audio(audio_clip)
         clips.append(image_clip)
         
     final_clip = concatenate_videoclips(clips, method="compose")
