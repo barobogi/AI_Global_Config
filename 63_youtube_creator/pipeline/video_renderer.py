@@ -59,11 +59,11 @@ def create_frame(text, wave_data, frame_index, total_frames):
     visible_text = text[:chars_to_show]
     
     # 3. 텍스트 그리기 (중앙 정렬 및 자동 줄바꿈)
-    font = get_font(80) # 글자 크기 80
+    font = get_font(50) # 글자 크기 축소 (기존 80 -> 50)
     
     import textwrap
-    # 줄바꿈 기준 길이 (1080 해상도에서 크기 80 폰트는 대략 한 줄에 15~18자 내외)
-    wrap_width = 16 
+    # 줄바꿈 기준 길이 (폰트 축소에 맞춰 확장)
+    wrap_width = 24
     
     # 텍스트를 줄바꿈하여 리스트로 만들기
     wrapped_lines = []
@@ -78,10 +78,10 @@ def create_frame(text, wave_data, frame_index, total_frames):
     line_heights = []
     for line in wrapped_lines:
         if line == '':
-            h = 80 # 빈 줄 높이
+            h = 50 # 빈 줄 높이
         else:
             bbox = draw.textbbox((0, 0), line, font=font)
-            h = bbox[3] - bbox[1] + 20 # 줄간격 20
+            h = bbox[3] - bbox[1] + 15 # 줄간격 15
         line_heights.append(h)
         total_text_h += h
         
