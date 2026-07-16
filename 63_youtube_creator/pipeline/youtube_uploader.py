@@ -26,7 +26,7 @@ def _send_telegram(msg: str):
     except Exception as e:
         print(f"[Telegram] 알림 실패: {e}")
 
-SCOPES = ["https://www.googleapis.com/auth/youtube"]
+SCOPES = ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.force-ssl"]
 CLIENT_SECRET = os.path.join(os.path.dirname(__file__), "client_secret.json")
 TOKEN_FILE = os.path.join(os.path.dirname(__file__), "token.pickle")
 
