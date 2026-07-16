@@ -84,12 +84,16 @@ def main():
     if check_all_approved(video_key):
         print(f"\n[ApproveUpload] 3AI 전원 승인 완료 → 유튜브 업로드 시작!")
         tags = [t.strip() for t in args.tags.split(",") if t.strip()]
+        shorts_suffix = " #Shorts" if args.type == "shorts" else ""
+        desc = (
+            "바로보기의 3AI 연구소\n\n"
+            "만복(Claude Code CLI) + 코니(Cowork) + 안티(Antigravity) 3AI가 함께 만든 콘텐츠입니다."
+        )
         result = upload_video(
-            file_path=str(video_path),
-            title=args.title,
-            tags=tags,
-            video_type=args.type,
-            privacy=args.privacy,
+            video_path=str(video_path),
+            title=args.title + shorts_suffix,
+            description=desc,
+            tags=tags or ["3AI", "AI자동화", "만복", "코니", "안티"],
         )
         # 업로드 결과 저장
         approvals = load_approvals()
