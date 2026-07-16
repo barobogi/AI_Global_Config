@@ -192,6 +192,29 @@ def main():
                             "show_alert": True
                         })
 
+                # T024 VibeCoding 일반 메시지 수신 (명령어 파싱)
+                elif "message" in update and "text" in update["message"]:
+                    message = update["message"]
+                    chat_id = message.get("chat", {}).get("id")
+                    text = message.get("text", "")
+                    
+                    if text.strip() and chat_id:
+                        print(f"[{datetime.now()}] T024 VibeCoding 명령 수신: {text[:20]}...")
+                        # 비동기로 generator_trigger.py 실행
+                        script_path = r"D:\AI\64_vibecoding\generator_trigger.py"
+                        if os.path.exists(script_path):
+                            subprocess.Popen(
+                                [sys.executable, script_path, str(chat_id), text],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                                cwd=r"D:\AI\64_vibecoding"
+                            )
+                        else:
+                            tg_api_call(token, "sendMessage", {
+                                "chat_id": chat_id,
+                                "text": "❌ VibeCoding 생성기 스크립트를 찾을 수 없습니다."
+                            })
+
         except Exception as e:
             print(f"[{datetime.now()}] 메인 루프 예외 발생: {e}", file=sys.stderr)
             time.sleep(5)
