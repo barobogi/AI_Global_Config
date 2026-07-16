@@ -30,10 +30,12 @@ def draw_waveform(draw, wave_data, accent_color, width, height):
         
     num_bars = len(wave_data)
     bar_width = (width * 0.8) / num_bars
-    max_bar_height = height * 0.2
+    # 막대 최대 높이를 대폭 줄여서 화면 아래로 넘어가지 않도록 수정
+    max_bar_height = height * 0.05
     
     start_x = width * 0.1
-    base_y = height * 0.85
+    # 웨이브폼 기준선을 85%에서 80% 지점으로 올려서 여백 확보
+    base_y = height * 0.80
     
     for i, amplitude in enumerate(wave_data):
         # 진폭에 비례하는 바 높이 계산
@@ -59,11 +61,11 @@ def create_frame(text, wave_data, frame_index, total_frames):
     visible_text = text[:chars_to_show]
     
     # 3. 텍스트 그리기 (중앙 정렬 및 자동 줄바꿈)
-    font = get_font(35) # 2차 조치: 글자 크기 35pt로 추가 축소
+    font = get_font(50) # 글자 크기 축소 (기존 80 -> 50)
     
     import textwrap
     # 줄바꿈 기준 길이 (폰트 축소에 맞춰 확장)
-    wrap_width = 32
+    wrap_width = 24
     
     # 텍스트를 줄바꿈하여 리스트로 만들기
     wrapped_lines = []
@@ -78,10 +80,10 @@ def create_frame(text, wave_data, frame_index, total_frames):
     line_heights = []
     for line in wrapped_lines:
         if line == '':
-            h = 35 # 빈 줄 높이
+            h = 50 # 빈 줄 높이
         else:
             bbox = draw.textbbox((0, 0), line, font=font)
-            h = bbox[3] - bbox[1] + 12 # 줄간격 12
+            h = bbox[3] - bbox[1] + 15 # 줄간격 15
         line_heights.append(h)
         total_text_h += h
         
