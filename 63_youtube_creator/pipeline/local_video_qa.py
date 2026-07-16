@@ -11,8 +11,12 @@ SHORTS_SCRIPT = PIPELINE_DIR / "shorts_generator.py"
 
 SAFE_ZONE_PERCENT = 0.05 # 5% 안전 여백
 
+import numpy as np
+
 def check_image_overflow(img_path):
-    img = cv2.imread(str(img_path))
+    # 한글 경로 인식을 위한 imdecode 사용
+    img_array = np.fromfile(str(img_path), np.uint8)
+    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
     if img is None:
         return False, "이미지 로드 실패"
         
