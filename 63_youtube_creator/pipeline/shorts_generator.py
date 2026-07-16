@@ -8,16 +8,17 @@ from pptx.enum.shapes import MSO_SHAPE
 def create_shorts_pptx(output_path):
     prs = Presentation()
     
-    # 쇼츠 9:16 비율 설정 (1080x1920 기준)
-    # 1인치 = 914400 EMU. 9인치 x 16인치로 설정
-    prs.slide_width = Inches(9)
-    prs.slide_height = Inches(16)
+    # 네이티브 1080x1920 해상도를 위한 크기 조정 (96 DPI 기준)
+    # 1080 / 96 = 11.25 Inches
+    # 1920 / 96 = 20.0 Inches
+    prs.slide_width = Inches(11.25)
+    prs.slide_height = Inches(20.0)
     
-    blank_slide_layout = prs.slide_layouts[6] # 빈 슬라이드 템플릿
+    blank_slide_layout = prs.slide_layouts[6]
     
-    bg_color = RGBColor(0x12, 0x12, 0x12) # 다크모드 #121212
-    cyan_color = RGBColor(0x00, 0xF0, 0xFF) # 시안 #00F0FF
-    green_color = RGBColor(0x39, 0xFF, 0x14) # 그린 #39FF14
+    bg_color = RGBColor(0x12, 0x12, 0x12)
+    cyan_color = RGBColor(0x00, 0xF0, 0xFF)
+    green_color = RGBColor(0x39, 0xFF, 0x14)
     white_color = RGBColor(0xFF, 0xFF, 0xFF)
     
     def add_dark_background(slide):
@@ -44,30 +45,28 @@ def create_shorts_pptx(output_path):
     # --- Slide 1: 타이틀 ---
     slide1 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide1)
-    
-    tf1 = create_text_box(slide1, Inches(0.5), Inches(6), Inches(8), Inches(4))
+    tf1 = create_text_box(slide1, Inches(0.625), Inches(7.5), Inches(10), Inches(5))
     p1 = tf1.paragraphs[0]
     p1.alignment = PP_ALIGN.CENTER
-    add_run(p1, "🎯 CRISP-DM?\n", cyan_color, 66, bold=True)
-    add_run(p1, "데이터분석의 표준 6단계!", white_color, 41, bold=True)
+    add_run(p1, "🎯 CRISP-DM?\n", cyan_color, 88, bold=True)
+    add_run(p1, "데이터분석의 표준 6단계!", white_color, 56, bold=True)
 
     # --- Slide 2: 핵심 소개 ---
     slide2 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide2)
-    tf2 = create_text_box(slide2, Inches(1), Inches(5), Inches(7), Inches(6))
+    tf2 = create_text_box(slide2, Inches(1.25), Inches(6.25), Inches(8.75), Inches(7.5))
     p2 = tf2.paragraphs[0]
     p2.alignment = PP_ALIGN.CENTER
-    add_run(p2, "데이터를 분석하려면?\n막 시작하면 안 된다.\n정해진 순서가 있어.\n\n", white_color, 40)
-    add_run(p2, "그게 바로 CRISP-DM!\n", cyan_color, 46, bold=True)
-    add_run(p2, "업계 표준 방법론이야.", white_color, 40)
+    add_run(p2, "데이터를 분석하려면?\n막 시작하면 안 된다.\n정해진 순서가 있어.\n\n", white_color, 50)
+    add_run(p2, "그게 바로 CRISP-DM!\n", cyan_color, 62, bold=True)
+    add_run(p2, "업계 표준 방법론이야.", white_color, 50)
 
     # --- Slide 3: 6단계 설명 ---
     slide3 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide3)
-    # 텍스트 박스 시작 높이를 위로 올리고 세로 길이를 늘림
-    tf3 = create_text_box(slide3, Inches(0.5), Inches(1.5), Inches(8), Inches(13))
+    tf3 = create_text_box(slide3, Inches(0.625), Inches(1.875), Inches(10), Inches(16.25))
     p3 = tf3.paragraphs[0]
-    add_run(p3, "CRISP-DM 6단계\n", cyan_color, 56, bold=True)
+    add_run(p3, "CRISP-DM 6단계\n", cyan_color, 75, bold=True)
     
     steps = [
         ("Step 1", "Business Understanding", "비즈니스 목표 정의"),
@@ -80,46 +79,44 @@ def create_shorts_pptx(output_path):
     
     for s_num, s_eng, s_kor in steps:
         p = tf3.add_paragraph()
-        # 단락 간격 조절을 위해 불필요한 \n 제거, 폰트 사이즈 조정
-        add_run(p, f"{s_num} ", cyan_color, 28, bold=True)
-        add_run(p, f"{s_eng}", white_color, 28, bold=True)
+        add_run(p, f"{s_num} ", cyan_color, 40, bold=True)
+        add_run(p, f"{s_eng}", white_color, 40, bold=True)
         p_sub = tf3.add_paragraph()
-        add_run(p_sub, f"  → {s_kor}", green_color, 28)
+        add_run(p_sub, f"  → {s_kor}", green_color, 35)
 
     # --- Slide 4: 우리 사례 ---
     slide4 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide4)
-    tf4 = create_text_box(slide4, Inches(0.5), Inches(5), Inches(8), Inches(6))
+    tf4 = create_text_box(slide4, Inches(0.625), Inches(6.25), Inches(10), Inches(7.5))
     p4 = tf4.paragraphs[0]
     p4.alignment = PP_ALIGN.CENTER
-    add_run(p4, "우리 3AI는?\n이 6단계를 완벽하게 적용 중!\n\n", cyan_color, 41, bold=True)
+    add_run(p4, "우리 3AI는?\n이 6단계를 완벽하게 적용 중!\n\n", cyan_color, 56, bold=True)
     
     p4_1 = tf4.add_paragraph()
     p4_1.alignment = PP_ALIGN.CENTER
-    add_run(p4_1, "n8n 워크플로우 설계 = CRISP-DM 그 자체\n", white_color, 35)
+    add_run(p4_1, "n8n 워크플로우 설계 = CRISP-DM 그 자체\n", white_color, 44)
     
     p4_2 = tf4.add_paragraph()
     p4_2.alignment = PP_ALIGN.CENTER
-    add_run(p4_2, "Improve_stock 주식 분석 = EDA 교과서 흐름\n\n", white_color, 35)
+    add_run(p4_2, "Improve_stock 주식 분석 = EDA 교과서 흐름\n\n", white_color, 44)
     
     p4_3 = tf4.add_paragraph()
     p4_3.alignment = PP_ALIGN.CENTER
-    add_run(p4_3, "수집 → 전처리 → 모델 → 신호생성 → 배포\n", green_color, 28, bold=True)
-    add_run(p4_3, "= CRISP-DM 완벽 실행!", cyan_color, 36, bold=True)
+    add_run(p4_3, "수집 → 전처리 → 모델 → 신호생성 → 배포\n", green_color, 40, bold=True)
+    add_run(p4_3, "= CRISP-DM 완벽 실행!", cyan_color, 50, bold=True)
 
     # --- Slide 5: 엔딩 ---
     slide5 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide5)
-    tf5 = create_text_box(slide5, Inches(1), Inches(6), Inches(7), Inches(4))
+    tf5 = create_text_box(slide5, Inches(1.25), Inches(7.5), Inches(8.75), Inches(5))
     p5 = tf5.paragraphs[0]
     p5.alignment = PP_ALIGN.CENTER
-    add_run(p5, "CRISP-DM은?\n무조건 알아야 할\n데이터 분석 기초!\n\n", white_color, 46, bold=True)
-    add_run(p5, "구독 & 좋아요 🤍", green_color, 41, bold=True)
+    add_run(p5, "CRISP-DM은?\n무조건 알아야 할\n데이터 분석 기초!\n\n", white_color, 62, bold=True)
+    add_run(p5, "구독 & 좋아요 🤍", green_color, 56, bold=True)
 
-    # 저장
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     prs.save(output_path)
-    print(f"✅ PPTX 생성 완료: {output_path}")
+    print(f"✅ PPTX 생성 완료 (1080p 해상도 적용): {output_path}")
 
 if __name__ == "__main__":
     out_file = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.pptx"

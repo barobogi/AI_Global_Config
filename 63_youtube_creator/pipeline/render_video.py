@@ -98,9 +98,9 @@ def merge_video(images, audios):
         
     final_clip = concatenate_videoclips(clips, method="compose")
     
-    # MP4 파일로 출력 (세로 쇼츠 포맷 1080x1920이므로 fps는 24나 30으로 설정)
-    print(f"최종 렌더링 중: {FINAL_VIDEO}")
-    final_clip.write_videofile(str(FINAL_VIDEO), fps=24, codec="libx264", audio_codec="aac", logger=None)
+    # MP4 파일로 출력 (세로 쇼츠 포맷 1080x1920이므로 fps는 30, 비트레이트 5000k 설정)
+    print(f"최종 렌더링 중 (고화질 1080p, 5000k): {FINAL_VIDEO}")
+    final_clip.write_videofile(str(FINAL_VIDEO), fps=30, bitrate="5000k", codec="libx264", audio_codec="aac", logger=None)
     
     # 닫아주기
     for clip in clips:
