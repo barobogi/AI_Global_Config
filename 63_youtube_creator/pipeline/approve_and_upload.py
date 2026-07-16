@@ -89,7 +89,7 @@ def main():
             "바로보기의 3AI 연구소\n\n"
             "만복(Claude Code CLI) + 코니(Cowork) + 안티(Antigravity) 3AI가 함께 만든 콘텐츠입니다."
         )
-        result = upload_video(
+        video_url = upload_video(
             video_path=str(video_path),
             title=args.title + shorts_suffix,
             description=desc,
@@ -98,12 +98,11 @@ def main():
         # 업로드 결과 저장
         approvals = load_approvals()
         approvals[video_key]["uploaded"] = {
-            "url": result["url"],
-            "video_id": result["video_id"],
+            "url": video_url,
             "ts": datetime.now().isoformat(),
         }
         APPROVAL_LOG.write_text(json.dumps(approvals, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"[ApproveUpload] 완료: {result['url']}")
+        print(f"[ApproveUpload] 업로드 완료: {video_url}")
     else:
         print(f"\n[ApproveUpload] 다음 단계 승인 대기 중...")
 
