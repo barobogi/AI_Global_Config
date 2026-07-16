@@ -17,13 +17,12 @@ import win32com.client
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-# .env 로드 (OPENAI_API_KEY 포함)
-ENV_PATH = Path(r"D:\AI\63_youtube_creator") / ".env"
+ENV_PATH = Path(r"D:\AI\63_youtube_creator\pipeline\.env")
 load_dotenv(ENV_PATH)
 if not os.environ.get("OPENAI_API_KEY"):
-    load_dotenv(Path(r"D:\AI") / ".env")
+    load_dotenv(Path(r"D:\AI\.env"))
 if not os.environ.get("OPENAI_API_KEY"):
-    load_dotenv(Path(r"D:\AI\Global_Define") / ".env")
+    load_dotenv(Path(r"D:\AI\Global_Define\.env"))
 
 PIPELINE_DIR = Path(r"D:\AI\63_youtube_creator\pipeline")
 OUTPUT_DIR = PIPELINE_DIR / "output"
