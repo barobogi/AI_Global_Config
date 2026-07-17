@@ -91,12 +91,26 @@ async def generate_scene_image(prompt_text, output_path):
 
             await asyncio.sleep(1)
 
-            # 투어 모달 통과 후 playground/image가 아니면 재이동
+            # 투어 모달 통과 후 — Overview 하단 Image generation 카드 클릭
             if "playground/image" not in page.url:
-                print("  - Playground Image 재이동...")
-                await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/playground/image",
-                                wait_until="networkidle", timeout=40000)
-                await asyncio.sleep(3)
+                print("  - Image generation 카드 클릭...")
+                try:
+                    # Overview 하단 카드 클릭
+                    await page.locator("text='Image generation'").first.click(timeout=5000)
+                    await page.wait_for_load_state("networkidle")
+                    await asyncio.sleep(3)
+                    print(f"  - 이동 후 URL: {page.url}")
+                except Exception:
+                    # 메뉴 Playground 클릭
+                    try:
+                        await page.locator("text='Playground'").first.click(timeout=3000)
+                        await asyncio.sleep(2)
+                        await page.locator("text='Image'").first.click(timeout=3000)
+                        await page.wait_for_load_state("networkidle")
+                        await asyncio.sleep(3)
+                    except Exception as e:
+                        print(f"  - 이동 실패: {e}")
+            await asyncio.sleep(2)
 
             # 3. 프롬프트 입력
             print("  - [2/4] 프롬프트 입력...")
