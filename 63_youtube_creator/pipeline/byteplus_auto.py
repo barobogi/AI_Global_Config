@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 이미지 생성 자동화 (예제 바인딩 우회법) 테스트")
+    print("BytePlus Seedream 이미지 생성 자동화 (예제 정밀 바인딩) 테스트")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -60,17 +60,24 @@ async def main():
         await page.wait_for_timeout(4000)
         
         try:
-            # 1. 첫 번째 예제 이미지 카드 클릭하여 이미지 참조 바인딩
-            # 예제 영역에 있는 첫 번째 img 태그 클릭
-            # (기존 페이지 내의 이미지 중 예제 카드 영역 이미지 타겟팅)
-            print("예제 이미지 카드 클릭 시도 (이미지 바인딩)...")
-            example_img = page.locator("img").first
+            # 1. 예제 이미지 카드 정밀 타겟팅 및 클릭
+            print("예제 이미지 카드 정밀 클릭 시도...")
+            # 'Try the following example' 텍스트 아래에 존재하는 그리드 내의 첫 번째 img 태그 타겟팅
+            example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
+            
             if await example_img.count() > 0:
                 await example_img.click()
                 print("예제 이미지 클릭 성공.")
                 await page.wait_for_timeout(3000)
             else:
-                print("예제 이미지를 찾을 수 없습니다.")
+                print("XPath 예제 이미지를 찾을 수 없어 일반 예제 영역 매핑 시도...")
+                # 백업: 단순 텍스트 매칭
+                await page.locator("text=Sketch-to-Image").first.click()
+                await page.wait_for_timeout(3000)
+                
+            # 만약 다른 메뉴가 눌려서 팝업이 떴을 경우를 대비해 팝업 닫기 시도
+            await page.keyboard.press("Escape")
+            await page.wait_for_timeout(1000)
                 
             # 2. 에디터 텍스트 비우기 및 새로운 프롬프트 타이핑
             editor = page.locator(".tiptap.ProseMirror")
@@ -78,12 +85,11 @@ async def main():
             await editor.click()
             await page.wait_for_timeout(1000)
             
-            # 기존 텍스트 삭제 (Ctrl+A -> Backspace)
             await page.keyboard.press("Control+A")
             await page.keyboard.press("Backspace")
             await page.wait_for_timeout(1000)
             
-            # 새 프롬프트 한 글자씩 입력
+            # 새 프롬프트 입력
             prompt = "A cybernetic green frog sitting on a gold coin, 3d render, high detail, masterpiece"
             print(f"새 프롬프트 입력 중: {prompt}")
             await page.keyboard.type(prompt, delay=50)
