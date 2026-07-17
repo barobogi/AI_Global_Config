@@ -132,15 +132,25 @@ if __name__ == "__main__":
     import qa_agent
     out_file = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.pptx"
     
+    # QA 테스트용 실제 스크립트 (슬라이드 내용과 일치)
+    CRISP_DM_SCRIPT = (
+        "CRISP-DM? 데이터분석의 표준 6단계! "
+        "데이터를 분석하려면? 막 시작하면 안 된다. 정해진 순서가 있어. 그게 바로 CRISP-DM! 업계 표준 방법론이야. "
+        "CRISP-DM 6단계 Step 1 Business Understanding 비즈니스 목표 정의 Step 2 Data Understanding 데이터 수집 및 탐색 "
+        "Step 3 Data Preparation 데이터 정제 및 전처리 Step 4 Modeling 알고리즘 학습 및 튜닝 Step 5 Evaluation 성능 검증 Step 6 Deployment 운영 환경 적용. "
+        "우리 3AI는? 이 6단계를 완벽하게 적용 중! n8n 워크플로우 설계 = CRISP-DM 그 자체. Improve_stock 주식 분석 = EDA 교과서 흐름. "
+        "수집 전처리 모델 신호생성 배포 = CRISP-DM 완벽 실행! "
+        "CRISP-DM은? 무조건 알아야 할 데이터 분석 기초!"
+    )
+    
     max_retries = 2
     for attempt in range(max_retries + 1):
         print(f"\n[PPTX 생성] 시도 {attempt + 1}/{max_retries + 1}")
         create_shorts_pptx(out_file)
         
         print("[QA 검증] 코니의 7가지 체크리스트 실행 중...")
-        # Since audio and script might not be present here in this test stub, we pass empty strings or dummies
-        # Ideally this should be run with actual script and audio.
-        result = qa_agent.final_validation(out_file, "", "", "", "", [])
+        # 실제 오디오 길이는 60초라고 가정, 스크립트 전달
+        result = qa_agent.final_validation(out_file, "", CRISP_DM_SCRIPT, "D:\\AI\\63_youtube_creator\\temp_audio.mp3", "", [])
         
         if result["passed_count"] == result["total_count"] or "승인" in result["verdict"]:
             print(f"QA 통과! {result['verdict']}")
@@ -152,7 +162,6 @@ if __name__ == "__main__":
             
             if attempt < max_retries:
                 print("문제점을 수정하여 재렌더링 시도합니다...\n")
-                # Here we would normally adjust parameters (like font size, etc.) before retrying
             else:
                 print("최대 재시도 횟수 초과. 인간(User)의 개입이 필요합니다.")
                 exit(1)
