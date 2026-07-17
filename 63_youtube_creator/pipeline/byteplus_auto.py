@@ -11,13 +11,12 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (Viewport 및 Force 클릭 보강)")
+    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (JS DOM 클릭 우회 보강)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
             args=["--disable-blink-features=AutomationControlled"]
         )
-        # Viewport 크기를 1920x1080 풀HD로 키워 요소 짤림 방지
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             viewport={"width": 1920, "height": 1080}
@@ -61,25 +60,26 @@ async def main():
         await image_tab.click()
         await page.wait_for_timeout(4000)
         
-        # 1. 모델 활성화(Activation) 처리 시도
+        # 1. 모델 활성화(Activation) 처리 시도 (JS DOM 클릭 우회)
         print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
         try:
             # 첫 번째 img 태그 클릭하여 상세 팝업 오픈
             await page.locator("img").first.click()
             await page.wait_for_timeout(2000)
             
-            # Activate now 버튼 탐색 및 강제 클릭(force=True)
+            # Activate now 버튼 탐색 및 JS DOM 클릭
             activate_link = page.locator("text=Activate now").first
             if await activate_link.count() > 0:
-                print("Activate now 링크 발견! 활성화 진행...")
-                await activate_link.click(force=True)
+                print("Activate now 링크 발견! JS DOM 클릭으로 활성화 진행...")
+                # evaluate를 사용하여 viewport 검증 우회하고 DOM 레벨 click 강제 트리거
+                await activate_link.evaluate("el => el.click()")
                 await page.wait_for_timeout(3000)
                 
                 # 최종 승인 버튼 클릭 (Confirm / Agree / Activate)
                 confirm_active = page.locator("button:has-text('Confirm'), button:has-text('Agree'), button:has-text('Activate')").first
                 if await confirm_active.count() > 0:
-                    print("활성화 최종 승인 버튼 클릭 진행...")
-                    await confirm_active.click(force=True)
+                    print("활성화 최종 승인 버튼 발견. JS DOM 클릭 진행...")
+                    await confirm_active.evaluate("el => el.click()")
                     await page.wait_for_timeout(5000)
                     
                 activated_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_model_activated.png"
@@ -97,13 +97,13 @@ async def main():
         # 2. 이미지 예제 바인딩 및 생성 진행
         try:
             print("예제 이미지 바인딩 및 새 프롬프트 주입...")
-            # 예제 이미지 클릭 (Try the following example 바로 아래 그리드 내 첫 번째 이미지)
+            # 예제 이미지 클릭 (JS DOM 클릭 적용)
             example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
             if await example_img.count() > 0:
-                await example_img.click(force=True)
+                await example_img.evaluate("el => el.click()")
                 await page.wait_for_timeout(2000)
             else:
-                await page.locator("text=Sketch-to-Image").first.click(force=True)
+                await page.locator("text=Sketch-to-Image").first.evaluate("el => el.click()")
                 await page.wait_for_timeout(2000)
                 
             # 텍스트 교체
@@ -125,7 +125,7 @@ async def main():
             
             if not is_disabled:
                 print("전송 버튼이 활성화되었습니다! 클릭 격발...")
-                await submit_btn.click(force=True)
+                await submit_btn.evaluate("el => el.click()")
                 await page.wait_for_timeout(5000)
                 
                 # 생성 중 스크린샷
@@ -133,7 +133,7 @@ async def main():
                 await page.screenshot(path=generating_screenshot)
                 print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
                 
-                # 생성 완료 대기 (25초)
+                # 생성 대기 (25초)
                 print("생성 완료 대기 중 (25초)...")
                 await page.wait_for_timeout(25000)
                 
