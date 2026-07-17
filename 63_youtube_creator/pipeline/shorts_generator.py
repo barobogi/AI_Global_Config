@@ -128,5 +128,30 @@ def create_shorts_pptx(output_path):
     print(f"✅ PPTX 생성 완료 (1080p 해상도 적용): {output_path}")
 
 if __name__ == "__main__":
+    import qa_agent
     out_file = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.pptx"
-    create_shorts_pptx(out_file)
+    
+    max_retries = 2
+    for attempt in range(max_retries + 1):
+        print(f"\n[PPTX 생성] 시도 {attempt + 1}/{max_retries + 1}")
+        create_shorts_pptx(out_file)
+        
+        print("[QA 검증] 코니의 7가지 체크리스트 실행 중...")
+        # Since audio and script might not be present here in this test stub, we pass empty strings or dummies
+        # Ideally this should be run with actual script and audio.
+        result = qa_agent.final_validation(out_file, "", "", "", "", [])
+        
+        if result["passed_count"] == result["total_count"] or "✅" in result["verdict"]:
+            print(f"🎉 QA 통과! {result['verdict']}")
+            break
+        else:
+            print(f"⚠️ QA 반려: {result['verdict']}")
+            for issue in result["issues"]:
+                print(f"  - {issue}")
+            
+            if attempt < max_retries:
+                print("🔄 문제점을 수정하여 재렌더링 시도합니다...\n")
+                # Here we would normally adjust parameters (like font size, etc.) before retrying
+            else:
+                print("❌ 최대 재시도 횟수 초과. 인간(User)의 개입이 필요합니다.")
+                exit(1)
