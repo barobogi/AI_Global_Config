@@ -36,31 +36,35 @@ async def generate_scene_image(prompt_text, output_path):
 
         page = await context.new_page()
 
-        try:
-            # 1. Overview 접속 → Agreements 모달 처리
-            print("  - Overview 접속 + 모달 처리...")
-            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview",
-                            wait_until="networkidle", timeout=40000)
-            await asyncio.sleep(2)
-
-            # Agreements 모달 — 체크박스 + confirm
+        async def handle_modal():
+            """Agreements 모달이 있으면 체크 + confirm"""
             try:
-                checkbox = page.locator("input[type='checkbox']").first
-                await checkbox.wait_for(state="visible", timeout=8000)
-                await checkbox.check()
+                cb = page.locator("input[type='checkbox']").first
+                await cb.wait_for(state="visible", timeout=5000)
+                await cb.check()
                 await asyncio.sleep(0.5)
                 await page.locator("button:has-text('confirm')").click()
                 print("  - [모달 통과] 약관 동의 완료!")
                 await page.wait_for_load_state("networkidle")
                 await asyncio.sleep(2)
             except Exception:
-                print("  - [모달] 없음 또는 이미 동의됨, 계속 진행")
+                pass  # 모달 없으면 그냥 통과
 
-            # 2. Playground Image 직접 접속
+        try:
+            # 1. Overview 접속 → 모달 처리
+            print("  - Overview 접속...")
+            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview",
+                            wait_until="networkidle", timeout=40000)
+            await asyncio.sleep(2)
+            await handle_modal()
+
+            # 2. Playground Image 접속 → 또 모달 처리
             print("  - [1/4] Playground Image 접속...")
             await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/playground/image",
                             wait_until="networkidle", timeout=40000)
-            await asyncio.sleep(3)
+            await asyncio.sleep(2)
+            await handle_modal()
+            await asyncio.sleep(2)
 
             # 3. 프롬프트 입력
             print("  - [2/4] 프롬프트 입력...")
