@@ -70,18 +70,19 @@ async def build_pipeline():
             # 이미지 클립
             img_clip = ImageClip(img_path).with_duration(duration)
             
+            # 자막 텍스트 줄바꿈 및 하단 잘림(Descender cutoff) 방지용 공백 추가
             import textwrap
-            wrapped_text = "\n".join(textwrap.wrap(text, width=35)) # 35글자마다 명시적 개행
-
+            wrapped_text = "\n".join(textwrap.wrap(text, width=35)) + "\n " # 하단 받침 잘림 방지를 위해 빈 줄 추가
+            
             # 자막 생성 (TextClip) - 폰트, 크기, 색상, 배경 지정
             txt_clip = TextClip(
-                font="malgun.ttf", # 한글 지원 폰트
+                font="malgun.ttf", # 윈도우 지정 폰트
                 text=wrapped_text,
                 font_size=60,
                 color="white",
                 stroke_color="black",
                 stroke_width=2.0,
-                method="label", # 명시적 개행 사용 시 label 사용
+                method="label", # 명시적 개행 사용 시 label 적용
                 text_align="center"
             )
             txt_clip = txt_clip.with_position(('center', 750)).with_duration(duration)
