@@ -19,7 +19,7 @@ async def generate_scene_image(prompt_text, output_path):
         print("[오류] BYTEPLUS_API_KEY가 설정되지 않았습니다.")
         return False
 
-    url = "https://ark.ap-southeast.bytepluses.com/api/v3/images/generations"
+    url = "https://ark.cn-beijing.volces.com/api/v3/images/generations"
     headers = {
         "Authorization": f"Bearer {BYTEPLUS_API_KEY}",
         "Content-Type": "application/json"
