@@ -1,56 +1,108 @@
 import os
-import requests
+import json
 import asyncio
-from dotenv import load_dotenv
+from playwright.async_api import async_playwright
 
-load_dotenv()
-
-BYTEPLUS_API_KEY = os.getenv("BYTEPLUS_API_KEY")
+COOKIE_PATH = r"D:\AI\.secrets\byteplus_cookies.json"
 
 async def generate_scene_image(prompt_text, output_path):
     """
-    BytePlus API (Dola-Seedream) 연동을 통한 실사 이미지 렌더링.
+    만복의 지시(비용 0원 달성)에 따라 Playwright를 이용한 웹 매크로 스크래핑 방식으로 원상 복구 및 디버깅 롤백.
     """
-    print(f"\n========== 실사 이미지 렌더링 (BytePlus API) ==========")
+    print(f"\n========== 웹 매크로 스크래핑 렌더링 (Playwright) ==========")
     output_dir = os.path.dirname(output_path)
     os.makedirs(output_dir, exist_ok=True)
     
-    if not BYTEPLUS_API_KEY:
-        print("[오류] BYTEPLUS_API_KEY가 설정되지 않았습니다.")
+    if not os.path.exists(COOKIE_PATH):
+        print(f"  - [오류] 인증 쿠키가 없습니다: {COOKIE_PATH}")
         return False
 
-    url = "https://ark.cn-beijing.volces.com/api/v3/images/generations"
-    headers = {
-        "Authorization": f"Bearer {BYTEPLUS_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "ep-20240717203157-image", # 테스트용 엔드포인트명 가정 (또는 모델명)
-        "prompt": prompt_text,
-        "n": 1
-    }
+    async with async_playwright() as p:
+        # Headless=True로 백그라운드 구동 (디버깅 시 False)
+        browser = await p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled", "--window-size=1920,1080"]
+        )
+        context = await browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            viewport={'width': 1920, 'height': 1080}
+        )
+        await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
-    try:
-        response = requests.post(url, headers=headers, json=payload, timeout=30)
-        response.raise_for_status()
+        with open(COOKIE_PATH, "r", encoding="utf-8") as f:
+            cookies = json.load(f)
+            await context.add_cookies(cookies)
+
+        page = await context.new_page()
         
-        data = response.json()
-        image_url = data.get("data", [{}])[0].get("url")
-        
-        if image_url:
-            img_data = requests.get(image_url).content
-            with open(output_path, 'wb') as f:
-                f.write(img_data)
-            print(f"  - [성공] 실사 이미지 저장 완료: {output_path}")
-            return True
-        else:
-            print("  - [오류] 응답에 이미지 URL이 없습니다.")
-            return False
+        try:
+            # 1. Image Playground 페이지로 바로 진입
+            url = "https://console.byteplus.com/ark/region:ap-southeast-1/playground"
+            print("  - [1/4] Playground 페이지 접속 중...")
+            await page.goto(url, wait_until="networkidle", timeout=30000)
             
-    except Exception as e:
-        print(f"  - [오류] API 호출 실패: {e}")
-        return False
+            # 방해꾼 모달 닫기 (존재하면)
+            try:
+                await page.evaluate('''() => {
+                    const modals = document.querySelectorAll('.arco-modal-wrapper');
+                    modals.forEach(m => m.remove());
+                    const overlays = document.querySelectorAll('.arco-overlay');
+                    overlays.forEach(o => o.remove());
+                }''')
+                await asyncio.sleep(1)
+            except:
+                pass
+            
+            # 2. Image 탭 강제 전환 (JavaScript 라우팅 혹은 버튼 클릭)
+            print("  - [2/4] Image 탭 전환...")
+            try:
+                # 'Image' 텍스트를 가진 탭 버튼 클릭
+                await page.locator("div.arco-tabs-header-title:has-text('Image')").click(timeout=5000)
+                await asyncio.sleep(2)
+            except Exception as e:
+                print(f"    - 탭 클릭 실패, JS 라우팅 우회 시도: {e}")
+                # 강제로 URL 해시/경로를 변경할 수 있으면 시도 (단순 클릭 우회)
+                await page.evaluate("document.querySelectorAll('.arco-tabs-header-title').forEach(el => { if(el.innerText.includes('Image')) el.click(); })")
+                await asyncio.sleep(2)
+
+            # 3. 프롬프트 입력 및 전송
+            print("  - [3/4] 프롬프트 입력 및 렌더링 요청...")
+            # textarea를 찾아서 입력
+            textarea = page.locator("textarea[placeholder*='Enter prompt']").first
+            await textarea.fill(prompt_text)
+            await asyncio.sleep(1)
+            
+            # Generate 버튼 클릭 (보통 'Generate' 텍스트가 있는 버튼)
+            gen_btn = page.locator("button:has-text('Generate')").first
+            await gen_btn.click()
+            
+            # 4. 결과 이미지 대기 및 스크래핑
+            print("  - [4/4] AI 렌더링 대기 중 (최대 40초)...")
+            # 생성이 완료되면 화면 우측 결과 영역에 이미지가 뜸
+            # 기존 이미지와 구분하기 위해 생성 전/후 요소 갯수 비교도 가능하나, 일단 넉넉히 대기
+            img_locator = page.locator(".arco-image-img").last
+            await img_locator.wait_for(state="visible", timeout=40000)
+            
+            # 이미지 URL (src) 추출
+            img_src = await img_locator.get_attribute("src")
+            if img_src:
+                import urllib.request
+                urllib.request.urlretrieve(img_src, output_path)
+                print(f"  - [성공] 실사 이미지 스크래핑 및 저장 완료: {output_path}")
+                await browser.close()
+                return True
+            else:
+                print("  - [오류] 이미지 src를 찾을 수 없습니다.")
+                await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
+                await browser.close()
+                return False
+
+        except Exception as e:
+            print(f"  - [오류] Playwright 자동화 예외 발생: {e}")
+            await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
+            await browser.close()
+            return False
 
 if __name__ == "__main__":
-    print("API 연동 단독 테스트 실행")
-    asyncio.run(generate_scene_image("A futuristic robot typing on a computer, highly detailed", r"D:\AI\63_youtube_creator\pipeline\output\test_api.jpg"))
+    print("웹 매크로 스크래핑 단독 테스트 실행")
+    asyncio.run(generate_scene_image("A cute little robot waving hand, 3d render, masterpiece", r"D:\AI\63_youtube_creator\pipeline\output\test_playwright.jpg"))
