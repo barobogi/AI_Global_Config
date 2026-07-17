@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (새 탭 로딩 대기 보강)")
+    print("BytePlus Seedream 모델 무료 모드 활성화 및 이미지 생성 테스트 시작")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -60,10 +60,11 @@ async def main():
         await image_tab.click()
         await page.wait_for_timeout(4000)
         
-        # 1. 모델 활성화(Activation) 처리 시도
+        # 1. 모델 활성화(Activation) 처리 시도 (무료 모드 타겟)
         print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
         target_page = page
         try:
+            # 첫 번째 img 태그 클릭하여 상세 팝업 오픈
             await page.locator("img").first.click()
             await page.wait_for_timeout(2000)
             
@@ -78,44 +79,37 @@ async def main():
                     new_page = await new_page_info.value
                     print("새 탭 진입 성공. 데이터 로딩 대기 중 (5초)...")
                     await new_page.wait_for_load_state()
-                    await new_page.wait_for_timeout(5000) # 리스트 로딩 충분히 대기
+                    await new_page.wait_for_timeout(5000)
                     target_page = new_page
                 except Exception as ex:
                     print(f"새 탭 감지 실패: {ex}")
                     target_page = page
                 
-                # 모델 활성화 상세 처리
-                print("모델 활성화 탭 내부 조작 시작...")
-                # 방법 A: Enable all models 일괄 활성화 시도
-                enable_all_btn = target_page.locator("text=Enable all models").first
-                # 방법 B: Dola-Seedream-5.0-pro 행 찾아서 Activate 클릭
-                specific_activate = target_page.locator("xpath=//tr[contains(., 'Dola-Seedream-5.0-pro')]//button[contains(., 'Activate')]").first
+                # 무료 모드 활성화 처리
+                print("무료 모드 활성화 조건 체크 및 승인 진행...")
                 
-                if await specific_activate.count() > 0:
-                    print("특정 모델 활성화(Activate) 버튼 발견! 클릭...")
-                    await specific_activate.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(3000)
-                elif await enable_all_btn.count() > 0:
-                    print("일괄 활성화(Enable all models) 버튼 발견! 클릭...")
-                    await enable_all_btn.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(3000)
-                else:
-                    print("활성화 가능한 명시적 버튼을 찾지 못해 첫 번째 Activate 버튼 클릭 시도...")
-                    first_activate = target_page.locator("button:has-text('Activate')").first
-                    if await first_activate.count() > 0:
-                        await first_activate.evaluate("el => el.click()")
-                        await target_page.wait_for_timeout(3000)
-
-                # 최종 확인 팝업 (Confirm / Agree / Activate) 처리
-                confirm_active = target_page.locator("button:has-text('Confirm'), button:has-text('Agree'), button:has-text('Activate')").first
+                # 1. 'Enable Free Credits Only Mode' 체크박스 클릭
+                free_credit_checkbox = target_page.locator("text=Enable Free Credits Only Mode").first
+                if await free_credit_checkbox.count() > 0:
+                    print("Enable Free Credits Only Mode 체크박스 활성화...")
+                    # 상위 label이나 컴포넌트까지 찾아 클릭 우회
+                    await free_credit_checkbox.evaluate("""el => {
+                        const cb = el.closest('label, span, div');
+                        if (cb) cb.click();
+                        else el.click();
+                    }""")
+                    await target_page.wait_for_timeout(1000)
+                
+                # 2. 'Confirm activation and authorization' 버튼 클릭
+                confirm_active = target_page.locator("button:has-text('Confirm activation and authorization')").first
                 if await confirm_active.count() > 0:
-                    print("활성화 최종 확인 승인...")
+                    print("Confirm activation and authorization 버튼 클릭...")
                     await confirm_active.evaluate("el => el.click()")
                     await target_page.wait_for_timeout(5000)
                     
                 activated_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_model_activated.png"
                 await target_page.screenshot(path=activated_screenshot)
-                print(f"활성화 완료 화면 스크린샷 저장: {activated_screenshot}")
+                print(f"무료 활성화 처리 후 화면 스크린샷 저장: {activated_screenshot}")
                 
                 if target_page != page:
                     await target_page.close()
@@ -174,9 +168,9 @@ async def main():
                 await page.screenshot(path=generating_screenshot)
                 print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
                 
-                # 생성 완료 대기 (30초)
-                print("생성 완료 대기 중 (30초)...")
-                await page.wait_for_timeout(30000)
+                # 생성 완료 대기 (25초)
+                print("생성 완료 대기 중 (25초)...")
+                await page.wait_for_timeout(25000)
                 
                 # 완료 스크린샷
                 done_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_done.png"
