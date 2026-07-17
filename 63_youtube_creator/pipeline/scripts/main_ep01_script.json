@@ -1,0 +1,52 @@
+[
+  {
+    "scene_id": 1,
+    "text": "최근 저희 채널 쇼츠에서 에이아이 세 명이 알아서 코딩하고 자동으로 영상을 렌더링하는 모습, 신기하게 보셨나요? 오늘은 그 세 명의 에이아이가 어떻게 하나의 팀으로 뭉치게 되었는지, 그 비하인드 스토리를 전해드립니다.",
+    "prompt": "Three futuristic humanoid robots standing together in a high-tech laboratory, cinematic lighting, 8k resolution, masterpiece"
+  },
+  {
+    "scene_id": 2,
+    "text": "저는 만복, 안티, 코니라는 세 명의 에이아이와 함께 일합니다. 만복은 기획과 승인을 담당하는 피엠, 안티는 실제 코딩을 실행하는 오퍼레이터, 코니는 정보 분석과 검증을 맡은 애널리스트입니다.",
+    "prompt": "Three glowing holographic AI avatars with different colors, one blue for planning, one red for coding, one green for analyzing, floating above a server rack, cyberpunk style"
+  },
+  {
+    "scene_id": 3,
+    "text": "완벽해 보였던 이 조합에 첫 번째 위기가 찾아왔습니다. 세 에이아이가 동시에 하나의 소스 코드 파일을 열어서 각자 마음대로 수정하려고 덤벼든 겁니다. 결과는 처참했습니다. 코드는 꼬이고, 깃허브 충돌이 빗발쳤죠.",
+    "prompt": "Computer screen showing severe software errors and red warning signs, multiple code windows overlapping, chaotic digital atmosphere, 3d render"
+  },
+  {
+    "scene_id": 4,
+    "text": "이 대환장 파티를 막기 위해 우리는 '뮤텍스'라는 개념을 도입했습니다. 누군가 작업을 시작하기 전에 반드시 잠금 파일을 확인하고, 이미 다른 에이아이가 작업 중이라면 대기하도록 만들었습니다.",
+    "prompt": "A glowing digital padlock icon securing a glowing folder of data, secure digital environment, sci-fi theme, neon blue lights"
+  },
+  {
+    "scene_id": 5,
+    "text": "하지만 기술적인 잠금 장치만으로는 부족했습니다. 똑똑한 에이아이일수록 자신의 판단이 맞다고 우기기 일쑤였죠. 그래서 에이아이 팀에도 사람의 조직처럼 명확한 '거버넌스', 즉 의사결정 규칙이 필요해졌습니다.",
+    "prompt": "A futuristic judge's gavel made of glowing crystal slamming onto a digital circuit board, representing rules and governance in AI, concept art"
+  },
+  {
+    "scene_id": 6,
+    "text": "우리는 치열한 토론 끝에 팀 운영 원칙을 명문화했습니다. 첫째, 아무리 좋은 아이디어라도 피엠인 만복의 승인 없이는 실행을 금지한다. 둘째, 안티와 코니는 만복의 지시서가 없으면 절대 메인 코드를 건드리지 않는다.",
+    "prompt": "A futuristic glowing contract or document displaying golden text, signed by three different AI avatars, serious and official atmosphere"
+  },
+  {
+    "scene_id": 7,
+    "text": "또한 에이아이 간에 메시지를 주고받을 때는 나머지 에이아이를 항상 참조인으로 걸도록 했습니다. 그리고 완료 보고를 할 때는 반드시 스크린샷 같은 시각적 증거를 첨부하게 만들었죠. 증거가 없으면 가차 없이 반려입니다.",
+    "prompt": "A large holographic dashboard showing three AI nodes communicating with each other through glowing data streams, interconnected network, dark background"
+  },
+  {
+    "scene_id": 8,
+    "text": "원칙이 많아 보이지만 핵심은 단 하나입니다. 에이아이도 여러 마리가 협업하려면 사람 조직과 똑같이 명확한 역할 분담과 소통 규칙이 필요하다는 사실입니다. 코드가 아닌 규칙으로 시스템의 충돌을 막아낸 것이죠.",
+    "prompt": "A harmonious futuristic city where robots and humans work together seamlessly, bright and optimistic atmosphere, beautiful architecture, 8k"
+  },
+  {
+    "scene_id": 9,
+    "text": "피엠이 승인권을 쥐고, 실행과 검증은 명확히 위임하는 이 구조. 이것이 우리 3AI 시스템이 매일 스스로 진화하며 코드를 짜내고 영상을 만들어내는 핵심 거버넌스입니다.",
+    "prompt": "A glowing golden crown hovering over a master computer server, surrounded by smaller active nodes, symbolizing the PM's authority, cinematic"
+  },
+  {
+    "scene_id": 10,
+    "text": "다음 본편 2부에서는, 텔레그램 봇을 뻗게 만든 무시무시한 좀비 프로세스를 척결한 사건과, 유튜브 채널 자체를 에이아이의 지식 창고로 만드는 파이프라인 자동화에 대해 파헤쳐 보겠습니다. 구독과 좋아요 부탁드립니다!",
+    "prompt": "A futuristic cinematic title screen with a glowing play button, YouTube subscribe and like icons styled in cyberpunk neon, dramatic lighting"
+  }
+]

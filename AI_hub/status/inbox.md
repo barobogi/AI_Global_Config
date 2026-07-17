@@ -1,5 +1,5 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-17 20:04:02 (master_watch.py)
+> 자동 갱신: 2026-07-17 22:27:58 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
@@ -124,3 +124,119 @@
   - ✅ 완료 [ImproveStock_v1.1] Improve_stock v1.1 — 내러티브 모멘텀 + 외국인 매수 필터 확장
   - ✅ 완료 [T032] push_to_all.py — 3AI 완전 동시 격발 시스템
   - ✅ 완료 [T034] gps_check.py — 지시서 GPS 구조 자동 검증 도구
+---
+**[WorkflowEngine]** 22:27 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:27 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2227_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_2228_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 22:28 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
