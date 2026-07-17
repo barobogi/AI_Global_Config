@@ -32,7 +32,11 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
             time.sleep(0.5)
             
         # 창 활성화 (포커스)
-        claude_win.activate()
+        try:
+            claude_win.activate()
+        except Exception as e:
+            logging.warning(f"activate() warning (ignoring): {e}")
+        time.sleep(0.5)
         time.sleep(0.5)
         
         # 메시지 복사 (한글 깨짐 방지)
