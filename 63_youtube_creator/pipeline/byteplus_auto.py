@@ -62,12 +62,33 @@ async def generate_scene_image(prompt_text, output_path):
             await asyncio.sleep(2)
             await handle_modal()
 
-            # 2. Playground Image 접속 → 또 모달 처리
+            # 2. Playground Image 접속
             print("  - [1/4] Playground Image 접속...")
             await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/playground/image",
                             wait_until="networkidle", timeout=40000)
             await asyncio.sleep(2)
+
+            # 약관 모달 또 뜨면 처리
             await handle_modal()
+
+            # 투어 안내 모달 닫기 (X 버튼 또는 Next 3번)
+            try:
+                close = page.locator("button.arco-modal-close, [class*='modal-close'], [class*='icon-close']").first
+                await close.wait_for(state="visible", timeout=4000)
+                await close.click()
+                print("  - [투어 모달] 닫기 완료")
+                await asyncio.sleep(1)
+            except Exception:
+                # X 없으면 Next 버튼 3번으로 스킵
+                try:
+                    for _ in range(3):
+                        nb = page.locator("button:has-text('Next')").first
+                        if await nb.is_visible(timeout=1000):
+                            await nb.click()
+                            await asyncio.sleep(0.5)
+                except Exception:
+                    pass
+
             await asyncio.sleep(2)
 
             # 3. 프롬프트 입력
