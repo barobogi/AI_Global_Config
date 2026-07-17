@@ -11,14 +11,14 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Playground 탭 클릭 및 상세 확인 테스트 시작")
+    print("BytePlus Seedream 이미지 생성 자동화 테스트 시작")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
             args=["--disable-blink-features=AutomationControlled"]
         )
         context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, http://go.microsoft.com/fwlink/?LinkID=286172) Chrome/120.0.0.0 Safari/537.36"
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
         await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
@@ -53,35 +53,44 @@ async def main():
         await page.locator("text=Playground").first.click()
         await page.wait_for_timeout(4000)
         
-        # 1. 상단 "Image" 탭 클릭 시도
-        print("상단 Image 탭 클릭 시도...")
+        # 상단 "Image" 탭 클릭하여 Seedream 진입
+        print("상단 Image 탭 클릭 중...")
+        image_tab = page.locator("div, span, button").filter(has_text="Image").first
+        await image_tab.click()
+        await page.wait_for_timeout(4000)
+        
+        # 프롬프트 입력 영역 탐색 및 텍스트 주입
+        print("프롬프트 입력 중...")
         try:
-            # Featured / Text / Image / Video 중 Image 매칭
-            # 텍스트가 정확히 'Image'인 요소를 찾거나 혹은 div/span 중 클릭
-            image_tab = page.locator("div, span, button").filter(has_text="Image").first
-            await image_tab.click()
-            await page.wait_for_timeout(3000)
+            # placeholder 속성을 포함하는 textarea나 div를 찾음
+            prompt_input = page.locator("textarea, [placeholder*='Enter your prompt']").first
+            await prompt_input.click()
+            await prompt_input.fill("A cybernetic green frog sitting on a gold coin, 3d render, high detail, masterpiece")
+            await page.wait_for_timeout(1000)
             
-            # 스크린샷 저장
-            screenshot_image = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground_image_tab.png"
-            await page.screenshot(path=screenshot_image)
-            print(f"Image 탭 스크린샷 저장: {screenshot_image}")
-        except Exception as e:
-            print(f"Image 탭 클릭 실패: {e}")
-
-        # 2. 상단 "Video" 탭 클릭 시도
-        print("상단 Video 탭 클릭 시도...")
-        try:
-            video_tab = page.locator("div, span, button").filter(has_text="Video").first
-            await video_tab.click()
-            await page.wait_for_timeout(3000)
+            # 생성(전송) 버튼 클릭 또는 Enter 전송
+            # 여기서는 Enter 키를 눌러 생성 명령 전송
+            print("엔터 전송하여 이미지 생성 격발...")
+            await prompt_input.press("Enter")
+            await page.wait_for_timeout(5000)
             
-            # 스크린샷 저장
-            screenshot_video = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground_video_tab.png"
-            await page.screenshot(path=screenshot_video)
-            print(f"Video 탭 스크린샷 저장: {screenshot_video}")
+            # 생성 대기 상태 캡처
+            generating_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_generating.png"
+            await page.screenshot(path=generating_screenshot)
+            print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
+            
+            # 완전히 생성될 때까지 충분히 대기 (약 20초)
+            print("완성 대기 중 (20초)...")
+            await page.wait_for_timeout(20000)
+            
+            # 완성 화면 캡처
+            done_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_done.png"
+            await page.screenshot(path=done_screenshot)
+            print(f"완성 화면 스크린샷 저장: {done_screenshot}")
+            
         except Exception as e:
-            print(f"Video 탭 클릭 실패: {e}")
+            print(f"이미지 생성 조작 실패: {e}")
+            await page.screenshot(path=r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_generate_error.png")
 
         await browser.close()
 
