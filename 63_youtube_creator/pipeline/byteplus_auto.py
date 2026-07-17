@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 이미지 생성 자동화 테스트 시작")
+    print("BytePlus 입력 폼 요소 분석 시작")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -29,7 +29,6 @@ async def main():
         page = await context.new_page()
         
         # Overview 페이지로 이동
-        print("Overview 페이지로 이동 중...")
         await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview", wait_until="networkidle")
         await page.wait_for_timeout(3000)
         
@@ -49,48 +48,59 @@ async def main():
         await page.wait_for_timeout(1000)
 
         # 왼쪽 메뉴에서 Playground 클릭
-        print("Playground 메뉴 클릭 중...")
         await page.locator("text=Playground").first.click()
         await page.wait_for_timeout(4000)
         
-        # 상단 "Image" 탭 클릭하여 Seedream 진입
-        print("상단 Image 탭 클릭 중...")
+        # 상단 "Image" 탭 클릭
         image_tab = page.locator("div, span, button").filter(has_text="Image").first
         await image_tab.click()
         await page.wait_for_timeout(4000)
         
-        # 프롬프트 입력 영역 탐색 및 텍스트 주입
-        print("프롬프트 입력 중...")
-        try:
-            # placeholder 속성을 포함하는 textarea나 div를 찾음
-            prompt_input = page.locator("textarea, [placeholder*='Enter your prompt']").first
-            await prompt_input.click()
-            await prompt_input.fill("A cybernetic green frog sitting on a gold coin, 3d render, high detail, masterpiece")
-            await page.wait_for_timeout(1000)
-            
-            # 생성(전송) 버튼 클릭 또는 Enter 전송
-            # 여기서는 Enter 키를 눌러 생성 명령 전송
-            print("엔터 전송하여 이미지 생성 격발...")
-            await prompt_input.press("Enter")
-            await page.wait_for_timeout(5000)
-            
-            # 생성 대기 상태 캡처
-            generating_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_generating.png"
-            await page.screenshot(path=generating_screenshot)
-            print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
-            
-            # 완전히 생성될 때까지 충분히 대기 (약 20초)
-            print("완성 대기 중 (20초)...")
-            await page.wait_for_timeout(20000)
-            
-            # 완성 화면 캡처
-            done_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_done.png"
-            await page.screenshot(path=done_screenshot)
-            print(f"완성 화면 스크린샷 저장: {done_screenshot}")
-            
-        except Exception as e:
-            print(f"이미지 생성 조작 실패: {e}")
-            await page.screenshot(path=r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_generate_error.png")
+        # 페이지 내의 다양한 입력 요소 로깅
+        print("--- 페이지 내 텍스트 입력 가능 요소 스캔 ---")
+        
+        # contenteditable=true 분석
+        ce_count = await page.locator("[contenteditable='true']").count()
+        print(f"contenteditable='true' 요소 개수: {ce_count}")
+        for i in range(ce_count):
+            el = page.locator("[contenteditable='true']").nth(i)
+            tag = await el.evaluate("el => el.tagName")
+            cls = await el.evaluate("el => el.className")
+            placeholder = await el.evaluate("el => el.getAttribute('placeholder')")
+            print(f"[{i}] Tag: {tag}, Class: {cls}, Placeholder: {placeholder}")
+
+        # textarea 분석
+        ta_count = await page.locator("textarea").count()
+        print(f"textarea 요소 개수: {ta_count}")
+        for i in range(ta_count):
+            el = page.locator("textarea").nth(i)
+            cls = await el.evaluate("el => el.className")
+            placeholder = await el.evaluate("el => el.getAttribute('placeholder')")
+            print(f"[{i}] Class: {cls}, Placeholder: {placeholder}")
+
+        # input 분석
+        inp_count = await page.locator("input").count()
+        print(f"input 요소 개수: {inp_count}")
+        for i in range(inp_count):
+            el = page.locator("input").nth(i)
+            typ = await el.evaluate("el => el.type")
+            cls = await el.evaluate("el => el.className")
+            placeholder = await el.evaluate("el => el.getAttribute('placeholder')")
+            print(f"[{i}] Type: {typ}, Class: {cls}, Placeholder: {placeholder}")
+
+        # 'Enter your prompt' 텍스트를 담고 있는 모든 요소 분석
+        prompt_txt_count = await page.locator("text='Enter your prompt'").count()
+        print(f"'Enter your prompt' 텍스트 포함 요소 개수 (일부 일치): {prompt_txt_count}")
+        # 좀 더 넓은 조건 검색
+        prompt_elements = page.locator("div, span, p, label").filter(has_text="Enter your prompt")
+        pe_count = await prompt_elements.count()
+        print(f"'Enter your prompt' 필터링 요소 개수: {pe_count}")
+        for i in range(min(pe_count, 5)):
+            el = prompt_elements.nth(i)
+            tag = await el.evaluate("el => el.tagName")
+            cls = await el.evaluate("el => el.className")
+            text = await el.inner_text()
+            print(f"[{i}] Tag: {tag}, Class: {cls}, Text: {text[:50]}")
 
         await browser.close()
 
