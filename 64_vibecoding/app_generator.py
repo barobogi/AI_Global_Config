@@ -1,10 +1,12 @@
 import os
 import re
-from google import genai
+import glob
+import subprocess
+import json
 
-# Configure Gemini API
-# Assuming GEMINI_API_KEY is set in environment
-client = genai.Client()
+# Claude CLI 실행 파일 탐색 로직 (VSCode 확장 경로 탐색)
+_claude_paths = glob.glob(r"C:\Users\82102\.vscode\extensions\anthropic.claude-code-*-win32-x64\resources\native-binary\claude.exe")
+CLAUDE_EXE = sorted(_claude_paths)[-1] if _claude_paths else "claude.exe"
 
 def apply_feedback_whitelist(app_dir: str, prompt: str) -> bool:
     """
@@ -59,7 +61,7 @@ def apply_feedback_whitelist(app_dir: str, prompt: str) -> bool:
 
 def generate_with_llm(app_dir: str, prompt: str):
     """
-    Generate or update app using Gemini API.
+    Generate or update app using Claude CLI via subprocess.
     """
     # Read existing files to give context if they exist
     existing_code = ""
@@ -98,15 +100,29 @@ Ensure standard CSS variables like --main-color, --layout-grid, and --base-font-
     if existing_code:
         system_prompt += f"\nHere is the existing code (modify it according to the prompt):\n{existing_code}"
 
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=f"{system_prompt}\n\nUser Request: {prompt}",
-    )
-    
+    full_prompt = f"{system_prompt}\n\nUser Request: {prompt}"
+
+    # Call Claude CLI via subprocess
+    try:
+        result = subprocess.run(
+            [CLAUDE_EXE, "--print", full_prompt],
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=120
+        )
+        response_text = result.stdout
+    except Exception as e:
+        response_text = f"Subprocess Error: {e}"
+        with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
+            f.write(f"Failed to run Claude CLI:\n{response_text}\n")
+        return
+
     # Parse the response and write files
-    html_match = re.search(r'```html\n(.*?)\n```', response.text, re.DOTALL)
-    css_match = re.search(r'```css\n(.*?)\n```', response.text, re.DOTALL)
-    js_match = re.search(r'```(?:javascript|js)\n(.*?)\n```', response.text, re.DOTALL)
+    html_match = re.search(r'```html\n(.*?)\n```', response_text, re.DOTALL)
+    css_match = re.search(r'```css\n(.*?)\n```', response_text, re.DOTALL)
+    js_match = re.search(r'```(?:javascript|js)\n(.*?)\n```', response_text, re.DOTALL)
     
     os.makedirs(app_dir, exist_ok=True)
     
