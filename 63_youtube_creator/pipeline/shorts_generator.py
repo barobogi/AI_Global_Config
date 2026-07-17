@@ -1,4 +1,5 @@
 import os
+import json
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
@@ -27,8 +28,10 @@ def create_shorts_pptx(output_path):
         fill.solid()
         fill.fore_color.rgb = bg_color
 
-    def create_text_box(slide, left, top, width, height):
+    def create_text_box(slide, left, top, width, height, name=None):
         txBox = slide.shapes.add_textbox(left, top, width, height)
+        if name:
+            txBox.name = name
         tf = txBox.text_frame
         tf.word_wrap = True
         return tf
@@ -41,6 +44,12 @@ def create_shorts_pptx(output_path):
         run.font.color.rgb = color
         run.font.bold = bold
         return run
+
+    def set_slide_timing(slide, duration_sec):
+        # Store expected duration in slide notes for QA agent to read
+        notes_slide = slide.notes_slide
+        tf = notes_slide.notes_text_frame
+        tf.text = json.dumps({"duration_sec": duration_sec})
 
     # --- Slide 1: 타이틀 ---
     slide1 = prs.slides.add_slide(blank_slide_layout)
