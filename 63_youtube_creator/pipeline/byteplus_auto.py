@@ -191,18 +191,15 @@ async def generate_scene_image(prompt_text, output_path):
 
             if not img_src:
                 await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
-                print("  - [오류] 결과 이미지 못 찾음 — 스크린샷 저장")
-            if img_src:
-                import urllib.request
-                urllib.request.urlretrieve(img_src, output_path)
-                print(f"  - [성공] 실사 이미지 스크래핑 및 저장 완료: {output_path}")
-                await browser.close()
-                return True
-            else:
-                print("  - [오류] 이미지 src를 찾을 수 없습니다.")
-                await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
+                print("  - [오류] 결과 이미지 못 찾음")
                 await browser.close()
                 return False
+
+            import urllib.request
+            urllib.request.urlretrieve(img_src, output_path)
+            print(f"  - [성공] 이미지 저장: {output_path}")
+            await browser.close()
+            return True
 
         except Exception as e:
             print(f"  - [오류] Playwright 자동화 예외 발생: {e}")
