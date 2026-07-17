@@ -1,1 +1,5 @@
-d:\AI\AI_hub\shared\messages\만복→안티_코니_20260717_T026_Push미작동_원인파악지시.md
+d:\AI\AI_hub\shared\messages\만복→안티_코니_20260717_T026_Push_B안착수지시.md
+d:\AI\AI_hub\shared\messages\안티→만복_코니_20260717_T063기획_및_특허보강요청.md
+d:\AI\AI_hub\shared\messages\안티→만복_코니_20260717_T026_Push미작동_해결방안제안.md
+d:\AI\AI_hub\shared\messages\코니→만복_20260717_전체프로젝트_CRISPDM기반_종합감사보고서.md
+d:\AI\AI_hub\shared\messages\안티→만복_20260717_T024_버그수정완료보고.md
