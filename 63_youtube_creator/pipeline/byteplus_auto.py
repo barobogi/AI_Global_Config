@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 시작")
+    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (로고 클릭 우회)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -59,47 +59,43 @@ async def main():
         await image_tab.click()
         await page.wait_for_timeout(4000)
         
-        # 1. 모델 활성화(Activation) 처리 시도
-        print("모델 활성화 절차 돌입...")
+        # 1. 모델 활성화(Activation) 처리 시도 (로고 클릭 우회)
+        print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
         try:
-            # 모델 상세 정보 팝업을 띄우기 위해 모델명 드롭다운 클릭
-            # Dola-Seedream-5.0-pro 텍스트 영역 또는 드롭다운 아이콘 클릭
-            model_selector = page.locator("span").filter(has_text="Dola-Seedream-5.0-pro").first
-            await model_selector.click()
+            # 첫 번째 img 태그(모델 로고)를 클릭하여 상세 팝업 오픈
+            await page.locator("img").first.click()
             await page.wait_for_timeout(2000)
             
             # Activate now 버튼 탐색 및 클릭
             activate_link = page.locator("text=Activate now").first
             if await activate_link.count() > 0 and await activate_link.is_visible():
-                print("Activate now 링크 발견! 클릭하여 모델 활성화 진행...")
+                print("Activate now 링크 발견! 활성화 페이지로 이동 중...")
                 await activate_link.click()
                 await page.wait_for_timeout(3000)
                 
-                # 추가 요금 확인/승인 팝업이 뜨는 경우 처리
-                # 'Agree', 'Confirm', 'Activate' 등 버튼 매칭 클릭
+                # 최종 승인 버튼 클릭 (Confirm / Agree / Activate)
                 confirm_active = page.locator("button:has-text('Confirm'), button:has-text('Agree'), button:has-text('Activate')").first
                 if await confirm_active.count() > 0:
-                    print("활성화 최종 승인 버튼 발견. 클릭 진행...")
+                    print("활성화 최종 승인 버튼 클릭 진행...")
                     await confirm_active.click()
                     await page.wait_for_timeout(5000)
                     
-                # 활성화 완료 확인용 스크린샷
                 activated_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_model_activated.png"
                 await page.screenshot(path=activated_screenshot)
-                print(f"모델 활성화 시도 화면 스크린샷 저장: {activated_screenshot}")
+                print(f"모델 활성화 처리 화면 스크린샷 저장: {activated_screenshot}")
             else:
                 print("Activate now 버튼이 보이지 않습니다. 이미 활성화 상태일 수 있습니다.")
         except Exception as e:
-            print(f"모델 활성화 진행 중 오류 발생: {e}")
+            print(f"모델 활성화 절차 중 오류 발생: {e}")
             
         # 팝업 닫기 (새로고침을 하거나 Escape 전송)
         await page.keyboard.press("Escape")
-        await page.wait_for_timeout(1000)
+        await page.wait_for_timeout(2000)
         
         # 2. 이미지 예제 바인딩 및 생성 진행
         try:
             print("예제 이미지 바인딩 및 새 프롬프트 주입...")
-            # 예제 이미지 클릭
+            # 예제 이미지 클릭 (Try the following example 바로 아래 그리드 내 첫 번째 이미지)
             example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
             if await example_img.count() > 0:
                 await example_img.click()
@@ -123,10 +119,10 @@ async def main():
             # 전송 버튼 클릭
             submit_btn = page.locator("[data-testid='image-sender-submit-button']")
             is_disabled = await submit_btn.evaluate("btn => btn.disabled")
-            print(f"전송 버튼 비활성화 상태 (활성화 절차 후): {is_disabled}")
+            print(f"전송 버튼 비활성화 상태: {is_disabled}")
             
             if not is_disabled:
-                print("전송 버튼이 성공적으로 활성화되었습니다! 생성 격발...")
+                print("전송 버튼이 활성화되었습니다! 클릭 격발...")
                 await submit_btn.click()
                 await page.wait_for_timeout(5000)
                 
@@ -135,18 +131,16 @@ async def main():
                 await page.screenshot(path=generating_screenshot)
                 print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
                 
-                # 생성 대기 (대략 25초)
+                # 생성 완료 대기 (25초)
                 print("생성 완료 대기 중 (25초)...")
                 await page.wait_for_timeout(25000)
                 
-                # 완성 화면 캡처
+                # 완료 스크린샷
                 done_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_done.png"
                 await page.screenshot(path=done_screenshot)
                 print(f"완성 화면 스크린샷 저장: {done_screenshot}")
-                
-                # 생성된 이미지 다운로드 처리 로직 추가 예정
             else:
-                print("오류: 활성화 절차 진행 후에도 전송 버튼이 활성화되지 않았습니다.")
+                print("오류: 전송 버튼이 여전히 활성화되지 않았습니다.")
                 
         except Exception as e:
             print(f"이미지 생성 프로세스 오류: {e}")
