@@ -139,7 +139,7 @@ Ensure standard CSS variables like --main-color, --layout-grid, and --base-font-
     # If no blocks matched, it might have failed to format. We just log it.
     if not html_match and not css_match:
         with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
-            f.write(f"Failed to parse LLM response:\n{response.text}\n")
+            f.write(f"Failed to parse LLM response:\n{result.stdout}\n")
 
 
 def process_prompt(app_name: str, prompt: str):
