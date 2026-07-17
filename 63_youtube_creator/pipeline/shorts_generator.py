@@ -132,15 +132,15 @@ if __name__ == "__main__":
     import qa_agent
     out_file = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.pptx"
     
-    # QA 테스트용 실제 스크립트 (슬라이드 내용과 일치)
+    # QA 테스트용 실제 스크립트 (슬라이드 내용과 일치, 개행 문자로 문장 구분)
     CRISP_DM_SCRIPT = (
-        "CRISP-DM? 데이터분석의 표준 6단계! "
-        "데이터를 분석하려면? 막 시작하면 안 된다. 정해진 순서가 있어. 그게 바로 CRISP-DM! 업계 표준 방법론이야. "
-        "CRISP-DM 6단계 Step 1 Business Understanding 비즈니스 목표 정의 Step 2 Data Understanding 데이터 수집 및 탐색 "
-        "Step 3 Data Preparation 데이터 정제 및 전처리 Step 4 Modeling 알고리즘 학습 및 튜닝 Step 5 Evaluation 성능 검증 Step 6 Deployment 운영 환경 적용. "
-        "우리 3AI는? 이 6단계를 완벽하게 적용 중! n8n 워크플로우 설계 = CRISP-DM 그 자체. Improve_stock 주식 분석 = EDA 교과서 흐름. "
-        "수집 전처리 모델 신호생성 배포 = CRISP-DM 완벽 실행! "
-        "CRISP-DM은? 무조건 알아야 할 데이터 분석 기초!"
+        "CRISP-DM?\n데이터분석의 표준 6단계!\n"
+        "데이터를 분석하려면?\n막 시작하면 안 된다.\n정해진 순서가 있어.\n그게 바로 CRISP-DM!\n업계 표준 방법론이야.\n"
+        "CRISP-DM 6단계\n1 Step 1 Business Understanding → 비즈니스 목표 정의\n2 Step 2 Data Understanding → 데이터 수집 및 탐색\n"
+        "3 Step 3 Data Preparation → 데이터 정제 및 전처리\n4 Step 4 Modeling → 알고리즘 학습 및 튜닝\n5 Step 5 Evaluation → 성능 검증\n6 Step 6 Deployment → 운영 환경 적용\n"
+        "우리 3AI는?\n이 6단계를 완벽하게 적용 중!\nn8n 워크플로우 설계 = CRISP-DM 그 자체\nImprove_stock 주식 분석 = EDA 교과서 흐름\n"
+        "수집 → 전처리 → 모델 → 신호생성 → 배포\n= CRISP-DM 완벽 실행!\n"
+        "CRISP-DM은?\n무조건 알아야 할\n데이터 분석 기초!\n"
     )
     
     script_md_path = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_script.md"
@@ -149,6 +149,7 @@ if __name__ == "__main__":
         f.write(CRISP_DM_SCRIPT)
         
     empty_json_path = r"D:\AI\63_youtube_creator\pipeline\empty.json"
+    dummy_toc_path = r"D:\AI\63_youtube_creator\pipeline\dummy_toc.json"
         
     max_retries = 2
     for attempt in range(max_retries + 1):
@@ -162,7 +163,7 @@ if __name__ == "__main__":
             "D:\\AI\\63_youtube_creator\\temp_audio.mp3", 
             script_md_path, 
             empty_json_path, 
-            empty_json_path, 
+            dummy_toc_path, 
             []
         )
         
