@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (텍스트 DOM 직접 클릭 패치)")
+    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (조상 Label 클릭 패치)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -84,21 +84,29 @@ async def main():
                     print(f"새 탭 감지 실패: {ex}")
                     target_page = page
                 
-                # 무료 모드 및 약관 동의 활성화 처리 (텍스트 DOM 직접 클릭)
+                # 무료 모드 및 약관 동의 활성화 처리 (조상 Label 매핑 클릭)
                 print("무료 모드 및 약관 동의 조건 체크 시작...")
                 
-                # 1. 'Enable Free Credits Only Mode' 텍스트 요소 강제 클릭
-                free_credit_text = target_page.locator("text=Enable Free Credits Only Mode").first
-                if await free_credit_text.count() > 0:
-                    print("Enable Free Credits Only Mode 텍스트 강제 클릭...")
-                    await free_credit_text.evaluate("el => el.click()")
+                # 1. 'Enable Free Credits Only Mode' 조상 label 클릭
+                free_credit_label = target_page.locator("xpath=//span[contains(text(), 'Enable Free Credits Only Mode')]/ancestor::label").first
+                if await free_credit_label.count() > 0:
+                    print("Enable Free Credits Only Mode 조상 Label 클릭...")
+                    await free_credit_label.evaluate("el => el.click()")
+                    await target_page.wait_for_timeout(1000)
+                else:
+                    # 백업용으로 텍스트 직접 클릭
+                    await target_page.locator("text=Enable Free Credits Only Mode").first.evaluate("el => el.click()")
                     await target_page.wait_for_timeout(1000)
                 
-                # 2. 'I have read and agree' 약관 동의 텍스트 요소 강제 클릭
-                agree_text = target_page.locator("text=read and agree").first
-                if await agree_text.count() > 0:
-                    print("I have read and agree 약관 동의 텍스트 강제 클릭...")
-                    await agree_text.evaluate("el => el.click()")
+                # 2. 'I have read and agree' 조상 label 클릭
+                agree_label = target_page.locator("xpath=//span[contains(text(), 'read and agree')]/ancestor::label").first
+                if await agree_label.count() > 0:
+                    print("I have read and agree 조상 Label 클릭...")
+                    await agree_label.evaluate("el => el.click()")
+                    await target_page.wait_for_timeout(1000)
+                else:
+                    # 백업용으로 텍스트 직접 클릭
+                    await target_page.locator("text=read and agree").first.evaluate("el => el.click()")
                     await target_page.wait_for_timeout(1000)
                 
                 # 3. 'Confirm activation and authorization' 버튼 클릭
