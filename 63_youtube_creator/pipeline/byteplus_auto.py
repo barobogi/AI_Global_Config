@@ -112,36 +112,34 @@ async def generate_scene_image(prompt_text, output_path):
                         print(f"  - 이동 실패: {e}")
             await asyncio.sleep(2)
 
-            # 3. Image 탭 클릭 후 프롬프트 입력
+            # 3. Image 탭 → 모델 선택 → 프롬프트 입력
             print("  - [2/4] Image 탭 선택...")
             try:
                 await page.locator("button:has-text('Image'), [role='tab']:has-text('Image')").first.click(timeout=5000)
-                await asyncio.sleep(2)
+                await asyncio.sleep(1.5)
+                # 모델 선택 목록이 나오면 Seedream 클릭
+                mdl = page.locator("text='Dola-Seedream-5.0-pro'").first
+                if await mdl.is_visible(timeout=3000):
+                    await mdl.click()
+                    print("  - 모델 Seedream-5.0-pro 선택")
+                    await asyncio.sleep(2)
             except Exception:
                 pass
 
             print("  - [3/4] 프롬프트 입력...")
-            # textarea or contenteditable 탐색
             input_el = None
-            for sel in [
-                "textarea[placeholder*='help' i]",
-                "textarea[placeholder*='prompt' i]",
-                "textarea",
-                "[contenteditable='true']",
-                "[role='textbox']",
-            ]:
+            for sel in ["textarea", "[contenteditable='true']", "[role='textbox']"]:
                 try:
                     el = page.locator(sel).first
                     await el.wait_for(state="visible", timeout=4000)
                     input_el = el
-                    print(f"    입력창 찾음: {sel}")
+                    print(f"    입력창: {sel}")
                     break
                 except Exception:
                     continue
 
             if not input_el:
                 await page.screenshot(path=str(Path(output_path).parent / "debug_no_textarea.png"))
-                print("  - [오류] 입력창 못 찾음")
                 await browser.close()
                 return False
 
