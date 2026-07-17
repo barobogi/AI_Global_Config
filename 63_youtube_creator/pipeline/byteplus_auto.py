@@ -11,14 +11,14 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Playground 접속 및 Seedream 카드 클릭 테스트 시작")
+    print("BytePlus Playground 탭 클릭 및 상세 확인 테스트 시작")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
             args=["--disable-blink-features=AutomationControlled"]
         )
         context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, http://go.microsoft.com/fwlink/?LinkID=286172) Chrome/120.0.0.0 Safari/537.36"
         )
         await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
@@ -53,22 +53,35 @@ async def main():
         await page.locator("text=Playground").first.click()
         await page.wait_for_timeout(4000)
         
-        # Dola-Seedream-5.0-pro 카드 클릭 시도
-        print("Dola-Seedream-5.0-pro 카드 클릭 중...")
+        # 1. 상단 "Image" 탭 클릭 시도
+        print("상단 Image 탭 클릭 시도...")
         try:
-            # 텍스트가 들어 있는 요소를 직접 타겟팅
-            seedream_card = "text=Dola-Seedream-5.0-pro"
-            await page.locator(seedream_card).first.click()
-            await page.wait_for_timeout(5000)
-            print(f"Seedream 클릭 후 URL: {page.url}")
+            # Featured / Text / Image / Video 중 Image 매칭
+            # 텍스트가 정확히 'Image'인 요소를 찾거나 혹은 div/span 중 클릭
+            image_tab = page.locator("div, span, button").filter(has_text="Image").first
+            await image_tab.click()
+            await page.wait_for_timeout(3000)
             
             # 스크린샷 저장
-            screenshot_seedream = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_detail.png"
-            await page.screenshot(path=screenshot_seedream)
-            print(f"Seedream 상세 페이지 스크린샷 저장: {screenshot_seedream}")
+            screenshot_image = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground_image_tab.png"
+            await page.screenshot(path=screenshot_image)
+            print(f"Image 탭 스크린샷 저장: {screenshot_image}")
         except Exception as e:
-            print(f"카드 클릭 실패: {e}")
-            await page.screenshot(path=r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_click_error.png")
+            print(f"Image 탭 클릭 실패: {e}")
+
+        # 2. 상단 "Video" 탭 클릭 시도
+        print("상단 Video 탭 클릭 시도...")
+        try:
+            video_tab = page.locator("div, span, button").filter(has_text="Video").first
+            await video_tab.click()
+            await page.wait_for_timeout(3000)
+            
+            # 스크린샷 저장
+            screenshot_video = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground_video_tab.png"
+            await page.screenshot(path=screenshot_video)
+            print(f"Video 탭 스크린샷 저장: {screenshot_video}")
+        except Exception as e:
+            print(f"Video 탭 클릭 실패: {e}")
 
         await browser.close()
 
