@@ -121,11 +121,9 @@ def create_shorts_pptx(output_path):
     p5 = tf5.paragraphs[0]
     p5.alignment = PP_ALIGN.CENTER
     add_run(p5, "CRISP-DM은?\n무조건 알아야 할\n데이터 분석 기초!\n\n", white_color, 62, bold=True)
-    add_run(p5, "구독 & 좋아요 🤍", green_color, 56, bold=True)
-
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     prs.save(output_path)
-    print(f"✅ PPTX 생성 완료 (1080p 해상도 적용): {output_path}")
+    print(f"PPTX 생성 완료 (1080p 해상도 적용): {output_path}")
 
 if __name__ == "__main__":
     import qa_agent
@@ -141,17 +139,17 @@ if __name__ == "__main__":
         # Ideally this should be run with actual script and audio.
         result = qa_agent.final_validation(out_file, "", "", "", "", [])
         
-        if result["passed_count"] == result["total_count"] or "✅" in result["verdict"]:
-            print(f"🎉 QA 통과! {result['verdict']}")
+        if result["passed_count"] == result["total_count"] or "승인" in result["verdict"]:
+            print(f"QA 통과! {result['verdict']}")
             break
         else:
-            print(f"⚠️ QA 반려: {result['verdict']}")
+            print(f"QA 반려: {result['verdict']}")
             for issue in result["issues"]:
                 print(f"  - {issue}")
             
             if attempt < max_retries:
-                print("🔄 문제점을 수정하여 재렌더링 시도합니다...\n")
+                print("문제점을 수정하여 재렌더링 시도합니다...\n")
                 # Here we would normally adjust parameters (like font size, etc.) before retrying
             else:
-                print("❌ 최대 재시도 횟수 초과. 인간(User)의 개입이 필요합니다.")
+                print("최대 재시도 횟수 초과. 인간(User)의 개입이 필요합니다.")
                 exit(1)
