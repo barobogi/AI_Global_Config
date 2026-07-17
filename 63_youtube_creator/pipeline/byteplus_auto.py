@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 이미지 생성 최종 우회 격발 시나리오 가동")
+    print("BytePlus Seedream Text-to-Image 모델 전환 및 생성 테스트 시작")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -49,7 +49,6 @@ async def main():
         await page.keyboard.press("Escape")
         await page.wait_for_timeout(1000)
         try:
-            # 혹시 모달 팝업이 열려있다면 닫기/확인 버튼 강제 클릭
             modal_close = page.locator("button:has-text('Confirm'), button:has-text('confirm'), .aml-arco-icon-close").first
             if await modal_close.count() > 0:
                 await modal_close.evaluate("el => el.click()")
@@ -57,7 +56,7 @@ async def main():
         except Exception:
             pass
 
-        # 왼쪽 메뉴에서 Playground 클릭 (모달 간섭 대비 force=True 적용)
+        # Playground 클릭
         print("Playground 메뉴 클릭...")
         await page.locator("text=Playground").first.click(force=True)
         await page.wait_for_timeout(4000)
@@ -68,18 +67,30 @@ async def main():
         await image_tab.click(force=True)
         await page.wait_for_timeout(5000)
         
-        # 이미지 예제 바인딩 및 생성 진행
+        # 모델 변경 시도 (Dola-Seed-2.1-turbo 또는 Text-to-Image 모델)
         try:
-            print("예제 이미지 바인딩 및 새 프롬프트 주입...")
-            example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
-            if await example_img.count() > 0:
-                print("예제 템플릿 이미지 클릭 바인딩...")
-                await example_img.evaluate("el => el.click()")
-                await page.wait_for_timeout(3000)
-            else:
-                await page.locator("text=Sketch-to-Image").first.evaluate("el => el.click()")
-                await page.wait_for_timeout(3000)
+            print("모델 선택 드롭다운 클릭...")
+            model_dropdown = page.locator("xpath=//div[contains(@class, 'select') or contains(@class, 'dropdown')]").first
+            if await model_dropdown.count() > 0:
+                await model_dropdown.evaluate("el => el.click()")
+                await page.wait_for_timeout(2000)
                 
+                # 리스트에서 Dola-Seed-2.1-turbo 또는 Text-to-Image 모델 선택
+                model_option = page.locator("text=Dola-Seed-2.1-turbo").first
+                if await model_option.count() > 0:
+                    print("Dola-Seed-2.1-turbo 모델 선택...")
+                    await model_option.evaluate("el => el.click()")
+                    await page.wait_for_timeout(3000)
+                else:
+                    # 드롭다운 리스트 닫기 (Escape)
+                    await page.keyboard.press("Escape")
+                    await page.wait_for_timeout(1000)
+        except Exception as e:
+            print(f"모델 변경 절차 건너뜀/실패: {e}")
+
+        # 이미지 생성 진행
+        try:
+            print("프롬프트 타이핑 및 주입...")
             # 텍스트 교체
             editor = page.locator(".tiptap.ProseMirror")
             await editor.click(force=True)
@@ -92,19 +103,13 @@ async def main():
             await page.keyboard.type(prompt, delay=50)
             await page.wait_for_timeout(3000)
             
-            # 전송 버튼 강제 격발 (Dual Selector 적용)
-            print("전송 버튼 강제 격발 진행...")
-            
-            # 1순위: data-testid 셀렉터
+            # 전송 버튼 강제 격발
+            print("전송 버튼 강제 격발 시도...")
             submit_btn = page.locator("[data-testid='image-sender-submit-button']").first
-            # 2순위: 화살표 SVG를 포함하는 마지막 버튼 타겟팅 (보강)
-            submit_btn_backup = page.locator("button").filter(has=page.locator("svg")).last
-            
             if await submit_btn.count() > 0:
-                print("data-testid 전송 버튼 격발...")
                 await submit_btn.evaluate("el => el.click()")
-            elif await submit_btn_backup.count() > 0:
-                print("SVG 아이콘 감싸기 전송 버튼 격발...")
+            else:
+                submit_btn_backup = page.locator("button").filter(has=page.locator("svg")).last
                 await submit_btn_backup.evaluate("el => el.click()")
                 
             await page.wait_for_timeout(5000)
