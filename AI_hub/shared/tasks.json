@@ -86,9 +86,9 @@
       "뿌리": 23,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "pending",
-      "예정일": "T024 안정화 이후",
-      "설명": "LangGraph StateGraph + Router Node 패턴 도입. 만복(Router) → 코니(기획/검증) / 안티(구현) 조건부 분배 구조. 기존 '로컬 LLM 분산' 목표 보강 — 지능형 라우팅 코드로 확장 (안티 제안, 2026-07-17 만복 승인)."
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "LangGraph StateGraph + Router Node 패턴 도입. 만복(Router) → 코니(기획/검증) / 안티(구현) 조건부 분배 구조. 기존 '로컬 LLM 분산' 목표 보강 — 지능형 라우팅 코드로 확장. 산출물: D:\\AI\\Global_Define\\agent_router.py. 키워드 분류 + StateGraph 3-way 조건부 엣지 + inbox.md 로깅 + push_to_all.py --route 연동."
     }
     ,{
       "id": "T028",
