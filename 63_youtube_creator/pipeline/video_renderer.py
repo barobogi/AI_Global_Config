@@ -13,8 +13,12 @@ WIDTH, HEIGHT = VISUAL["resolution"]
 
 # Font loading with fallback to system default if specified fonts not found (TODO resolved).
 def get_font(size):
-    # 터미널 모노스페이스 폰트 우선순위: D2Coding → JetBrains Mono → Consolas → 기본
-    candidates = ["D2Coding.ttf", "JetBrainsMono-Regular.ttf", "consola.ttf"]
+    # 한글 지원 폰트 우선순위: D2Coding → 맑은 고딕(한글) → 굴림 → 기본
+    candidates = [
+        "D2Coding.ttf",
+        r"C:\Windows\Fonts\malgun.ttf",
+        r"C:\Windows\Fonts\gulim.ttc",
+    ]
     for name in candidates:
         try:
             return ImageFont.truetype(name, size)
