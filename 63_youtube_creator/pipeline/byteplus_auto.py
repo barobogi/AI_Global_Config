@@ -34,57 +34,73 @@ async def generate_scene_image(prompt_text, output_path):
             await context.add_cookies(cookies)
 
         page = await context.new_page()
-        
+
         try:
-            # 1. Overview 페이지로 최초 접속
-            print("  - Overview 페이지 접속 (인증 초기화)...")
-            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview", wait_until="networkidle", timeout=30000)
-            
-            # 방해꾼 모달 통과 (Agreements 체크 및 confirm 클릭)
+            # 1. Overview 접속 → Agreements 모달 처리
+            print("  - Overview 접속 + 모달 처리...")
+            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview",
+                            wait_until="networkidle", timeout=40000)
+            await asyncio.sleep(2)
+
+            # Agreements 모달 — 체크박스 + confirm
             try:
-                print("  - [모달 체크] 약관 동의 모달 확인 중...")
                 checkbox = page.locator("input[type='checkbox']").first
-                if await checkbox.is_visible(timeout=5000):
-                    await checkbox.check()
-                    await asyncio.sleep(0.5)
-                    await page.locator("button:has-text('confirm')").click()
-                    print("  - [모달 통과] 약관 동의 완료!")
-                    await asyncio.sleep(2)
-            except Exception as e:
-                print("  - [모달 체크] 모달 없음, 패스.")
-            
-            # 2. Playground 진입 (메뉴 클릭)
-            print("  - [1/4] Playground 메뉴 클릭...")
-            try:
-                await page.locator("text='Playground'").first.click(timeout=5000)
+                await checkbox.wait_for(state="visible", timeout=8000)
+                await checkbox.check()
+                await asyncio.sleep(0.5)
+                await page.locator("button:has-text('confirm')").click()
+                print("  - [모달 통과] 약관 동의 완료!")
                 await page.wait_for_load_state("networkidle")
-            except Exception as e:
-                print("    - 클릭 실패, 강제 JS 이동 시도...")
-            
-            # 3. Image 탭 강제 전환
-            print("  - [2/4] Image 탭 강제 라우팅...")
-            # 가장 확실한 JS 강제 라우팅 (탭 클릭 실패 대비)
-            await page.evaluate("window.location.href = 'https://console.byteplus.com/ark/region:ap-southeast-1/playground/image'")
-            await page.wait_for_load_state("networkidle")
+                await asyncio.sleep(2)
+            except Exception:
+                print("  - [모달] 없음 또는 이미 동의됨, 계속 진행")
+
+            # 2. Playground Image 직접 접속
+            print("  - [1/4] Playground Image 접속...")
+            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/playground/image",
+                            wait_until="networkidle", timeout=40000)
             await asyncio.sleep(3)
 
-            # 3. 프롬프트 입력 및 전송
-            print("  - [3/4] 프롬프트 입력 및 렌더링 요청...")
-            # textarea를 찾아서 입력
-            textarea = page.locator("textarea[placeholder*='Enter prompt']").first
+            # 3. 프롬프트 입력
+            print("  - [2/4] 프롬프트 입력...")
+            # 다양한 selector 시도
+            textarea = None
+            for sel in ["textarea[placeholder*='prompt' i]", "textarea[placeholder*='Enter']", "textarea", ".arco-textarea"]:
+                try:
+                    el = page.locator(sel).first
+                    await el.wait_for(state="visible", timeout=5000)
+                    textarea = el
+                    print(f"    textarea 찾음: {sel}")
+                    break
+                except Exception:
+                    continue
+
+            if not textarea:
+                await page.screenshot(path=str(Path(output_path).parent / "debug_no_textarea.png"))
+                print("  - [오류] textarea 못 찾음 — 스크린샷 저장")
+                await browser.close()
+                return False
+
             await textarea.fill(prompt_text)
             await asyncio.sleep(1)
-            
-            # Generate 버튼 클릭 (보통 'Generate' 텍스트가 있는 버튼)
-            gen_btn = page.locator("button:has-text('Generate')").first
-            await gen_btn.click()
-            
-            # 4. 결과 이미지 대기 및 스크래핑
-            print("  - [4/4] AI 렌더링 대기 중 (최대 40초)...")
+
+            # Generate 버튼
+            print("  - [3/4] Generate 버튼 클릭...")
+            for sel in ["button:has-text('Generate')", "button:has-text('generate')", "[class*='generate']"]:
+                try:
+                    btn = page.locator(sel).first
+                    await btn.wait_for(state="visible", timeout=5000)
+                    await btn.click()
+                    break
+                except Exception:
+                    continue
+
+            # 4. 결과 이미지 대기
+            print("  - [4/4] AI 렌더링 대기 중 (최대 60초)...")
             # 생성이 완료되면 화면 우측 결과 영역에 이미지가 뜸
             # 기존 이미지와 구분하기 위해 생성 전/후 요소 갯수 비교도 가능하나, 일단 넉넉히 대기
             img_locator = page.locator(".arco-image-img").last
-            await img_locator.wait_for(state="visible", timeout=40000)
+            await img_locator.wait_for(state="visible", timeout=60000)
             
             # 이미지 URL (src) 추출
             img_src = await img_locator.get_attribute("src")
