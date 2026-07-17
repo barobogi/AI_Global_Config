@@ -71,23 +71,23 @@ async def generate_scene_image(prompt_text, output_path):
             # 약관 모달 또 뜨면 처리
             await handle_modal()
 
-            # 투어 안내 모달 닫기 (X 버튼 또는 Next 3번)
+            # 투어 안내 모달 닫기 (Next → Get started 반복 클릭)
             try:
-                close = page.locator("button.arco-modal-close, [class*='modal-close'], [class*='icon-close']").first
-                await close.wait_for(state="visible", timeout=4000)
-                await close.click()
-                print("  - [투어 모달] 닫기 완료")
-                await asyncio.sleep(1)
+                for _ in range(5):
+                    # "Get started" 버튼이 있으면 클릭 후 종료
+                    gs = page.locator("button:has-text('Get started')")
+                    if await gs.is_visible(timeout=1000):
+                        await gs.click()
+                        print("  - [투어 모달] Get started 클릭 완료")
+                        await asyncio.sleep(1)
+                        break
+                    # "Next" 버튼 클릭
+                    nb = page.locator("button:has-text('Next')")
+                    if await nb.is_visible(timeout=1000):
+                        await nb.click()
+                        await asyncio.sleep(0.5)
             except Exception:
-                # X 없으면 Next 버튼 3번으로 스킵
-                try:
-                    for _ in range(3):
-                        nb = page.locator("button:has-text('Next')").first
-                        if await nb.is_visible(timeout=1000):
-                            await nb.click()
-                            await asyncio.sleep(0.5)
-                except Exception:
-                    pass
+                pass
 
             await asyncio.sleep(2)
 
