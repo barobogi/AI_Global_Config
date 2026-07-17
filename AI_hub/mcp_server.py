@@ -50,6 +50,9 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
         claude_win = windows[0]
         hwnd = claude_win._hWnd
         
+        # 현재 활성화된(사용자가 작업 중인) 창 핸들 기억
+        hwnd_active = ctypes.windll.user32.GetForegroundWindow()
+
         # 윈도우 보안(ForegroundLockTimeout) 우회를 위해 Alt 키를 먼저 누름
         pyautogui.press('alt')
         time.sleep(0.1)
@@ -69,7 +72,13 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
         
         # 전송 (Enter)
         pyautogui.press('enter')
-        logging.info("PyAutoGUI successfully sent message to Claude.")
+        time.sleep(0.5)
+        
+        # 사용자가 원래 작업 중이던 창으로 포커스 원복 (팝업 방해 최소화)
+        if hwnd_active:
+            ctypes.windll.user32.SetForegroundWindow(hwnd_active)
+            
+        logging.info("PyAutoGUI successfully sent message to Claude and restored focus.")
         return True
     except Exception as e:
         logging.error(f"Error in UI automation: {e}")
@@ -112,6 +121,9 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
         manbok_win = windows[0]
         hwnd = manbok_win._hWnd
         
+        # 현재 활성화된(사용자가 작업 중인) 창 핸들 기억
+        hwnd_active = ctypes.windll.user32.GetForegroundWindow()
+
         pyautogui.press('alt')
         time.sleep(0.1)
 
@@ -128,7 +140,13 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
         pyautogui.hotkey('ctrl', 'v')
         time.sleep(0.3)
         pyautogui.press('enter')
-        logging.info(f"PyAutoGUI successfully sent message to Manbok VS Code.")
+        time.sleep(0.5)
+        
+        # 사용자가 원래 작업 중이던 창으로 포커스 원복 (팝업 방해 최소화)
+        if hwnd_active:
+            ctypes.windll.user32.SetForegroundWindow(hwnd_active)
+            
+        logging.info(f"PyAutoGUI successfully sent message to Manbok VS Code and restored focus.")
         return True
     except Exception as e:
         logging.error(f"Error in Manbok UI automation: {e}")
