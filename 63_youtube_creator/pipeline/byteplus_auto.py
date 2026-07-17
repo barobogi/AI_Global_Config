@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 이미지 생성 자동화 (정밀 테스트)")
+    print("BytePlus Seedream 이미지 생성 자동화 (ProseMirror 이벤트 우회 적용)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -62,17 +62,48 @@ async def main():
         # Tiptap 에디터 입력 및 전송 버튼 클릭
         try:
             editor = page.locator(".tiptap.ProseMirror")
-            print("에디터 포커싱 및 텍스트 입력 중...")
+            print("에디터 포커싱...")
             await editor.click()
             await page.wait_for_timeout(1000)
             
             prompt = "A cybernetic green frog sitting on a gold coin, 3d render, high detail, masterpiece"
-            await page.keyboard.type(prompt)
-            print(f"입력 완료: {prompt}")
-            await page.wait_for_timeout(2000) # 활성화 지연 대기
             
-            # 정밀 식별된 전송 버튼 타겟팅
+            # JS를 사용해 ProseMirror 에디터 내용 주입 및 input 이벤트 강제 트리거
+            print("JS 기반 ProseMirror 상태 주입 및 이벤트 강제 격발...")
+            await page.evaluate("""(text) => {
+                const editorEl = document.querySelector('.tiptap.ProseMirror');
+                if (!editorEl) return;
+                
+                // 1. ProseMirror 자체 에디터 뷰(view)가 노출되어 있는 경우
+                if (editorEl.pmView) {
+                    const view = editorEl.pmView;
+                    const state = view.state;
+                    const tr = state.tr.insertText(text);
+                    view.dispatch(tr);
+                } else {
+                    // 2. 일반 DOM 주입 및 이벤트 트리거
+                    editorEl.innerHTML = `<p>${text}</p>`;
+                    editorEl.dispatchEvent(new Event('input', { bubbles: true }));
+                    editorEl.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }""", prompt)
+            await page.wait_for_timeout(1000)
+            
+            # 에디터가 활성화 상태로 감지하도록 키보드 스페이스 한 칸 입력 추가 격발
+            await page.keyboard.type(" ")
+            await page.wait_for_timeout(1000)
+            
+            # 전송 버튼 활성화 상태 체크 (최대 5초 대기)
             submit_btn = page.locator("[data-testid='image-sender-submit-button']")
+            print("전송 버튼 활성화 여부 확인 중...")
+            for i in range(10):
+                is_disabled = await submit_btn.evaluate("btn => btn.disabled")
+                if not is_disabled:
+                    print("전송 버튼 활성화 완료!")
+                    break
+                print(f"버튼 대기 중 ({i+1}/10)...")
+                await page.wait_for_timeout(500)
+            
             print("전송 버튼 클릭 격발...")
             await submit_btn.click()
             await page.wait_for_timeout(5000)
