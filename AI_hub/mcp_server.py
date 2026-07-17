@@ -25,18 +25,17 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
             return False
             
         claude_win = windows[0]
+        hwnd = claude_win._hWnd
         
-        # 최소화되어 있다면 복원
-        if claude_win.isMinimized:
-            claude_win.restore()
-            time.sleep(0.5)
-            
-        # 창 활성화 (포커스)
-        try:
-            claude_win.activate()
-        except Exception as e:
-            logging.warning(f"activate() warning (ignoring): {e}")
-        time.sleep(0.5)
+        # 윈도우 보안(ForegroundLockTimeout) 우회를 위해 Alt 키를 먼저 누름
+        pyautogui.press('alt')
+        time.sleep(0.1)
+        
+        # ctypes를 사용하여 강제로 창 복원(9=SW_RESTORE) 및 최상단 활성화
+        import ctypes
+        ctypes.windll.user32.ShowWindow(hwnd, 9)
+        time.sleep(0.2)
+        ctypes.windll.user32.SetForegroundWindow(hwnd)
         time.sleep(0.5)
         
         # 메시지 복사 (한글 깨짐 방지)
