@@ -75,16 +75,65 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
         logging.error(f"Error in UI automation: {e}")
         return False
 
+def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. 확인 후 필요한 조치를 취해주세요."):
+    """Manbok (cmd.exe or python.exe) 창을 찾아서 포커스하고 메시지를 붙여넣어 전송합니다."""
+    try:
+        wait_count = 0
+        while True:
+            idle_sec = get_idle_time()
+            if idle_sec > 3.0:
+                break
+            time.sleep(1)
+            wait_count += 1
+
+        # 'cmd' 또는 'python' 제목을 가진 창 찾기 (만복)
+        windows = gw.getWindowsWithTitle('cmd.exe')
+        if not windows:
+            windows = gw.getWindowsWithTitle('python.exe')
+        
+        if not windows:
+            logging.error("Manbok (cmd/python) window not found!")
+            return False
+            
+        manbok_win = windows[0]
+        hwnd = manbok_win._hWnd
+        
+        pyautogui.press('alt')
+        time.sleep(0.1)
+        
+        ctypes.windll.user32.ShowWindow(hwnd, 9)
+        time.sleep(0.2)
+        ctypes.windll.user32.SetForegroundWindow(hwnd)
+        time.sleep(0.5)
+        
+        pyperclip.copy(message)
+        
+        # cmd 창에서는 마우스 우클릭으로 붙여넣기가 더 안정적일 수 있으나 ctrl+v 사용
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(0.5)
+        
+        pyautogui.press('enter')
+        logging.info("PyAutoGUI successfully sent message to Manbok.")
+        return True
+    except Exception as e:
+        logging.error(f"Error in Manbok UI automation: {e}")
+        return False
+
 @app.route("/trigger_inbox_check", methods=["POST"])
 def trigger_inbox_check():
-    """master_watch.py로부터 트리거를 받는 엔드포인트"""
+    """master_watch.py로부터 트리거를 받는 엔드포인트 (코니)"""
     logging.info("Received trigger from master_watch.py. Initiating PyAutoGUI sequence...")
-    
-    # 백그라운드 스레드에서 UI 자동화 실행 (HTTP 응답을 블록하지 않기 위해)
     t = threading.Thread(target=focus_and_type)
     t.start()
-    
     return jsonify({"status": "success", "message": "PyAutoGUI sequence initiated"}), 200
+
+@app.route("/trigger_manbok", methods=["POST"])
+def trigger_manbok():
+    """master_watch.py로부터 만복이 트리거를 받는 엔드포인트"""
+    logging.info("Received Manbok trigger. Initiating PyAutoGUI sequence...")
+    t = threading.Thread(target=focus_manbok_and_type)
+    t.start()
+    return jsonify({"status": "success", "message": "Manbok PyAutoGUI sequence initiated"}), 200
 
 if __name__ == "__main__":
     logging.info("Starting Kony MCP Bridge Server (PyAutoGUI Mode) on port 5003...")
