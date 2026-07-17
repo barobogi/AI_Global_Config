@@ -95,7 +95,11 @@ def check_content_consistency(script_text, slide_texts):
         # Using a relaxed similarity for shorts since texts are chunked
         # Or check if text is a substring
         if text.strip() not in script_text:
-            similarity = max([SequenceMatcher(None, text.strip(), script_chunk).ratio() for script_chunk in script_text.split('\n') if script_chunk.strip()])
+            if not script_text.strip():
+                similarity = 0
+            else:
+                similarity = max([SequenceMatcher(None, text.strip(), script_chunk).ratio() for script_chunk in script_text.split('\n') if script_chunk.strip()])
+            
             if similarity < 0.7:  # Adjusted for practical use
                 issues.append(f"슬라이드 {i+1}: 스크립트 불일치 의심 (일치도 {similarity*100:.1f}%)")
     
