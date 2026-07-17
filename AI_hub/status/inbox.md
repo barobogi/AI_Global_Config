@@ -189,3 +189,150 @@
 
 ---
 **[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:44 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1944_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 실패
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | koni_review | 코니 MCP 격발 성공
+
+---
+**[WorkflowEngine]** 19:45 | `WF-TEST-001` | anti_working | 안티 격발 완료 (재시도 0회) — 만복→안티_20260717_1945_WF-TEST-001_retry0.md
