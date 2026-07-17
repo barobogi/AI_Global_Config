@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (새 탭 감지 보강)")
+    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (새 탭 로딩 대기 보강)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -62,61 +62,83 @@ async def main():
         
         # 1. 모델 활성화(Activation) 처리 시도
         print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
-        target_page = page # 기본 타겟 페이지는 현재 탭
+        target_page = page
         try:
-            # 첫 번째 img 태그 클릭하여 상세 팝업 오픈
             await page.locator("img").first.click()
             await page.wait_for_timeout(2000)
             
-            # Activate now 버튼 탐색
             activate_link = page.locator("text=Activate now").first
             if await activate_link.count() > 0:
-                print("Activate now 링크 발견! 새 탭 오픈 여부 감지 대기...")
+                print("Activate now 링크 발견! 새 탭 오픈 감지 대기...")
                 
-                # 새 탭이 열리는지 감지하면서 클릭
                 try:
-                    async with context.expect_page(timeout=10000) as new_page_info:
+                    async with context.expect_page(timeout=15000) as new_page_info:
                         await activate_link.evaluate("el => el.click()")
                     
                     new_page = await new_page_info.value
+                    print("새 탭 진입 성공. 데이터 로딩 대기 중 (5초)...")
                     await new_page.wait_for_load_state()
-                    print(f"새 탭 감지 성공! URL: {new_page.url}")
-                    target_page = new_page # 요금 동의 등 진행 타겟을 새 탭으로 전환
+                    await new_page.wait_for_timeout(5000) # 리스트 로딩 충분히 대기
+                    target_page = new_page
                 except Exception as ex:
-                    print(f"새 탭 감지 실패 또는 현재 창에서 직접 진행됨: {ex}")
-                    # 새 탭이 안 열린 경우 현재 페이지에서 그대로 진행
+                    print(f"새 탭 감지 실패: {ex}")
                     target_page = page
                 
-                await page.wait_for_timeout(3000)
+                # 모델 활성화 상세 처리
+                print("모델 활성화 탭 내부 조작 시작...")
+                # 방법 A: Enable all models 일괄 활성화 시도
+                enable_all_btn = target_page.locator("text=Enable all models").first
+                # 방법 B: Dola-Seedream-5.0-pro 행 찾아서 Activate 클릭
+                specific_activate = target_page.locator("xpath=//tr[contains(., 'Dola-Seedream-5.0-pro')]//button[contains(., 'Activate')]").first
                 
-                # 최종 승인 버튼 클릭 (Confirm / Agree / Activate) - 새 탭 또는 기존 탭 기준
+                if await specific_activate.count() > 0:
+                    print("특정 모델 활성화(Activate) 버튼 발견! 클릭...")
+                    await specific_activate.evaluate("el => el.click()")
+                    await target_page.wait_for_timeout(3000)
+                elif await enable_all_btn.count() > 0:
+                    print("일괄 활성화(Enable all models) 버튼 발견! 클릭...")
+                    await enable_all_btn.evaluate("el => el.click()")
+                    await target_page.wait_for_timeout(3000)
+                else:
+                    print("활성화 가능한 명시적 버튼을 찾지 못해 첫 번째 Activate 버튼 클릭 시도...")
+                    first_activate = target_page.locator("button:has-text('Activate')").first
+                    if await first_activate.count() > 0:
+                        await first_activate.evaluate("el => el.click()")
+                        await target_page.wait_for_timeout(3000)
+
+                # 최종 확인 팝업 (Confirm / Agree / Activate) 처리
                 confirm_active = target_page.locator("button:has-text('Confirm'), button:has-text('Agree'), button:has-text('Activate')").first
                 if await confirm_active.count() > 0:
-                    print("활성화 최종 승인 버튼 발견. 클릭 진행...")
+                    print("활성화 최종 확인 승인...")
                     await confirm_active.evaluate("el => el.click()")
                     await target_page.wait_for_timeout(5000)
                     
                 activated_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_model_activated.png"
                 await target_page.screenshot(path=activated_screenshot)
-                print(f"활성화 완료/진행 시점 스크린샷 저장: {activated_screenshot}")
+                print(f"활성화 완료 화면 스크린샷 저장: {activated_screenshot}")
                 
-                # 새 탭을 띄워서 진행했다면 완료 후 탭 닫기
                 if target_page != page:
                     await target_page.close()
-                    print("활성화 완료 후 새 탭 종료.")
+                    print("활성화 탭 종료.")
             else:
                 print("Activate now 버튼이 보이지 않습니다. 이미 활성화 상태일 수 있습니다.")
         except Exception as e:
             print(f"모델 활성화 절차 중 오류 발생: {e}")
             
-        # 팝업 닫기 (Escape 전송)
-        await page.keyboard.press("Escape")
-        await page.wait_for_timeout(2000)
+        # 원래 탭으로 복귀 후 상태 갱신을 위해 새로고침
+        print("원래 플레이그라운드 페이지 새로고침...")
+        await page.reload(wait_until="networkidle")
+        await page.wait_for_timeout(3000)
+        
+        # 다시 Image 탭 진입
+        print("다시 Image 탭 진입...")
+        image_tab = page.locator("div, span, button").filter(has_text="Image").first
+        await image_tab.click()
+        await page.wait_for_timeout(4000)
         
         # 2. 이미지 예제 바인딩 및 생성 진행
         try:
             print("예제 이미지 바인딩 및 새 프롬프트 주입...")
-            # 예제 이미지 클릭
             example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
             if await example_img.count() > 0:
                 await example_img.evaluate("el => el.click()")
@@ -140,7 +162,7 @@ async def main():
             # 전송 버튼 클릭
             submit_btn = page.locator("[data-testid='image-sender-submit-button']")
             is_disabled = await submit_btn.evaluate("btn => btn.disabled")
-            print(f"전송 버튼 비활성화 상태: {is_disabled}")
+            print(f"전송 버튼 비활성화 상태 (최종): {is_disabled}")
             
             if not is_disabled:
                 print("전송 버튼이 활성화되었습니다! 클릭 격발...")
@@ -152,9 +174,9 @@ async def main():
                 await page.screenshot(path=generating_screenshot)
                 print(f"생성 중 화면 스크린샷 저장: {generating_screenshot}")
                 
-                # 생성 완료 대기 (25초)
-                print("생성 완료 대기 중 (25초)...")
-                await page.wait_for_timeout(25000)
+                # 생성 완료 대기 (30초)
+                print("생성 완료 대기 중 (30초)...")
+                await page.wait_for_timeout(30000)
                 
                 # 완료 스크린샷
                 done_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_done.png"
