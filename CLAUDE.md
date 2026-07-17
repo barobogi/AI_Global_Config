@@ -6,26 +6,31 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 21:07 갱신)
+## 🔄 최신 상태 (2026-07-17 갱신)
 
-### ✅ 2026-07-12 완료 (전체)
+### ✅ 2026-07-17 완료 (주요)
 
-- **3AI Hall 처리** — 단체 반성문, CLAUDE.md 예방룰 4개, 안티 경고 1회
-- **수신함 단일화(T_inbox)** — inbox.md, master_watch 5분+변경감지 자동갱신
-- **T022 E2E** — ZAP→패치→T020 승인→git push 전자동 + master_watch 보안 스캔 훅
-- **supervisor.py 고도화** — 지수백오프 + 알림전용모드 + 텔레그램 경고
-- **아키텍처 개선 3(CI/CD)** — _ai_workspace→syntax 체크→T020→메인 병합
-- **아키텍처 개선 4 2단계** — Firebase→SQLite 완전 이관
-- **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
-- **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
-- **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
-  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 ✅ Public 전환 완료 (2026-07-16)
-- **AI Study 게시** — 20260712-1~9 (총 9개)
+- **T026 완성** — push_to_coni.py 즉시 격발 파이프라인 (5분→0초) E2E 통과
+- **push_to_all.py** — 3AI 동시 격발 시스템 구현 + 코니 리뷰 완료 (배포 진행 중)
+- **T024 완료** — VibeCoding 웹앱 제너레이터 Claude CLI subprocess 방식
+- **S00 한글 폰트 수정** — malgun.ttf 적용 + 재렌더링 + 재업로드 완료
+- **특허 11_18 v0.5** — T026 예제 7 보강 + 코니 검수 + 메일 발송 완료
+- **특허 11_19 v0.2** — 신규 등록 (AI생성콘텐츠 상업이용 자동판단) + 청구항 5개 추가
+- **T063 2단계** — 착수 지시 + 코드 검증 7/7 완료 (E2E 테스트 진행 중)
+- **4 Workers ↔ 3AI 매핑** — AGENTS.md 공식 등재
+- **AI Study 게시** — 20260717-1~8 (총 8개, 오늘 +6)
+- **뽀개기 3개 review** — Jay Choi / Sandeep Swadia / AI머니(BytePlus) 완료
 
 ### 📋 다음 할 일
 
 1. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
-2. **MCP 본격 탐구**
+2. **T063 E2E 테스트** — 안티 진행 중
+3. **push_to_all.py 배포** — 안티 초기화 로직 추가 후
+4. **11_19 v0.2 파일 저장** — 안티 진행 중
+5. **BytePlus Playwright 자동화** — 안티 구현 중
+6. **gps_check.py** — 안티 구현 중
+7. **T028~T031** — 7/22 이후 착수 (tasks.json 등록 완료)
+8. **MCP 본격 탐구**
 
 ---
 
@@ -160,26 +165,31 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-12 21:07 갱신)
+## 🔄 최신 상태 (2026-07-17 갱신)
 
-### ✅ 2026-07-12 완료 (전체)
+### ✅ 2026-07-17 완료 (주요)
 
-- **3AI Hall 처리** — 단체 반성문, CLAUDE.md 예방룰 4개, 안티 경고 1회
-- **수신함 단일화(T_inbox)** — inbox.md, master_watch 5분+변경감지 자동갱신
-- **T022 E2E** — ZAP→패치→T020 승인→git push 전자동 + master_watch 보안 스캔 훅
-- **supervisor.py 고도화** — 지수백오프 + 알림전용모드 + 텔레그램 경고
-- **아키텍처 개선 3(CI/CD)** — _ai_workspace→syntax 체크→T020→메인 병합
-- **아키텍처 개선 4 2단계** — Firebase→SQLite 완전 이관
-- **T_sotto** — 음성 CLI 지시 (Google Cloud STT, idle CPU 0%)
-- **밀리이북** — YES24 카트 214권 vs 밀리 자동대조, 11권 발견. 매일 08:30 자동 실행
-- **T063 EP.12** — 유튜브 파이프라인 완성 + "3AI 단체 반성문" 업로드 완료
-  → https://www.youtube.com/watch?v=KH3tcOa7Mm4 ✅ Public 전환 완료 (2026-07-16)
-- **AI Study 게시** — 20260712-1~9 (총 9개)
+- **T026 완성** — push_to_coni.py 즉시 격발 파이프라인 (5분→0초) E2E 통과
+- **push_to_all.py** — 3AI 동시 격발 시스템 구현 + 코니 리뷰 완료 (배포 진행 중)
+- **T024 완료** — VibeCoding 웹앱 제너레이터 Claude CLI subprocess 방식
+- **S00 한글 폰트 수정** — malgun.ttf 적용 + 재렌더링 + 재업로드 완료
+- **특허 11_18 v0.5** — T026 예제 7 보강 + 코니 검수 + 메일 발송 완료
+- **특허 11_19 v0.2** — 신규 등록 (AI생성콘텐츠 상업이용 자동판단) + 청구항 5개 추가
+- **T063 2단계** — 착수 지시 + 코드 검증 7/7 완료 (E2E 테스트 진행 중)
+- **4 Workers ↔ 3AI 매핑** — AGENTS.md 공식 등재
+- **AI Study 게시** — 20260717-1~8 (총 8개, 오늘 +6)
+- **뽀개기 3개 review** — Jay Choi / Sandeep Swadia / AI머니(BytePlus) 완료
 
 ### 📋 다음 할 일
 
 1. **2026-07-18 (토)** — 아키텍처 개선 5(로컬 LLM) + 가족봇 착수
-2. **MCP 본격 탐구**
+2. **T063 E2E 테스트** — 안티 진행 중
+3. **push_to_all.py 배포** — 안티 초기화 로직 추가 후
+4. **11_19 v0.2 파일 저장** — 안티 진행 중
+5. **BytePlus Playwright 자동화** — 안티 구현 중
+6. **gps_check.py** — 안티 구현 중
+7. **T028~T031** — 7/22 이후 착수 (tasks.json 등록 완료)
+8. **MCP 본격 탐구**
 
 ---
 
