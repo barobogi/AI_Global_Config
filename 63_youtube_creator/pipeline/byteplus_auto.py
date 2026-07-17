@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (조상 Label 클릭 패치)")
+    print("BytePlus Seedream 최종 이미지 생성 자동화 테스트 시작 (활성화 생략)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -58,97 +58,19 @@ async def main():
         print("상단 Image 탭 클릭...")
         image_tab = page.locator("div, span, button").filter(has_text="Image").first
         await image_tab.click()
-        await page.wait_for_timeout(4000)
+        await page.wait_for_timeout(5000) # 탭 전환 대기
         
-        # 1. 모델 활성화(Activation) 처리 시도
-        print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
-        target_page = page
-        try:
-            await page.locator("img").first.click()
-            await page.wait_for_timeout(2000)
-            
-            activate_link = page.locator("text=Activate now").first
-            if await activate_link.count() > 0:
-                print("Activate now 링크 발견! 새 탭 오픈 감지 대기...")
-                
-                try:
-                    async with context.expect_page(timeout=15000) as new_page_info:
-                        await activate_link.evaluate("el => el.click()")
-                    
-                    new_page = await new_page_info.value
-                    print("새 탭 진입 성공. 데이터 로딩 대기 중 (5초)...")
-                    await new_page.wait_for_load_state()
-                    await new_page.wait_for_timeout(5000)
-                    target_page = new_page
-                except Exception as ex:
-                    print(f"새 탭 감지 실패: {ex}")
-                    target_page = page
-                
-                # 무료 모드 및 약관 동의 활성화 처리 (조상 Label 매핑 클릭)
-                print("무료 모드 및 약관 동의 조건 체크 시작...")
-                
-                # 1. 'Enable Free Credits Only Mode' 조상 label 클릭
-                free_credit_label = target_page.locator("xpath=//span[contains(text(), 'Enable Free Credits Only Mode')]/ancestor::label").first
-                if await free_credit_label.count() > 0:
-                    print("Enable Free Credits Only Mode 조상 Label 클릭...")
-                    await free_credit_label.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(1000)
-                else:
-                    # 백업용으로 텍스트 직접 클릭
-                    await target_page.locator("text=Enable Free Credits Only Mode").first.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(1000)
-                
-                # 2. 'I have read and agree' 조상 label 클릭
-                agree_label = target_page.locator("xpath=//span[contains(text(), 'read and agree')]/ancestor::label").first
-                if await agree_label.count() > 0:
-                    print("I have read and agree 조상 Label 클릭...")
-                    await agree_label.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(1000)
-                else:
-                    # 백업용으로 텍스트 직접 클릭
-                    await target_page.locator("text=read and agree").first.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(1000)
-                
-                # 3. 'Confirm activation and authorization' 버튼 클릭
-                confirm_active = target_page.locator("button:has-text('Confirm activation and authorization')").first
-                if await confirm_active.count() > 0:
-                    print("Confirm activation and authorization 버튼 클릭...")
-                    await confirm_active.evaluate("el => el.click()")
-                    await target_page.wait_for_timeout(5000)
-                    
-                activated_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_model_activated.png"
-                await target_page.screenshot(path=activated_screenshot)
-                print(f"무료 활성화 처리 후 화면 스크린샷 저장: {activated_screenshot}")
-                
-                if target_page != page:
-                    await target_page.close()
-                    print("활성화 탭 종료.")
-            else:
-                print("Activate now 버튼이 보이지 않습니다. 이미 활성화 상태일 수 있습니다.")
-        except Exception as e:
-            print(f"모델 활성화 절차 중 오류 발생: {e}")
-            
-        # 원래 탭으로 복귀 후 상태 갱신을 위해 새로고침
-        print("원래 플레이그라운드 페이지 새로고침...")
-        await page.reload(wait_until="networkidle")
-        await page.wait_for_timeout(3000)
-        
-        # 다시 Image 탭 진입
-        print("다시 Image 탭 진입...")
-        image_tab = page.locator("div, span, button").filter(has_text="Image").first
-        await image_tab.click()
-        await page.wait_for_timeout(4000)
-        
-        # 2. 이미지 예제 바인딩 및 생성 진행
+        # 2. 이미지 예제 바인딩 및 생성 진행 (곧바로 직행)
         try:
             print("예제 이미지 바인딩 및 새 프롬프트 주입...")
             example_img = page.locator("xpath=//div[contains(text(), 'Try the following example')]/following-sibling::div//img").first
             if await example_img.count() > 0:
+                print("예제 템플릿 이미지 클릭 바인딩...")
                 await example_img.evaluate("el => el.click()")
-                await page.wait_for_timeout(2000)
+                await page.wait_for_timeout(3000)
             else:
                 await page.locator("text=Sketch-to-Image").first.evaluate("el => el.click()")
-                await page.wait_for_timeout(2000)
+                await page.wait_for_timeout(3000)
                 
             # 텍스트 교체
             editor = page.locator(".tiptap.ProseMirror")
@@ -160,7 +82,7 @@ async def main():
             
             prompt = "A cybernetic green frog sitting on a gold coin, 3d render, high detail, masterpiece"
             await page.keyboard.type(prompt, delay=50)
-            await page.wait_for_timeout(2000)
+            await page.wait_for_timeout(3000)
             
             # 전송 버튼 클릭
             submit_btn = page.locator("[data-testid='image-sender-submit-button']")
@@ -186,7 +108,8 @@ async def main():
                 await page.screenshot(path=done_screenshot)
                 print(f"완성 화면 스크린샷 저장: {done_screenshot}")
             else:
-                print("오류: 전송 버튼이 여전히 활성화되지 않았습니다.")
+                print("오류: 전송 버튼이 여전히 활성화되지 않았습니다. 현재 화면 상태 저장 중...")
+                await page.screenshot(path=r"D:\AI\63_youtube_creator\pipeline\output\byteplus_seedream_generate_error.png")
                 
         except Exception as e:
             print(f"이미지 생성 프로세스 오류: {e}")
