@@ -76,7 +76,7 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
         return False
 
 def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. 확인 후 필요한 조치를 취해주세요."):
-    """Manbok (cmd.exe or python.exe) 창을 찾아서 포커스하고 메시지를 붙여넣어 전송합니다."""
+    """Manbok 창을 찾아서 포커스하고 메시지를 붙여넣어 전송합니다."""
     try:
         wait_count = 0
         while True:
@@ -86,13 +86,17 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
             time.sleep(1)
             wait_count += 1
 
-        # 'cmd' 또는 'python' 제목을 가진 창 찾기 (만복)
-        windows = gw.getWindowsWithTitle('cmd.exe')
+        # 'powershell' 제목을 우선적으로 찾고, 없으면 'cmd' 또는 'python' 찾기 (만복)
+        windows = gw.getWindowsWithTitle('Windows PowerShell')
+        if not windows:
+            windows = gw.getWindowsWithTitle('powershell')
+        if not windows:
+            windows = gw.getWindowsWithTitle('cmd.exe')
         if not windows:
             windows = gw.getWindowsWithTitle('python.exe')
         
         if not windows:
-            logging.error("Manbok (cmd/python) window not found!")
+            logging.error("Manbok window not found!")
             return False
             
         manbok_win = windows[0]
@@ -108,12 +112,11 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
         
         pyperclip.copy(message)
         
-        # cmd 창에서는 마우스 우클릭으로 붙여넣기가 더 안정적일 수 있으나 ctrl+v 사용
         pyautogui.hotkey('ctrl', 'v')
         time.sleep(0.5)
         
         pyautogui.press('enter')
-        logging.info("PyAutoGUI successfully sent message to Manbok.")
+        logging.info(f"PyAutoGUI successfully sent message to Manbok (Window: {manbok_win.title}).")
         return True
     except Exception as e:
         logging.error(f"Error in Manbok UI automation: {e}")
