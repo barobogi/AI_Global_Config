@@ -1,6 +1,7 @@
 import os
 import json
 import asyncio
+from pathlib import Path
 from playwright.async_api import async_playwright
 
 COOKIE_PATH = r"D:\AI\.secrets\byteplus_cookies.json"
