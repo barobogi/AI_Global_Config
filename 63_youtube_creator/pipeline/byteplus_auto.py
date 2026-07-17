@@ -36,24 +36,30 @@ async def generate_scene_image(prompt_text, output_path):
         page = await context.new_page()
         
         try:
-            # 1. Image Playground 페이지로 바로 진입
-            url = "https://console.byteplus.com/ark/region:ap-southeast-1/playground"
-            print("  - [1/4] Playground 페이지 접속 중...")
-            await page.goto(url, wait_until="networkidle", timeout=30000)
+            # 1. Overview 페이지로 최초 접속
+            print("  - Overview 페이지 접속 (인증 초기화)...")
+            await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview", wait_until="networkidle", timeout=30000)
             
-            # 방해꾼 모달 닫기 (존재하면)
+            # 방해꾼 모달 통과 (Agreements 체크 및 confirm 클릭)
             try:
-                await page.evaluate('''() => {
-                    const modals = document.querySelectorAll('.arco-modal-wrapper');
-                    modals.forEach(m => m.remove());
-                    const overlays = document.querySelectorAll('.arco-overlay');
-                    overlays.forEach(o => o.remove());
-                }''')
-                await asyncio.sleep(1)
-            except:
-                pass
+                print("  - [모달 체크] 약관 동의 모달 확인 중...")
+                checkbox = page.locator("input[type='checkbox']").first
+                if await checkbox.is_visible(timeout=5000):
+                    await checkbox.check()
+                    await asyncio.sleep(0.5)
+                    await page.locator("button:has-text('confirm')").click()
+                    print("  - [모달 통과] 약관 동의 완료!")
+                    await asyncio.sleep(2)
+            except Exception as e:
+                print("  - [모달 체크] 모달 없음, 패스.")
             
-            # 2. Image 탭 강제 전환 (JavaScript 라우팅 혹은 버튼 클릭)
+            # 2. Playground 진입 (메뉴 클릭)
+            print("  - [1/4] Playground 메뉴 클릭...")
+            await page.locator("text='Playground'").click()
+            await page.wait_for_load_state("networkidle")
+            await asyncio.sleep(2)
+            
+            # 3. Image 탭 강제 전환
             print("  - [2/4] Image 탭 전환...")
             try:
                 # 'Image' 텍스트를 가진 탭 버튼 클릭
