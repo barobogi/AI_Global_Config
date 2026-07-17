@@ -86,14 +86,24 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
             time.sleep(1)
             wait_count += 1
 
-        # 'powershell' 제목을 우선적으로 찾고, 없으면 'cmd' 또는 'python' 찾기 (만복)
-        windows = gw.getWindowsWithTitle('Windows PowerShell')
-        if not windows:
-            windows = gw.getWindowsWithTitle('powershell')
-        if not windows:
-            windows = gw.getWindowsWithTitle('cmd.exe')
-        if not windows:
-            windows = gw.getWindowsWithTitle('python.exe')
+        # VS Code 창 찾기 (만복 Claude Code가 실행 중인 창)
+        import ctypes as _ct
+        all_wins = []
+        def _enum_cb(hwnd, _):
+            buf = _ct.create_unicode_buffer(256)
+            _ct.windll.user32.GetWindowTextW(hwnd, buf, 256)
+            if 'Visual Studio Code' in buf.value and _ct.windll.user32.IsWindowVisible(hwnd):
+                all_wins.append((hwnd, buf.value))
+            return True
+        _WNDENUMPROC = _ct.WINFUNCTYPE(_ct.c_bool, _ct.c_size_t, _ct.c_size_t)
+        _ct.windll.user32.EnumWindows(_WNDENUMPROC(_enum_cb), 0)
+
+        windows = []
+        if all_wins:
+            class _FakeWin:
+                def __init__(self, h): self._hWnd = h
+            windows = [_FakeWin(all_wins[0][0])]
+            logging.info(f"VS Code 창 발견: {all_wins[0][1]}")
         
         if not windows:
             logging.error("Manbok window not found!")
