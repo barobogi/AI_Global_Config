@@ -143,14 +143,21 @@ if __name__ == "__main__":
         "CRISP-DM은? 무조건 알아야 할 데이터 분석 기초!"
     )
     
+    script_md_path = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_script.md"
+    os.makedirs(os.path.dirname(script_md_path), exist_ok=True)
+    with open(script_md_path, "w", encoding="utf-8") as f:
+        f.write(CRISP_DM_SCRIPT)
+        
+    empty_json_path = r"D:\AI\63_youtube_creator\pipeline\empty.json"
+        
     max_retries = 2
     for attempt in range(max_retries + 1):
         print(f"\n[PPTX 생성] 시도 {attempt + 1}/{max_retries + 1}")
         create_shorts_pptx(out_file)
         
         print("[QA 검증] 코니의 7가지 체크리스트 실행 중...")
-        # 실제 오디오 길이는 60초라고 가정, 스크립트 전달
-        result = qa_agent.final_validation(out_file, "", CRISP_DM_SCRIPT, "D:\\AI\\63_youtube_creator\\temp_audio.mp3", "", [])
+        # script_md_path와 empty.json 전달
+        result = qa_agent.final_validation(out_file, script_md_path, empty_json_path, "D:\\AI\\63_youtube_creator\\temp_audio.mp3", empty_json_path, [])
         
         if result["passed_count"] == result["total_count"] or "승인" in result["verdict"]:
             print(f"QA 통과! {result['verdict']}")
