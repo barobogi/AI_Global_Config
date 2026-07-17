@@ -13,10 +13,17 @@ async def main():
 
     print("BytePlus Playground 접속 테스트 시작 (Playwright)")
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True) # 헤드리스 상태로 실행하여 스크린샷으로 진척 감지
+        # 우회 옵션 적용 및 헤드리스 브라우저 실행
+        browser = await p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"]
+        )
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
+        
+        # navigator.webdriver 우회 주입
+        await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
         # Load cookies
         try:
@@ -48,13 +55,19 @@ async def main():
         # (통상적인 BytePlus AI/ModelArk Playground 주소로 이동 시도)
         playground_url = "https://console.byteplus.com/ark/playground"
         print(f"Playground 후보 주소로 이동 중: {playground_url}")
-        await page.goto(playground_url, wait_until="networkidle")
-        await page.wait_for_timeout(5000)
-        
-        print(f"이동 후 URL: {page.url}")
-        screenshot_playground = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground.png"
-        await page.screenshot(path=screenshot_playground)
-        print(f"Playground 페이지 스크린샷 저장: {screenshot_playground}")
+        try:
+            await page.goto(playground_url, wait_until="networkidle", timeout=45000)
+            await page.wait_for_timeout(5000)
+            print(f"이동 후 URL: {page.url}")
+            screenshot_playground = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground.png"
+            await page.screenshot(path=screenshot_playground)
+            print(f"Playground 페이지 스크린샷 저장: {screenshot_playground}")
+        except Exception as e:
+            print(f"Playground 이동 오류: {e}")
+            # 대체 스크린샷 저장
+            err_screenshot = r"D:\AI\63_youtube_creator\pipeline\output\byteplus_playground_error.png"
+            await page.screenshot(path=err_screenshot)
+            print(f"에러 시점 스크린샷 저장: {err_screenshot}")
 
         await browser.close()
 
