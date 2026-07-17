@@ -165,41 +165,33 @@ async def generate_scene_image(prompt_text, output_path):
                 await input_el.press("Enter")
                 print("    Enter 키로 전송")
 
-            # 4. 결과 이미지 대기 (채팅 응답에 생성된 이미지)
+            # 4. 결과 이미지 대기 — JS로 naturalWidth > 200 필터링
             print("  - [4/4] AI 렌더링 대기 중 (최대 90초)...")
-            await asyncio.sleep(3)
-            img_locator = None
-            for img_sel in [
-                ".arco-image-img",
-                "img[src*='tos-s']",
-                "img[src*='byteplus']",
-                "[class*='message'] img",
-                "[class*='result'] img",
-                "img[class*='image']",
-            ]:
-                try:
-                    loc = page.locator(img_sel).last
-                    await loc.wait_for(state="visible", timeout=90000)
-                    img_locator = loc
-                    print(f"    결과 이미지: {img_sel}")
+            await asyncio.sleep(5)
+            img_src = None
+            for _ in range(18):  # 5초 간격 x 18 = 90초
+                img_src = await page.evaluate("""
+                    () => {
+                        const imgs = Array.from(document.querySelectorAll('img'));
+                        const big = imgs.filter(img =>
+                            img.naturalWidth > 200 &&
+                            img.src &&
+                            img.src.startsWith('http') &&
+                            !img.src.includes('favicon') &&
+                            !img.src.includes('logo')
+                        );
+                        if (big.length > 0) return big[big.length - 1].src;
+                        return null;
+                    }
+                """)
+                if img_src:
+                    print(f"    결과 이미지 URL 확인 (width>200)")
                     break
-                except Exception:
-                    continue
+                await asyncio.sleep(5)
 
-            if not img_locator:
-                # 스크린샷 + 전체 img URL 출력해서 맞는 selector 찾기
+            if not img_src:
                 await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
-                imgs = await page.locator("img").all()
-                print(f"  - 현재 img 개수: {len(imgs)}")
-                for i, im in enumerate(imgs):
-                    src = await im.get_attribute("src") or ""
-                    if len(src) > 80:
-                        print(f"    [{i}] {src[:150]}")
-                await browser.close()
-                return False
-
-            # 이미지 URL (src) 추출
-            img_src = await img_locator.get_attribute("src")
+                print("  - [오류] 결과 이미지 못 찾음 — 스크린샷 저장")
             if img_src:
                 import urllib.request
                 urllib.request.urlretrieve(img_src, output_path)
