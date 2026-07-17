@@ -55,21 +55,18 @@ async def generate_scene_image(prompt_text, output_path):
             
             # 2. Playground 진입 (메뉴 클릭)
             print("  - [1/4] Playground 메뉴 클릭...")
-            await page.locator("text='Playground'").click()
-            await page.wait_for_load_state("networkidle")
-            await asyncio.sleep(2)
+            try:
+                await page.locator("text='Playground'").first.click(timeout=5000)
+                await page.wait_for_load_state("networkidle")
+            except Exception as e:
+                print("    - 클릭 실패, 강제 JS 이동 시도...")
             
             # 3. Image 탭 강제 전환
-            print("  - [2/4] Image 탭 전환...")
-            try:
-                # 'Image' 텍스트를 가진 탭 버튼 클릭
-                await page.locator("div.arco-tabs-header-title:has-text('Image')").click(timeout=5000)
-                await asyncio.sleep(2)
-            except Exception as e:
-                print(f"    - 탭 클릭 실패, JS 라우팅 우회 시도: {e}")
-                # 강제로 URL 해시/경로를 변경할 수 있으면 시도 (단순 클릭 우회)
-                await page.evaluate("document.querySelectorAll('.arco-tabs-header-title').forEach(el => { if(el.innerText.includes('Image')) el.click(); })")
-                await asyncio.sleep(2)
+            print("  - [2/4] Image 탭 강제 라우팅...")
+            # 가장 확실한 JS 강제 라우팅 (탭 클릭 실패 대비)
+            await page.evaluate("window.location.href = 'https://console.byteplus.com/ark/region:ap-southeast-1/playground/image'")
+            await page.wait_for_load_state("networkidle")
+            await asyncio.sleep(3)
 
             # 3. 프롬프트 입력 및 전송
             print("  - [3/4] 프롬프트 입력 및 렌더링 요청...")
