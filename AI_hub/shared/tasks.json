@@ -278,7 +278,7 @@
       "담당": "안티 (구현) / 만복 (검수)",
       "상태": "pending",
       "예정일": "2026-07-18",
-      "설명": "Playwright로 BytePlus Playground 자동 로그인 → Seedream 4.5(이미지 무료 200개) / Seedance 1.5(영상 무료) 생성 → 로컬 저장. T063 배경영상·썸네일 자동화에 통합. 상업 이용 약관 확인 전 로컬 테스트만."
+      "설명": "방향 전환(2026-07-17): BytePlus → Kling AI 무료 플랜 Playwright 자동화. BytePlus는 카드 등록 없이 모델 활성화 불가 확인. Kling AI로 이미지/영상 생성 → 로컬 저장. T063 배경영상·썸네일 자동화 통합 목표. byteplus_auto.py 기반 코드 재활용."
     },
     {
       "id": "T034",
