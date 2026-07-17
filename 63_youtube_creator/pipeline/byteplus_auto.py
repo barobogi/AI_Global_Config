@@ -187,8 +187,14 @@ async def generate_scene_image(prompt_text, output_path):
                     continue
 
             if not img_locator:
+                # 스크린샷 + 전체 img URL 출력해서 맞는 selector 찾기
                 await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
-                print("  - [오류] 결과 이미지 못 찾음")
+                imgs = await page.locator("img").all()
+                print(f"  - 현재 img 개수: {len(imgs)}")
+                for i, im in enumerate(imgs):
+                    src = await im.get_attribute("src") or ""
+                    if len(src) > 80:
+                        print(f"    [{i}] {src[:150]}")
                 await browser.close()
                 return False
 
