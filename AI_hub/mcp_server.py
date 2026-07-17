@@ -114,19 +114,21 @@ def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에
         
         pyautogui.press('alt')
         time.sleep(0.1)
-        
+
         ctypes.windll.user32.ShowWindow(hwnd, 9)
         time.sleep(0.2)
         ctypes.windll.user32.SetForegroundWindow(hwnd)
         time.sleep(0.5)
-        
-        pyperclip.copy(message)
-        
-        pyautogui.hotkey('ctrl', 'v')
+
+        # Claude Code 채팅 입력창 포커스 (Ctrl+Shift+I)
+        pyautogui.hotkey('ctrl', 'shift', 'i')
         time.sleep(0.5)
-        
+
+        pyperclip.copy(message)
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(0.3)
         pyautogui.press('enter')
-        logging.info(f"PyAutoGUI successfully sent message to Manbok (Window: {manbok_win.title}).")
+        logging.info(f"PyAutoGUI successfully sent message to Manbok VS Code.")
         return True
     except Exception as e:
         logging.error(f"Error in Manbok UI automation: {e}")
