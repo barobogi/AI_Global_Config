@@ -147,24 +147,51 @@ async def generate_scene_image(prompt_text, output_path):
             await input_el.fill(prompt_text)
             await asyncio.sleep(1)
 
-            # Generate 버튼
-            print("  - [3/4] Generate 버튼 클릭...")
-            for sel in ["button:has-text('Generate')", "button:has-text('generate')", "[class*='generate']"]:
+            # 전송 버튼 클릭
+            print("  - [3/4] 전송 버튼 클릭...")
+            sent = False
+            for sel in ["button[class*='send']", "[class*='send-btn']", "button[type='submit']",
+                        "button:has-text('Generate')", "[class*='submit']"]:
                 try:
                     btn = page.locator(sel).first
-                    await btn.wait_for(state="visible", timeout=5000)
-                    await btn.click()
+                    if await btn.is_visible(timeout=2000):
+                        await btn.click()
+                        sent = True
+                        print(f"    전송: {sel}")
+                        break
+                except Exception:
+                    continue
+            if not sent:
+                await input_el.press("Enter")
+                print("    Enter 키로 전송")
+
+            # 4. 결과 이미지 대기 (채팅 응답에 생성된 이미지)
+            print("  - [4/4] AI 렌더링 대기 중 (최대 90초)...")
+            await asyncio.sleep(3)
+            img_locator = None
+            for img_sel in [
+                ".arco-image-img",
+                "img[src*='tos-s']",
+                "img[src*='byteplus']",
+                "[class*='message'] img",
+                "[class*='result'] img",
+                "img[class*='image']",
+            ]:
+                try:
+                    loc = page.locator(img_sel).last
+                    await loc.wait_for(state="visible", timeout=90000)
+                    img_locator = loc
+                    print(f"    결과 이미지: {img_sel}")
                     break
                 except Exception:
                     continue
 
-            # 4. 결과 이미지 대기
-            print("  - [4/4] AI 렌더링 대기 중 (최대 60초)...")
-            # 생성이 완료되면 화면 우측 결과 영역에 이미지가 뜸
-            # 기존 이미지와 구분하기 위해 생성 전/후 요소 갯수 비교도 가능하나, 일단 넉넉히 대기
-            img_locator = page.locator(".arco-image-img").last
-            await img_locator.wait_for(state="visible", timeout=60000)
-            
+            if not img_locator:
+                await page.screenshot(path=os.path.join(output_dir, "debug_error.png"))
+                print("  - [오류] 결과 이미지 못 찾음")
+                await browser.close()
+                return False
+
             # 이미지 URL (src) 추출
             img_src = await img_locator.get_attribute("src")
             if img_src:
