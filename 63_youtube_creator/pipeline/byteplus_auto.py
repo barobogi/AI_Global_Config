@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream 모델 무료 모드 활성화 및 이미지 생성 테스트 시작")
+    print("BytePlus Seedream 모델 자동 활성화 및 이미지 생성 테스트 (약관 동의 추가 패치)")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -60,11 +60,10 @@ async def main():
         await image_tab.click()
         await page.wait_for_timeout(4000)
         
-        # 1. 모델 활성화(Activation) 처리 시도 (무료 모드 타겟)
+        # 1. 모델 활성화(Activation) 처리 시도
         print("모델 활성화 팝업 호출 시도 (로고 이미지 클릭)...")
         target_page = page
         try:
-            # 첫 번째 img 태그 클릭하여 상세 팝업 오픈
             await page.locator("img").first.click()
             await page.wait_for_timeout(2000)
             
@@ -85,14 +84,13 @@ async def main():
                     print(f"새 탭 감지 실패: {ex}")
                     target_page = page
                 
-                # 무료 모드 활성화 처리
-                print("무료 모드 활성화 조건 체크 및 승인 진행...")
+                # 무료 모드 및 약관 동의 활성화 처리
+                print("무료 모드 및 약관 동의 조건 체크 시작...")
                 
                 # 1. 'Enable Free Credits Only Mode' 체크박스 클릭
                 free_credit_checkbox = target_page.locator("text=Enable Free Credits Only Mode").first
                 if await free_credit_checkbox.count() > 0:
-                    print("Enable Free Credits Only Mode 체크박스 활성화...")
-                    # 상위 label이나 컴포넌트까지 찾아 클릭 우회
+                    print("Enable Free Credits Only Mode 체크박스 클릭...")
                     await free_credit_checkbox.evaluate("""el => {
                         const cb = el.closest('label, span, div');
                         if (cb) cb.click();
@@ -100,7 +98,18 @@ async def main():
                     }""")
                     await target_page.wait_for_timeout(1000)
                 
-                # 2. 'Confirm activation and authorization' 버튼 클릭
+                # 2. 'I have read and agree' 약관 동의 체크박스 클릭 (추가 보강)
+                agree_checkbox = target_page.locator("text=I have read and agree").first
+                if await agree_checkbox.count() > 0:
+                    print("I have read and agree 약관 동의 체크박스 클릭...")
+                    await agree_checkbox.evaluate("""el => {
+                        const cb = el.closest('label, span, div');
+                        if (cb) cb.click();
+                        else el.click();
+                    }""")
+                    await target_page.wait_for_timeout(1000)
+                
+                # 3. 'Confirm activation and authorization' 버튼 클릭
                 confirm_active = target_page.locator("button:has-text('Confirm activation and authorization')").first
                 if await confirm_active.count() > 0:
                     print("Confirm activation and authorization 버튼 클릭...")
