@@ -54,7 +54,7 @@ def create_shorts_pptx(output_path):
     # --- Slide 1: 타이틀 ---
     slide1 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide1)
-    tf1 = create_text_box(slide1, Inches(0.625), Inches(7.5), Inches(10), Inches(5))
+    tf1 = create_text_box(slide1, Inches(0.625), Inches(7.5), Inches(10), Inches(5), name="title_1")
     p1 = tf1.paragraphs[0]
     p1.alignment = PP_ALIGN.CENTER
     add_run(p1, "🎯 CRISP-DM?\n", cyan_color, 88, bold=True)
@@ -63,7 +63,7 @@ def create_shorts_pptx(output_path):
     # --- Slide 2: 핵심 소개 ---
     slide2 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide2)
-    tf2 = create_text_box(slide2, Inches(1.25), Inches(6.25), Inches(8.75), Inches(7.5))
+    tf2 = create_text_box(slide2, Inches(1.25), Inches(6.25), Inches(8.75), Inches(7.5), name="body_2")
     p2 = tf2.paragraphs[0]
     p2.alignment = PP_ALIGN.CENTER
     add_run(p2, "데이터를 분석하려면?\n막 시작하면 안 된다.\n정해진 순서가 있어.\n\n", white_color, 50)
@@ -73,7 +73,7 @@ def create_shorts_pptx(output_path):
     # --- Slide 3: 6단계 설명 ---
     slide3 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide3)
-    tf3 = create_text_box(slide3, Inches(0.625), Inches(1.875), Inches(10), Inches(16.25))
+    tf3 = create_text_box(slide3, Inches(0.625), Inches(1.875), Inches(10), Inches(16.25), name="body_3")
     p3 = tf3.paragraphs[0]
     add_run(p3, "CRISP-DM 6단계\n", cyan_color, 75, bold=True)
     
@@ -96,7 +96,7 @@ def create_shorts_pptx(output_path):
     # --- Slide 4: 우리 사례 ---
     slide4 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide4)
-    tf4 = create_text_box(slide4, Inches(0.625), Inches(6.25), Inches(10), Inches(7.5))
+    tf4 = create_text_box(slide4, Inches(0.625), Inches(6.25), Inches(10), Inches(7.5), name="body_4")
     p4 = tf4.paragraphs[0]
     p4.alignment = PP_ALIGN.CENTER
     add_run(p4, "우리 3AI는?\n이 6단계를 완벽하게 적용 중!\n\n", cyan_color, 56, bold=True)
@@ -117,7 +117,7 @@ def create_shorts_pptx(output_path):
     # --- Slide 5: 엔딩 ---
     slide5 = prs.slides.add_slide(blank_slide_layout)
     add_dark_background(slide5)
-    tf5 = create_text_box(slide5, Inches(1.25), Inches(7.5), Inches(8.75), Inches(5))
+    tf5 = create_text_box(slide5, Inches(1.25), Inches(7.5), Inches(8.75), Inches(5), name="title_5")
     p5 = tf5.paragraphs[0]
     p5.alignment = PP_ALIGN.CENTER
     add_run(p5, "CRISP-DM은?\n무조건 알아야 할\n데이터 분석 기초!\n\n", white_color, 62, bold=True)
