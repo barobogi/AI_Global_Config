@@ -11,7 +11,7 @@ async def main():
         print(f"오류: 쿠키 파일을 찾을 수 없습니다. 경로: {COOKIE_PATH}")
         return
 
-    print("BytePlus Seedream Text-to-Image 모델 전환 및 생성 테스트 시작")
+    print("BytePlus Playground 모달 조상 Label 매핑 및 최종 생성 시나리오 가동")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -31,67 +31,102 @@ async def main():
         
         # Overview 페이지로 이동
         print("Overview 페이지로 이동 중...")
-        await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview", wait_until="networkidle")
-        await page.wait_for_timeout(3000)
+        await page.goto("https://console.byteplus.com/ark/region:ap-southeast-1/overview", wait_until="load")
+        await page.wait_for_timeout(5000)
         
-        # 동의 팝업 처리
+        # 1차 동의 팝업 처리 (Overview 단계)
         try:
-            checkbox_selector = "text=I am a developer using BytePlus"
-            if await page.locator(checkbox_selector).count() > 0:
-                await page.locator(checkbox_selector).click(force=True)
+            agree_cb_overview = page.locator("xpath=//span[contains(text(), 'using BytePlus')]/ancestor::label").first
+            if await agree_cb_overview.count() > 0:
+                print("Overview 동의 체크박스 조상 Label 클릭...")
+                await agree_cb_overview.evaluate("el => el.click()")
                 await page.wait_for_timeout(1000)
-                await page.locator("button:has-text('confirm')").click(force=True)
+                await page.locator("button:has-text('confirm'), button:has-text('Confirm')").first.evaluate("el => el.click()")
                 await page.wait_for_timeout(2000)
         except Exception:
             pass
 
-        # 모달 팝업 닫기 (Escape 및 확인 버튼 우회)
-        await page.keyboard.press("Escape")
-        await page.wait_for_timeout(1000)
-        try:
-            modal_close = page.locator("button:has-text('Confirm'), button:has-text('confirm'), .aml-arco-icon-close").first
-            if await modal_close.count() > 0:
-                await modal_close.evaluate("el => el.click()")
-                await page.wait_for_timeout(1000)
-        except Exception:
-            pass
-
-        # Playground 클릭
+        # 왼쪽 메뉴에서 Playground 클릭
         print("Playground 메뉴 클릭...")
         await page.locator("text=Playground").first.click(force=True)
         await page.wait_for_timeout(4000)
         
+        # 2차 동의 팝업 처리 (Playground 모달 정밀 해제 - 조상 Label 클릭)
+        try:
+            # 텍스트 'using BytePlus'를 감싸는 조상 label을 직접 타겟팅
+            modal_checkbox = page.locator("xpath=//span[contains(text(), 'using BytePlus')]/ancestor::label").first
+            if await modal_checkbox.count() > 0:
+                print("Playground 모달 동의 체크박스 조상 Label 발견! 강제 토글...")
+                await modal_checkbox.evaluate("el => el.click()")
+                await page.wait_for_timeout(1500)
+                
+                # confirm 버튼 클릭
+                confirm_btn = page.locator(".aml-arco-modal-wrapper button:has-text('confirm'), .aml-arco-modal-wrapper button:has-text('Confirm')").first
+                if await confirm_btn.count() > 0:
+                    print("confirm 버튼 클릭...")
+                    await confirm_btn.evaluate("el => el.click()")
+                    print("모달 승인 완료.")
+                    await page.wait_for_timeout(3000)
+        except Exception as ex:
+            print(f"Playground 모달 동의 처리 예외 (생략 가능): {ex}")
+            
+        # 비기너 가이드 팝업 닫기 (Escape)
+        await page.keyboard.press("Escape")
+        await page.wait_for_timeout(1000)
+
         # 상단 "Image" 탭 클릭
         print("상단 Image 탭 클릭...")
         image_tab = page.locator("div, span, button").filter(has_text="Image").first
         await image_tab.click(force=True)
         await page.wait_for_timeout(5000)
         
-        # 모델 변경 시도 (Dola-Seed-2.1-turbo 또는 Text-to-Image 모델)
+        # 모델 변경 시도
         try:
-            print("모델 선택 드롭다운 클릭...")
-            model_dropdown = page.locator("xpath=//div[contains(@class, 'select') or contains(@class, 'dropdown')]").first
-            if await model_dropdown.count() > 0:
-                await model_dropdown.evaluate("el => el.click()")
-                await page.wait_for_timeout(2000)
-                
-                # 리스트에서 Dola-Seed-2.1-turbo 또는 Text-to-Image 모델 선택
-                model_option = page.locator("text=Dola-Seed-2.1-turbo").first
-                if await model_option.count() > 0:
-                    print("Dola-Seed-2.1-turbo 모델 선택...")
-                    await model_option.evaluate("el => el.click()")
+            print("모델 선택 드롭다운 클릭 시도...")
+            dropdown_selectors = [
+                ".aml-arco-select-view",
+                "text=Dola-Seedream-5.0-pro",
+                "xpath=//div[contains(@class, 'select-view')]",
+                "xpath=//span[contains(text(), 'Seedream')]/ancestor::div[contains(@class, 'select')]"
+            ]
+            
+            for selector in dropdown_selectors:
+                target = page.locator(selector).first
+                if await target.count() > 0:
+                    print(f"드롭다운 클릭 격발: '{selector}'")
+                    await target.evaluate("el => el.click()")
+                    await page.wait_for_timeout(2000)
+                    break
+            
+            # 리스트에서 Dola-Seed-2.1-turbo 선택
+            print("모델 옵션 클릭 시도...")
+            option_selectors = [
+                "text=Dola-Seed-2.1-turbo",
+                ".aml-arco-select-option >> text=Dola-Seed-2.1-turbo",
+                "xpath=//li[contains(., 'Dola-Seed-2.1-turbo') or contains(@class, 'option')]",
+                "xpath=//*[contains(text(), '2.1-turbo')]"
+            ]
+            
+            option_clicked = False
+            for opt_sel in option_selectors:
+                opt = page.locator(opt_sel).first
+                if await opt.count() > 0:
+                    print(f"모델 옵션 클릭 격발: '{opt_sel}'")
+                    await opt.evaluate("el => el.click()")
                     await page.wait_for_timeout(3000)
-                else:
-                    # 드롭다운 리스트 닫기 (Escape)
-                    await page.keyboard.press("Escape")
-                    await page.wait_for_timeout(1000)
+                    option_clicked = True
+                    break
+            
+            if not option_clicked:
+                await page.keyboard.press("Escape")
+                await page.wait_for_timeout(1000)
+                
         except Exception as e:
-            print(f"모델 변경 절차 건너뜀/실패: {e}")
+            print(f"모델 변경 중 예외 발생: {e}")
 
         # 이미지 생성 진행
         try:
             print("프롬프트 타이핑 및 주입...")
-            # 텍스트 교체
             editor = page.locator(".tiptap.ProseMirror")
             await editor.click(force=True)
             await page.wait_for_timeout(1000)
