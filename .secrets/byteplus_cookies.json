@@ -4,7 +4,7 @@
     "value": "11_000J3PYFLyrFbapxu9rXuEQMtPL",
     "domain": ".byteplus.com",
     "path": "/",
-    "expires": 1799832216.393488,
+    "expires": 1799835513.593754,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None"
@@ -14,7 +14,7 @@
     "value": "5111_000J3PYFLyrFbapxu9rXuEQMtPL_bEv/KoxCOM4AcC",
     "domain": ".byteplus.com",
     "path": "/",
-    "expires": 1799832216.3936,
+    "expires": 1799835513.593843,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -24,7 +24,7 @@
     "value": "11_000J3PYFLyrFbapxu9rXuEQMtPL",
     "domain": ".byteplus.com",
     "path": "/",
-    "expires": 1799832216.393654,
+    "expires": 1799835513.593879,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None",
@@ -36,7 +36,7 @@
     "value": "5111_000J3PYFLyrFbapxu9rXuEQMtPL_bEv/KoxCOM4AcC",
     "domain": ".byteplus.com",
     "path": "/",
-    "expires": 1799832216.393717,
+    "expires": 1799835513.59393,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None",
@@ -150,17 +150,7 @@
     "value": "0818803742626030134",
     "domain": ".byteplus.com",
     "path": "/",
-    "expires": 1815816202,
-    "httpOnly": false,
-    "secure": false,
-    "sameSite": "Lax"
-  },
-  {
-    "name": "monitor_session_id",
-    "value": "0334200555221903041",
-    "domain": ".byteplus.com",
-    "path": "/",
-    "expires": 1784282002,
+    "expires": 1815819412,
     "httpOnly": false,
     "secure": false,
     "sameSite": "Lax"
@@ -566,31 +556,11 @@
     "sameSite": "Lax"
   },
   {
-    "name": "__Secure-1PSIDRTS",
-    "value": "sidts-CjYBPWEu2QYd_WY5IntK1eLwJQcNH2bbsENv4gr_s3lkEP0dd_viCUMKHLo2zCQNx38ds4toakIQAA",
-    "domain": ".google.com",
-    "path": "/",
-    "expires": 1784280789.540135,
-    "httpOnly": true,
-    "secure": true,
-    "sameSite": "Lax"
-  },
-  {
     "name": "__Secure-3PSIDTS",
     "value": "sidts-CjYBPWEu2QYd_WY5IntK1eLwJQcNH2bbsENv4gr_s3lkEP0dd_viCUMKHLo2zCQNx38ds4toakIQAA",
     "domain": ".google.com",
     "path": "/",
     "expires": 1815816189.540191,
-    "httpOnly": true,
-    "secure": true,
-    "sameSite": "None"
-  },
-  {
-    "name": "__Secure-3PSIDRTS",
-    "value": "sidts-CjYBPWEu2QYd_WY5IntK1eLwJQcNH2bbsENv4gr_s3lkEP0dd_viCUMKHLo2zCQNx38ds4toakIQAA",
-    "domain": ".google.com",
-    "path": "/",
-    "expires": 1784280789.540249,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -890,5 +860,79 @@
     "httpOnly": false,
     "secure": false,
     "sameSite": "Lax"
+  },
+  {
+    "name": "s_v_web_id",
+    "value": "20260717101648DB83E5B113D80D5176D0",
+    "domain": "console.byteplus.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "s_v_web_id",
+    "value": "20260717101648DB83E5B113D80D5176D0",
+    "domain": "console.byteplus.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None",
+    "partitionKey": "https://byteplus.com",
+    "_crHasCrossSiteAncestor": false
+  },
+  {
+    "name": "monitor_session_id",
+    "value": "4756937736825307950",
+    "domain": ".byteplus.com",
+    "path": "/",
+    "expires": 1784285208,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "i18next",
+    "value": "ko-KR",
+    "domain": "console.byteplus.com",
+    "path": "/",
+    "expires": 1815819408,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Strict"
+  },
+  {
+    "name": "__tea_cache_tokens_3569",
+    "value": "{%22web_id%22:%227663438860047189531%22%2C%22user_unique_id%22:%227663438860047189531%22%2C%22timestamp%22:1784283408571%2C%22_type_%22:%22default%22}",
+    "domain": ".byteplus.com",
+    "path": "/",
+    "expires": 1784888208,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "connect.sid",
+    "value": "s%3Ad32fc2c5-cfb2-4e3d-9305-1d7279a9df5e.8mF6N%2BxZJFyCXyZXPtmZAy8zW4Ruvh5KLVcfyb%2BUMcc",
+    "domain": "console.byteplus.com",
+    "path": "/",
+    "expires": 1815819489.998602,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "connect.sid",
+    "value": "s%3Ad32fc2c5-cfb2-4e3d-9305-1d7279a9df5e.8mF6N%2BxZJFyCXyZXPtmZAy8zW4Ruvh5KLVcfyb%2BUMcc",
+    "domain": "console.byteplus.com",
+    "path": "/",
+    "expires": 1815819489.998622,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None",
+    "partitionKey": "https://byteplus.com",
+    "_crHasCrossSiteAncestor": false
   }
 ]
