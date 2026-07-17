@@ -156,8 +156,15 @@ if __name__ == "__main__":
         create_shorts_pptx(out_file)
         
         print("[QA 검증] 코니의 7가지 체크리스트 실행 중...")
-        # script_md_path와 empty.json 전달
-        result = qa_agent.final_validation(out_file, script_md_path, empty_json_path, "D:\\AI\\63_youtube_creator\\temp_audio.mp3", empty_json_path, [])
+        # 올바른 인자 순서: pptx_path, audio_mp3, script_md, research_data_path, toc_json_path, image_paths
+        result = qa_agent.final_validation(
+            out_file, 
+            "D:\\AI\\63_youtube_creator\\temp_audio.mp3", 
+            script_md_path, 
+            empty_json_path, 
+            empty_json_path, 
+            []
+        )
         
         if result["passed_count"] == result["total_count"] or "승인" in result["verdict"]:
             print(f"QA 통과! {result['verdict']}")
