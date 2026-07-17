@@ -37,18 +37,22 @@ async def generate_scene_image(prompt_text, output_path):
         page = await context.new_page()
 
         async def handle_modal():
-            """Agreements 모달이 있으면 체크 + confirm"""
+            """Agreements 모달이 있으면 JS 강제 클릭으로 체크 + confirm"""
             try:
                 cb = page.locator("input[type='checkbox']").first
-                await cb.wait_for(state="visible", timeout=5000)
-                await cb.check()
-                await asyncio.sleep(0.5)
-                await page.locator("button:has-text('confirm')").click()
-                print("  - [모달 통과] 약관 동의 완료!")
+                await cb.wait_for(state="attached", timeout=5000)
+                # JS 강제 클릭 (SPA 방어막 우회)
+                await page.evaluate("document.querySelector('input[type=checkbox]').click()")
+                await asyncio.sleep(0.8)
+                await page.evaluate("""
+                    var btns = document.querySelectorAll('button');
+                    for(var b of btns){ if(b.textContent.trim().toLowerCase()==='confirm'){b.click();break;} }
+                """)
+                print("  - [모달 통과] JS 강제 클릭 완료!")
                 await page.wait_for_load_state("networkidle")
                 await asyncio.sleep(2)
             except Exception:
-                pass  # 모달 없으면 그냥 통과
+                pass
 
         try:
             # 1. Overview 접속 → 모달 처리
