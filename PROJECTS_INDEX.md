@@ -84,4 +84,4 @@
 | `start_remote_control.ps1` | Remote Control 수동 시작 |
 | `task_masterwatch.xml` | 작업 스케줄러 등록 XML |
 | `데스크탑_최적화_Guide.md` | 개발환경 설정 가이드 |
-| `n8n_data` (공백 오타) | n8n 데이터 폴더 — T016 완료 후 이름 수정 예정 |
+| `n8n_data/` | n8n 데이터 폴더 — 현재 canonical 경로로 정리됨, 공백 오타 폴더는 제거/정리 대상에서 제외 |
