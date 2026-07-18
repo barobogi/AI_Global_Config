@@ -204,7 +204,52 @@ def main():
                         messages_dir = r"D:\AI\AI_hub\shared\messages"
                         registry_path = r"D:\AI\Global_Define\agent_registry.json"
                         
-                        # 1. VibeCoding 명시적 호출
+                        # 1. 상태/기절 스위치 (DND 명령어)
+                        if text_lower.startswith("/status") or text_lower.startswith("/sleep") or text_lower.startswith("/wake"):
+                            try:
+                                with open(registry_path, "r", encoding="utf-8") as f:
+                                    registry = json.load(f)
+                            except:
+                                registry = {}
+                                
+                            cmd_parts = text_lower.split()
+                            cmd = cmd_parts[0]
+                            target_kw = cmd_parts[1] if len(cmd_parts) > 1 else ""
+                            
+                            if cmd == "/status":
+                                status_msg = "🤖 <b>N-AI 상태 보고</b>\n"
+                                sorted_agents = sorted(registry.items(), key=lambda x: x[1].get("fallback_priority", 99))
+                                for a_id, data in sorted_agents:
+                                    icon = "🟢" if data.get("is_active", True) else "💤"
+                                    pri = data.get("fallback_priority", 99)
+                                    status_msg += f"{icon} <b>{data.get('name', a_id)}</b> (우선순위: {pri})\n"
+                                tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": status_msg, "parse_mode": "HTML"})
+                                continue
+                                
+                            if target_kw:
+                                found_id = None
+                                for a_id, data in registry.items():
+                                    if target_kw in data.get("keywords", []) or target_kw == a_id:
+                                        found_id = a_id
+                                        break
+                                if found_id:
+                                    is_sleep = cmd == "/sleep"
+                                    registry[found_id]["is_active"] = not is_sleep
+                                    
+                                    tmp_path = registry_path + ".tmp"
+                                    with open(tmp_path, "w", encoding="utf-8") as f:
+                                        json.dump(registry, f, ensure_ascii=False, indent=2)
+                                    os.replace(tmp_path, registry_path)
+                                    
+                                    state_str = "💤 기절(Sleep)" if is_sleep else "🟢 활성(Wake)"
+                                    tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"✅ <b>{registry[found_id].get('name', found_id)}</b> 요원이 {state_str} 상태로 변경되었습니다.", "parse_mode": "HTML"})
+                                else:
+                                    tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"❌ '{target_kw}' 요원을 찾을 수 없습니다."})
+                            else:
+                                tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"⚠️ 사용법: {cmd} [요원이름]\n예: {cmd} 코니"})
+                            continue
+
+                        # 2. VibeCoding 명시적 호출
                         if "/vibe" in text_lower or "바이브" in text_lower:
                             print(f"[{datetime.now()}] T024 VibeCoding 명령 수신: {text[:20]}...")
                             script_path = r"D:\AI\64_vibecoding\generator_trigger.py"
