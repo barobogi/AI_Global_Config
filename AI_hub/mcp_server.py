@@ -110,6 +110,10 @@ def trigger():
     window_title = agent_info.get("window_title")
     shortcut = agent_info.get("shortcut", [])
     
+    if not agent_info.get("is_active", True):
+        logging.warning(f"Target '{target}' is marked as inactive (DND). Returning 404.")
+        return jsonify({"status": "failed", "error": "agent_inactive"}), 404
+    
     if target == "anti":
         try:
             with open(r"D:\AI\AI_hub\status\trigger_anti.txt", "a", encoding="utf-8") as f:
