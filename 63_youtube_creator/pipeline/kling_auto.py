@@ -5,6 +5,7 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 
 COOKIE_PATH = r"D:\AI\.secrets\kling_cookies.json"
+STATE_PATH = r"D:\AI\.secrets\kling_state.json"
 
 async def generate_scene_image(prompt_text, output_path):
     """
@@ -25,14 +26,11 @@ async def generate_scene_image(prompt_text, output_path):
             args=["--disable-blink-features=AutomationControlled", "--window-size=1920,1080"]
         )
         context = await browser.new_context(
+            storage_state=STATE_PATH if os.path.exists(STATE_PATH) else None,
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            viewport={"width": 1920, "height": 1080}
+            viewport={"width": 1920, "height": 1080},
         )
         await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
-        with open(COOKIE_PATH, "r", encoding="utf-8") as f:
-            cookies = json.load(f)
-            await context.add_cookies(cookies)
 
         page = await context.new_page()
 
