@@ -33,8 +33,8 @@ def focus_kling():
         print("[오류] Kling AI 창을 찾을 수 없습니다.")
         return False
     hwnd = wins[0][0]
-    ctypes.windll.user32.ShowWindow(hwnd, 9)
-    time.sleep(0.3)
+    ctypes.windll.user32.ShowWindow(hwnd, 3)  # 3 = 최대화
+    time.sleep(0.5)
     ctypes.windll.user32.SetForegroundWindow(hwnd)
     time.sleep(0.8)
     return True
