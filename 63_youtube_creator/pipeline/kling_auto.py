@@ -23,7 +23,7 @@ async def generate_scene_image(prompt_text, output_path):
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
-            headless=True,
+            headless=False,
             args=["--disable-blink-features=AutomationControlled", "--window-size=1920,1080"]
         )
         context = await browser.new_context(
