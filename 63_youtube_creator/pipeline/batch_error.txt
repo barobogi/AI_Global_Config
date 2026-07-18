@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "D:\AI\63_youtube_creator\pipeline\batch_generate_images.py", line 46, in <module>
+    asyncio.run(main())
+  File "C:\hb\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\hb\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hb\Lib\asyncio\base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\AI\63_youtube_creator\pipeline\batch_generate_images.py", line 37, in main
+    print(f"[씬 {sid:02d}] \u274c 실패 (누적 실패: {fail})")
+UnicodeEncodeError: 'cp949' codec can't encode character '\u274c' in position 7: illegal multibyte sequence
