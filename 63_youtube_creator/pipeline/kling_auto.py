@@ -86,35 +86,44 @@ async def generate_scene_image(prompt_text, output_path):
                 except Exception:
                     continue
 
+            # 버튼 클릭 전, 기존에 존재하는 이미지 목록 수집 (오탐지 방지)
+            initial_imgs = await page.evaluate("""
+                () => {
+                    return Array.from(document.querySelectorAll('img')).map(img => img.src);
+                }
+            """)
+
             if send_button:
                 await send_button.click()
             else:
                 await prompt_box.press("Enter")
                 print("    Enter로 전송 시도")
 
-            await asyncio.sleep(8)
+            print("  - 이미지 생성 대기 중 (최대 120초)...")
+            await asyncio.sleep(15)
 
-            image_candidates = []
-            for _ in range(12):
-                image_candidates = await page.evaluate("""
-                    () => {
+            image_url = None
+            for _ in range(25):
+                new_imgs = await page.evaluate("""
+                    (initial) => {
                         const imgs = Array.from(document.querySelectorAll('img'));
                         return imgs
-                            .filter(img => img.naturalWidth > 200 && img.src && img.src.startsWith('http'))
+                            .filter(img => img.naturalWidth >= 500 && img.src && img.src.startsWith('http') && !initial.includes(img.src))
                             .map(img => img.src);
                     }
-                """)
-                if image_candidates:
+                """, initial_imgs)
+                
+                if new_imgs:
+                    image_url = new_imgs[-1]
                     break
                 await asyncio.sleep(4)
 
-            if not image_candidates:
-                print("  - [오류] 생성된 이미지 결과를 확인하지 못했습니다")
+            if not image_url:
+                print("  - [오류] 생성된 이미지 결과를 확인하지 못했습니다 (타임아웃)")
                 await browser.close()
                 return False
 
             import urllib.request
-            image_url = image_candidates[-1]
             urllib.request.urlretrieve(image_url, output_path)
             print(f"  - [성공] 이미지 저장: {output_path}")
             await browser.close()
