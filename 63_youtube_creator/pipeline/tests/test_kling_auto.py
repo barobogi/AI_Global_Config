@@ -23,6 +23,9 @@ class KlingAutoTests(unittest.TestCase):
                 kling_auto.COOKIE_PATH = original_cookie_path
             self.assertFalse(result)
 
+    def test_target_url_uses_kling_ai_domain(self):
+        self.assertEqual(kling_auto.TARGET_URL, "https://kling.ai/create/image")
+
 
 if __name__ == "__main__":
     unittest.main()
