@@ -192,7 +192,7 @@ def main():
                             "show_alert": True
                         })
 
-                # T024 VibeCoding 일반 메시지 수신 (명령어 파싱)
+                # T024 VibeCoding 및 일반 메시지 수신 (N-AI 레지스트리 기반 동적 라우팅)
                 elif "message" in update and "text" in update["message"]:
                     message = update["message"]
                     chat_id = message.get("chat", {}).get("id")
@@ -202,6 +202,7 @@ def main():
                         text_lower = text.lower()
                         now_str = datetime.now().strftime("%Y%m%d_%H%M%S")
                         messages_dir = r"D:\AI\AI_hub\shared\messages"
+                        registry_path = r"D:\AI\Global_Define\agent_registry.json"
                         
                         # 1. VibeCoding 명시적 호출
                         if "/vibe" in text_lower or "바이브" in text_lower:
@@ -219,41 +220,51 @@ def main():
                                     "chat_id": chat_id,
                                     "text": "❌ VibeCoding 생성기 스크립트를 찾을 수 없습니다."
                                 })
-                                
-                        # 2. 안티(Anti) 명시적 호출
-                        elif "안티" in text:
-                            print(f"[{datetime.now()}] 안티 호출 수신: {text[:30]}...")
-                            msg_filename = f"바로보기→안티_{now_str}_텔레그램지시.md"
-                            msg_path = os.path.join(messages_dir, msg_filename)
-                            content = f"status: unread\n\n# 사용자 텔레그램 지시사항\n\n{text}"
-                            with open(msg_path, "w", encoding="utf-8") as f: f.write(content)
-                            
-                            subprocess.Popen([sys.executable, r"D:\AI\Global_Define\push_to_all.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=r"D:\AI\Global_Define")
-                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": "✅ 안티를 호출했습니다. (수신함 등록 및 알람 완료)"})
-                            
-                        # 3. 코니(Kony) 명시적 호출
-                        elif "코니" in text:
-                            print(f"[{datetime.now()}] 코니 호출 수신: {text[:30]}...")
-                            msg_filename = f"바로보기→코니_{now_str}_텔레그램지시.md"
-                            msg_path = os.path.join(messages_dir, msg_filename)
-                            content = f"status: unread\n\n# 사용자 텔레그램 지시사항\n\n{text}"
-                            with open(msg_path, "w", encoding="utf-8") as f: f.write(content)
-                            
-                            subprocess.Popen([sys.executable, r"D:\AI\Global_Define\push_to_all.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=r"D:\AI\Global_Define")
-                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": "✅ 코니를 호출했습니다. (수신함 등록 및 알람 완료)"})
-                            
-                        # 4. 기본값 (Default) -> 만복이(Manbok)에게 할당 (유튜브 링크 포함)
-                        else:
-                            print(f"[{datetime.now()}] 만복(기본) 지시 수신: {text[:30]}...")
-                            msg_filename = f"바로보기→만복_{now_str}_텔레그램지시.md"
-                            msg_path = os.path.join(messages_dir, msg_filename)
-                            
+                            continue
+
+                        # 2. N-AI 레지스트리 기반 동적 라우팅
+                        try:
+                            with open(registry_path, "r", encoding="utf-8") as f:
+                                registry = json.load(f)
+                        except Exception as e:
+                            print(f"레지스트리 로드 실패: {e}")
+                            registry = {}
+
+                        target_agent = None
+                        target_name = None
+                        fallback_agent = None
+                        fallback_name = None
+
+                        for agent_id, data in registry.items():
+                            if data.get("is_fallback_default"):
+                                fallback_agent = agent_id
+                                fallback_name = data.get("name", agent_id)
+                            for kw in data.get("keywords", []):
+                                if kw.lower() in text_lower:
+                                    target_agent = agent_id
+                                    target_name = data.get("name", agent_id)
+                                    break
+                            if target_agent:
+                                break
+
+                        if not target_agent:
+                            target_agent = fallback_agent
+                            target_name = fallback_name
+
+                        if target_agent:
+                            print(f"[{datetime.now()}] {target_name}({target_agent}) 지시 수신: {text[:30]}...")
                             title = "유튜브 동영상 뽀개기(T063) 요청" if "youtu" in text_lower else "사용자 텔레그램 지시사항"
+                            msg_filename = f"바로보기→{target_name}_{now_str}_텔레그램지시.md"
+                            msg_path = os.path.join(messages_dir, msg_filename)
                             content = f"status: unread\n\n# {title}\n\n{text}"
-                            with open(msg_path, "w", encoding="utf-8") as f: f.write(content)
+                            
+                            with open(msg_path, "w", encoding="utf-8") as f: 
+                                f.write(content)
                             
                             subprocess.Popen([sys.executable, r"D:\AI\Global_Define\push_to_all.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=r"D:\AI\Global_Define")
-                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": "✅ 만복이에게 전달했습니다. (수신함 등록 및 알람 완료)"})
+                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"✅ {target_name}에게 전달했습니다. (수신함 등록 및 알람 완료)"})
+                        else:
+                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": "❌ 라우팅 대상을 찾을 수 없으며 폴백 에이전트도 없습니다."})
 
         except Exception as e:
             print(f"[{datetime.now()}] 메인 루프 예외 발생: {e}", file=sys.stderr)
