@@ -6,7 +6,32 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-17 저녁 종료)
+## 🔄 최신 상태 (2026-07-18 저녁 종료)
+
+### ✅ 2026-07-18 완료
+- **NIM 폴백 시스템** — agent_registry 4순위, nvidia_nim_client.py, mcp_server.py, 텔레그램 @NIM 직접 질문
+- **안티 PyAutoGUI 직접 격발** — mcp_server.py /trigger anti → Antigravity 창 직접 격발
+- **코니 팝업 루프 근본 해결** — _inbox_watchdog seen_files 캐시 (신규 파일만 트리거)
+- **email_notify.py 첨부 기능** 추가
+- **특허 11_19 등록** — 물리/논리 상태 분리 무중단 폴백 (코니 신규성 HIGH)
+- **11_18 + 11_19 메일 발송** — 삼성 + Gmail 첨부파일 포함
+- **게시판 20260718-1~8** 등록 완료
+- **유튜브 뽀개기 3건** 리뷰 + 등록
+
+### 📋 2026-07-19 할 일
+1. **EP.01 본편 완료** — 안티가 가로형 31개로 렌더링 중 (밤새 진행), verify+qa 통과 후 만복 업로드
+2. **세로형 이미지 씬 01~10** — 필요시 재생성 (images_vertical_backup/에 씬 11~31 보관)
+3. **T025** Docker 컨테이너화 착수 가능
+4. **가족봇** 착수 가능
+
+### 🔑 신규 핵심 파일 (2026-07-18)
+- `D:\AI\Global_Define\nvidia_nim_client.py` — NIM API 클라이언트
+- `D:\AI\63_youtube_creator\pipeline\images\` — scene_01~31.jpg (가로형 1920×1080)
+- `D:\AI\63_youtube_creator\pipeline\images_vertical_backup\` — 세로형 백업 (씬 11~31)
+
+---
+
+## 🔄 이전 상태 (2026-07-17 저녁 종료)
 
 ### ✅ 2026-07-17 완료 (전체)
 
