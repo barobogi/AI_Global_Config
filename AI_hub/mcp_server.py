@@ -5,10 +5,14 @@ import threading
 import logging
 import ctypes
 import json
+import requests as _requests
 from flask import Flask, request, jsonify
 import pygetwindow as gw
 import pyautogui
 import pyperclip
+
+# nvidia_nim_client 경로 등록
+sys.path.insert(0, r"D:\AI\Global_Define")
 
 logging.basicConfig(
     filename=r"d:\AI\AI_hub\mcp_server_push.log", 
