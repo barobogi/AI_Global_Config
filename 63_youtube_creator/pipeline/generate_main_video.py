@@ -75,8 +75,8 @@ async def build_pipeline():
             audio_clip = AudioFileClip(audio_path)
             duration = audio_clip.duration + 0.5 # 음성 길이 + 0.5초 여유
             
-            # 이미지 클립
-            img_clip = ImageClip(img_path).with_duration(duration)
+            # 이미지 클립 (1920x1080으로 강제 리사이징하여 자막 위치(y=750) 이탈 방지)
+            img_clip = ImageClip(img_path).resize(newsize=(1920, 1080)).with_duration(duration)
             
             # 자막 텍스트 줄바꿈 및 하단 잘림(Descender cutoff) 방지용 공백 추가
             import textwrap
