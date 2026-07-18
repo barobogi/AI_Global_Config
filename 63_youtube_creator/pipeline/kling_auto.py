@@ -52,7 +52,7 @@ async def generate_scene_image(prompt_text, output_path):
             ]:
                 try:
                     locator = page.locator(selector).first
-                    await locator.wait_for(state="visible", timeout=5000)
+                    await locator.wait_for(state="visible", timeout=30000)
                     prompt_box = locator
                     print(f"    입력창 발견: {selector}")
                     break
@@ -70,11 +70,12 @@ async def generate_scene_image(prompt_text, output_path):
 
             send_button = None
             for selector in [
+                "text='생성'",
+                "text='Generate'",
                 "button:has-text('생성')",
                 "button:has-text('Generate')",
-                "button:has-text('Create')",
                 "button[type='submit']",
-                "button[class*='send']",
+                "[class*='generate']",
             ]:
                 try:
                     btn = page.locator(selector).first
