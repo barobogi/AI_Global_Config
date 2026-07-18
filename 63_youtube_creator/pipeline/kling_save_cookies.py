@@ -25,10 +25,18 @@ async def main():
         page = await context.new_page()
         await page.goto("https://kling.ai/create/image", wait_until="domcontentloaded", timeout=60000)
 
-        print("\n[안내] 브라우저가 열렸습니다.")
-        print("구글 로그인으로 Kling AI에 접속한 뒤, 콘솔에서 Enter를 눌러주세요.")
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, input, "로그인을 마치셨다면 Enter를 누르세요...")
+        print("\n[안내] 브라우저가 열렸습니다. 구글/이메일 로그인을 완료해주세요.")
+        print("로그인이 성공하여 작업실(URL: /app/image/new)에 입장하면 5초 후 자동으로 세션이 저장됩니다!")
+        
+        try:
+            # 작업실 URL로 이동할 때까지 최대 120초 대기
+            await page.wait_for_url("**/app/image/new*", timeout=120000)
+            print("\n[감지] 작업실 진입 확인! 스토리지 로딩 대기 중 (5초)...")
+            await page.wait_for_timeout(5000)
+        except Exception as e:
+            print("\n[실패] 시간 초과(120초) 또는 URL 감지 실패:", e)
+            await browser.close()
+            return
 
         await context.storage_state(path=STATE_PATH)
 
