@@ -4,7 +4,10 @@ import asyncio
 import subprocess
 from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate_videoclips
 
-from byteplus_auto import generate_scene_image
+try:
+    from kling_auto import generate_scene_image
+except ImportError:
+    from byteplus_auto import generate_scene_image
 
 SCRIPT_FILE = r"D:\AI\63_youtube_creator\pipeline\scripts\main_ep01_full_script.json"
 OUTPUT_DIR = r"D:\AI\63_youtube_creator\pipeline\output\ep01"
