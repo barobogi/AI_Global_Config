@@ -110,6 +110,17 @@ def trigger():
     window_title = agent_info.get("window_title")
     shortcut = agent_info.get("shortcut", [])
     
+    if target == "anti":
+        try:
+            with open(r"D:\AI\AI_hub\status\trigger_anti.txt", "a", encoding="utf-8") as f:
+                f.write(f"triggered by n-ai fallback at {time.time()}\n")
+            logging.info("Target 'anti' triggered via trigger_anti.txt file.")
+            return jsonify({"status": "success", "message": "anti triggered via file"}), 200
+        except Exception as e:
+            logging.error(f"Failed to trigger anti via file: {e}")
+            return jsonify({"status": "failed", "error": str(e)}), 500
+            
+    
     all_wins = []
     def _enum_cb(hwnd, _):
         buf = ctypes.create_unicode_buffer(256)
