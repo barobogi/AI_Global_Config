@@ -36,7 +36,7 @@ async def generate_scene_image(prompt_text, output_path):
 
         try:
             print("  - Kling AI 접속 중...")
-            await page.goto("https://kling.ai/create/image", wait_until="domcontentloaded", timeout=60000)
+            await page.goto("https://kling.ai/app/image/new", wait_until="domcontentloaded", timeout=60000)
             await asyncio.sleep(3)
 
             page_screenshot = str(Path(output_path).parent / "kling_debug.png")
