@@ -1,5 +1,5 @@
 ---
-status: unread
+status: read
 ---
 # [완료보고] T_OOM_Fix_Supervisor_Mutex : Supervisor 및 Master Watch 단일 인스턴스 보장(Mutex) 처리 완료
 
