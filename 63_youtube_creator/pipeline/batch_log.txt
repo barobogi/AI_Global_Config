@@ -1,8 +1,0 @@
-총 30개 씬 이미지 생성 시작
-
-[씬 01/30] 생성 중...
-
-========== Kling AI 이미지 생성 (Playwright) ==========
-  - Kling AI 접속 중...
-  - 디버그 스크린샷 저장: D:\AI\63_youtube_creator\pipeline\images\kling_debug.png
-  - [오류] 입력창을 찾지 못했습니다
