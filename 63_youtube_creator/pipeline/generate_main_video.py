@@ -36,6 +36,12 @@ async def build_pipeline():
     with open(SCRIPT_FILE, "r", encoding="utf-8") as f:
         scenes = json.load(f)
         
+    scenes.append({
+        "scene_id": 31,
+        "text": "지금까지 시청해 주셔서 감사합니다. 다음 시간에 뵙겠습니다!",
+        "prompt": "Ending scene"
+    })
+        
     print(f"총 {len(scenes)}개의 장면(Scene) 렌더링 파이프라인 시작...\n")
     
     clips = []
@@ -46,18 +52,17 @@ async def build_pipeline():
         text = scene["text"]
         prompt = scene["prompt"]
         
-        print(f"=== Scene {s_id} 처리 중 ===")
-        img_path = os.path.join(OUTPUT_DIR, f"scene_{s_id}.png")
-        audio_path = os.path.join(OUTPUT_DIR, f"scene_{s_id}.mp3")
+        s_id_padded = f"{int(s_id):02d}"
+        print(f"=== Scene {s_id_padded} 처리 중 ===")
         
-        # 이미지 생성 (이미 있으면 스킵하여 빠른 재시도 지원)
+        img_path = rf"D:\AI\63_youtube_creator\pipeline\images\scene_{s_id_padded}.jpg"
+        audio_path = os.path.join(OUTPUT_DIR, f"scene_{s_id_padded}.mp3")
+        
         if not os.path.exists(img_path):
-            success = await generate_scene_image(prompt, img_path)
-            if not success:
-                print(f"Scene {s_id} 이미지 생성 실패. 파이프라인 중단.")
-                return
+            print(f"Scene {s_id_padded} 이미지를 찾을 수 없습니다: {img_path}. 파이프라인 중단.")
+            return
         else:
-            print(f"  - 이미지 캐시 사용: {img_path}")
+            print(f"  - 만복이 생성 이미지 로드 성공: {img_path}")
             
         # 오디오 생성
         if not os.path.exists(audio_path):
