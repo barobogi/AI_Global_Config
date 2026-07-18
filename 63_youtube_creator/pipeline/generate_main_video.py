@@ -36,11 +36,7 @@ async def build_pipeline():
     with open(SCRIPT_FILE, "r", encoding="utf-8") as f:
         scenes = json.load(f)
         
-    scenes.append({
-        "scene_id": 31,
-        "text": "지금까지 시청해 주셔서 감사합니다. 다음 시간에 뵙겠습니다!",
-        "prompt": "Ending scene"
-    })
+    # 씬 31은 main_ep01_full_script.json에 이미 포함됨 — 중복 append 제거
         
     print(f"총 {len(scenes)}개의 장면(Scene) 렌더링 파이프라인 시작...\n")
     
