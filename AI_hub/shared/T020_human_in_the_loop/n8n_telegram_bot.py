@@ -199,21 +199,46 @@ def main():
                     text = message.get("text", "")
                     
                     if text.strip() and chat_id:
-                        print(f"[{datetime.now()}] T024 VibeCoding 명령 수신: {text[:20]}...")
-                        # 비동기로 generator_trigger.py 실행
-                        script_path = r"D:\AI\64_vibecoding\generator_trigger.py"
-                        if os.path.exists(script_path):
+                        if "youtube.com" in text or "youtu.be" in text:
+                            # 1. 유튜브 링크 라우팅 -> 만복이에게 지시 (T063)
+                            print(f"[{datetime.now()}] T063 유튜브 링크 수신: {text[:30]}...")
+                            now_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            msg_filename = f"바로보기→만복_{now_str}_T063_유튜브리서치.md"
+                            msg_path = os.path.join(r"D:\AI\AI_hub\shared\messages", msg_filename)
+                            
+                            content = f"status: unread\n\n# 유튜브 동영상 뽀개기(T063) 자동 라우팅 요청\n\n사용자님이 텔레그램을 통해 다음 유튜브 링크의 분석을 요청하셨습니다.\n\n**링크:**\n{text}\n\n위 영상을 분석하고 결과 보고서를 작성해 주십시오."
+                            with open(msg_path, "w", encoding="utf-8") as f:
+                                f.write(content)
+                                
+                            # 수신함 갱신 스크립트 비동기 실행 (만복이 격발)
                             subprocess.Popen(
-                                [sys.executable, script_path, str(chat_id), text],
+                                [sys.executable, r"D:\AI\Global_Define\push_to_all.py"],
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
-                                cwd=r"D:\AI\64_vibecoding"
+                                cwd=r"D:\AI\Global_Define"
                             )
-                        else:
+                            
                             tg_api_call(token, "sendMessage", {
                                 "chat_id": chat_id,
-                                "text": "❌ VibeCoding 생성기 스크립트를 찾을 수 없습니다."
+                                "text": "✅ 유튜브 링크를 감지하여 만복이의 업무 수신함에 [동영상 뽀개기] 지시를 꽂아 넣고 알람을 울렸습니다!"
                             })
+                        else:
+                            # 2. 일반 텍스트 라우팅 -> VibeCoding 엔진
+                            print(f"[{datetime.now()}] T024 VibeCoding 명령 수신: {text[:20]}...")
+                            # 비동기로 generator_trigger.py 실행
+                            script_path = r"D:\AI\64_vibecoding\generator_trigger.py"
+                            if os.path.exists(script_path):
+                                subprocess.Popen(
+                                    [sys.executable, script_path, str(chat_id), text],
+                                    stdout=subprocess.DEVNULL,
+                                    stderr=subprocess.DEVNULL,
+                                    cwd=r"D:\AI\64_vibecoding"
+                                )
+                            else:
+                                tg_api_call(token, "sendMessage", {
+                                    "chat_id": chat_id,
+                                    "text": "❌ VibeCoding 생성기 스크립트를 찾을 수 없습니다."
+                                })
 
         except Exception as e:
             print(f"[{datetime.now()}] 메인 루프 예외 발생: {e}", file=sys.stderr)
