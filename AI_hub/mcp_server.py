@@ -134,7 +134,7 @@ def trigger():
             try:
                 from nvidia_nim_client import ask_nim
                 inbox_path = r"D:\AI\AI_hub\status\inbox.md"
-                inbox_text = open(inbox_path, "r", encoding="utf-8").read()[:2000]
+                inbox_text = open(inbox_path, "r", encoding="utf-8-sig").read()[:2000]
                 nim_answer = ask_nim(
                     f"3AI 시스템(만복/코니/안티)이 모두 응답 불가 상태입니다. "
                     f"수신함 내용을 분석해 미처리 핵심 항목을 3줄 이내로 요약하세요:\n\n{inbox_text}",
