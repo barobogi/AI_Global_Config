@@ -127,8 +127,33 @@ def trigger():
         except Exception as e:
             logging.error(f"Failed to trigger anti via file: {e}")
             return jsonify({"status": "failed", "error": str(e)}), 500
-            
-    
+
+    # nvidia_nim: API 타입 — PyAutoGUI 불필요, NIM 호출 후 텔레그램 발송
+    if agent_info.get("type") == "api" and target == "nvidia_nim":
+        def _nim_fallback():
+            try:
+                from nvidia_nim_client import ask_nim
+                inbox_path = r"D:\AI\AI_hub\status\inbox.md"
+                inbox_text = open(inbox_path, "r", encoding="utf-8").read()[:2000]
+                nim_answer = ask_nim(
+                    f"3AI 시스템(만복/코니/안티)이 모두 응답 불가 상태입니다. "
+                    f"수신함 내용을 분석해 미처리 핵심 항목을 3줄 이내로 요약하세요:\n\n{inbox_text}",
+                    max_tokens=400
+                )
+                token = "8850996295:AAHXKedqZflR71jhDTR0MKutjxBdHWfxNAo"
+                chat_id = "465471725"
+                msg = f"🤖 <b>[NIM 긴급 대응]</b> 3AI 전원 오프라인\n\n{nim_answer}"
+                _requests.post(
+                    f"https://api.telegram.org/bot{token}/sendMessage",
+                    json={"chat_id": chat_id, "text": msg, "parse_mode": "HTML"},
+                    timeout=15
+                )
+                logging.info("[NIM] 수신함 요약 → 텔레그램 발송 완료")
+            except Exception as e:
+                logging.error(f"[NIM] 폴백 실패: {e}")
+        threading.Thread(target=_nim_fallback).start()
+        return jsonify({"status": "success", "message": "nvidia_nim fallback triggered"}), 200
+
     all_wins = []
     def _enum_cb(hwnd, _):
         buf = ctypes.create_unicode_buffer(256)
