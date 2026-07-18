@@ -66,7 +66,7 @@ async def generate_scene_image(prompt_text, output_path):
                 await browser.close()
                 return False
 
-            await prompt_box.click()
+            await prompt_box.click(force=True)
             await prompt_box.fill(prompt_text)
             await asyncio.sleep(1.5)
 
