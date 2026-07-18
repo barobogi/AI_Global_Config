@@ -23,7 +23,7 @@ async def main():
         await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
         page = await context.new_page()
-        await page.goto("https://kling.ai/", wait_until="domcontentloaded", timeout=60000)
+        await page.goto("https://kling.ai/create/image", wait_until="domcontentloaded", timeout=60000)
 
         print("\n[안내] 브라우저가 열렸습니다.")
         print("구글 로그인으로 Kling AI에 접속한 뒤, 콘솔에서 Enter를 눌러주세요.")
