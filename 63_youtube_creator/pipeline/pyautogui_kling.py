@@ -44,9 +44,8 @@ def generate_one(scene_id, prompt, out_path):
     if not focus_kling():
         return False
 
-    # 프롬프트 입력창 클릭 (화면 좌측 입력창 영역)
-    # Kling AI 이미지 생성 페이지 기준 입력창 위치
-    pyautogui.click(265, 350)
+    # 프롬프트 입력창 클릭
+    pyautogui.click(2087, 428)
     time.sleep(0.5)
 
     # 전체 선택 후 새 프롬프트 입력
@@ -57,20 +56,19 @@ def generate_one(scene_id, prompt, out_path):
     time.sleep(0.8)
 
     # 생성 버튼 클릭
-    pyautogui.click(413, 554)
+    pyautogui.click(2491, 981)
     time.sleep(1.0)
 
     print(f"  - 이미지 생성 대기 중 (최대 120초)...")
     time.sleep(20)
 
     # 결과 이미지 영역 스크린샷 (우측 결과 패널)
-    for _ in range(15):
-        time.sleep(6)
-        # 결과 패널 전체 캡처
-        screenshot = pyautogui.screenshot(region=(510, 100, 940, 500))
-        screenshot.save(str(out_path))
-        print(f"  - 저장: {out_path}")
-        return True
+    # 결과 이미지 영역 캡처 (우측 결과 패널, 두번째 모니터 기준)
+    time.sleep(5)
+    screenshot = pyautogui.screenshot(region=(1540, 150, 920, 480))
+    screenshot.save(str(out_path))
+    print(f"  - 저장: {out_path}")
+    return True
 
     print(f"  - 타임아웃")
     return False
