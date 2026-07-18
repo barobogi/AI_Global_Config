@@ -75,8 +75,8 @@ async def build_pipeline():
             audio_clip = AudioFileClip(audio_path)
             duration = audio_clip.duration + 0.5 # 음성 길이 + 0.5초 여유
             
-            # 이미지 클립 (1920x1080으로 강제 리사이징하여 자막 위치(y=750) 이탈 방지)
-            img_clip = ImageClip(img_path).resize(newsize=(1920, 1080)).with_duration(duration)
+            # 이미지 클립 (원본 1024x576 유지)
+            img_clip = ImageClip(img_path).with_duration(duration)
             
             # 자막 텍스트 줄바꿈 및 하단 잘림(Descender cutoff) 방지용 공백 추가
             import textwrap
@@ -86,14 +86,15 @@ async def build_pipeline():
             txt_clip = TextClip(
                 font="malgun.ttf", # 윈도우 지정 폰트
                 text=wrapped_text,
-                font_size=60,
+                font_size=40, # 1080p 기준 60이었으므로 576p 기준 40으로 축소
                 color="white",
                 stroke_color="black",
-                stroke_width=2.0,
+                stroke_width=1.5,
                 method="label", # 명시적 개행 사용 시 label 적용
                 text_align="center"
             )
-            txt_clip = txt_clip.with_position(('center', 750)).with_duration(duration)
+            # 576 높이 기준 하단 배치 (대략 y=430)
+            txt_clip = txt_clip.with_position(('center', 430)).with_duration(duration)
             
             # 이미지 위에 자막 합성
             video = CompositeVideoClip([img_clip, txt_clip])
