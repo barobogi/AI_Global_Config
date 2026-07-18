@@ -1,4 +1,0 @@
-  File "<string>", line 2
-    import
-          ^
-SyntaxError: invalid syntax
