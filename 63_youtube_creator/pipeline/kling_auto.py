@@ -45,20 +45,21 @@ async def generate_scene_image(prompt_text, output_path):
             print(f"  - 디버그 스크린샷 저장: {page_screenshot}")
 
             prompt_box = None
-            for selector in [
-                "textarea",
-                "[contenteditable='true']",
-                "[role='textbox']",
-                "input[type='text']",
-            ]:
+            try:
+                # 1. 텍스트 에어리어 최후의 수단 (가장 마지막에 있는 textarea가 보통 프롬프트 창임)
+                locator = page.locator("textarea").last
+                await locator.wait_for(state="visible", timeout=15000)
+                prompt_box = locator
+                print("    입력창 발견: textarea.last")
+            except Exception:
                 try:
-                    locator = page.locator(selector).first
-                    await locator.wait_for(state="visible", timeout=30000)
+                    # 2. 플레이스홀더 기반 검색
+                    locator = page.get_by_placeholder("describe the image").first
+                    await locator.wait_for(state="visible", timeout=15000)
                     prompt_box = locator
-                    print(f"    입력창 발견: {selector}")
-                    break
+                    print("    입력창 발견: placeholder")
                 except Exception:
-                    continue
+                    pass
 
             if not prompt_box:
                 print("  - [오류] 입력창을 찾지 못했습니다")
@@ -70,22 +71,19 @@ async def generate_scene_image(prompt_text, output_path):
             await asyncio.sleep(1.5)
 
             send_button = None
-            for selector in [
-                "text='생성'",
-                "text='Generate'",
-                "button:has-text('생성')",
-                "button:has-text('Generate')",
-                "button[type='submit']",
-                "[class*='generate']",
-            ]:
+            try:
+                btn = page.get_by_role("button", name="Generate").first
+                if await btn.is_visible(timeout=5000):
+                    send_button = btn
+                    print("    전송 버튼 발견: get_by_role(Generate)")
+            except Exception:
                 try:
-                    btn = page.locator(selector).first
-                    if await btn.is_visible(timeout=2000):
+                    btn = page.locator("button:has-text('Generate'), button:has-text('생성')").first
+                    if await btn.is_visible(timeout=5000):
                         send_button = btn
-                        print(f"    전송 버튼 발견: {selector}")
-                        break
+                        print("    전송 버튼 발견: has-text")
                 except Exception:
-                    continue
+                    pass
 
             # 버튼 클릭 전, 기존에 존재하는 이미지 목록 수집 (오탐지 방지)
             initial_imgs = await page.evaluate("""
