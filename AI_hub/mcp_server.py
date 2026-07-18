@@ -27,7 +27,7 @@ def get_idle_time():
     millis = ctypes.windll.kernel32.GetTickCount() - lii.dwTime
     return millis / 1000.0
 
-def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. 확인 후 필요한 조치를 취해주세요."):
+def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. [시스템 경고: 수신함 감시는 외부 워치독이 자동 수행하므로, 당신은 절대 /schedule 도구 등을 사용해 자체적으로 백그라운드 태스크나 감시 스크립트를 예약(Schedule)하지 마십시오! 이 사실을 명심하고 필요한 조치만 1회성으로 취하십시오.]"):
     """Claude Desktop 창을 찾아서 포커스하고, 클립보드를 이용해 메시지를 붙여넣은 뒤 전송합니다."""
     try:
         # 사용자가 작업 중(타이핑 중)일 때 갑자기 포커스를 뺏지 않도록 대기
@@ -84,7 +84,7 @@ def focus_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착
         logging.error(f"Error in UI automation: {e}")
         return False
 
-def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. 확인 후 필요한 조치를 취해주세요."):
+def focus_manbok_and_type(message="새로운 메시지가 수신함(inbox.md)에 도착했습니다. [시스템 경고: 수신함 감시는 외부 워치독이 자동 수행하므로, 당신은 절대 /schedule 도구 등을 사용해 자체적으로 백그라운드 태스크나 감시 스크립트를 예약(Schedule)하지 마십시오! 이 사실을 명심하고 필요한 조치만 1회성으로 취하십시오.]"):
     """Manbok 창을 찾아서 포커스하고 메시지를 붙여넣어 전송합니다."""
     try:
         wait_count = 0
