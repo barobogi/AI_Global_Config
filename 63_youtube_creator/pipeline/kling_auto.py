@@ -38,7 +38,7 @@ async def generate_scene_image(prompt_text, output_path):
 
         try:
             print("  - Kling AI 접속 중...")
-            await page.goto("https://klingai.com/", wait_until="domcontentloaded", timeout=60000)
+            await page.goto("https://klingai.com/text-to-image/new", wait_until="domcontentloaded", timeout=60000)
             await asyncio.sleep(3)
 
             page_screenshot = str(Path(output_path).parent / "kling_debug.png")
@@ -72,6 +72,7 @@ async def generate_scene_image(prompt_text, output_path):
 
             send_button = None
             for selector in [
+                "button:has-text('생성')",
                 "button:has-text('Generate')",
                 "button:has-text('Create')",
                 "button[type='submit']",
