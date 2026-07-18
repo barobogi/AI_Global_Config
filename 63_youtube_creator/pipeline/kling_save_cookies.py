@@ -26,15 +26,25 @@ async def main():
         await page.goto("https://kling.ai/create/image", wait_until="domcontentloaded", timeout=60000)
 
         print("\n[안내] 브라우저가 열렸습니다. 구글/이메일 로그인을 완료해주세요.")
-        print("로그인이 성공하여 작업실(URL: /app/image/new)에 입장하면 5초 후 자동으로 세션이 저장됩니다!")
         
-        try:
-            # 작업실 URL로 이동할 때까지 최대 120초 대기
-            await page.wait_for_url("**/app/image/new*", timeout=120000)
-            print("\n[감지] 작업실 진입 확인! 스토리지 로딩 대기 중 (5초)...")
-            await page.wait_for_timeout(5000)
-        except Exception as e:
-            print("\n[실패] 시간 초과(120초) 또는 URL 감지 실패:", e)
+        # Tkinter를 사용하여 데스크톱 화면에 팝업창 띄우기
+        import tkinter as tk
+        from tkinter import messagebox
+        
+        def show_popup():
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            return messagebox.askyesno("Kling AI 로그인 확인", "로그인을 모두 완료하셨나요?\n작업실 화면이 보이면 '예(Yes)'를 클릭해주세요.")
+            
+        # 팝업 대기 (사용자가 클릭할 때까지 블로킹됨)
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, show_popup)
+        
+        if result:
+            print("\n[감지] 사용자가 완료를 눌렀습니다. 스토리지 저장 중...")
+        else:
+            print("\n[취소] 사용자가 취소를 눌렀습니다.")
             await browser.close()
             return
 
