@@ -102,31 +102,26 @@ async def generate_scene_image(prompt_text, output_path):
             print("  - 이미지 생성 대기 중 (최대 120초)...")
             await asyncio.sleep(15)
 
-            image_base64 = None
+            found_id = None
             for _ in range(30):
-                base64_data = await page.evaluate("""
+                found_id = await page.evaluate("""
                     (initial) => {
                         const imgs = Array.from(document.querySelectorAll('img'));
                         const new_imgs = imgs.filter(img => img.naturalWidth >= 500 && img.src && !initial.includes(img.src));
                         if (new_imgs.length > 0) {
                             const img = new_imgs[new_imgs.length - 1];
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.naturalWidth;
-                            canvas.height = img.naturalHeight;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-                            return canvas.toDataURL('image/jpeg', 0.95);
+                            img.id = 'kling-generated-target';
+                            return 'kling-generated-target';
                         }
                         return null;
                     }
                 """, initial_imgs)
                 
-                if base64_data:
-                    image_base64 = base64_data
+                if found_id:
                     break
                 await asyncio.sleep(6)
 
-            if not image_base64:
+            if not found_id:
                 print("  - [오류] 생성된 이미지 결과를 확인하지 못했습니다 (타임아웃)")
                 error_screenshot = str(Path(output_path).parent / "kling_error.png")
                 await page.screenshot(path=error_screenshot)
@@ -134,11 +129,11 @@ async def generate_scene_image(prompt_text, output_path):
                 await browser.close()
                 return False
 
-            import base64
-            # "data:image/jpeg;base64,....." 포맷에서 헤더 제거
-            header, encoded = image_base64.split(",", 1)
-            with open(output_path, "wb") as f:
-                f.write(base64.b64decode(encoded))
+            # 요소 자체를 스크린샷 캡처하여 저장 (CORS 보안 에러 완벽 우회)
+            img_locator = page.locator(f"#{found_id}")
+            # 이미지가 화면에 보이도록 스크롤 (필요한 경우)
+            await img_locator.scroll_into_view_if_needed()
+            await img_locator.screenshot(path=output_path)
             
             print(f"  - [성공] 이미지 저장: {output_path}")
             await browser.close()
