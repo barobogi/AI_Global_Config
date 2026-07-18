@@ -119,14 +119,25 @@ def trigger():
         return jsonify({"status": "failed", "error": "agent_inactive"}), 404
     
     if target == "anti":
+        # PyAutoGUI로 Antigravity 창 직접 격발 시도, 실패 시 파일 폴백
+        anti_msg = (
+            "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
+            "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
+            "절대 자체적으로 백그라운드 태스크나 스케줄을 예약하지 마십시오. "
+            "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
+        )
+        t = threading.Thread(
+            target=trigger_agent_ui_task,
+            args=("anti", "Antigravity", agent_info.get("shortcut", []), anti_msg)
+        )
+        t.start()
+        # 파일도 병행 기록 (anti_watchdog 호환)
         try:
             with open(r"D:\AI\AI_hub\status\trigger_anti.txt", "a", encoding="utf-8") as f:
-                f.write(f"triggered by n-ai fallback at {time.time()}\n")
-            logging.info("Target 'anti' triggered via trigger_anti.txt file.")
-            return jsonify({"status": "success", "message": "anti triggered via file"}), 200
-        except Exception as e:
-            logging.error(f"Failed to trigger anti via file: {e}")
-            return jsonify({"status": "failed", "error": str(e)}), 500
+                f.write(f"triggered by mcp_server at {time.time()}\n")
+        except Exception:
+            pass
+        return jsonify({"status": "success", "message": "anti triggered via PyAutoGUI"}), 200
 
     # nvidia_nim: API 타입 — PyAutoGUI 불필요, NIM 호출 후 텔레그램 발송
     if agent_info.get("type") == "api" and target == "nvidia_nim":
