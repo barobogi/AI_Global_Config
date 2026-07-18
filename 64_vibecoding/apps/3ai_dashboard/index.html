@@ -9,29 +9,51 @@
 <body>
     <div class="dashboard-container">
         <h1>3AI 현황판 대시보드</h1>
+
+        <div class="sync-status" id="sync-status">
+            <span class="live-dot" id="live-dot"></span>
+            <span class="sync-label">실시간 동기화 중</span>
+            <span class="sync-sep">·</span>
+            <span>마지막 업데이트: <strong id="last-sync-time">--:--:--</strong></span>
+        </div>
+
         <div class="cards-wrapper">
-            <div class="card">
+            <div class="card" id="card-model-status">
                 <h2>AI 모델 상태</h2>
                 <p>현재 AI 모델들의 작동 상태를 실시간으로 모니터링합니다.</p>
-                <ul>
-                    <li><strong>모델 A:</strong> 정상 작동 중 <span class="status-indicator online"></span></li>
-                    <li><strong>모델 B:</strong> 경고 - CPU 사용량 높음 <span class="status-indicator warning"></span></li>
-                    <li><strong>모델 C:</strong> 정상 작동 중 <span class="status-indicator online"></span></li>
+                <ul id="model-status-list">
+                    <li data-model="모델 A">
+                        <strong>모델 A:</strong>
+                        <span class="status-text">정상 작동 중</span>
+                        <span class="status-indicator online"></span>
+                    </li>
+                    <li data-model="모델 B">
+                        <strong>모델 B:</strong>
+                        <span class="status-text">경고 - CPU 사용량 높음</span>
+                        <span class="status-indicator warning"></span>
+                    </li>
+                    <li data-model="모델 C">
+                        <strong>모델 C:</strong>
+                        <span class="status-text">정상 작동 중</span>
+                        <span class="status-indicator online"></span>
+                    </li>
                 </ul>
             </div>
-            <div class="card">
+
+            <div class="card" id="card-metrics">
                 <h2>데이터 처리량</h2>
                 <p>일별 및 주간 데이터 처리량을 표시합니다.</p>
                 <div class="data-metrics">
-                    <p><strong>오늘 처리량:</strong> 1,234 GB</p>
-                    <p><strong>주간 평균:</strong> 1,100 GB/일</p>
-                    <p><strong>최대 처리 속도:</strong> 150 MB/s</p>
+                    <p><strong>오늘 처리량:</strong> <span id="metric-today">1,234</span> GB</p>
+                    <p><strong>주간 평균:</strong> <span id="metric-weekly">1,100</span> GB/일</p>
+                    <p><strong>최대 처리 속도:</strong> <span id="metric-speed">150</span> MB/s</p>
                 </div>
             </div>
-            <div class="card">
+
+            <div class="card" id="card-logs">
                 <h2>시스템 로그</h2>
                 <p>최근 발생한 중요 시스템 이벤트 및 로그를 확인합니다.</p>
-                <ul>
+                <ul id="log-list">
                     <li>[2023-10-27 10:30:05] 시스템 재시작 완료</li>
                     <li>[2023-10-27 09:15:22] DB 연결 오류 발생 (해결됨)</li>
                     <li>[2023-10-27 08:00:10] 신규 데이터 셋 로드 성공</li>
