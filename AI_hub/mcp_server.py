@@ -139,7 +139,12 @@ def trigger():
         logging.warning(f"Target '{target}' (window '{window_title}') not found. Returning 404 for Fallback.")
         return jsonify({"status": "failed", "error": "window_not_found"}), 404
 
-    msg = "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
+    msg = (
+        "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
+        "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
+        "절대 자체적으로 백그라운드 태스크나 스케줄(/schedule, cron 등)을 예약하지 마십시오. "
+        "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
+    )
     t = threading.Thread(target=trigger_agent_ui_task, args=(target, window_title, shortcut, msg))
     t.start()
     return jsonify({"status": "success", "message": f"{target} triggered"}), 200
@@ -156,7 +161,12 @@ def handle_legacy_trigger(target):
     registry = load_registry()
     if target in registry:
         agent_info = registry[target]
-        msg = "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
+        msg = (
+        "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
+        "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
+        "절대 자체적으로 백그라운드 태스크나 스케줄(/schedule, cron 등)을 예약하지 마십시오. "
+        "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
+    )
         t = threading.Thread(target=trigger_agent_ui_task, args=(target, agent_info["window_title"], agent_info["shortcut"], msg))
         t.start()
         return jsonify({"status": "success"}), 200
