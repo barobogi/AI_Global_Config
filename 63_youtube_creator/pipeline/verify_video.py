@@ -69,6 +69,9 @@ def verify_shorts_video(mp4_path):
     return is_passed
 
 if __name__ == "__main__":
-    FINAL_VIDEO = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.mp4"
+    if len(sys.argv) > 1:
+        FINAL_VIDEO = sys.argv[1]
+    else:
+        FINAL_VIDEO = r"D:\AI\63_youtube_creator\pipeline\output\crisp_dm_shorts.mp4"
     if not verify_shorts_video(FINAL_VIDEO):
         sys.exit(1)
