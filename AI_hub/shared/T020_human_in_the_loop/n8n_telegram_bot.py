@@ -234,11 +234,15 @@ def main():
                         target_name = None
                         fallback_agent = None
                         fallback_name = None
+                        fallback_priority_val = 999
 
                         for agent_id, data in registry.items():
-                            if data.get("is_fallback_default"):
+                            current_priority = data.get("fallback_priority", 999)
+                            if current_priority < fallback_priority_val:
+                                fallback_priority_val = current_priority
                                 fallback_agent = agent_id
                                 fallback_name = data.get("name", agent_id)
+                                
                             for kw in data.get("keywords", []):
                                 if kw.lower() in text_lower:
                                     target_agent = agent_id
