@@ -45,7 +45,7 @@ def generate_one(scene_id, prompt, out_path):
         return False
 
     # 프롬프트 입력창 클릭
-    pyautogui.click(2087, 428)
+    pyautogui.click(2053, 437)
     time.sleep(0.5)
 
     # 전체 선택 후 새 프롬프트 입력
@@ -56,7 +56,7 @@ def generate_one(scene_id, prompt, out_path):
     time.sleep(0.8)
 
     # 생성 버튼 클릭
-    pyautogui.click(2491, 981)
+    pyautogui.click(2407, 980)
     time.sleep(1.0)
 
     print(f"  - 이미지 생성 대기 중 (최대 120초)...")
