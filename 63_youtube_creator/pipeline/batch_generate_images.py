@@ -31,10 +31,10 @@ async def main():
         result = await generate_scene_image(prompt, out_path)
         if result:
             success += 1
-            print(f"[씬 {sid:02d}] ✅ 완료 ({success}/{total})")
+            print(f"[씬 {sid:02d}] OK 완료 ({success}/{total})")
         else:
             fail += 1
-            print(f"[씬 {sid:02d}] ❌ 실패 (누적 실패: {fail})")
+            print(f"[씬 {sid:02d}] FAIL 실패 (누적 실패: {fail})")
 
         # 요청 간격 5초 (rate limit 방지)
         await asyncio.sleep(5)
