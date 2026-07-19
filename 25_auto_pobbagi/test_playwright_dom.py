@@ -52,6 +52,8 @@ def test_scrape():
         # 3. 자막 텍스트 추출
         print("자막 컨테이너 탐색 중...")
         try:
+            # 자막 패널이 로드될 때까지 대기
+            page.wait_for_selector("ytd-transcript-segment-renderer", timeout=10000)
             segments = page.locator("ytd-transcript-segment-renderer .segment-text")
             count = segments.count()
             print(f"자막 조각 수: {count}")
