@@ -26,7 +26,8 @@ def test_scrape():
     url = f"https://www.youtube.com/watch?v={video_id}"
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        # headless=False로 실제 UI 창을 띄워서 봇가드를 완벽 우회
+        browser = p.chromium.launch(headless=False)
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
             locale="ko-KR"
