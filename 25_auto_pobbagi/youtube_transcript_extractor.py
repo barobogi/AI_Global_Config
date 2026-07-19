@@ -1,5 +1,7 @@
 import os
 import json
+import requests
+import http.cookiejar
 from youtube_transcript_api import YouTubeTranscriptApi
 
 QUEUE_FILE = r"D:\AI\25_auto_pobbagi\youtube_queue.json"
@@ -8,25 +10,33 @@ COOKIES_FILE = r"D:\AI\25_auto_pobbagi\cookies.txt"
 
 def extract_transcript(video_id):
     """
-    youtube-transcript-api를 사용하여 자막을 추출합니다.
-    사용자가 추출해 둔 cookies.txt를 활용하여 429 차단을 우회합니다.
+    youtube-transcript-api 1.2+ 버전을 사용하여 자막을 추출합니다.
+    사용자가 추출해 둔 cookies.txt를 파싱하여 http_client 세션에 주입하여 429 차단을 우회합니다.
     """
     output_path = os.path.join(OUTPUT_DIR, f"{video_id}.txt")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
     print(f"[{video_id}] 자막 추출 시도 중... (youtube-transcript-api + cookies.txt)")
     try:
-        # 쿠키 파일을 사용하여 자막 리스트 가져오기
-        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id, cookies=COOKIES_FILE)
+        # Netscape 포맷의 cookies.txt 로드
+        cookie_jar = http.cookiejar.MozillaCookieJar(COOKIES_FILE)
+        cookie_jar.load(ignore_discard=True, ignore_expires=True)
         
-        # 한국어 자막(수동 또는 자동) 가져오기 시도, 없으면 영어
+        # requests 세션에 쿠키 주입
+        session = requests.Session()
+        session.cookies = cookie_jar
+        
+        # API 인스턴스 생성 및 자막 리스트(list) 가져오기
+        api = YouTubeTranscriptApi(http_client=session)
+        transcript_list = api.list(video_id)
+        
+        # 한국어 또는 영어 자막 찾기
         try:
             transcript = transcript_list.find_transcript(['ko', 'en'])
         except:
-            # 지정된 언어가 없으면 가능한 아무 언어나 번역해서(한국어로) 가져오기 시도
             transcript = transcript_list.find_transcript(['ko']).translate('ko')
             
-        # 자막 데이터 페치 (리스트 형태의 딕셔너리)
+        # 자막 데이터 가져오기
         transcript_data = transcript.fetch()
         
         # 순수 텍스트만 추출해서 이어붙이기
