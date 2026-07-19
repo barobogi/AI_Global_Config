@@ -4,3 +4,4 @@ MoviePy - Writing video D:\AI\63_youtube_creator\pipeline\output\test_subtitle.m
 MoviePy - Done !
 MoviePy - video ready D:\AI\63_youtube_creator\pipeline\output\test_subtitle.mp4
 완료: D:\AI\63_youtube_creator\pipeline\output\test_subtitle.mp4
+이미지 크기: 1920x1080, 폰트: 64px, 자막 y: 896
