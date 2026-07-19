@@ -6,7 +6,7 @@
             "link": "https://youtu.be/L94yAQR9VvA",
             "published": "2026-07-19",
             "channel_name": "기술노트 with 알렉",
-            "status": "pending",
+            "status": "failed",
             "added_at": "2026-07-19T10:20:00"
         },
         {
@@ -15,7 +15,7 @@
             "link": "https://youtu.be/J4bBeU3frnE",
             "published": "2026-07-19",
             "channel_name": "호두의 AI 분석실",
-            "status": "pending",
+            "status": "failed",
             "added_at": "2026-07-19T10:20:00"
         },
         {
@@ -24,7 +24,7 @@
             "link": "https://youtu.be/gUGVPxF3c_s",
             "published": "2026-07-19",
             "channel_name": "기타 채널",
-            "status": "pending",
+            "status": "failed",
             "added_at": "2026-07-19T10:20:00"
         }
     ],
