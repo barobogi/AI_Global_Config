@@ -5,7 +5,8 @@ from google import genai
 
 def extract_subtitle(video_url, output_txt_path, api_key):
     # 1. Download audio using yt-dlp
-    audio_path = 'temp_audio_extract.m4a'
+    video_id = video_url.split('/')[-1].split('?v=')[-1]
+    audio_path = f'temp_{video_id}.m4a'
     if os.path.exists(audio_path):
         os.remove(audio_path)
     
