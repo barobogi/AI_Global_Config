@@ -78,20 +78,22 @@ def extract_transcript_playwright(video_id):
             subtitle_url = selected_track.get("baseUrl")
             
             if subtitle_url:
-                # 자막 URL로 XML 다운로드
-                req = urllib.request.Request(subtitle_url, headers={'User-Agent': 'Mozilla/5.0'})
-                with urllib.request.urlopen(req) as response:
-                    xml_data = response.read()
+                # Playwright의 APIRequestContext를 사용하여 브라우저 세션(쿠키, 헤더)을 유지한 채로 XML 다운로드
+                response = context.request.get(subtitle_url)
+                if response.ok:
+                    xml_data = response.text()
                     
-                # XML 정제하여 텍스트로 변환
-                clean_text = clean_xml_transcript(xml_data)
-                
-                if clean_text:
-                    with open(output_path, "w", encoding="utf-8") as f:
-                        f.write(clean_text)
-                    print(f"[{video_id}] 자막 추출 완벽 성공! -> {output_path}")
-                    browser.close()
-                    return output_path
+                    # XML 정제하여 텍스트로 변환
+                    clean_text = clean_xml_transcript(xml_data)
+                    
+                    if clean_text:
+                        with open(output_path, "w", encoding="utf-8") as f:
+                            f.write(clean_text)
+                        print(f"[{video_id}] 자막 추출 완벽 성공! -> {output_path}")
+                        browser.close()
+                        return output_path
+                else:
+                    print(f"[{video_id}] 자막 다운로드 실패 (상태 코드: {response.status})")
                     
             print(f"[{video_id}] 자막 URL 추출에 실패했습니다.")
             
