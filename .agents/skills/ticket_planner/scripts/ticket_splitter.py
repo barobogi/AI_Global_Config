@@ -38,6 +38,14 @@ def generate_tickets(prompt, answers):
     except Exception as e:
         return json.dumps([{"error": str(e)}])
 
+def validate_gps_completeness(tickets):
+    for ticket in tickets:
+        tid = ticket.get('ticket_id', 'unknown')
+        assert ticket.get('goal'), f"Ticket {tid}: Goal missing"
+        assert ticket.get('proof'), f"Ticket {tid}: Proof missing"
+        assert len(ticket.get('steps', [])) >= 3, f"Ticket {tid}: Steps < 3"
+    return True
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="역면접 기반 티켓 분할 자동화 스크립트")
     parser.add_argument("--prompt", type=str, required=True, help="사용자 초기 요구사항 요약")
@@ -48,7 +56,11 @@ if __name__ == "__main__":
     tickets_json = generate_tickets(args.prompt, args.answers)
     try:
         tickets = json.loads(tickets_json)
+        validate_gps_completeness(tickets)
         print(json.dumps(tickets, indent=2, ensure_ascii=False))
+    except AssertionError as ae:
+        print(f"GPS 검증 실패: {ae}")
+        print("Raw Output:", tickets_json)
     except Exception as e:
         print(f"JSON 파싱 에러: {e}")
         print("Raw Output:", tickets_json)
