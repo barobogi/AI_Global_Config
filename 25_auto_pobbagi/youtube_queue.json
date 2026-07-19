@@ -1,0 +1,32 @@
+{
+    "pending": [
+        {
+            "video_id": "L94yAQR9VvA",
+            "title": "클로드 코드 공식 플러그인 4개 토큰 절약",
+            "link": "https://youtu.be/L94yAQR9VvA",
+            "published": "2026-07-19",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending",
+            "added_at": "2026-07-19T10:20:00"
+        },
+        {
+            "video_id": "J4bBeU3frnE",
+            "title": "힉스필드 AI 영상 생성기",
+            "link": "https://youtu.be/J4bBeU3frnE",
+            "published": "2026-07-19",
+            "channel_name": "호두의 AI 분석실",
+            "status": "pending",
+            "added_at": "2026-07-19T10:20:00"
+        },
+        {
+            "video_id": "gUGVPxF3c_s",
+            "title": "5개월 만에 앱으로 월 2,700만원 버는 대학생",
+            "link": "https://youtu.be/gUGVPxF3c_s",
+            "published": "2026-07-19",
+            "channel_name": "기타 채널",
+            "status": "pending",
+            "added_at": "2026-07-19T10:20:00"
+        }
+    ],
+    "processed": []
+}
