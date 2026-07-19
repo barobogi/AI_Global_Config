@@ -1,0 +1,3 @@
+MoviePy - Building video D:\AI\63_youtube_creator\pipeline\output\test_subtitle.mp4.
+MoviePy - Writing video D:\AI\63_youtube_creator\pipeline\output\test_subtitle.mp4
+
