@@ -1,0 +1,14 @@
+{
+  "name": "cline",
+  "version": "1.0.0",
+  "description": "CLI to extract YouTube subtitles using Playwright",
+  "main": "youtube_subtitle_extractor.js",
+  "scripts": {
+    "subtitles": "node youtube_subtitle_extractor.js"
+  },
+  "dependencies": {
+    "playwright": "^1.45.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
