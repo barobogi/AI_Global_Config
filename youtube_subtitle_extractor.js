@@ -7,9 +7,38 @@ const path = require('path');
  * @param {Object} context - Playwright browser context
  * @param {string} cookiesPath - Path to cookies.txt (will be parsed as JSON)
  */
+/**
+ * Load cookies from a Netscape-format cookies.txt file and add them to the given page context.
+ * @param {Object} context - Playwright browser context
+ * @param {string} cookiesPath - Path to cookies.txt (Netscape format)
+ */
 async function loadCookies(context, cookiesPath) {
-  const raw = fs.readFileSync(cookiesPath, 'utf8');
-  const cookies = JSON.parse(raw);
+  const cookies = [];
+
+  const lines = fs.readFileSync(cookiesPath, 'utf8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    // Skip empty lines and comment lines
+    if (trimmed === '' || trimmed.startsWith('#')) continue;
+
+    // Parse Netscape cookie line: domain  flag  path  secure  expiration  name  value
+    const [domain, flag, path, secure, expiration, name, value] = trimmed.split(/\s+/);
+
+    // Convert expiration to UNIX timestamp (seconds)
+    const expires = parseInt(expiration, 10);
+
+    cookies.push({
+      name,
+      value,
+      domain,
+      path,
+      expires,
+      secure: secure === 'TRUE',
+      httpOnly: false,
+      sameSite: 'no_restriction',
+    });
+  }
+
   await context.addCookies(cookies);
 }
 
