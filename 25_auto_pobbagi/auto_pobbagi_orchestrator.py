@@ -53,10 +53,9 @@ def run_stage2_analysis():
         print(f"  [Anti] 자막 추출 시작: {title} ({vid_id})")
         url = f"https://youtu.be/{vid_id}"
         transcript_path = os.path.join(BASE_DIR, "transcripts", f"Anti_{vid_id}.txt")
-        api_key = "AQ.Ab8RN6LufZgpf1zlTE4sZV6ASoj50ir0nRhl4z7nm4bmM-3bjA"
         
         try:
-            subprocess.run(["python", STT_SCRIPT, url, transcript_path, api_key], check=True)
+            subprocess.run(["python", STT_SCRIPT, url, transcript_path], check=True)
             item["anti_stt_path"] = transcript_path
             item["status"] = "waiting_review"
         except Exception as e:

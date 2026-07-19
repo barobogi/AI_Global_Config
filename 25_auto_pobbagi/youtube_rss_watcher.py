@@ -40,16 +40,26 @@ def parse_rss_for_videos(xml_data):
     if not xml_data:
         return videos
     
-    root = ET.fromstring(xml_data)
+    try:
+        root = ET.fromstring(xml_data)
+    except ET.ParseError as e:
+        print(f"[오류] XML 파싱 실패: {e}")
+        return videos
+        
     ns = {
         'atom': 'http://www.w3.org/2005/Atom',
         'yt': 'http://www.youtube.com/xml/schemas/2015'
     }
     
     for entry in root.findall('atom:entry', ns):
-        video_id = entry.find('yt:videoId', ns).text
-        title = entry.find('atom:title', ns).text
-        videos.append({"video_id": video_id, "title": title})
+        try:
+            video_id = entry.find('yt:videoId', ns).text
+            title = entry.find('atom:title', ns).text
+            videos.append({"video_id": video_id, "title": title})
+        except Exception as e:
+            print(f"[오류] 엔트리 파싱 실패: {e}")
+            continue
+            
     return videos
 
 def fetch_fallback_videos(channel_id, count=3):
