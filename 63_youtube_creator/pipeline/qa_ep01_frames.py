@@ -53,6 +53,8 @@ def check_text_overflow(video_path):
         # 노이즈를 고려하여 100개 이상의 순백색 픽셀이 하단 5%에 있으면 오버플로우로 간주
         if white_pixels > 100:
             print(f"[경고] 프레임 {i}에서 텍스트 오버플로우 감지! (침범 픽셀 수: {white_pixels})")
+            cv2.imwrite("overflow_debug_raw.png", bottom_region)
+            cv2.imwrite("overflow_debug_thresh.png", thresh)
             overflow_detected = True
             break
             
