@@ -3,11 +3,6 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Load cookies from a JSON file and add them to the given page context.
- * @param {Object} context - Playwright browser context
- * @param {string} cookiesPath - Path to cookies.txt (will be parsed as JSON)
- */
-/**
  * Load cookies from a Netscape-format cookies.txt file and add them to the given page context.
  * @param {Object} context - Playwright browser context
  * @param {string} cookiesPath - Path to cookies.txt (Netscape format)
@@ -63,7 +58,7 @@ async function extractSubtitles(videoUrl, cookiesPath, outputPath) {
     await page.click('button[aria-label="Open transcript"]');
 
     // Wait for the transcript text elements to be populated.
-    await page.waitForSelector('div#movie_player → ytd-transcript-renderer', { timeout: 15000 });
+    await page.waitForSelector('ytd-transcript-line-renderer', { timeout: 15000 });
 
     // Wait for transcript lines to be present and extract them with retry logic
     const maxAttempts = 3;
@@ -120,3 +115,9 @@ if (require.main === module) {
   const outputPath = maybeOutPath || path.join(__dirname, 'transcripts', `${path.basename(videoUrl)}.srt`);
   extractSubtitles(videoUrl, cookiesPath, outputPath).catch(() => process.exit(1));
 }
+
+/* Export functions for external CLI wrapper */
+module.exports = {
+  extractSubtitles,
+  loadCookies,
+};
