@@ -85,9 +85,28 @@ def main():
         print(f"\n[ApproveUpload] 3AI 전원 승인 완료 → 유튜브 업로드 시작!")
         tags = [t.strip() for t in args.tags.split(",") if t.strip()]
         shorts_suffix = " #Shorts" if args.type == "shorts" else ""
+
+        # 기존 업로드된 영상 링크 수집 (cross-link용)
+        approvals_now = load_approvals()
+        uploaded_links = [
+            v["uploaded"]["url"]
+            for v in approvals_now.values()
+            if "uploaded" in v and v["uploaded"].get("url")
+        ]
+        cross_link_block = ""
+        if uploaded_links and args.type == "shorts":
+            cross_link_block = "\n\n" + "\n".join(
+                f"▶️ {u}" for u in uploaded_links[-3:]  # 최근 3개까지
+            )
+        elif uploaded_links and args.type == "main":
+            cross_link_block = "\n\n" + "\n".join(
+                f"📱 관련 쇼츠 → {u}" for u in uploaded_links[-3:]
+            )
+
         desc = (
             "바로보기의 3AI 연구소\n\n"
             "만복(Claude Code CLI) + 코니(Cowork) + 안티(Antigravity) 3AI가 함께 만든 콘텐츠입니다."
+            + cross_link_block
         )
         video_url = upload_video(
             video_path=str(video_path),
@@ -103,6 +122,28 @@ def main():
         }
         APPROVAL_LOG.write_text(json.dumps(approvals, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"[ApproveUpload] 업로드 완료: {video_url}")
+
+        # 고정 댓글로 관련 영상 링크 추가
+        if cross_link_block:
+            try:
+                import pickle
+                from googleapiclient.discovery import build
+                from google.auth.transport.requests import Request as GRequest
+                token_path = Path(__file__).parent / "token.pickle"
+                with open(token_path, "rb") as f:
+                    creds = pickle.load(f)
+                if creds.expired and creds.refresh_token:
+                    creds.refresh(GRequest())
+                yt = build("youtube", "v3", credentials=creds)
+                video_id = video_url.split("v=")[-1].split("&")[0].split("/")[-1]
+                comment_text = cross_link_block.strip()
+                yt.commentThreads().insert(
+                    part="snippet",
+                    body={"snippet": {"videoId": video_id, "topLevelComment": {"snippet": {"textOriginal": comment_text}}}}
+                ).execute()
+                print(f"[ApproveUpload] 고정 댓글 추가 완료")
+            except Exception as e:
+                print(f"[ApproveUpload] 고정 댓글 실패 (수동 추가 필요): {e}")
     else:
         print(f"\n[ApproveUpload] 다음 단계 승인 대기 중...")
 
