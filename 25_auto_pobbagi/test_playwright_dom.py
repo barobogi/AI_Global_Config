@@ -52,8 +52,14 @@ def test_scrape():
         # 3. 자막 텍스트 추출
         print("자막 컨테이너 탐색 중...")
         try:
+            # DOM 구조 파악을 위해 덤프 저장
+            time.sleep(3)
+            with open("D:\\AI\\25_auto_pobbagi\\dump.html", "w", encoding="utf-8") as f:
+                f.write(page.content())
+            print("dump.html 저장 완료. DOM 구조를 분석합니다.")
+            
             # 자막 패널이 로드될 때까지 대기
-            page.wait_for_selector("ytd-transcript-segment-renderer", timeout=10000)
+            page.wait_for_selector("ytd-transcript-segment-renderer", timeout=5000)
             segments = page.locator("ytd-transcript-segment-renderer .segment-text")
             count = segments.count()
             print(f"자막 조각 수: {count}")
