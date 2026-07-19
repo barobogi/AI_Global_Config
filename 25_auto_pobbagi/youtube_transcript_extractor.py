@@ -26,7 +26,7 @@ def extract_transcript(video_id):
         "--write-subs",             # 수동 생성 자막
         "--sub-lang", "ko,en",      # 한국어, 영어 우선
         "--sub-format", "vtt",      # VTT 포맷
-        "--cookies-from-browser", "chrome", # ★ 핵심: 로컬 브라우저 쿠키 자동 사용
+        "--cookies", r"D:\AI\25_auto_pobbagi\cookies.txt", # ★ 핵심: 추출된 cookies.txt 활용
         "-o", output_template,
         url
     ]
