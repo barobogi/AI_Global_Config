@@ -1,7 +1,6 @@
 import os
 import json
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api.formatters import VTTFormatter
 
 QUEUE_FILE = r"D:\AI\25_auto_pobbagi\youtube_queue.json"
 OUTPUT_DIR = r"D:\AI\25_auto_pobbagi\transcripts"
@@ -12,7 +11,7 @@ def extract_transcript(video_id):
     youtube-transcript-api를 사용하여 자막을 추출합니다.
     사용자가 추출해 둔 cookies.txt를 활용하여 429 차단을 우회합니다.
     """
-    output_path = os.path.join(OUTPUT_DIR, f"{video_id}.vtt")
+    output_path = os.path.join(OUTPUT_DIR, f"{video_id}.txt")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
     print(f"[{video_id}] 자막 추출 시도 중... (youtube-transcript-api + cookies.txt)")
@@ -27,17 +26,16 @@ def extract_transcript(video_id):
             # 지정된 언어가 없으면 가능한 아무 언어나 번역해서(한국어로) 가져오기 시도
             transcript = transcript_list.find_transcript(['ko']).translate('ko')
             
-        # 자막 데이터 페치
+        # 자막 데이터 페치 (리스트 형태의 딕셔너리)
         transcript_data = transcript.fetch()
         
-        # VTT 포맷으로 변환 후 저장
-        formatter = VTTFormatter()
-        vtt_formatted = formatter.format_transcript(transcript_data)
+        # 순수 텍스트만 추출해서 이어붙이기
+        clean_text = " ".join([item['text'] for item in transcript_data])
         
         with open(output_path, "w", encoding="utf-8") as f:
-            f.write(vtt_formatted)
+            f.write(clean_text)
             
-        print(f"[{video_id}] 자막 추출 성공: {output_path}")
+        print(f"[{video_id}] 자막 추출 및 텍스트 변환 성공: {output_path}")
         return output_path
         
     except Exception as e:
