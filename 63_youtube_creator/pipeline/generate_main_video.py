@@ -79,12 +79,12 @@ async def build_pipeline():
             img_clip = ImageClip(img_array).with_duration(duration)
             W, H = 1920, 1080
 
-            # 자막 텍스트 줄바꿈 (한글 기준 1줄 25자)
+            # 자막 텍스트 줄바꿈 (한글 기준 1줄 35자)
             import textwrap
-            wrapped_text = "\n".join(textwrap.wrap(text, width=25)) + "\n "
+            wrapped_text = "\n".join(textwrap.wrap(text, width=35)) + "\n "
 
             # 자막 생성 — 이미지 높이 기준 동적 위치
-            font_size = int(H * 0.06)  # 높이의 6%
+            font_size = int(H * 0.055)  # 높이의 5.5% (약 60px)
             txt_clip = TextClip(
                 font=r"C:\Windows\Fonts\malgun.ttf",
                 text=wrapped_text,
@@ -95,7 +95,8 @@ async def build_pipeline():
                 method="label",
                 text_align="center"
             )
-            subtitle_y = int(H * 0.83)  # 높이의 83% 위치
+            # 텍스트 클립의 실제 높이를 반영하여 하단 여백 60px 확보
+            subtitle_y = H - txt_clip.size[1] - 60
             txt_clip = txt_clip.with_position(('center', subtitle_y)).with_duration(duration)
             
             # 이미지 위에 자막 합성
