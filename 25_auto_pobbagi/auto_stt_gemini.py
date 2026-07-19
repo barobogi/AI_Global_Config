@@ -11,7 +11,7 @@ def extract_subtitle(video_url, output_txt_path, api_key):
         os.remove(audio_path)
     
     print(f'Downloading audio for {video_url}...')
-    subprocess.run(['yt-dlp', '-f', 'bestaudio[ext=m4a]', video_url, '-o', audio_path], check=True)
+    subprocess.run(['yt-dlp', '--cookies', 'D:/AI/25_auto_pobbagi/cookies.txt', '-f', 'bestaudio[ext=m4a]', video_url, '-o', audio_path], check=True)
     
     # 2. Transcribe using Gemini 1.5 Flash
     print('Audio downloaded. Uploading to Gemini...')
