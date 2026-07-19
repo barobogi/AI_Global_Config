@@ -1,5 +1,21 @@
-import time
+import urllib.request
+import xml.etree.ElementTree as ET
+import re
 from playwright.sync_api import sync_playwright
+
+def clean_xml_transcript(xml_data):
+    try:
+        root = ET.fromstring(xml_data)
+        text_lines = []
+        for text_elem in root.findall('text'):
+            if text_elem.text:
+                clean_text = text_elem.text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace('&#39;', "'")
+                clean_text = re.sub(r'<[^>]+>', '', clean_text)
+                text_lines.append(clean_text.strip())
+        return " ".join(text_lines)
+    except Exception as e:
+        print(f"XML 파싱 오류: {e}")
+        return None
 
 def test_scrape():
     video_id = "L94yAQR9VvA"
@@ -7,68 +23,38 @@ def test_scrape():
     
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        # 한국어 환경으로 설정하여 선택자를 "자막 표시" 또는 "스크립트 표시" 등으로 찾기 쉽게 함
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-            viewport={"width": 1280, "height": 720},
-            locale="ko-KR"
+            viewport={"width": 1280, "height": 720}
         )
         page = context.new_page()
         
         print(f"[{video_id}] 페이지 접속 중...")
-        page.goto(url, wait_until="networkidle")
+        page.goto(url, wait_until="domcontentloaded")
         
-        # 1. 설명란 "더보기" 버튼 클릭
-        print("설명란 더보기 버튼 찾는 중...")
-        try:
-            expand_btn = page.locator("tp-yt-paper-button#expand")
-            if expand_btn.is_visible():
-                expand_btn.click()
-                print("더보기 버튼 클릭 완료.")
-                time.sleep(1)
-        except Exception as e:
-            print(f"더보기 버튼 클릭 실패: {e}")
+        page.wait_for_function("typeof ytInitialPlayerResponse !== 'undefined'", timeout=15000)
+        player_response = page.evaluate("ytInitialPlayerResponse")
+        
+        captions = player_response.get("captions", {})
+        track_list = captions.get("playerCaptionsTracklistRenderer", {}).get("captionTracks", [])
+        
+        if track_list:
+            subtitle_url = track_list[0].get("baseUrl")
+            print(f"추출된 URL: {subtitle_url[:50]}...")
             
-        # 2. "스크립트 표시" 버튼 클릭
-        print("스크립트 표시 버튼 찾는 중...")
-        try:
-            # "스크립트 표시" 텍스트를 가진 버튼 찾기
-            transcript_btn = page.locator("button:has-text('스크립트 표시')").first
-            if transcript_btn.is_visible():
-                transcript_btn.click()
-                print("스크립트 표시 버튼 클릭 완료.")
-                time.sleep(2)
-            else:
-                # 영어일 경우 "Show transcript"
-                transcript_btn_en = page.locator("button:has-text('Show transcript')").first
-                if transcript_btn_en.is_visible():
-                    transcript_btn_en.click()
-                    print("Show transcript 버튼 클릭 완료.")
-                    time.sleep(2)
-                else:
-                    print("자막 열기 버튼을 찾지 못했습니다.")
-        except Exception as e:
-            print(f"스크립트 표시 버튼 클릭 실패: {e}")
+            # 여기서 핵심: 브라우저 환경 내부에서 fetch를 실행하여 botguard 토큰과 헤더를 그대로 활용!
+            print("브라우저 내에서 fetch 실행 중...")
+            xml_data = page.evaluate(f'''async () => {{
+                const res = await fetch("{subtitle_url}");
+                if (!res.ok) throw new Error("Status: " + res.status);
+                return await res.text();
+            }}''')
             
-        # 3. 자막 텍스트 추출
-        print("자막 컨테이너 탐색 중...")
-        try:
-            segments = page.locator("ytd-transcript-segment-renderer .segment-text")
-            count = segments.count()
-            print(f"자막 조각 수: {count}")
-            
-            if count > 0:
-                texts = []
-                for i in range(count):
-                    texts.append(segments.nth(i).inner_text())
-                
-                print("--- 추출된 자막 샘플 ---")
-                print(" ".join(texts)[:500] + "...")
-                print("-------------------------")
-            else:
-                print("자막 텍스트를 찾지 못했습니다.")
-        except Exception as e:
-            print(f"자막 추출 실패: {e}")
+            clean_text = clean_xml_transcript(xml_data)
+            print("--- 자막 샘플 ---")
+            print(clean_text[:500])
+        else:
+            print("자막 트랙 없음")
             
         browser.close()
 
