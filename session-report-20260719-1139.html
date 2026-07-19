@@ -321,7 +321,9 @@
       <h2>recommendations</h2>
       <div class="section-body">
         <!-- AGENT: optimizations -->
-        <div class="callout">No suggestions generated yet.</div>
+        <div class="callout">캐시 브레이크 17회 중 대부분이 재부팅/새 세션 시작 직후 발생. <b>재부팅 후 첫 메시지를 짧게 유지</b>하거나 세션 재시작 전 /compact를 실행하면 400k 토큰 캐시 브레이크를 방지할 수 있음.</div>
+        <div class="callout">"했어.확인해봐" 같은 짧은 확인 메시지가 2% 소비. <b>지시와 확인을 한 메시지로 묶는 습관</b>이 round-trip과 컨텍스트 누적을 줄임.</div>
+        <div class="callout">Serena MCP를 오늘 설치 완료. <b>다음 주 Session Report에서 캐시 히트율 및 토큰 소비 변화 비교</b> (2026-07-26 리뷰 예정).</div>
         <!-- /AGENT -->
       </div>
     </section>
