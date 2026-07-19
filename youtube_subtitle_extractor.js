@@ -65,14 +65,29 @@ async function extractSubtitles(videoUrl, cookiesPath, outputPath) {
     // Wait for the transcript text elements to be populated.
     await page.waitForSelector('div#movie_player → ytd-transcript-renderer', { timeout: 15000 });
 
-    // Extract subtitle text (including timestamps if desired)
-    const subtitleText = await page.evaluate(() => {
-      // Adjust selector to match the actual transcript items in the page
-      const items = Array.from(document.querySelectorAll('ytd-transcript-line-renderer, .yt-text-bottom'))
-        .map(el => el.innerText.trim())
-        .filter(line => line.length > 0);
-      return items.join('\n');
-    });
+    // Wait for transcript lines to be present and extract them with retry logic
+    const maxAttempts = 3;
+    let extracted = null;
+    let attempt = 0;
+    while (attempt < maxAttempts && !extracted) {
+      try {
+        await page.waitForSelector('ytd-transcript-line-renderer', { timeout: 8000 });
+        extracted = await page.evaluate(() => {
+          const items = Array.from(document.querySelectorAll('ytd-transcript-line-renderer'));
+          return items.map(el => el.innerText.trim()).filter(line => line.length > 0);
+        });
+      } catch (_) {
+        attempt++;
+        if (attempt < maxAttempts) {
+          // Brief pause before retrying to allow the UI to update
+          await new Promise(r => setTimeout(r, 2000));
+        }
+      }
+    }
+    if (!extracted) {
+      throw new Error('Transcript lines not found after multiple attempts');
+    }
+    const subtitleText = extracted.join('\n');
 
     // Ensure the output directory exists
     const outputDir = path.dirname(outputPath);
