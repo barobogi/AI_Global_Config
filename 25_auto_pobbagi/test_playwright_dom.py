@@ -18,48 +18,44 @@ def test_scrape():
         print(f"[{video_id}] 페이지 접속 중...")
         page.goto(url, wait_until="networkidle")
         
-        # 1. 설명란 "더보기" 버튼 클릭 (strict mode 회피를 위해 .first 사용)
+        # 1. 스크롤을 약간 내려서 설명란이 보이게 함
+        page.evaluate("window.scrollBy(0, 500)")
+        time.sleep(2)
+        
         print("설명란 더보기 버튼 찾는 중...")
         try:
             expand_btn = page.locator("tp-yt-paper-button#expand").first
             if expand_btn.is_visible():
                 expand_btn.click()
                 print("더보기 버튼 클릭 완료.")
-                time.sleep(1)
+                time.sleep(2)
         except Exception as e:
             print(f"더보기 버튼 클릭 실패: {e}")
             
-        # 2. "스크립트 표시" 버튼 클릭
         print("스크립트 표시 버튼 찾는 중...")
         try:
-            # 다양한 언어 대응 (한국어, 영어)
-            transcript_btn = page.locator("button:has-text('스크립트 표시')").first
+            # aria-label 속성을 사용하여 정확히 타겟팅
+            transcript_btn = page.locator('button[aria-label="스크립트 표시"]').first
+            if not transcript_btn.is_visible():
+                transcript_btn = page.locator('button[aria-label="Show transcript"]').first
+                
             if transcript_btn.is_visible():
                 transcript_btn.click()
                 print("스크립트 표시 버튼 클릭 완료.")
-                time.sleep(2)
+                time.sleep(3)
             else:
-                transcript_btn_en = page.locator("button:has-text('Show transcript')").first
-                if transcript_btn_en.is_visible():
-                    transcript_btn_en.click()
-                    print("Show transcript 버튼 클릭 완료.")
-                    time.sleep(2)
-                else:
-                    print("자막 열기 버튼을 찾지 못했습니다.")
+                print("자막 열기 버튼을 찾지 못했습니다.")
         except Exception as e:
-            print(f"스크립트 표시 버튼 클릭 실패: {e}")
+            print(f"스크립트 버튼 클릭 실패: {e}")
             
+        # 디버깅을 위해 스크린샷 저장
+        page.screenshot(path="D:\\AI\\25_auto_pobbagi\\debug_ui.png", full_page=True)
+        print("디버그 스크린샷 저장 완료: debug_ui.png")
+        
         # 3. 자막 텍스트 추출
         print("자막 컨테이너 탐색 중...")
         try:
-            # DOM 구조 파악을 위해 덤프 저장
-            time.sleep(3)
-            with open("D:\\AI\\25_auto_pobbagi\\dump.html", "w", encoding="utf-8") as f:
-                f.write(page.content())
-            print("dump.html 저장 완료. DOM 구조를 분석합니다.")
-            
-            # 자막 패널이 로드될 때까지 대기
-            page.wait_for_selector("ytd-transcript-segment-renderer", timeout=5000)
+            page.wait_for_selector("ytd-transcript-segment-renderer", timeout=10000)
             segments = page.locator("ytd-transcript-segment-renderer .segment-text")
             count = segments.count()
             print(f"자막 조각 수: {count}")
@@ -71,7 +67,6 @@ def test_scrape():
                 
                 print("--- 추출된 자막 샘플 ---")
                 print(" ".join(texts)[:500] + "...")
-                print("-------------------------")
             else:
                 print("자막 텍스트를 찾지 못했습니다.")
         except Exception as e:
