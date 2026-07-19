@@ -247,7 +247,11 @@
       <h2>findings</h2>
       <div class="section-body" id="takeaways">
         <!-- AGENT: anomalies -->
-        <div class="take"><div class="fig">—</div><div class="txt">No findings generated yet.</div></div>
+        <div class="take good"><div class="fig">98.5%</div><div class="txt"><b>캐시 히트율</b>이 98.5%로 매우 우수 — 7일 700억 토큰 중 687억이 캐시에서 처리됨</div></div>
+        <div class="take bad"><div class="fig">2.0%</div><div class="txt"><b>"했어.확인해봐"</b> 단일 프롬프트가 총 토큰의 2% 소비 (1,395만 토큰) — 세션 길어진 후 짧은 메시지도 전체 컨텍스트를 끌고 옴</div></div>
+        <div class="take bad"><div class="fig">17회</div><div class="txt"><b>캐시 브레이크</b> 17회 — 재부팅·새 세션 시작 시 집중 발생, /compact 타이밍이 핵심</div></div>
+        <div class="take info"><div class="fig">51세션</div><div class="txt"><b>d--AI 프로젝트</b>에서 7일간 51세션, API 2,919호출, 활성 작업 시간 24.7시간</div></div>
+        <div class="take bad"><div class="fig">1.0%</div><div class="txt"><b>유튜브 링크 단독 메시지</b>가 1.05% 소비 — 링크와 지시를 한 메시지에 묶으면 round-trip 절약 가능</div></div>
         <!-- /AGENT -->
       </div>
     </section>
