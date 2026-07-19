@@ -71,26 +71,32 @@ async def build_pipeline():
             audio_clip = AudioFileClip(audio_path)
             duration = audio_clip.duration + 0.5 # 음성 길이 + 0.5초 여유
             
-            # 이미지 클립 (1920x1080 가로형)
-            img_clip = ImageClip(img_path).with_duration(duration)
+            # 이미지 클립 — 1920×1080으로 리사이즈 (Pollinations 실제 해상도 무관)
+            from PIL import Image as PILImage
+            import numpy as np
+            pil_img = PILImage.open(img_path).resize((1920, 1080), PILImage.LANCZOS)
+            img_array = np.array(pil_img)
+            img_clip = ImageClip(img_array).with_duration(duration)
+            W, H = 1920, 1080
 
-            # 자막 텍스트 줄바꿈 (한글 기준 1줄 25자, 1920x1080 화면)
+            # 자막 텍스트 줄바꿈 (한글 기준 1줄 25자)
             import textwrap
             wrapped_text = "\n".join(textwrap.wrap(text, width=25)) + "\n "
 
-            # 자막 생성 — 1920x1080 기준
+            # 자막 생성 — 이미지 높이 기준 동적 위치
+            font_size = int(H * 0.06)  # 높이의 6%
             txt_clip = TextClip(
                 font=r"C:\Windows\Fonts\malgun.ttf",
                 text=wrapped_text,
-                font_size=65,
+                font_size=font_size,
                 color="white",
                 stroke_color="black",
                 stroke_width=2,
                 method="label",
                 text_align="center"
             )
-            # 1080p 기준 하단 배치 (y=900)
-            txt_clip = txt_clip.with_position(('center', 900)).with_duration(duration)
+            subtitle_y = int(H * 0.83)  # 높이의 83% 위치
+            txt_clip = txt_clip.with_position(('center', subtitle_y)).with_duration(duration)
             
             # 이미지 위에 자막 합성
             video = CompositeVideoClip([img_clip, txt_clip])
