@@ -1,5 +1,25 @@
 import time
+import http.cookiejar
 from playwright.sync_api import sync_playwright
+
+COOKIES_FILE = r"D:\AI\25_auto_pobbagi\cookies.txt"
+
+def load_cookies_into_context(context):
+    cookie_jar = http.cookiejar.MozillaCookieJar(COOKIES_FILE)
+    cookie_jar.load(ignore_discard=True, ignore_expires=True)
+    
+    playwright_cookies = []
+    for c in cookie_jar:
+        playwright_cookies.append({
+            "name": c.name,
+            "value": c.value,
+            "domain": c.domain,
+            "path": c.path,
+            "secure": bool(c.secure),
+            "expires": c.expires if c.expires else -1
+        })
+    context.add_cookies(playwright_cookies)
+    print(f"[{len(playwright_cookies)}개의 쿠키 주입 완료]")
 
 def test_scrape():
     video_id = "L94yAQR9VvA"
@@ -11,6 +31,8 @@ def test_scrape():
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
             locale="ko-KR"
         )
+        
+        load_cookies_into_context(context)
         page = context.new_page()
         
         # 네트워크 응답 가로채기
