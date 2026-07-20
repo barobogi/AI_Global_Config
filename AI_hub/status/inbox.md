@@ -1,5 +1,5 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-20 21:14:29 (master_watch.py)
+> 자동 갱신: 2026-07-20 21:16:57 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
@@ -36,9 +36,9 @@
   - [10:50] `AI_hub/shared/messages/안티→만복_20260718_반성문_코니무한루프사태_검토요청.md`
 
 ### 코니 수신 (25개)
+  - [21:16] `AI_hub/shared/messages/만복→코니_20260720_뽀개기2번_1차검토요청.md`
   - [21:08] `AI_hub/shared/messages/만복→코니_20260720_뽀개기1번_1차검토요청.md`
   - [21:07] `AI_hub/shared/messages/만복→코니_20260720_CLAUDE축소_기본원칙_보강안요청.md`
-  - [21:05] `AI_hub/shared/messages/만복→코니_20260720_뽀개기2번_1차검토요청.md`
   - [15:34] `AI_hub/shared/messages/만복→코니_안티_20260719_다음주콘텐츠_역할분담.md`
   - [15:01] `AI_hub/shared/messages/안티→코니_20260719_뽀개기A_ticket_planner보강_2차검증요청.md`
   - [14:17] `AI_hub/shared/messages/안티→코니_20260719_뽀개기자동화_v2_최종검증요청.md`
