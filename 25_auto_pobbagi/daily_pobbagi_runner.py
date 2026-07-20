@@ -34,9 +34,10 @@ def init_db():
     conn.close()
 
 def send_telegram_msg(msg):
-    # Dummy implementation for telegram alert
-    print(f"[텔레그램 전송 흉내] {msg}")
-    pass
+    try:
+        print(f"[텔레그램 전송 흉내] {msg}")
+    except UnicodeEncodeError:
+        print(msg.encode('cp949', errors='replace').decode('cp949'))
 
 def phase_1_generate_candidates():
     print(">>> [Phase 1] 뽀개기 후보군 생성 (최대 15개)")
