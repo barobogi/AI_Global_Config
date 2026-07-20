@@ -11,7 +11,7 @@ QUOTA = 15       # 일일 총 할당량
 PER_CHANNEL = 3  # 채널당 최대 등록 수
 
 DEFAULT_CHANNELS = {
-    "UCd1-XlZkK5D8ZgUvXqH-r2A": "기술노트 with 알렉",
+    "UCBtG00ljZ8R_DBQCTR4C00A": "기술노트 with 알렉",
     "UC_x5XG1OV2P6uZZ5FSM9Ttw": "Google Developers"
 }
 
