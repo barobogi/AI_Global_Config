@@ -112,8 +112,10 @@
 
 1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함 (messages/+tasks 자동 집계, 5분마다 갱신)
 2. **`D:\AI\AI_hub\status\telegram_messages.md` 읽기** — MCP 끊김 시에도 유실 없는 텔레그램 백업 (master_watch 1분 폴링, 2026-07-16 구현)
-3. 내용 기반으로 미확인 메시지 + tasks 변경 파악
-4. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
+3. **master_watch.py 실행 여부 확인 → 꺼져 있으면 즉시 재시작** (2026-07-20 추가)
+   > Why: 종료 루틴이 master_watch를 Stop-Process함 → 재시작 안 하면 18:00 등 예약 자동화 전체 누락
+4. 내용 기반으로 미확인 메시지 + tasks 변경 파악
+5. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
 
 > 실패 시 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
 > **⚠️ inbox.md 읽지 않고 "수신함 확인했습니다" 보고 금지 — 부분 확인 = Hall**
