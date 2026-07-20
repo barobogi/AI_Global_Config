@@ -92,7 +92,10 @@ def run_watcher():
     channels = load_json(CHANNELS_FILE, DEFAULT_CHANNELS)
     queue = load_json(QUEUE_FILE, {"pending": [], "processed": [], "waiting_review": []})
     
-    processed_ids = set(queue.get("processed", []))
+    processed_raw = queue.get("processed", [])
+    processed_ids = set(
+        v["video_id"] if isinstance(v, dict) else v for v in processed_raw
+    )
     pending_ids = set(v["video_id"] for v in queue.get("pending", []))
     review_ids = set(v["video_id"] for v in queue.get("waiting_review", []))
     
