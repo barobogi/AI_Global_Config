@@ -86,6 +86,12 @@ def fetch_fallback_videos(channel_id, count=3):
         print(f"  [Fallback 오류] {e}")
         return []
 
+def safe_print(msg):
+    try:
+        print(msg)
+    except UnicodeEncodeError:
+        print(msg.encode('utf-8', errors='replace').decode('ascii', errors='replace'))
+
 def run_watcher():
     print(f"=== 유튜브 RSS 자동 감시 시작 ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')}) ===")
     
@@ -122,7 +128,7 @@ def run_watcher():
                 all_known_ids.add(vid_id)
                 new_videos_found += 1
                 channel_count += 1
-                print(f"  + 신규 영상 추가: {vid['title']}")
+                safe_print(f"  + 신규 영상 추가: {vid['title']}")
 
     # 2차: 할당량 미달 시 Fallback (채널당 PER_CHANNEL 이내)
     if new_videos_found < QUOTA:
