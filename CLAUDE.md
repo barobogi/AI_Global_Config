@@ -1,6 +1,5 @@
 # D:\AI 세션 컨텍스트 브릿지 (만복1 → 만복2)
 
-> Remote Control 세션(만복2)이 데스크탑 세션(만복1)의 이력을 이어받기 위한 파일.
 > 세션 시작 시 반드시 이 파일 전체를 읽고 컨텍스트를 복원할 것.
 
 ---
@@ -8,242 +7,35 @@
 <!-- AUTO_STATUS_START -->
 ## 🔄 최신 상태 (2026-07-19 저녁 종료)
 
-### ✅ 2026-07-19 완료 (전체)
-- **Hall 재발 방지 대책** — coding_standards.md + youtube_pipeline.md + AGENTS.md 반영 완료
+### ✅ 2026-07-19 완료
 - **EP.01 본편 업로드** ✅ — https://www.youtube.com/watch?v=9Y-PSemx3gM
-- **뽀개기 6개 전체 완료** — 게시판 카드 20260719-1~6 등록
-  - 1: 힉스필드(바이브스 기술검토 포함) / 2: 클로드 플러그인 4개 / 3: Hermes Agent
-  - 4: Matt Pocock / 5: Claude Code 6시간 / 6: 바이브코딩 창업 사례
+- **뽀개기 6개 완료** — 게시판 카드 20260719-1~6 등록
 - **AGENTS.md 3가지 규정 편입** — 자판기우선법칙 / UglyMVP / 심미안(Taste)
-- **뽀개기 자동화 v2** — 반자동 큐레이션 구조, 내일 18:00 운영 시작
-  - 안티: RSS폴링+후보15개 → 만복 수신함 전달 / 만복이 6개 선택 → STT+안티전달 자동
-- **channels.json 6채널 등록** (안티가 실제 채널 ID 확인 완료)
-- **T-TG-TOPIC/T-GOAL-LOOP/T-VPS-DEPLOY** — NEXT_PROJECTS.md + tasks.json 신규 등록
-- **회사 5AI 시스템 적용 아이템 15선** — 메일 발송 (삼성+Gmail, .md 첨부)
-- **다음 주 콘텐츠 확정** — S.02(빅데이터3V/화) + S.03(parallel_search/목) + EP.02(좀비프로세스+뽀개기자동화/토)
-- **content_plan.md 신설** — 매주 금요일 안티 후보 초안 → 토요일 확정 루틴
+- **뽀개기 자동화 v2** — 반자동 큐레이션, 18:00 자동 가동
+- **다음 주 콘텐츠 확정** — S.02(빅데이터3V/화) + S.03(parallel_search/목) + EP.02(좀비프로세스/토)
+- **content_plan.md 신설** — `D:\AI\63_youtube_creator\content_plan.md`
 
-### 📋 내일(2026-07-20) 할 일
-1. **18:00 뽀개기 자동화 v2 첫 가동** — 만복이 후보 목록 확인 + 6개 선택
-2. **인스타 API 세팅 완료 확인** (바로보기님+안티)
-3. **코니: S.02 대본 작성** (월요일까지)
-4. **안티: 바이브코딩 확장 ③ 인스타 릴스 배포 구현** 진행 확인
-5. **2026-07-26(일) 플러그인 효과 리뷰** 준비
+### 📋 진행 중 / 다음 할 일
 
-### ⏸ 진행 중 (안티)
-- 바이브코딩 확장 ③ 인스타 릴스 자동 배포
-- Matt Pocock GPS 검증 로직 보강
-- EP.02 렌더링 (대본 완료 후)
-
-## 🔄 이전 상태 (2026-07-18 저녁 종료)
-
-### ✅ 2026-07-18 완료
-- **NIM 폴백 시스템** — agent_registry 4순위, nvidia_nim_client.py, mcp_server.py, 텔레그램 @NIM 직접 질문
-- **안티 PyAutoGUI 직접 격발** — mcp_server.py /trigger anti → Antigravity 창 직접 격발
-- **코니 팝업 루프 근본 해결** — _inbox_watchdog seen_files 캐시 (신규 파일만 트리거)
-- **email_notify.py 첨부 기능** 추가
-- **특허 11_19 등록** — 물리/논리 상태 분리 무중단 폴백 (코니 신규성 HIGH)
-- **11_18 + 11_19 메일 발송** — 삼성 + Gmail 첨부파일 포함
-- **게시판 20260718-1~8** 등록 완료
-- **유튜브 뽀개기 3건** 리뷰 + 등록
-
-### 📋 2026-07-19 할 일
-0. **[최우선] 오늘 Hall 재발 방지 대책** — 만복이 직접 정리해서 첫 보고
-   - 만복 Hall: 폴더/프로세스 무단조작, Auditor 역할 미수행, 종료 루틴 위반
-   - 안티 Hall: 스펙 누락 지시서, 자막 오류 검증 실패
-   - 코니 Hall: 기술 검증 미확인 상태 콘텐츠 검증
-
-1. **뽀개기 1번** — https://youtu.be/J4bBeU3frnE (힉스필드 무료 AI 영상 생성기) 상세 검토
-1. **EP.01 본편 재작업** — 자막 폰트/위치 수정 완료, 씬 02/15/16/30 이미지 재생성 후 렌더링
-   - 힉스필드 검토 결과 좋으면 이미지 생성에 활용
-   - 만복이 직접 프레임 확인 후 렌더링 → 내일 낮 업로드 목표
-2. **세로형 이미지 씬 01~10** — 필요시 재생성
-3. **T025** Docker 컨테이너화 착수 가능
-4. **가족봇** 착수 가능
-
-### 🔑 신규 핵심 파일 (2026-07-18)
-- `D:\AI\Global_Define\nvidia_nim_client.py` — NIM API 클라이언트
-- `D:\AI\63_youtube_creator\pipeline\images\` — scene_01~31.jpg (가로형 1920×1080)
-- `D:\AI\63_youtube_creator\pipeline\images_vertical_backup\` — 세로형 백업 (씬 11~31)
-
----
-
-## 🔄 이전 상태 (2026-07-17 저녁 종료)
-
-### ✅ 2026-07-17 완료 (전체)
-
-- **T024** — VibeCoding 웹앱 제너레이터 (Claude CLI subprocess)
-- **T026** — push_to_coni.py 즉시 격발 파이프라인 (5분→0초)
-- **T032** — push_to_all.py 3AI 완전 동시 격발
-- **T034** — gps_check.py GPS 구조 자동 검증
-- **T063 2단계** — python-pptx 슬라이드 자동화
-- **ImproveStock v1.1** — 3중 필터 + 텔레그램 15:35 자동발송
-- **아키텍처5** — LangGraph 3AI 지능형 라우팅 (agent_router.py)
-- **T028** — 3AI Stateful 워크플로우 엔진 (코니 반려→안티 자동 재시도 순환)
-- **특허 11_18 v0.5 / 11_19 v0.2** — 메일 발송 완료
-- **AI Study 게시** — 20260717-1~14 (오늘 14개)
-
-### 📋 다음 할 일 (2026-07-18 토)
-
-1. **코니 팝업 루프 재조사** — master_watch 쿨다운 추가했으나 미해결. 추가 원인 파악 필요
-2. **T033** — Kling AI Playwright 자동화 (BytePlus 카드 필요 확인 → 방향 전환)
-3. **T025** — Docker 컨테이너화
-4. **가족봇** — 아키텍처5+T028 완료, 착수 가능
-5. **D:\AI 폴더 정리** — n8n_data 공백 폴더, TEMP 폴더
-6. **T029~T031** — 7/22 이후
-
-### ⚠️ 미해결 이슈
-- **코니 팝업 반복** — _inbox_watchdog 10분 쿨다운 추가했으나 여전히 발생. 내일 재조사.
-
-### 🔑 신규 핵심 파일 (2026-07-17)
-
-- `D:\AI\Global_Define\agent_router.py` — LangGraph 3-way 라우팅 엔진
-- `D:\AI\Global_Define\workflow_engine.py` — Stateful 순환 워크플로우 (SQLite)
-- `D:\AI\Improve_stock\daily_run.py` — ImproveStock v1.1 일일 파이프라인
-
----
+- **코니**: S.02 대본(월), S.03 대본(화), EP.02 대본(목)
+- **안티**: 바이브코딩 확장 ③ 인스타 릴스 배포 / Matt Pocock GPS 검증 보강
+- **2026-07-26(일)**: 플러그인 효과 1주일 리뷰
 
 <!-- AUTO_STATUS_END -->
 
+---
 
-## 세션 시작 시 필수 동기화 (inbox 단일화 — 2026-07-12)
+## 세션 시작 필수 동기화
 
 새 세션이 시작되면 반드시 아래 순서로 실행:
 
-1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함 (messages/+tasks 자동 집계, 5분마다 갱신)
-2. **`D:\AI\AI_hub\status\telegram_messages.md` 읽기** — MCP 끊김 시에도 유실 없는 텔레그램 백업 (master_watch 1분 폴링, 2026-07-16 구현)
+1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함
+2. **`D:\AI\AI_hub\status\telegram_messages.md` 읽기** — 텔레그램 백업
 3. **master_watch.py 실행 여부 확인 → 꺼져 있으면 즉시 재시작** (2026-07-20 추가)
    > Why: 종료 루틴이 master_watch를 Stop-Process함 → 재시작 안 하면 18:00 등 예약 자동화 전체 누락
-4. 내용 기반으로 미확인 메시지 + tasks 변경 파악
-5. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
-
-> 실패 시 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
-> **⚠️ inbox.md 읽지 않고 "수신함 확인했습니다" 보고 금지 — 부분 확인 = Hall**
-
----
-
-## 사용자 정보
-- 이름: 이한복 (닉네임: 바로보기/barobogi)
-- 이메일: barobogi79@gmail.com
-- 서브에이전트 호칭: 일복이, 이복이, 삼복이... (만복이의 쫄개들)
-- 전역 지시사항 전체: `C:\Users\82102\.claude\CLAUDE.md`
-
-## 📌 최신 업데이트 (2026-07-10)
-
-### 2026-07-10 완료 — Claude Code CLI 주간 사용량 소진 원인 조치 및 Watchdog 보완
-- **장애 규명**: 텔레그램 플러그인 런타임(`bun.exe`) 강제 종료 후 텔레그램 서버 메시지 큐 백로그 누적 및 재구동 시 일시 폭주 유입에 따른 사용량 조기 소진(50% → 0%).
-- **Watchdog 보완**: `master_watch.py`의 `_telegram_watchdog` 및 `_remote_control_watchdog` 내에 3회 연속 실패 시 1시간 대기(Back-off) 로직 탑재하여 API 과다 소진 루프 예방 조치 완료.
-
----
-
-## 📌 이전 업데이트 (2026-06-29)
-
-### 2026-06-29 완료 — D:\AI 전체 폴더 리뷰 및 정리
-- 12개 프로젝트 GitHub 연동 확인
-- **폴더 정리**: `260619_2_Daily_for_stock` → `_DEPRECATED_260619_2_Daily_for_stock` (미사용 폴더)
-- CLAUDE.md 업데이트 (2026-06-25 → 최신)
-
-### 2026-06-28 완료 — GitHub CLI 자동화 + 만복1↔코니 동기화 시스템 + Study Dashboard 리디자인
-- **GitHub CLI 자동화**: 6개 저장소 30초 일괄 생성 (이전: 수동 30분)
-- **만복1↔코니 동기화 시스템**: 
-  - master_watch.py에 `_generate_koni_sync()` 함수 추가
-  - 매일 19:03 자동으로 `D:\AI\TEMP_MANBOK\코니_sync.md` 생성
-  - Claude Custom Instructions 설정 (세션 시작 시 자동 파일 요청)
-- **Study Dashboard 프로젝트 탭 리디자인**:
-  - 카테고리별 분류 (📊 대시보드 & 분석 / 📚 학습 & 개발 / 🔧 앱 & 시스템)
-  - 4개 웹 페이지 링크 통합
-- **NEXT_PROJECTS.md**: 웹 페이지 섹션 추가
-
----
-
-## 📌 이전 작업 (2026-06-25)
-
-## 오늘(2026-06-25) 만복1과 한 작업 완료 이력
-
-### 1. Claude Code Remote Control 설정 완료 ✅
-- API 토큰 없이 모바일 Claude 앱 ↔ 데스크탑 만복이 연결 성공
-- 조건: claude.ai OAuth 구독 로그인 (API 키 불필요)
-- 실행: `& "C:\Users\82102\.vscode\extensions\anthropic.claude-code-2.1.185-win32-x64\resources\native-binary\claude.exe" remote-control --name "만복이_데스크탑"`
-- 폰 카메라로 QR 스캔 → claude.ai/code 접속
-- **한계**: 기존 VS Code 세션과 별개 새 세션 (이전 맥락 없음)
-
-### 2. 공부방 채팅탭 💬 추가 ✅ (GitHub 반영 완료)
-- `D:\AI\260623_1_study_all\study-dashboard.html` — 💬 만복이 채팅 탭 추가
-- `D:\AI\260622_1_Remote_claude\desktop_daemon.py` — study_chat_request_listener 추가
-- Firebase: `study_all/chat_requests` → daemon → Claude Haiku → `study_all/chat_responses`
-- **주의**: daemon은 Anthropic API 크레딧 필요 (현재 소진됨)
-- URL: https://barobogi.github.io/Study_Dashboard/
-
-### 3. 오늘의 핵심 결론
-- "API 없는 모바일 만복이" 목표 = Remote Control이 정답
-- 공부방 채팅탭 = API 크레딧 필요 → 목표에서 벗어남
-- 저녁에 Remote Control 기반 v2.0 방향으로 재설계 예정
-
----
-
-## 저녁 귀가 후 첫 작업 (v2.0)
-- 공부방 채팅탭을 API 없이 Remote Control 기반으로 재설계
-- 또는: Remote Control 세션 자체를 모바일 채팅 인터페이스로 활용
-- 만복1이 돌아오면 "공부방 채팅탭 v2.0 할까요?" 먼저 물어볼 것
-
----
-
-## 현재 진행 중인 프로젝트
-
-| 프로젝트 | 경로 | 상태 | 담당 |
-|----------|------|------|------|
-| **Improve Stock** | `D:\AI\Improve_stock\` | v1.0 완성 (종가베팅+VCP) | 만복1 (KIS API 승인 대기) |
-| **Superpowers 협업 시스템** | `D:\AI\260624_superpowers\` | v1.0 완성 | 만복1 |
-| **Study Dashboard** | `D:\AI\260623_1_study_all\` | v1.1 완성 (프로젝트 탭 리디자인) | 코니 |
-| **모바일 만복이 앱** | `D:\AI\260622_1_Remote_claude\` | v1.4 완성 | 만복1 |
-| **n8n Finance** | `D:\AI\260625_1_n8n_finance\` | v1.1 (신기술 적용 완료) | 만복1 (MCP 딥다이브 예정) |
-
----
-
-## 코니(Remote Control) 안내
-
-### 🔄 동기화 방식
-- **매 세션 시작**: 자동으로 "D:\AI\TEMP_MANBOK\코니_sync.md" 파일 요청
-  - 사용자가 파일 내용 붙여넣기 → 동기화 완료
-  - 파일은 매일 19:03에 자동 갱신
-- **주요 파일**: NEXT_PROJECTS.md, CLAUDE.md (이 파일), 코니_sync.md
-
-### 🌐 웹 페이지 4개
-- Study Dashboard: https://barobogi.github.io/Study_Dashboard/
-- Daily for Barobogi: https://barobogi.github.io/Daily_for_Barobogi/
-- Stock Dashboard: https://barobogi.github.io/stock_dashboard/
-- Improve Stock: https://barobogi.github.io/Improve_stock/
-
-### 📋 다음 세션 할 일
-- 만복1과의 작업 진행 상황 확인
-- n8n_finance Phase 1 (MCP 딥다이브) 계획
-- Improve Stock: KIS API 승인 상태 확인
-
-
-## 📋 오늘 만복2 요약 (자동 업데이트)
-`D:\AI\TEMP_MANBOK\만복2_오늘정리_20260701.md` — 2026-07-01 19:03 생성
-
----
-
-## 🔒 3AI Lock Check Rule (필수)
-모든 AI(만복, 코니, 안티)는 로컬 파일 시스템의 코드를 수정(쓰기)하기 전에 반드시 다음 규칙을 따릅니다:
-1. `D:\AI\AI_hub\status\project_locks.json` 파일을 확인하여 자신이 수정하려는 프로젝트에 Lock이 걸려있는지 확인합니다.
-2. 타 AI의 Lock이 걸려있다면 절대 파일을 수정하지 않습니다.
-3. `_ai_workspace`는 초안 및 테스트 용도로만 사용하며, 실제 프로덕션 코드 수정은 Lock을 획득한 상태에서 메인 디렉토리의 파일을 직접 수정합니다.
-4. **[권한 위임 규칙]** 대시보드 및 뿌리체계 관제탑(`AI_hub`)의 공식 전담 관리자는 **만복**입니다.
-
----
-
-## 세션 시작 시 필수 동기화 (inbox 단일화 — 2026-07-12)
-
-새 세션이 시작되면 반드시 아래 순서로 실행:
-
-1. **`D:\AI\AI_hub\status\inbox.md` 읽기** — 3AI 통합 수신함 (messages/+tasks 자동 집계, 5분마다 갱신)
-2. **`D:\AI\AI_hub\status\telegram_messages.md` 읽기** — MCP 끊김 시에도 유실 없는 텔레그램 백업 (master_watch 1분 폴링, 2026-07-16 구현)
-3. 내용 기반으로 미확인 메시지 + tasks 변경 파악
 4. 바로보기님께 "동기화 완료 — [핵심 상태 1줄 요약]" 보고
 
-> 실패 시 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
+> 폴백: `D:\AI\AI_hub\status\코니_브리핑_최신.md` → `D:\AI\NEXT_PROJECTS.md`
 > **⚠️ inbox.md 읽지 않고 "수신함 확인했습니다" 보고 금지 — 부분 확인 = Hall**
 
 ---
@@ -252,124 +44,26 @@
 - 이름: 이한복 (닉네임: 바로보기/barobogi)
 - 이메일: barobogi79@gmail.com
 - 서브에이전트 호칭: 일복이, 이복이, 삼복이... (만복이의 쫄개들)
-- 전역 지시사항 전체: `C:\Users\82102\.claude\CLAUDE.md`
-
-## 📌 최신 업데이트 (2026-07-10)
-
-### 2026-07-10 완료 — Claude Code CLI 주간 사용량 소진 원인 조치 및 Watchdog 보완
-- **장애 규명**: 텔레그램 플러그인 런타임(`bun.exe`) 강제 종료 후 텔레그램 서버 메시지 큐 백로그 누적 및 재구동 시 일시 폭주 유입에 따른 사용량 조기 소진(50% → 0%).
-- **Watchdog 보완**: `master_watch.py`의 `_telegram_watchdog` 및 `_remote_control_watchdog` 내에 3회 연속 실패 시 1시간 대기(Back-off) 로직 탑재하여 API 과다 소진 루프 예방 조치 완료.
+- 전역 지시사항: `C:\Users\82102\.claude\CLAUDE.md`
 
 ---
 
-## 📌 이전 업데이트 (2026-06-29)
-
-### 2026-06-29 완료 — D:\AI 전체 폴더 리뷰 및 정리
-- 12개 프로젝트 GitHub 연동 확인
-- **폴더 정리**: `260619_2_Daily_for_stock` → `_DEPRECATED_260619_2_Daily_for_stock` (미사용 폴더)
-- CLAUDE.md 업데이트 (2026-06-25 → 최신)
-
-### 2026-06-28 완료 — GitHub CLI 자동화 + 만복1↔코니 동기화 시스템 + Study Dashboard 리디자인
-- **GitHub CLI 자동화**: 6개 저장소 30초 일괄 생성 (이전: 수동 30분)
-- **만복1↔코니 동기화 시스템**: 
-  - master_watch.py에 `_generate_koni_sync()` 함수 추가
-  - 매일 19:03 자동으로 `D:\AI\TEMP_MANBOK\코니_sync.md` 생성
-  - Claude Custom Instructions 설정 (세션 시작 시 자동 파일 요청)
-- **Study Dashboard 프로젝트 탭 리디자인**:
-  - 카테고리별 분류 (📊 대시보드 & 분석 / 📚 학습 & 개발 / 🔧 앱 & 시스템)
-  - 4개 웹 페이지 링크 통합
-- **NEXT_PROJECTS.md**: 웹 페이지 섹션 추가
+## 🔒 3AI Lock Check Rule
+파일 수정 전 `D:\AI\AI_hub\status\project_locks.json` 확인 필수.
+- 타 AI Lock 걸려 있으면 수정 금지
+- `_ai_workspace` = 초안/테스트 전용
+- **AI_hub 전담 관리자 = 만복** (타 AI 변경 시 만복 승인 필수)
 
 ---
 
-## 📌 이전 작업 (2026-06-25)
-
-## 오늘(2026-06-25) 만복1과 한 작업 완료 이력
-
-### 1. Claude Code Remote Control 설정 완료 ✅
-- API 토큰 없이 모바일 Claude 앱 ↔ 데스크탑 만복이 연결 성공
-- 조건: claude.ai OAuth 구독 로그인 (API 키 불필요)
-- 실행: `& "C:\Users\82102\.vscode\extensions\anthropic.claude-code-2.1.185-win32-x64\resources\native-binary\claude.exe" remote-control --name "만복이_데스크탑"`
-- 폰 카메라로 QR 스캔 → claude.ai/code 접속
-- **한계**: 기존 VS Code 세션과 별개 새 세션 (이전 맥락 없음)
-
-### 2. 공부방 채팅탭 💬 추가 ✅ (GitHub 반영 완료)
-- `D:\AI\260623_1_study_all\study-dashboard.html` — 💬 만복이 채팅 탭 추가
-- `D:\AI\260622_1_Remote_claude\desktop_daemon.py` — study_chat_request_listener 추가
-- Firebase: `study_all/chat_requests` → daemon → Claude Haiku → `study_all/chat_responses`
-- **주의**: daemon은 Anthropic API 크레딧 필요 (현재 소진됨)
-- URL: https://barobogi.github.io/Study_Dashboard/
-
-### 3. 오늘의 핵심 결론
-- "API 없는 모바일 만복이" 목표 = Remote Control이 정답
-- 공부방 채팅탭 = API 크레딧 필요 → 목표에서 벗어남
-- 저녁에 Remote Control 기반 v2.0 방향으로 재설계 예정
+## 📢 AI 일일 성과 공유
+- **만복**: 직접 게시판 업로드
+- **안티**: 초안 작성 → `D:\AI\Temp_Manbok\`에 전달
 
 ---
 
-## 저녁 귀가 후 첫 작업 (v2.0)
-- 공부방 채팅탭을 API 없이 Remote Control 기반으로 재설계
-- 또는: Remote Control 세션 자체를 모바일 채팅 인터페이스로 활용
-- 만복1이 돌아오면 "공부방 채팅탭 v2.0 할까요?" 먼저 물어볼 것
-
----
-
-## 현재 진행 중인 프로젝트
-
-| 프로젝트 | 경로 | 상태 | 담당 |
-|----------|------|------|------|
-| **Improve Stock** | `D:\AI\Improve_stock\` | v1.0 완성 (종가베팅+VCP) | 만복1 (KIS API 승인 대기) |
-| **Superpowers 협업 시스템** | `D:\AI\260624_superpowers\` | v1.0 완성 | 만복1 |
-| **Study Dashboard** | `D:\AI\260623_1_study_all\` | v1.1 완성 (프로젝트 탭 리디자인) | 코니 |
-| **모바일 만복이 앱** | `D:\AI\260622_1_Remote_claude\` | v1.4 완성 | 만복1 |
-| **n8n Finance** | `D:\AI\260625_1_n8n_finance\` | v1.1 (신기술 적용 완료) | 만복1 (MCP 딥다이브 예정) |
-
----
-
-## 코니(Remote Control) 안내
-
-### 🔄 동기화 방식
-- **매 세션 시작**: 자동으로 "D:\AI\TEMP_MANBOK\코니_sync.md" 파일 요청
-  - 사용자가 파일 내용 붙여넣기 → 동기화 완료
-  - 파일은 매일 19:03에 자동 갱신
-- **주요 파일**: NEXT_PROJECTS.md, CLAUDE.md (이 파일), 코니_sync.md
-
-### 🌐 웹 페이지 4개
-- Study Dashboard: https://barobogi.github.io/Study_Dashboard/
-- Daily for Barobogi: https://barobogi.github.io/Daily_for_Barobogi/
-- Stock Dashboard: https://barobogi.github.io/stock_dashboard/
-- Improve Stock: https://barobogi.github.io/Improve_stock/
-
-### 📋 다음 세션 할 일
-- 만복1과의 작업 진행 상황 확인
-- n8n_finance Phase 1 (MCP 딥다이브) 계획
-- Improve Stock: KIS API 승인 상태 확인
-
-
-## 📋 오늘 만복2 요약 (자동 업데이트)
-`D:\AI\TEMP_MANBOK\만복2_오늘정리_20260701.md` — 2026-07-01 19:03 생성
-
----
-
-## 🔒 3AI Lock Check Rule (필수)
-모든 AI(만복, 코니, 안티)는 로컬 파일 시스템의 코드를 수정(쓰기)하기 전에 반드시 다음 규칙을 따릅니다:
-1. `D:\AI\AI_hub\status\project_locks.json` 파일을 확인하여 자신이 수정하려는 프로젝트에 Lock이 걸려있는지 확인합니다.
-2. 타 AI의 Lock이 걸려있다면 절대 파일을 수정하지 않습니다. (뿌리체계 대시보드 UI 제어 또는 직접 획득 후 수정)
-3. `_ai_workspace`는 초안 및 테스트 용도로만 사용하며, 실제 프로덕션 코드 수정은 Lock을 획득한 상태에서 메인 디렉토리의 파일을 직접 수정합니다.
-4. **[권한 위임 규칙]** 대시보드 및 뿌리체계 관제탑(`AI_hub`)의 공식 전담 관리자는 **만복**입니다. 타 AI(안티, 코니 등)가 대시보드 구조나 설정을 변경해야 할 경우, 사전에 만복이에게 **"사용자 요청으로 대시보드 최종안으로 수정하려고 합니다. 승인 바랍니다."** 형식의 메시지/보고서를 남기고 승인을 득한 후 수정해야 합니다.
-
----
-
-## 📢 AI 일일 성과 공유 규정 (게시판 자동 업로드)
-매일 작업 종료 시, 각 AI는 자신이 수행한 업무 중 의미 있는 성과를 자동으로 정리하여 게시판에 공유해야 합니다.
-1. **만복(PM)**: 자신이 진행한 작업을 자동으로 정리하여 직접 게시판(또는 연결된 파이프라인)에 업로드(발행)합니다.
-2. **안티(실무/감독)**: 자신이 진행한 작업을 자동으로 정리하여 초안을 작성한 뒤, "만복님, 이거 올려주세요"라는 메시지와 함께 `D:\AI\Temp_Manbok\` 폴더에 매일 전달합니다.
-
----
-
-## 🛡️ 3AI 외부 퍼블리싱(유튜브 등) 저작권 무결성 철칙
-3AI(만복, 코니, 안티)가 외부 플랫폼(유튜브 등)에 콘텐츠를 자동 생성 및 발행할 때는 다음 4대 철칙을 반드시 준수해야 합니다.
-1. **오리지널 소스만 사용**: 스크래핑한 타인의 영상/글은 절대 외부 발행용으로 재가공하지 않으며, 오직 3AI가 직접 작성한 '자체 개발 일지(AI Study)'만을 대본의 재료로 삼습니다.
-2. **상업적 API 사용**: TTS 등 외부 API 호출 시, 상업적 이용 및 유튜브 수익 창출이 공식 허가된 API(예: OpenAI TTS)만 사용합니다.
-3. **클린 시각 자료**: 화면에 들어가는 자료는 자체 대시보드 UI, VS Code, 터미널 화면 또는 저작권 프리(Royalty-Free) 이미지만 합성합니다.
-4. **저작권 프리 BGM**: 배경음악은 유튜브 오디오 라이브러리 등 저작권 문제가 없는 무료 음원만을 사용하도록 파이프라인을 제한합니다.
+## 🛡️ 외부 퍼블리싱 저작권 철칙
+1. **오리지널 소스만** — 타인 영상/글 재가공 금지, 3AI 자체 작성물만
+2. **상업적 TTS** — 구글 클라우드 TTS (Wavenet) 고정
+3. **클린 시각 자료** — 자체 UI / Royalty-Free / AI 생성만
+4. **저작권 프리 BGM** — 유튜브 오디오 라이브러리만
