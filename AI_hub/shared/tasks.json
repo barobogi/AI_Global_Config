@@ -321,6 +321,36 @@
       "설명": "2026-07-20 첫 가동 완료. 버그 수정: QUOTA 선착순→채널당 3개 제한(총 15개), 기술노트 채널 ID 수정(UCBtG00ljZ8R_DBQCTR4C00A), emoji 인코딩 에러 수정, processed dict/str 혼용 에러 수정. 만복 3건 STT 완료, 안티 3건 inbox 전달. master_watch 재시작 누락으로 18:00 자동 미발동 → CLAUDE.md 세션 시작 절차에 master_watch 체크 항목 추가 완료. 운영 중."
     },
     {
+      "id": "T_ticket_planner",
+      "title": "ticket_planner 스킬 — Matt Pocock GPS 자동 분해",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현 완료) / 만복 (최종 승인)",
+      "상태": "completed",
+      "완료일": "2026-07-20",
+      "설명": "Matt Pocock Grill+Spec+Tickets 방법론 구현. 코니 보강 2가지(역면접 기준 명확화, GPS 자동 검증 로직) 반영 완료. 바로보기님 도입 승인 + 만복 최종 승인. 게시판 카드 등록 예정."
+    },
+    {
+      "id": "T026_eval_pipeline",
+      "title": "AI 스킬 자동 Eval 파이프라인 — 매일 23:00 자동 테스트",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (첫 번째 Eval 보고)",
+      "상태": "pending",
+      "예정일": "이번 주 내",
+      "설명": "안티 뽀개기 1번(Eval #Shorts) 도출. 매일 23:00 등록된 모든 스킬 테스트 케이스 자동 실행 → 성공/실패 보고. 산출물: D:\\AI\\AI_hub\\shared\\eval_logs\\YYYYMMDD_eval_report.md. AGENTS.md 스킬 Eval 의무화 규정과 연동."
+    },
+    {
+      "id": "T028_hormozi_b",
+      "title": "T028 우리 맞춤형 4대 기준 아이디어 필터 (방안 B)",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (기준 검증)",
+      "상태": "pending",
+      "예정일": "이번 주 목~금",
+      "설명": "Hormozi 4대 기준을 3AI 맞춤형으로 재설계. EXPENSIVE → STRATEGIC(장기 전략 정렬), 가중치: FEASIBLE 45% / SUSTAINABLE 35% / UNIQUE 15% / STRATEGIC 5%. 극단값 플래그(1개 항목 30점 미만 경고) 포함. 방안B 채택(코니 권장)."
+    },
+    {
       "id": "T_ARCH_LOCK",
       "title": "4대 기본 원칙 아키텍처 Lock — Python 강제 방어벽",
       "뿌리": 23,
