@@ -316,9 +316,9 @@
       "뿌리": 25,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "pending",
-      "예정일": "2026-07-19~20",
-      "설명": "매일 18:00 RSS 폴링 → 제목 1차 필터링 → Deep 서치 6개 선택 → 만복 3건 자막 추출(Gemini STT) + 분석 → 안티 3건 inbox 전달 → 20:30 귀가 시 리뷰 준비 완료. 코니 Critical 3가지 수정 포함(API키 분리/예외처리/병렬화). 채널 6개 channels.json 등록 완료."
+      "상태": "in_progress",
+      "완료일": "",
+      "설명": "2026-07-20 첫 가동 완료. 버그 수정: QUOTA 선착순→채널당 3개 제한(총 15개), 기술노트 채널 ID 수정(UCBtG00ljZ8R_DBQCTR4C00A), emoji 인코딩 에러 수정, processed dict/str 혼용 에러 수정. 만복 3건 STT 완료, 안티 3건 inbox 전달. master_watch 재시작 누락으로 18:00 자동 미발동 → CLAUDE.md 세션 시작 절차에 master_watch 체크 항목 추가 완료. 운영 중."
     },
     {
       "id": "T_TG_TOPIC",
