@@ -149,7 +149,7 @@ def run_watcher():
                     all_known_ids.add(vid_id)
                     new_videos_found += 1
                     channel_count += 1
-                    print(f"  + 명작 발굴 추가: {vid['title']}")
+                    safe_print(f"  + 명작 발굴 추가: {vid['title']}")
                     
     save_json(QUEUE_FILE, queue)
     print(f"총 {new_videos_found}개의 영상을 뽀개기 큐에 등록했습니다.")
