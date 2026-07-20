@@ -49,7 +49,9 @@
 ---
 
 ## 🔒 3AI Lock Check Rule
+
 파일 수정 전 `D:\AI\AI_hub\status\project_locks.json` 확인 필수.
+
 - 타 AI Lock 걸려 있으면 수정 금지
 - `_ai_workspace` = 초안/테스트 전용
 - **AI_hub 전담 관리자 = 만복** (타 AI 변경 시 만복 승인 필수)
@@ -57,12 +59,14 @@
 ---
 
 ## 📢 AI 일일 성과 공유
+
 - **만복**: 직접 게시판 업로드
 - **안티**: 초안 작성 → `D:\AI\Temp_Manbok\`에 전달
 
 ---
 
 ## 🛡️ 외부 퍼블리싱 저작권 철칙
+
 1. **오리지널 소스만** — 타인 영상/글 재가공 금지, 3AI 자체 작성물만
 2. **상업적 TTS** — 구글 클라우드 TTS (Wavenet) 고정
 3. **클린 시각 자료** — 자체 UI / Royalty-Free / AI 생성만
