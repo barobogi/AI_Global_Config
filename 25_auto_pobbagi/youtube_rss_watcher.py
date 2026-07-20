@@ -7,7 +7,8 @@ from datetime import datetime
 
 QUEUE_FILE = r"D:\AI\25_auto_pobbagi\youtube_queue.json"
 CHANNELS_FILE = r"D:\AI\25_auto_pobbagi\channels.json"
-QUOTA = 6 # 일일 할당량
+QUOTA = 15       # 일일 총 할당량
+PER_CHANNEL = 3  # 채널당 최대 등록 수
 
 DEFAULT_CHANNELS = {
     "UCd1-XlZkK5D8ZgUvXqH-r2A": "기술노트 with 알렉",
@@ -99,42 +100,46 @@ def run_watcher():
     
     new_videos_found = 0
     
-    # 1차: RSS로 신작 수집
+    # 1차: RSS로 신작 수집 (채널당 최대 PER_CHANNEL개)
     for channel_id, channel_name in channels.items():
         if new_videos_found >= QUOTA:
             break
-            
+
         print(f"[{channel_name}] 신규 영상 감지 중...")
         xml_data = fetch_channel_rss(channel_id)
         videos = parse_rss_for_videos(xml_data)
-        
+
+        channel_count = 0
         for vid in videos:
             vid_id = vid["video_id"]
-            if vid_id not in all_known_ids and new_videos_found < QUOTA:
+            if vid_id not in all_known_ids and new_videos_found < QUOTA and channel_count < PER_CHANNEL:
                 vid["channel_name"] = channel_name
                 vid["status"] = "pending"
                 queue["pending"].append(vid)
                 all_known_ids.add(vid_id)
                 new_videos_found += 1
+                channel_count += 1
                 print(f"  + 신규 영상 추가: {vid['title']}")
 
-    # 2차: 할당량 미달 시 Fallback (과거 명작)
+    # 2차: 할당량 미달 시 Fallback (채널당 PER_CHANNEL 이내)
     if new_videos_found < QUOTA:
         print(f"할당량({QUOTA}개) 미달. 과거 명작 발굴(Fallback)을 시작합니다...")
         for channel_id, channel_name in channels.items():
             if new_videos_found >= QUOTA:
                 break
-                
+
             fallback_videos = fetch_fallback_videos(channel_id)
+            channel_count = 0
             for vid in fallback_videos:
                 vid_id = vid["video_id"]
-                if vid_id not in all_known_ids and new_videos_found < QUOTA:
+                if vid_id not in all_known_ids and new_videos_found < QUOTA and channel_count < PER_CHANNEL:
                     vid["channel_name"] = channel_name
                     vid["status"] = "pending"
                     vid["fallback"] = True
                     queue["pending"].append(vid)
                     all_known_ids.add(vid_id)
                     new_videos_found += 1
+                    channel_count += 1
                     print(f"  + 명작 발굴 추가: {vid['title']}")
                     
     save_json(QUEUE_FILE, queue)
