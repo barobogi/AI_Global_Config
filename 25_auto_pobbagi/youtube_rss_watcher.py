@@ -90,7 +90,7 @@ def safe_print(msg):
     try:
         print(msg)
     except UnicodeEncodeError:
-        print(msg.encode('utf-8', errors='replace').decode('ascii', errors='replace'))
+        print(msg.encode('cp949', errors='replace').decode('cp949'))
 
 def run_watcher():
     print(f"=== 유튜브 RSS 자동 감시 시작 ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')}) ===")
