@@ -52,5 +52,16 @@
       "url": "https://www.youtube.com/watch?v=9Y-PSemx3gM",
       "ts": "2026-07-19T11:13:16.648354"
     }
+  },
+  "s02_vertical": {
+    "stages": {
+      "1": {
+        "ai": "안티",
+        "ok": true,
+        "note": "해상도, 길이, 텍스트 Safe Zone 모두 자동검증 통과",
+        "ts": "2026-07-21T20:40:04.359448"
+      }
+    },
+    "created_at": "2026-07-21T20:40:04.359448"
   }
 }

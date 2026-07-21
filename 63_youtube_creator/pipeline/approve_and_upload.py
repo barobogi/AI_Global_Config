@@ -6,6 +6,9 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 sys.path.insert(0, str(Path(__file__).parent))
 from youtube_uploader import upload_video
 
