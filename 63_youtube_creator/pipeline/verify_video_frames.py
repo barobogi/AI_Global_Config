@@ -3,6 +3,9 @@ import numpy as np
 import sys
 import os
 
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 SAFE_ZONE_PERCENT = 0.05  # 하단 5%를 Safe Zone으로 설정
 
 def check_video_text_overflow(video_path):
