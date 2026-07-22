@@ -1,12 +1,6 @@
 {
     "pending": [
         {
-            "video_id": "WND3xGqmDqM",
-            "title": "유료 결제 그만하세요, 진짜 무료인 AI 영상 툴 3개 공개",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
             "video_id": "0Tc-_eLnF3w",
             "title": "와... 프롬프트 한 줄로 앱 만들면 1억 준다고? (초보도 참가 가능)",
             "channel_name": "호두의 AI 분석실",
@@ -16,12 +10,6 @@
             "video_id": "2EQz5Gly1Wk",
             "title": "AI 영상은 이걸로 종결합니다",
             "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "VZspR44yc7c",
-            "title": "아무거나 시작하지 마세요. 완벽한 사업 아이템 고르는 법 5가지, 3000억 부자 알렉스 홀모지",
-            "channel_name": "동기부여학파",
             "status": "pending"
         },
         {
@@ -37,33 +25,9 @@
             "status": "pending"
         },
         {
-            "video_id": "iDLi-WhtLGQ",
-            "title": "[한영자막] 클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 | Thariq Shihipar",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "i6x4n4sfxC0",
-            "title": "다들 스킬은 쓰는데 왜 Eval은 없을까 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
             "video_id": "t6pOjXbxPTE",
             "title": "Matt Pocock 스킬 전체 플로우 배우기 #Shorts",
             "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "eFOTQpbGcy8",
-            "title": "The $200K AI Job That Didn't Exist Last Year",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "zyvdl__Ywfk",
-            "title": "Claude Code + Clay Makes Lead Generation Actually Fun",
-            "channel_name": "Nate Herk | AI Automation",
             "status": "pending"
         },
         {
@@ -118,6 +82,42 @@
             "channel_name": "기타 채널",
             "status": "failed",
             "added_at": "2026-07-19T10:20:00"
+        },
+        {
+            "video_id": "WND3xGqmDqM",
+            "title": "유료 결제 그만하세요, 진짜 무료인 AI 영상 툴 3개 공개",
+            "channel_name": "호두의 AI 분석실",
+            "status": "pending"
+        },
+        {
+            "video_id": "VZspR44yc7c",
+            "title": "아무거나 시작하지 마세요. 완벽한 사업 아이템 고르는 법 5가지, 3000억 부자 알렉스 홀모지",
+            "channel_name": "동기부여학파",
+            "status": "pending"
+        },
+        {
+            "video_id": "iDLi-WhtLGQ",
+            "title": "[한영자막] 클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 | Thariq Shihipar",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "i6x4n4sfxC0",
+            "title": "다들 스킬은 쓰는데 왜 Eval은 없을까 #Shorts",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "eFOTQpbGcy8",
+            "title": "The $200K AI Job That Didn't Exist Last Year",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending"
+        },
+        {
+            "video_id": "zyvdl__Ywfk",
+            "title": "Claude Code + Clay Makes Lead Generation Actually Fun",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending"
         }
     ]
 }
