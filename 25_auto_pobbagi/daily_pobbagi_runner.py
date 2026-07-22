@@ -122,7 +122,15 @@ def phase_2_execute_selection(selection_data):
         item = pending.get(vid_id, {"title": f"Unknown_{vid_id}", "video_id": vid_id})
         title = item["title"]
         md_path = os.path.join(MESSAGES_DIR, f"만복→안티_{date_compact}_뽀개기{idx}번_지시.md")
-        content = f"---\nstatus: unread\n---\n\n# [지시] 뽀개기 자동 할당 {idx}번\n\n**발신:** 만복 (자동화 파이프라인)\n**수신:** 안티\n\n**영상 제목:** {title}\n**URL:** https://youtu.be/{vid_id}\n\n안티야, 이 영상 자막 추출하고 Deep 서치 돌려서 기획안 뽑아줘!"
+        content = (
+            f"---\nstatus: unread\n---\n\n"
+            f"# [지시] 뽀개기 자동 할당 {idx}번\n\n"
+            f"**발신:** 만복 (자동화 파이프라인)\n**수신:** 안티\n\n"
+            f"**영상 제목:** {title}\n**URL:** https://youtu.be/{vid_id}\n\n"
+            f"## G (Goal)\n이 영상을 분석해 기술노트 뽀개기 8단계 프로세스(자막 추출→Deep 서치→저작권 확인)에 따라 기획안을 도출한다.\n\n"
+            f"## P (Proof)\n자막 텍스트 파일 + Deep 서치 결과 + 뿌리체계 편입 의견이 담긴 기획안 3종 세트가 만복에게 인계된다.\n\n"
+            f"## S (Steps)\n1. yt-dlp로 자막 추출 (`transcripts/` 저장)\n2. `parallel_search.py`로 관련 사례/최신 정보 Deep 서치\n3. 저작권/출처 확인 (스터디 목적, 재가공 채널 발행 금지)\n4. 기획안 작성 후 코니 1차 검토 요청 → 만복 인계"
+        )
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(content)
         c.execute("INSERT OR REPLACE INTO pobbagi_history (video_id, title, pobbagi_date, assignee, status) VALUES (?, ?, ?, ?, ?)",
