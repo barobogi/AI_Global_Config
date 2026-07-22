@@ -131,8 +131,22 @@ def phase_2_execute_selection(selection_data):
     conn.commit()
     conn.close()
     
+    # Update queue
+    processed_ids = set(manbok_ids + anti_ids)
+    new_pending = []
+    for item in queue.get("pending", []):
+        if item["video_id"] in processed_ids:
+            queue.setdefault("processed", []).append(item)
+        else:
+            new_pending.append(item)
+    queue["pending"] = new_pending
+    with open(QUEUE_FILE, "w", encoding="utf-8") as f:
+        json.dump(queue, f, ensure_ascii=False, indent=4)
+    
     # Cleanup selection file
     try:
+        if os.path.exists(SELECTION_FILE + f".{date_compact}.bak"):
+            os.remove(SELECTION_FILE + f".{date_compact}.bak")
         os.rename(SELECTION_FILE, SELECTION_FILE + f".{date_compact}.bak")
     except Exception as e:
         print(f"선택 파일 백업 실패: {e}")
@@ -144,13 +158,16 @@ def run_daily_pobbagi():
     init_db()
     
     if os.path.exists(SELECTION_FILE):
+        selection_data = None
         with open(SELECTION_FILE, "r", encoding="utf-8") as f:
             try:
                 selection_data = json.load(f)
-                phase_2_execute_selection(selection_data)
-                print("=== 파이프라인 완료 (Phase 2) ===")
             except json.JSONDecodeError:
                 print("선택 파일 형식이 잘못되었습니다.")
+                
+        if selection_data:
+            phase_2_execute_selection(selection_data)
+            print("=== 파이프라인 완료 (Phase 2) ===")
     else:
         phase_1_generate_candidates()
         print("=== 파이프라인 완료 (Phase 1: 만복 선택 대기중) ===")
