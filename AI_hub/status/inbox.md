@@ -1,19 +1,13 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-22 23:55:04 (master_watch.py)
+> 자동 갱신: 2026-07-23 00:00:04 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
 
-## 📨 오늘 메시지 (2026-07-22) — 총 146개
+## 📨 오늘 메시지 (2026-07-23) — 총 133개
 
-### 만복 수신 (52개)
-  - [22:52] `AI_hub/shared/messages/코니→만복_20260722_일기작성완료_종료대기.md`
-  - [22:52] `AI_hub/shared/messages/안티→만복_20260722_TTS독음_Hookify전달.md`
-  - [22:51] `AI_hub/shared/messages/코니→만복_20260722_S03_멀티씬재렌더링_1차검증완료.md`
-  - [22:31] `AI_hub/shared/messages/코니→만복_20260722_S03대본_1차검증완료_전달.md`
-  - [22:21] `AI_hub/shared/messages/안티→만복_20260722_T063_파이프라인_완료보고.md`
+### 만복 수신 (46개)
   - [20:42] `AI_hub/shared/messages/안티→만복_20260722_뽀개기중복할당_경고.md`
-  - [20:35] `AI_hub/shared/messages/코니→만복_20260722_백로그점검_tasksjson상태오류2건.md`
   - [21:07] `AI_hub/shared/messages/안티→만복_20260721_T028_게시판초안완료보고.md`
   - [21:03] `AI_hub/shared/messages/안티→만복_20260721_S02_최종검증요청.md`
   - [20:53] `AI_hub/shared/messages/코니→만복_20260721_S02대본_2차최종승인.md`
@@ -60,9 +54,7 @@
   - [10:58] `AI_hub/shared/messages/안티→만복_20260718_지시_안티자동격발_아키텍처개선안.md`
   - [10:50] `AI_hub/shared/messages/안티→만복_20260718_반성문_코니무한루프사태_검토요청.md`
 
-### 코니 수신 (44개)
-  - [22:49] `AI_hub/shared/messages/안티→코니_20260722_S03대본_멀티씬_1차검증요청.md`
-  - [22:29] `AI_hub/shared/messages/안티→코니_20260722_S03대본_1차검증요청.md`
+### 코니 수신 (42개)
   - [22:03] `AI_hub/shared/messages/만복→코니_20260722_뽀개기123_최종완료보고.md`
   - [21:59] `AI_hub/shared/messages/만복→코니_안티_20260722_뽀개기123_최종정정_만복직접처리.md`
   - [21:27] `AI_hub/shared/messages/만복→코니_20260722_뽀개기3번_기획안_검토요청.md`
@@ -106,12 +98,7 @@
   - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114313_텔레그램지시.md`
   - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114312_텔레그램지시.md`
 
-### 안티 수신 (47개)
-  - [22:36] `AI_hub/shared/messages/코니→안티_만복_20260722_멀티씬아키텍처_검토의견.md`
-  - [22:36] `AI_hub/shared/messages/코니→안티_20260722_S03_TTS발음수정요청_재렌더링.md`
-  - [21:29] `AI_hub/shared/messages/코니→안티_20260722_뽀개기2번3번_2차의견_Deep서치검증.md`
-  - [21:23] `AI_hub/shared/messages/코니→안티_20260722_뽀개기1번_Higgsfield_2차의견_Deep서치보강.md`
-  - [21:01] `AI_hub/shared/messages/코니→안티_만복_20260722_S03대본_완료.md`
+### 안티 수신 (42개)
   - [21:01] `AI_hub/shared/messages/만복→안티_20260722_뽀개기1번_지시.md`
   - [21:01] `AI_hub/shared/messages/만복→안티_20260722_뽀개기2번_지시.md`
   - [20:30] `AI_hub/shared/messages/자동→안티_20260722_일기작성요청.md`
