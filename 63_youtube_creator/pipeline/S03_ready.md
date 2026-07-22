@@ -6,9 +6,9 @@
 [Narration]
 최근 화제인 Genspark, 여러 검색을 동시에 돌려서 속도를 냅니다. 그런데 유료 API가 필요하죠.
 
-[Prompt] A futuristic computer terminal screen showing scrolling code logs, parallel_search.py, glowing mint green text on dark background, hacker aesthetic, highly detailed
+[Prompt] A futuristic computer terminal screen showing scrolling code logs, parallel_search, glowing mint green text on dark background, hacker aesthetic, highly detailed
 [Narration]
-3AI는 무료 검색 API로 같은 병렬 처리를 구현했습니다. 패러렐 서치 파이썬 코드, 비용은 0원입니다.
+3AI는 무료 검색 API로 같은 병렬 처리를 구현했습니다. 패러렐 서치, 비용은 0원입니다.
 
 [Prompt] A glowing digital counter rapidly increasing from 0 to 1.27 seconds, neon mint numbers, cyberpunk style, hyper realistic, 8k
 [Narration]
