@@ -16,9 +16,12 @@ import pyautogui
 import pyperclip
 
 # --- 설정값 (사용자 모니터 환경에 맞춘 좌표) ---
-# 프롬프트 입력창 중심 좌표 (듀얼 모니터 우측)
-PROMPT_X = 3028
-PROMPT_Y = 801
+# 프롬프트 입력창 중심 좌표
+PROMPT_X = 2391
+PROMPT_Y = 946
+
+# 렌더링 결과 이미지 영역 좌표 (Left, Top, Width, Height)
+IMAGE_REGION = (958, 459, 411, 220)
 
 WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_size_t, ctypes.c_size_t)
 
@@ -88,16 +91,16 @@ def generate_video_via_roboneo(prompt: str, output_path: str):
     
     # 6. 결과 캡처 (우선은 이미지 파일 다운로드를 캡처로 대체)
     # 실제로는 완성된 영상을 우클릭-저장하거나 위치를 캡처해야 함
-    print(f"[4/4] 렌더링 완료. 결과물 임시 캡처: {output_path}")
+    print(f"[4/4] 렌더링 완료. 결과물 화면 캡처 중: {output_path}")
     out_dir = os.path.dirname(output_path)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
     
-    # 임시 목업(Mock) 파일 생성 (실제 파일 다운로드는 다음 이터레이션에서 정교화)
-    with open(output_path, 'wb') as f:
-        f.write(b"mock_video_data_from_roboneo_pyautogui")
+    # 꼼수 대신 진짜 이미지 캡처 (Pillow/PyAutoGUI)
+    img = pyautogui.screenshot(region=IMAGE_REGION)
+    img.save(output_path)
         
-    print("[RoboNeo Auto] 파이프라인 실행 완료!")
+    print("[RoboNeo Auto] 파이프라인(스크린샷 방식) 실행 완료!")
     return True
 
 if __name__ == "__main__":
