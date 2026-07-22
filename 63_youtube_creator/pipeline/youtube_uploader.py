@@ -50,12 +50,12 @@ def get_authenticated_service():
     return build("youtube", "v3", credentials=creds)
 
 
-def upload_video(video_path, title, description, tags=None):
+def upload_video(video_path, title, description, tags=None, privacy_status="unlisted"):
     """
     YouTube에 영상 업로드
-    - 만복 승인 후에만 호출됨
+    - 기본적으로 'unlisted'로 업로드하며, 이후 스케줄러가 'public'으로 전환
     """
-    print(f"[Uploader] YouTube 업로드 시작: {title}")
+    print(f"[Uploader] YouTube 업로드 시작: {title} (상태: {privacy_status})")
 
     youtube = get_authenticated_service()
 
@@ -68,7 +68,7 @@ def upload_video(video_path, title, description, tags=None):
             "defaultLanguage": "ko",
         },
         "status": {
-            "privacyStatus": "public",   # 3AI 3단계 승인 완료 시 자동 공개
+            "privacyStatus": privacy_status,
             "selfDeclaredMadeForKids": False,
         },
     }
@@ -91,9 +91,38 @@ def upload_video(video_path, title, description, tags=None):
     video_url = f"https://www.youtube.com/watch?v={video_id}"
     print(f"[Uploader] 업로드 완료! URL: {video_url}")
 
+    # Queue 업데이트
+    queue_file = os.path.join(os.path.dirname(__file__), "publish_queue.json")
+    queue_data = {"pending_shorts": [], "pending_full": [], "published": []}
+    if os.path.exists(queue_file):
+        try:
+            with open(queue_file, "r", encoding="utf-8") as f:
+                queue_data = json.load(f)
+        except Exception:
+            pass
+
+    video_type = "shorts" if "#Shorts" in title else "full"
+    video_entry = {
+        "video_id": video_id,
+        "title": title,
+        "type": video_type,
+        "status": privacy_status,
+        "uploaded_at": __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    
+    if video_type == "shorts":
+        queue_data.setdefault("pending_shorts", []).append(video_entry)
+    else:
+        queue_data.setdefault("pending_full", []).append(video_entry)
+        
+    with open(queue_file, "w", encoding="utf-8") as f:
+        json.dump(queue_data, f, ensure_ascii=False, indent=4)
+
     _send_telegram(
-        f"📱 <b>유튜브 업로드 완료</b>\n"
+        f"📱 <b>유튜브 업로드 완료 (대기열 등록)</b>\n"
         f"제목: {title}\n"
+        f"상태: {privacy_status}\n"
+        f"타입: {video_type}\n"
         f"링크: {video_url}"
     )
 
