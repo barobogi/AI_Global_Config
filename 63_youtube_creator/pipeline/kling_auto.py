@@ -15,7 +15,7 @@ async def generate_scene_image(prompt_text, output_path):
     """
     print(f"\n========== Kling AI 이미지 생성 (Playwright) ==========")
     output_dir = os.path.dirname(output_path)
-    os.makedirs(output_dir, exist_ok=True)
+    if output_dir: os.makedirs(output_dir, exist_ok=True)
 
     if not os.path.exists(COOKIE_PATH):
         print(f"  - [오류] 인증 쿠키가 없습니다: {COOKIE_PATH}")
