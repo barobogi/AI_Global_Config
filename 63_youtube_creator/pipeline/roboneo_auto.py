@@ -89,7 +89,9 @@ def generate_video_via_roboneo(prompt: str, output_path: str):
     # 6. 결과 캡처 (우선은 이미지 파일 다운로드를 캡처로 대체)
     # 실제로는 완성된 영상을 우클릭-저장하거나 위치를 캡처해야 함
     print(f"[4/4] 렌더링 완료. 결과물 임시 캡처: {output_path}")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    out_dir = os.path.dirname(output_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     
     # 임시 목업(Mock) 파일 생성 (실제 파일 다운로드는 다음 이터레이션에서 정교화)
     with open(output_path, 'wb') as f:
