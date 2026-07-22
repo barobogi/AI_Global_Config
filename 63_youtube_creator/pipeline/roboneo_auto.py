@@ -15,10 +15,12 @@ import ctypes
 import pyautogui
 import pyperclip
 
+import webbrowser
+
 # --- 설정값 (사용자 모니터 환경에 맞춘 좌표) ---
-# 프롬프트 입력창 중심 좌표
-PROMPT_X = 2391
-PROMPT_Y = 946
+# 프롬프트 입력창 중심 좌표 (Home 화면 기준)
+PROMPT_X = 725
+PROMPT_Y = 401
 
 # 렌더링 결과 이미지 영역 좌표 (Left, Top, Width, Height)
 IMAGE_REGION = (958, 459, 411, 220)
@@ -58,23 +60,26 @@ def focus_browser():
 
 def generate_video_via_roboneo(prompt: str, output_path: str):
     print("=" * 50)
-    print(f"[RoboNeo Auto] 이미지 생성 시작 (v0.3 PyAutoGUI)")
+    print(f"[RoboNeo Auto] 이미지 생성 시작 (v0.4 PyAutoGUI - 완전 자동화)")
     print(f"프롬프트: {prompt}")
     print("=" * 50)
     
-    # 1. 브라우저 창 최상단으로 끌어올리기
-    focus_browser()
+    # 1. 브라우저 탭 강제 열기 (어느 화면에 있든 Home으로 초기화)
+    print("[1/5] 로보네오 홈 화면 강제 진입...")
+    webbrowser.open("https://roboneo.com/home")
+    time.sleep(5)  # 페이지 로딩 대기
     
-    # 2. 안전 대기
+    # 2. 브라우저 창 포커스 (webbrowser가 띄웠지만 혹시 몰라 포커스 한 번 더)
+    focus_browser()
     time.sleep(1)
     
     # 3. 프롬프트 입력창 클릭
-    print(f"[1/4] 입력창 클릭 (X:{PROMPT_X}, Y:{PROMPT_Y})...")
+    print(f"[2/5] 입력창 클릭 (X:{PROMPT_X}, Y:{PROMPT_Y})...")
     pyautogui.click(PROMPT_X, PROMPT_Y)
     time.sleep(0.5)
     
     # 4. 전체 선택 후 새 프롬프트 붙여넣기
-    print("[2/4] 프롬프트 텍스트 붙여넣기 및 엔터 전송...")
+    print("[3/5] 프롬프트 텍스트 붙여넣기 및 엔터 전송...")
     pyautogui.hotkey("ctrl", "a")
     time.sleep(0.2)
     pyperclip.copy(prompt)
@@ -86,12 +91,11 @@ def generate_video_via_roboneo(prompt: str, output_path: str):
     time.sleep(1)
     
     # 5. 렌더링 대기
-    print("[3/4] 렌더링 대기 중 (약 30초)....")
-    time.sleep(30)
+    print("[4/5] 렌더링 대기 중 (약 35초)....")
+    time.sleep(35)
     
-    # 6. 결과 캡처 (우선은 이미지 파일 다운로드를 캡처로 대체)
-    # 실제로는 완성된 영상을 우클릭-저장하거나 위치를 캡처해야 함
-    print(f"[4/4] 렌더링 완료. 결과물 화면 캡처 중: {output_path}")
+    # 6. 결과 캡처
+    print(f"[5/5] 렌더링 완료. 결과물 화면 캡처 중: {output_path}")
     out_dir = os.path.dirname(output_path)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -99,6 +103,10 @@ def generate_video_via_roboneo(prompt: str, output_path: str):
     # 꼼수 대신 진짜 이미지 캡처 (Pillow/PyAutoGUI)
     img = pyautogui.screenshot(region=IMAGE_REGION)
     img.save(output_path)
+    
+    # 7. 탭 닫기 (다음 렌더링 시 탭이 무한 증식하는 것 방지)
+    print("[RoboNeo Auto] 완료 후 브라우저 탭 닫기(Ctrl+W)...")
+    pyautogui.hotkey('ctrl', 'w')
         
     print("[RoboNeo Auto] 파이프라인(스크린샷 방식) 실행 완료!")
     return True
