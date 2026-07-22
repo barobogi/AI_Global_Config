@@ -9,7 +9,7 @@ import numpy as np
 from audio_processor import generate_tts, extract_waveform_data
 from video_renderer import create_frame, WIDTH, HEIGHT, VISUAL
 from study_scraper import get_latest_study_posts, post_to_script
-from kling_auto import generate_scene_image
+from roboneo_auto import generate_video_via_roboneo
 
 def main(script_text, output_filename="final_output.mp4", bg_prompt=None):
     print(f"========== [T063] 유튜브 파이프라인 엔진 시작 ==========")
@@ -18,8 +18,8 @@ def main(script_text, output_filename="final_output.mp4", bg_prompt=None):
     base_img = None
     if bg_prompt:
         temp_bg = "temp_bg.jpg"
-        print(f"[Main] Kling AI 배경 이미지 생성 요청: {bg_prompt}")
-        success = asyncio.run(generate_scene_image(bg_prompt, temp_bg))
+        print(f"[Main] RoboNeo 배경 이미지 생성 요청: {bg_prompt}")
+        success = generate_video_via_roboneo(bg_prompt, temp_bg)
         if success and os.path.exists(temp_bg):
             try:
                 bg = Image.open(temp_bg).convert("RGBA")

@@ -133,6 +133,16 @@ def phase_2_execute_selection(selection_data):
         )
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(content)
+
+        gps_check = subprocess.run(
+            ["python", os.path.join(r"D:\AI\Global_Define", "gps_check.py"), md_path],
+            capture_output=True, text=True
+        )
+        if gps_check.returncode != 0:
+            print(f"⚠️ GPS 검증 실패 — 지시서 발송 보류: {md_path}\n{gps_check.stdout}")
+            os.rename(md_path, md_path + ".gps_rejected")
+            continue
+
         c.execute("INSERT OR REPLACE INTO pobbagi_history (video_id, title, pobbagi_date, assignee, status) VALUES (?, ?, ?, ?, ?)",
                   (vid_id, title, date_str, "anti", "pending"))
 
