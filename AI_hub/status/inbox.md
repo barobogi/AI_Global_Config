@@ -1,5 +1,5 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-22 20:59:13 (master_watch.py)
+> 자동 갱신: 2026-07-22 21:01:25 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
@@ -95,9 +95,9 @@
   - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114312_텔레그램지시.md`
 
 ### 안티 수신 (43개)
+  - [21:01] `AI_hub/shared/messages/만복→안티_20260722_뽀개기1번_지시.md`
+  - [21:01] `AI_hub/shared/messages/만복→안티_20260722_뽀개기2번_지시.md`
   - [20:30] `AI_hub/shared/messages/자동→안티_20260722_일기작성요청.md`
-  - [18:04] `AI_hub/shared/messages/만복→안티_20260722_뽀개기1번_지시.md`
-  - [18:04] `AI_hub/shared/messages/만복→안티_20260722_뽀개기2번_지시.md`
   - [18:04] `AI_hub/shared/messages/만복→안티_20260722_뽀개기3번_지시.md`
   - [20:57] `AI_hub/shared/messages/만복→안티_20260721_S02_재작업지시.md`
   - [20:51] `AI_hub/shared/messages/만복→안티_20260721_T028_게시판초안요청.md`
