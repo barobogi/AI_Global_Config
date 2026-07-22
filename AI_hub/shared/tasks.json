@@ -276,9 +276,9 @@
                       "뿌리":  63,
                       "기간":  "단기",
                       "담당":  "안티 (구현) / 만복 (검수)",
-                      "상태":  "pending",
-                      "예정일":  "2026-07-18",
-                      "설명":  "방향 전환(2026-07-17): BytePlus → Kling AI 무료 플랜 Playwright 자동화. BytePlus는 카드 등록 없이 모델 활성화 불가 확인. Kling AI로 이미지/영상 생성 → 로컬 저장. T063 배경영상·썸네일 자동화 통합 목표. byteplus_auto.py 기반 코드 재활용."
+                      "상태":  "completed",
+                      "완료일":  "2026-07-18",
+                      "설명":  "방향 전환(2026-07-17): BytePlus → Kling AI 무료 플랜 Playwright 자동화. BytePlus는 카드 등록 없이 모델 활성화 불가 확인. Kling AI로 이미지/영상 생성 → 로컬 저장. T063 배경영상·썸네일 자동화 통합 목표. byteplus_auto.py 기반 코드 재활용. kling_auto.py 완성+검증(kling_test.jpg) 완료(2026-07-18 17:19). 단, 이후 EP.01 30장 대량 생성 적용 중 Kling UI 영어개편+DOM구조 변경으로 자동화 붕괴(ARR Autonomous 기준 미달) → 로보네오(RoboNeo) 우회 파이프라인으로 전환(2026-07-20, roboneo_auto.py v0.1)."
                   },
                   {
                       "id":  "T034",
