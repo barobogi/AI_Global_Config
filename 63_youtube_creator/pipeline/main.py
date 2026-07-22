@@ -1,5 +1,7 @@
 import os
 import json
+import asyncio
+from PIL import Image, ImageDraw
 from moviepy import AudioFileClip, ImageSequenceClip
 import numpy as np
 
@@ -7,10 +9,43 @@ import numpy as np
 from audio_processor import generate_tts, extract_waveform_data
 from video_renderer import create_frame, WIDTH, HEIGHT, VISUAL
 from study_scraper import get_latest_study_posts, post_to_script
+from kling_auto import generate_scene_image
 
-def main(script_text, output_filename="final_output.mp4"):
+def main(script_text, output_filename="final_output.mp4", bg_prompt=None):
     print(f"========== [T063] 유튜브 파이프라인 엔진 시작 ==========")
     
+    # 0. 배경 이미지 생성 (Kling AI) 및 전처리 캐싱
+    base_img = None
+    if bg_prompt:
+        temp_bg = "temp_bg.jpg"
+        print(f"[Main] Kling AI 배경 이미지 생성 요청: {bg_prompt}")
+        success = asyncio.run(generate_scene_image(bg_prompt, temp_bg))
+        if success and os.path.exists(temp_bg):
+            try:
+                bg = Image.open(temp_bg).convert("RGBA")
+                # 종횡비 유지하면서 꽉 차게 리사이즈 및 크롭 (Center Crop)
+                bg_ratio = bg.width / bg.height
+                target_ratio = WIDTH / HEIGHT
+                if bg_ratio > target_ratio:
+                    new_w = int(bg.height * target_ratio)
+                    offset = (bg.width - new_w) // 2
+                    bg = bg.crop((offset, 0, offset + new_w, bg.height))
+                else:
+                    new_h = int(bg.width / target_ratio)
+                    offset = (bg.height - new_h) // 2
+                    bg = bg.crop((0, offset, bg.width, offset + new_h))
+                bg = bg.resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+                
+                # 가독성을 위한 Dimming (검은색 60% 반투명 레이어)
+                overlay = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, int(255 * 0.6)))
+                base_img = Image.alpha_composite(bg, overlay).convert("RGB")
+                print("[Main] 배경 이미지 전처리(Dimming) 및 캐싱 완료.")
+            except Exception as e:
+                print(f"[Main] 배경 이미지 전처리 실패: {e}")
+                base_img = None
+        else:
+            print("[Main] 배경 이미지 생성 실패. 단색 배경으로 진행합니다.")
+            
     # 1. 오디오 처리 (TTS 생성 및 웨이브폼 추출)
     temp_audio = "temp_audio.mp3"
     generate_tts(script_text, temp_audio)
@@ -49,7 +84,7 @@ def main(script_text, output_filename="final_output.mp4"):
             pad_start = (window_size - slice_len) // 2
             current_wave[pad_start:pad_start+slice_len] = wave_data[start_idx:end_idx]
             
-        frame_img = create_frame(script_text, current_wave, i, total_frames)
+        frame_img = create_frame(script_text, current_wave, i, total_frames, base_img=base_img)
         frames.append(frame_img)
         
     print("[Main] 프레임 렌더링 완료. 영상 합성(Encoding) 시작...")

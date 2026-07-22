@@ -52,10 +52,13 @@ def draw_waveform(draw, wave_data, accent_color, width, height):
         
         draw.rectangle([x1, y1, x2, y2], fill=accent_color)
 
-def create_frame(text, wave_data, frame_index, total_frames):
+def create_frame(text, wave_data, frame_index, total_frames, base_img=None):
     """Pillow를 사용하여 단일 프레임 이미지 객체 생성"""
-    # 1. 배경 생성 (코니 설정색)
-    img = Image.new('RGB', (WIDTH, HEIGHT), color=VISUAL["bg_color"])
+    # 1. 배경 설정
+    if base_img is not None:
+        img = base_img.copy()
+    else:
+        img = Image.new('RGB', (WIDTH, HEIGHT), color=VISUAL["bg_color"])
     draw = ImageDraw.Draw(img)
     
     # 2. 텍스트 타이핑 이펙트 처리 (프레임 진행도에 따라 글씨가 나타남)

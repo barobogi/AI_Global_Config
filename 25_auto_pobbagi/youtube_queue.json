@@ -1,39 +1,9 @@
 {
     "pending": [
         {
-            "video_id": "0Tc-_eLnF3w",
-            "title": "와... 프롬프트 한 줄로 앱 만들면 1억 준다고? (초보도 참가 가능)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "2EQz5Gly1Wk",
-            "title": "AI 영상은 이걸로 종결합니다",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
             "video_id": "p0m7pcqdaGk",
             "title": "삼성전자·하이닉스 하락, 지금 사야 할까? 워렌 버핏의 투자 조언",
             "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "z8k3kjqisK8",
-            "title": "해외판 당근마켓으로 월 3,300만원 버는 대학생",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "t6pOjXbxPTE",
-            "title": "Matt Pocock 스킬 전체 플로우 배우기 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "4fKn9O-YhtI",
-            "title": "OpenArt Director: The New Way to Make AI Videos",
-            "channel_name": "Nate Herk | AI Automation",
             "status": "pending"
         },
         {
@@ -118,6 +88,46 @@
             "title": "Claude Code + Clay Makes Lead Generation Actually Fun",
             "channel_name": "Nate Herk | AI Automation",
             "status": "pending"
+        },
+        {
+            "video_id": "0Tc-_eLnF3w",
+            "title": "와... 프롬프트 한 줄로 앱 만들면 1억 준다고? (초보도 참가 가능)",
+            "channel_name": "호두의 AI 분석실",
+            "status": "assigned",
+            "assigned_to": "만복",
+            "assigned_at": "2026-07-22T20:58:00"
+        },
+        {
+            "video_id": "2EQz5Gly1Wk",
+            "title": "AI 영상은 이걸로 종결합니다",
+            "channel_name": "호두의 AI 분석실",
+            "status": "assigned",
+            "assigned_to": "만복",
+            "assigned_at": "2026-07-22T20:58:00"
+        },
+        {
+            "video_id": "z8k3kjqisK8",
+            "title": "해외판 당근마켓으로 월 3,300만원 버는 대학생",
+            "channel_name": "동기부여학파",
+            "status": "assigned",
+            "assigned_to": "만복",
+            "assigned_at": "2026-07-22T20:58:00"
+        },
+        {
+            "video_id": "4fKn9O-YhtI",
+            "title": "OpenArt Director: The New Way to Make AI Videos",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "assigned",
+            "assigned_to": "안티",
+            "assigned_at": "2026-07-22T20:58:00"
+        },
+        {
+            "video_id": "t6pOjXbxPTE",
+            "title": "Matt Pocock 스킬 전체 플로우 배우기 #Shorts",
+            "channel_name": "Matt Pocock",
+            "status": "assigned",
+            "assigned_to": "안티",
+            "assigned_at": "2026-07-22T20:58:00"
         }
     ]
 }
