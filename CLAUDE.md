@@ -14,19 +14,22 @@
 - **T028_hormozi_b 완료** — business_filter.py (FEASIBLE 45% / SUSTAINABLE 35%)
 - **S.02 길이 기준 확정** — 35~40초 (만복 공식)
 
-### 📋 진행 중 / 내일 할 일
+### 📋 내일(7/23) 할 일 — 만복 세션 시작 즉시 1순위
 
-- **코니**: S.03 대본(화 7/22 마감), EP.02 대본(목 7/24 마감), 뽀개기 1~3번 검토(7/22 만복 인계)
-- **안티**: S.03 렌더링(목) → T026_eval_pipeline → 인스타 릴스 배포 (T025 Docker Phase1은 위 작업 끝난 뒤 착수 지시 예정, 지금은 과부하라 보류)
-- **만복**: S.03 업로드(목)
+1. **S.03 검증 + 업로드** — 안티가 오늘 밤 렌더링 완료해서 인계 예정. verify_video.py + qa_s00_frames.py 통과 확인 후 업로드 (다른 작업보다 최우선)
+2. **뽀개기 3개 준비** — 오늘부로 안티 할당 없음, 만복 혼자 6개 후보 중 3개 선별 + 처리
+3. **코니**: EP.02 대본(목 7/24 마감)
+4. **안티**: T063 Pollinations 파이프라인 안정화 이어서, T026_eval_pipeline
 - **2026-07-26(일)**: EP.02 업로드 + 플러그인 효과 1주일 리뷰
 
 ### ✅ 2026-07-22 완료
 
 - 부팅 후 master_watch/kakao_watcher 중복 프로세스 정리 (Startup 바로가기 제거, 태스크 비활성화)
-- 뽀개기 3개(만복 담당) 자막 추출 + Deep 서치 + 코니 인계 완료, 안티 담당 2개 GPS 지시서 재발송
+- 뽀개기 3개(만복 담당) 자막 추출 + Deep 서치 + 코니 인계 완료 + 이식(cinematic_shot_builder 스킬, content_plan.md 전략노트)
 - `daily_pobbagi_runner.py`에 GPS 검증(`gps_check.py`) 실제 연결, 메시지 템플릿 GPS 구조화
-- T033 tasks.json 상태 오류 수정 (pending → completed)
+- T033/T028_hormozi_b/T_ARCH_LOCK tasks.json 상태 오류 수정 (pending → completed)
+- T064_RoboNeo abandoned 처리 — Pollinations API(T063)로 완전 대체
+- 안티 담당 뽀개기 2건(OpenArt Director, Matt Pocock)은 7/23로 이월
 - 게시판 카드 20260720-3 (RoboNeo 전환) — 안티가 완료, 확인만 함
 
 <!-- AUTO_STATUS_END -->

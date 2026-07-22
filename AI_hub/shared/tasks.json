@@ -318,7 +318,7 @@
                       "담당":  "안티 (구현) / 만복 (검수)",
                       "상태":  "in_progress",
                       "완료일":  "",
-                      "설명":  "2026-07-20 첫 가동 완료. 버그 수정: QUOTA 선착순→채널당 3개 제한(총 15개), 기술노트 채널 ID 수정(UCBtG00ljZ8R_DBQCTR4C00A), emoji 인코딩 에러 수정, processed dict/str 혼용 에러 수정. 만복 3건 STT 완료, 안티 3건 inbox 전달. master_watch 재시작 누락으로 18:00 자동 미발동 → CLAUDE.md 세션 시작 절차에 master_watch 체크 항목 추가 완료. 운영 중."
+                      "설명":  "2026-07-20 첫 가동 완료. 버그 수정: QUOTA 선착순→채널당 3개 제한(총 15개), 기술노트 채널 ID 수정(UCBtG00ljZ8R_DBQCTR4C00A), emoji 인코딩 에러 수정, processed dict/str 혼용 에러 수정. 만복 3건 STT 완료, 안티 3건 inbox 전달. master_watch 재시작 누락으로 18:00 자동 미발동 → CLAUDE.md 세션 시작 절차에 master_watch 체크 항목 추가 완료. 운영 중. (2026-07-22) 중복 할당 사고 발생(7/20 완료건 재할당) → daily_pobbagi_runner.py 버그 수정 + GPS 검증(gps_check.py) 연결 완료. 안티 담당 2건(OpenArt Director, Matt Pocock)은 T063 작업 우선으로 내일(7/23)로 이월. 7/23은 만복 3건만 준비, 안티 할당 없음."
                   },
                   {
                       "id":  "T_ticket_planner",
@@ -428,9 +428,9 @@
                       "뿌리":  63,
                       "기간":  "단기",
                       "담당":  "안티 (구현) / 만복 (검수)",
-                      "상태":  "pending",
-                      "예정일":  "2026-07-20 인스타 연동 직후",
-                      "설명":  "로보네오 웹사이트(Playwright/GUI) 기반 영상 생성 자동화 파이프라인 고도화. 기존 Kling 우회 파이프라인 교체 테스트 목적."
+                      "상태":  "abandoned",
+                      "완료일":  "2026-07-22",
+                      "설명":  "로보네오 웹사이트(Playwright/GUI) 기반 영상 생성 자동화 파이프라인 고도화. 기존 Kling 우회 파이프라인 교체 테스트 목적. (2026-07-22) 브라우저 탈취+PyAutoGUI 매크로 방식의 근본적 취약성(마우스 뺏김, 대기시간, UI변경 리스크) 확인 후 폐기. Pollinations.ai 무료 API(requests 직접 호출) 방식으로 완전 대체 → T063 참조."
                   }
               ]
 }
