@@ -346,9 +346,9 @@
                       "뿌리":  25,
                       "기간":  "단기",
                       "담당":  "안티 (구현) / 코니 (첫 번째 Eval 보고)",
-                      "상태":  "pending",
+                      "상태":  "진행중 (기존 7개 스킬 보강 서브태스크 진행중)",
                       "예정일":  "이번 주 내",
-                      "설명":  "안티 뽀개기 1번(Eval #Shorts) 도출. 매일 23:00 등록된 모든 스킬 테스트 케이스 자동 실행 → 성공/실패 보고. 산출물: D:\\AI\\AI_hub\\shared\\eval_logs\\YYYYMMDD_eval_report.md. AGENTS.md 스킬 Eval 의무화 규정과 연동."
+                      "설명":  "안티 뽀개기 1번(Eval #Shorts) 도출. 매일 23:00 등록된 모든 스킬 테스트 케이스 자동 실행 → 성공/실패 보고. 산출물: D:\\AI\\AI_hub\\shared\\eval_logs\\YYYYMMDD_eval_report.md. AGENTS.md 스킬 Eval 의무화 규정과 연동. 2026-07-24: 파이프라인 자체는 정상 작동 확인(첫 E2E 실행), 단 기존 7개 스킬이 Eval 의무화(7/20 신설) 이전 제작물이라 테스트케이스/채점기준 부재로 전원 FAIL. 안티 보강안 작성→코니 1차검토(3개 승인: deploy_vercel/ticket_planner/genspark_search, 4개 재작업: cinematic_shot_builder/context_manager/rule_manager/session_report — fact_checker.py 재활용 채점 방식 제안)→만복 최종 승인(2026-07-24) 완료. 단 fact_checker.py 재활용은 T030 API 사전보고/SPOF 조건 해소 후 진행."
                   },
                   {
                       "id":  "T028_hormozi_b",
