@@ -14,6 +14,7 @@ async def generate_tts_edge(text: str, output_path: str):
     cmd = [
         "edge-tts",
         "--voice", "ko-KR-SunHiNeural",
+        "--rate", "-20%",
         "--text", text,
         "--write-media", output_path
     ]
@@ -72,7 +73,7 @@ async def build_pipeline():
 
             font_size = int(H * 0.055)
             txt_clip = TextClip(
-                font=r"C:\Windows\Fonts\malgun.ttf",
+                font=r"C:\Windows\Fonts\consola.ttf",
                 text=wrapped_text,
                 font_size=font_size,
                 color="white",
