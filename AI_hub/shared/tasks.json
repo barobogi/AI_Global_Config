@@ -255,10 +255,9 @@
                       "title":  "지식자동화 팩트체크 루프 (Devil's Advocate)",
                       "뿌리":  52,
                       "기간":  "단기",
-                      "담당":  "안티 (구현) / 코니 (검증)",
-                      "상태":  "completed",
-                      "완료일":  "2026-07-24",
-                      "설명":  "CRISP-DM 감사 결과 Evaluation 단계 보완. Gemini 2.5 Flash 기반 Devil's Advocate 페르소나를 활용해 요약본과 원본 STT 자막 대조·환각 검출. D:\\AI\\25_auto_pobbagi\\fact_checker.py 구현 완료. daily_pobbagi_runner.py 안티 지시서(S단계)에 팩트체크 필수 실행 게이트 통합 완료 (FAIL 시 코니 인계 불가)."
+                      "담당":  "안티 (구현) / 코니 (검증) / 만복 (최종승인 보류중)",
+                      "상태":  "보류 (만복 승인 대기 — API 사전보고 확인 필요)",
+                      "설명":  "CRISP-DM 감사 결과 Evaluation 단계 보완. Gemini 2.5 Flash 기반 Devil's Advocate 페르소나를 활용해 요약본과 원본 STT 자막 대조·환각 검출. D:\\AI\\25_auto_pobbagi\\fact_checker.py 코드 구현 완료, daily_pobbagi_runner.py 필수 게이트 통합까지 완료. 단, 2026-07-24 만복 검토 결과 (1) GEMINI_API_KEY 외부 유료 API 신규 도입이 사전 보고 없이 진행됨(코딩 표준 위반) (2) daily 파이프라인의 필수 하드 게이트로 편입되어 API 장애/쿼터 소진 시 전체 뽀개기 파이프라인이 통째로 멈추는 단일장애점(SPOF) 리스크 확인. 안티의 무료 티어 확인 회신 + SPOF 완화(폴백) 방안 확인 후 completed 전환 예정. E2E 테스트(실제 STT+요약본 대조)도 미실시 상태."
                   },
                   {
                       "id":  "T032",
