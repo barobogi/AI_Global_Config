@@ -11,6 +11,36 @@
       "channel_id": "UCBtG00ljZ8R_DBQCTR4C00A",
       "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBtG00ljZ8R_DBQCTR4C00A",
       "active": true
+    },
+    {
+      "name": "Cloud Codes",
+      "channel_id": "UC0DZj1PNa_Fp0MU6uPSKv5w",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC0DZj1PNa_Fp0MU6uPSKv5w",
+      "active": true
+    },
+    {
+      "name": "techyoo",
+      "channel_id": "UCy79BtK6C5ysT3O74bUKIXg",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCy79BtK6C5ysT3O74bUKIXg",
+      "active": true
+    },
+    {
+      "name": "Ethan Nelson",
+      "channel_id": "UCaC9B0wDQKkQpUGVjaNNkIQ",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCaC9B0wDQKkQpUGVjaNNkIQ",
+      "active": true
+    },
+    {
+      "name": "Lewis Jackson",
+      "channel_id": "UCmrU1HFPpy5DfUySK6okqEA",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmrU1HFPpy5DfUySK6okqEA",
+      "active": true
+    },
+    {
+      "name": "David Ondrej",
+      "channel_id": "UCPGrgwfbkjTIgPoOh2q1BAg",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCPGrgwfbkjTIgPoOh2q1BAg",
+      "active": true
     }
   ],
   "_note": "신규 채널 추가: channels 배열에 항목 추가. master_watch.py가 1시간마다 자동 감지."
