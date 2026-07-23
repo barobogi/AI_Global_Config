@@ -129,7 +129,7 @@ def phase_2_execute_selection(selection_data):
             f"**영상 제목:** {title}\n**URL:** https://youtu.be/{vid_id}\n\n"
             f"## G (Goal)\n이 영상을 분석해 기술노트 뽀개기 8단계 프로세스(자막 추출→Deep 서치→저작권 확인)에 따라 기획안을 도출한다.\n\n"
             f"## P (Proof)\n자막 텍스트 파일 + Deep 서치 결과 + 뿌리체계 편입 의견이 담긴 기획안 3종 세트가 만복에게 인계된다.\n\n"
-            f"## S (Steps)\n1. yt-dlp로 자막 추출 (`transcripts/` 저장)\n2. `parallel_search.py`로 관련 사례/최신 정보 Deep 서치\n3. 저작권/출처 확인 (스터디 목적, 재가공 채널 발행 금지)\n4. 기획안 작성 후 코니 1차 검토 요청 → 만복 인계"
+            f"## S (Steps)\n1. yt-dlp로 자막 추출 (`transcripts/` 저장)\n2. `parallel_search.py`로 관련 사례/최신 정보 Deep 서치\n3. 저작권/출처 확인 (스터디 목적, 재가공 채널 발행 금지)\n4. 기획안 작성\n5. 작성 완료 후 반드시 `python fact_checker.py --stt [STT경로] --summary [기획안경로]` 실행하여 PASS 검증\n6. 팩트체크 리포트(`.factcheck.md`)와 함께 코니 1차 검토 요청 → 만복 인계"
         )
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(content)

@@ -1,303 +1,352 @@
 {
-    "pending": [
-        {
-            "video_id": "p0m7pcqdaGk",
-            "title": "삼성전자·하이닉스 하락, 지금 사야 할까? 워렌 버핏의 투자 조언",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "lELDMIMZMjA",
-            "title": "The best AI automates repetitive work so you can focus on growing your business. 🤖",
-            "channel_name": "Samin Yasar",
-            "status": "pending"
-        },
-        {
-            "video_id": "19RhOJeJI5A",
-            "title": "Bring your preferences, workflow, and context with you. 🤖",
-            "channel_name": "Samin Yasar",
-            "status": "pending"
-        },
-        {
-            "video_id": "Dj8RtBObP58",
-            "title": "AI isn’t just for finding answers. It’s for finding patterns, insights, and opportunities.",
-            "channel_name": "Samin Yasar",
-            "status": "pending"
-        },
-        {
-            "video_id": "bieRrMRc-bg",
-            "title": "함수 클래스 모듈 패키지 API OpenAPI | 바이브코딩 하시는 분들 끝까지 들어보세요.",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "skKPHDdinqk",
-            "title": "바이브코딩으로 서비스를 만드실 분들은 꼭 끝까지보세요 | 당근마켓 견적 이야기",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "CGLkHnO8n70",
-            "title": "서비스 만들기 전에 꼭 확인하세요 | 주제 선정, 앱 유형, DB, 서버 구축",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "CnreWk5i2S4",
-            "title": "힉스필드 이제 완전 무료입니다 (무제한 크레딧 받는 법 정리)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "FPhbbqBjLrY",
-            "title": "클로드 페이블5와 힉스필드를 활용해서 조회수 폭발하는 영상 복사하는 법 (무료 크레딧 받는 법 공개)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "kiEjz0BoO44",
-            "title": "클로드 무료 플랜으로 해외에서 돈을 쓸어담는 제테크 영상을 따라 만들어봤습니다",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "ww-gBxW3aKY",
-            "title": "인생이 막막할 때, 이 영상이 필요하실 겁니다.",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "tghiFsKJfPQ",
-            "title": "인생은 게임입니다. 자본주의 게임에서 부자되는 법, 3000억 알렉스 홀모지",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "Z1wWwPHNuAk",
-            "title": "레드오션 SaaS 그대로 복제해서 13억버는 남자, \"중요한건 기능이 아닙니다\"",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "AEOEtpEQ_Ls",
-            "title": "에이전트에게 필요한 건 HTML이 전부입니다 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "bZO_1CG370I",
-            "title": "AI 모델은 어떻게 스스로 발전할까요? #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "CaKpQHqLpJo",
-            "title": "[한영자막] AI에는 HTML이 최고입니다",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "vY0EzTP-7EA",
-            "title": "How I’d Make Money with Claude if my life depended on it",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "c1TWmKILaeM",
-            "title": "Huge ChatGPT Update You Need to See!",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "8MEJen0nblQ",
-            "title": "Why Your AI Offer Isn't Selling, and How to Fix That",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "lQsM_Q_rLjU",
-            "title": "7월 21일 코엑스에서 열리는 개발자들의 축제, Unite Seoul 2026! 🚀",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "VCxAo54wMSI",
-            "title": "회사에서 바로 쓸 수 있는 AI 자동화 만들어보기 | UiPath Maestro",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "mjBiuUa5Uw8",
-            "title": "바이브코딩 바로 시작합니다. 개발 용어 쉽게 설명 드립니다. | 바이브코딩",
-            "channel_name": "기술노트 with 알렉",
-            "status": "pending"
-        },
-        {
-            "video_id": "zF_EypvSZuM",
-            "title": "조회수 폭발하는 AI 타임머신 영상 1분 만에 만드는 방법 (무료로 가능)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "9CMwXmF_utI",
-            "title": "현재 조회수 쓸어담는 역대급 영상 주제 공개｜클로드로 5분 만에 무료로 만드는 법 (유료급 프롬프트 제공)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "k_7iVtGk6V0",
-            "title": "AI 영상에 돈 그만 쓰세요. '이 무료 AI 사이트' 하나면 구독료 100만 원 아끼고 평생 결제 끝입니다",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "dV5Bk4TqEzQ",
-            "title": "포켓몬 카드앱으로 월 1억버는 카드수집광, \"취미를 앱으로\"",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "k4Egi2syUmM",
-            "title": "대학중퇴 레슬링챔피언, 6개월 만에 월 2700만원",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "Zo4kfmbHi54",
-            "title": "월 7억 버는 AI 앱의 바이럴 공식｜4억 조회수 만든 Pingo 성장 전략",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "sOfgvKTy7tc",
-            "title": "[한영자막] Cursor 의 미래",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "fuGhEVlcuoI",
-            "title": "AI 자기개선 루프, 토큰만 태우는 진짜 이유가 있습니다 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "BuOMO_jV-OI",
-            "title": "[한영자막] AI, 제발 토큰만 태우지 마세요",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "jdbOVepEtUE",
-            "title": "Claude Code for Non-Coders (6 Hour Course)",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "AZXV1zzuFuQ",
-            "title": "ClickUp Brain2: The AI That Replaces All Your Software",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "EthxaDswUFo",
-            "title": "I Tested GPT 5.6 Sol vs Fable 5. What You Need To Know.",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        }
-    ],
-    "processed": [
-        {
-            "video_id": "L94yAQR9VvA",
-            "title": "클로드 코드 공식 플러그인 4개 토큰 절약",
-            "link": "https://youtu.be/L94yAQR9VvA",
-            "published": "2026-07-19",
-            "channel_name": "기술노트 with 알렉",
-            "status": "failed",
-            "added_at": "2026-07-19T10:20:00"
-        },
-        {
-            "video_id": "J4bBeU3frnE",
-            "title": "힉스필드 AI 영상 생성기",
-            "link": "https://youtu.be/J4bBeU3frnE",
-            "published": "2026-07-19",
-            "channel_name": "호두의 AI 분석실",
-            "status": "failed",
-            "added_at": "2026-07-19T10:20:00"
-        },
-        {
-            "video_id": "gUGVPxF3c_s",
-            "title": "5개월 만에 앱으로 월 2,700만원 버는 대학생",
-            "link": "https://youtu.be/gUGVPxF3c_s",
-            "published": "2026-07-19",
-            "channel_name": "기타 채널",
-            "status": "failed",
-            "added_at": "2026-07-19T10:20:00"
-        },
-        {
-            "video_id": "WND3xGqmDqM",
-            "title": "유료 결제 그만하세요, 진짜 무료인 AI 영상 툴 3개 공개",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "VZspR44yc7c",
-            "title": "아무거나 시작하지 마세요. 완벽한 사업 아이템 고르는 법 5가지, 3000억 부자 알렉스 홀모지",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "iDLi-WhtLGQ",
-            "title": "[한영자막] 클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 | Thariq Shihipar",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "i6x4n4sfxC0",
-            "title": "다들 스킬은 쓰는데 왜 Eval은 없을까 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        },
-        {
-            "video_id": "eFOTQpbGcy8",
-            "title": "The $200K AI Job That Didn't Exist Last Year",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "zyvdl__Ywfk",
-            "title": "Claude Code + Clay Makes Lead Generation Actually Fun",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "0Tc-_eLnF3w",
-            "title": "와... 프롬프트 한 줄로 앱 만들면 1억 준다고? (초보도 참가 가능)",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "2EQz5Gly1Wk",
-            "title": "AI 영상은 이걸로 종결합니다",
-            "channel_name": "호두의 AI 분석실",
-            "status": "pending"
-        },
-        {
-            "video_id": "z8k3kjqisK8",
-            "title": "해외판 당근마켓으로 월 3,300만원 버는 대학생",
-            "channel_name": "동기부여학파",
-            "status": "pending"
-        },
-        {
-            "video_id": "4fKn9O-YhtI",
-            "title": "OpenArt Director: The New Way to Make AI Videos",
-            "channel_name": "Nate Herk | AI Automation",
-            "status": "pending"
-        },
-        {
-            "video_id": "t6pOjXbxPTE",
-            "title": "Matt Pocock 스킬 전체 플로우 배우기 #Shorts",
-            "channel_name": "Matt Pocock",
-            "status": "pending"
-        }
-    ]
+  "pending": [
+    {
+      "video_id": "p0m7pcqdaGk",
+      "title": "삼성전자·하이닉스 하락, 지금 사야 할까? 워렌 버핏의 투자 조언",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "lELDMIMZMjA",
+      "title": "The best AI automates repetitive work so you can focus on growing your business. 🤖",
+      "channel_name": "Samin Yasar",
+      "status": "pending"
+    },
+    {
+      "video_id": "19RhOJeJI5A",
+      "title": "Bring your preferences, workflow, and context with you. 🤖",
+      "channel_name": "Samin Yasar",
+      "status": "pending"
+    },
+    {
+      "video_id": "Dj8RtBObP58",
+      "title": "AI isn’t just for finding answers. It’s for finding patterns, insights, and opportunities.",
+      "channel_name": "Samin Yasar",
+      "status": "pending"
+    },
+    {
+      "video_id": "bieRrMRc-bg",
+      "title": "함수 클래스 모듈 패키지 API OpenAPI | 바이브코딩 하시는 분들 끝까지 들어보세요.",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "skKPHDdinqk",
+      "title": "바이브코딩으로 서비스를 만드실 분들은 꼭 끝까지보세요 | 당근마켓 견적 이야기",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "CGLkHnO8n70",
+      "title": "서비스 만들기 전에 꼭 확인하세요 | 주제 선정, 앱 유형, DB, 서버 구축",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "CnreWk5i2S4",
+      "title": "힉스필드 이제 완전 무료입니다 (무제한 크레딧 받는 법 정리)",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "FPhbbqBjLrY",
+      "title": "클로드 페이블5와 힉스필드를 활용해서 조회수 폭발하는 영상 복사하는 법 (무료 크레딧 받는 법 공개)",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "kiEjz0BoO44",
+      "title": "클로드 무료 플랜으로 해외에서 돈을 쓸어담는 제테크 영상을 따라 만들어봤습니다",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "ww-gBxW3aKY",
+      "title": "인생이 막막할 때, 이 영상이 필요하실 겁니다.",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "tghiFsKJfPQ",
+      "title": "인생은 게임입니다. 자본주의 게임에서 부자되는 법, 3000억 알렉스 홀모지",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "Z1wWwPHNuAk",
+      "title": "레드오션 SaaS 그대로 복제해서 13억버는 남자, \"중요한건 기능이 아닙니다\"",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "AEOEtpEQ_Ls",
+      "title": "에이전트에게 필요한 건 HTML이 전부입니다 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "bZO_1CG370I",
+      "title": "AI 모델은 어떻게 스스로 발전할까요? #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "CaKpQHqLpJo",
+      "title": "[한영자막] AI에는 HTML이 최고입니다",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "vY0EzTP-7EA",
+      "title": "How I’d Make Money with Claude if my life depended on it",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "c1TWmKILaeM",
+      "title": "Huge ChatGPT Update You Need to See!",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "8MEJen0nblQ",
+      "title": "Why Your AI Offer Isn't Selling, and How to Fix That",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "lQsM_Q_rLjU",
+      "title": "7월 21일 코엑스에서 열리는 개발자들의 축제, Unite Seoul 2026! 🚀",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "VCxAo54wMSI",
+      "title": "회사에서 바로 쓸 수 있는 AI 자동화 만들어보기 | UiPath Maestro",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "mjBiuUa5Uw8",
+      "title": "바이브코딩 바로 시작합니다. 개발 용어 쉽게 설명 드립니다. | 바이브코딩",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending"
+    },
+    {
+      "video_id": "zF_EypvSZuM",
+      "title": "조회수 폭발하는 AI 타임머신 영상 1분 만에 만드는 방법 (무료로 가능)",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "9CMwXmF_utI",
+      "title": "현재 조회수 쓸어담는 역대급 영상 주제 공개｜클로드로 5분 만에 무료로 만드는 법 (유료급 프롬프트 제공)",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "k_7iVtGk6V0",
+      "title": "AI 영상에 돈 그만 쓰세요. '이 무료 AI 사이트' 하나면 구독료 100만 원 아끼고 평생 결제 끝입니다",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "dV5Bk4TqEzQ",
+      "title": "포켓몬 카드앱으로 월 1억버는 카드수집광, \"취미를 앱으로\"",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "k4Egi2syUmM",
+      "title": "대학중퇴 레슬링챔피언, 6개월 만에 월 2700만원",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "Zo4kfmbHi54",
+      "title": "월 7억 버는 AI 앱의 바이럴 공식｜4억 조회수 만든 Pingo 성장 전략",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "sOfgvKTy7tc",
+      "title": "[한영자막] Cursor 의 미래",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "fuGhEVlcuoI",
+      "title": "AI 자기개선 루프, 토큰만 태우는 진짜 이유가 있습니다 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "BuOMO_jV-OI",
+      "title": "[한영자막] AI, 제발 토큰만 태우지 마세요",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "jdbOVepEtUE",
+      "title": "Claude Code for Non-Coders (6 Hour Course)",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "AZXV1zzuFuQ",
+      "title": "ClickUp Brain2: The AI That Replaces All Your Software",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "EthxaDswUFo",
+      "title": "I Tested GPT 5.6 Sol vs Fable 5. What You Need To Know.",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "paHJvtAnFzs",
+      "title": "(바로보기님 제공) https://youtu.be/paHJvtAnFzs?si=NxHufijN1i6oCp7y",
+      "channel_name": "unknown",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "GnA9xjYWHBg",
+      "title": "(바로보기님 제공) https://youtu.be/GnA9xjYWHBg?si=ULhmGJBFbwFdfsBw",
+      "channel_name": "Ethan Nelson",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "hcDz6yGT59M",
+      "title": "(바로보기님 제공) https://youtu.be/hcDz6yGT59M?si=a4gtPYpDpI_SLxc4",
+      "channel_name": "techyoo",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "8ZgpAXe5V5w",
+      "title": "(바로보기님 제공) https://youtu.be/8ZgpAXe5V5w?si=H8E2uCVtfOv3-5tr",
+      "channel_name": "David Ondrej",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "CkyPE0vZ7Lc",
+      "title": "(바로보기님 제공) https://youtu.be/CkyPE0vZ7Lc?si=br2jRrimHd8VoTam.txt",
+      "channel_name": "Lewis Jackson",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "q_FQegMRWUQ",
+      "title": "(바로보기님 제공) https://youtu.be/q_FQegMRWUQ?si=LgNPpx5BFkUR19GQ.txt",
+      "channel_name": "Cloud Codes",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "p2OZqljmGww",
+      "title": "(바로보기님 제공) https://youtu.be/p2OZqljmGww?si=bEk4gXInc_JD5cbn.txt",
+      "channel_name": "Cloud Codes",
+      "status": "pending",
+      "source": "check_youtube_drive"
+    }
+  ],
+  "processed": [
+    {
+      "video_id": "L94yAQR9VvA",
+      "title": "클로드 코드 공식 플러그인 4개 토큰 절약",
+      "link": "https://youtu.be/L94yAQR9VvA",
+      "published": "2026-07-19",
+      "channel_name": "기술노트 with 알렉",
+      "status": "failed",
+      "added_at": "2026-07-19T10:20:00"
+    },
+    {
+      "video_id": "J4bBeU3frnE",
+      "title": "힉스필드 AI 영상 생성기",
+      "link": "https://youtu.be/J4bBeU3frnE",
+      "published": "2026-07-19",
+      "channel_name": "호두의 AI 분석실",
+      "status": "failed",
+      "added_at": "2026-07-19T10:20:00"
+    },
+    {
+      "video_id": "gUGVPxF3c_s",
+      "title": "5개월 만에 앱으로 월 2,700만원 버는 대학생",
+      "link": "https://youtu.be/gUGVPxF3c_s",
+      "published": "2026-07-19",
+      "channel_name": "기타 채널",
+      "status": "failed",
+      "added_at": "2026-07-19T10:20:00"
+    },
+    {
+      "video_id": "WND3xGqmDqM",
+      "title": "유료 결제 그만하세요, 진짜 무료인 AI 영상 툴 3개 공개",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "VZspR44yc7c",
+      "title": "아무거나 시작하지 마세요. 완벽한 사업 아이템 고르는 법 5가지, 3000억 부자 알렉스 홀모지",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "iDLi-WhtLGQ",
+      "title": "[한영자막] 클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 | Thariq Shihipar",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "i6x4n4sfxC0",
+      "title": "다들 스킬은 쓰는데 왜 Eval은 없을까 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "eFOTQpbGcy8",
+      "title": "The $200K AI Job That Didn't Exist Last Year",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "zyvdl__Ywfk",
+      "title": "Claude Code + Clay Makes Lead Generation Actually Fun",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "0Tc-_eLnF3w",
+      "title": "와... 프롬프트 한 줄로 앱 만들면 1억 준다고? (초보도 참가 가능)",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "2EQz5Gly1Wk",
+      "title": "AI 영상은 이걸로 종결합니다",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "z8k3kjqisK8",
+      "title": "해외판 당근마켓으로 월 3,300만원 버는 대학생",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "4fKn9O-YhtI",
+      "title": "OpenArt Director: The New Way to Make AI Videos",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "t6pOjXbxPTE",
+      "title": "Matt Pocock 스킬 전체 플로우 배우기 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    }
+  ]
 }

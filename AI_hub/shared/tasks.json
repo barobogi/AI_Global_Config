@@ -1,4 +1,4 @@
-﻿{
+{
     "version":  "1.2",
     "last_updated":  "2026-07-17T15:50:00",
     "tasks":  [
@@ -252,13 +252,13 @@
                   },
                   {
                       "id":  "T030",
-                      "title":  "지식자동화 팩트체크 루프",
+                      "title":  "지식자동화 팩트체크 루프 (Devil's Advocate)",
                       "뿌리":  52,
                       "기간":  "단기",
                       "담당":  "안티 (구현) / 코니 (검증)",
-                      "상태":  "pending",
-                      "예정일":  "2026-07-22 (T063 완료 후)",
-                      "설명":  "CRISP-DM 감사 결과 Evaluation 단계 전무. 원본 영상 요약 vs 생성 요약 비교·환각 검출 루프 구현. T063 QA 파이프라인 구조 재활용. T011·T018 지식 자동화 파이프라인에 통합."
+                      "상태":  "completed",
+                      "완료일":  "2026-07-24",
+                      "설명":  "CRISP-DM 감사 결과 Evaluation 단계 보완. Gemini 2.5 Flash 기반 Devil's Advocate 페르소나를 활용해 요약본과 원본 STT 자막 대조·환각 검출. D:\\AI\\25_auto_pobbagi\\fact_checker.py 구현 완료. daily_pobbagi_runner.py 안티 지시서(S단계)에 팩트체크 필수 실행 게이트 통합 완료 (FAIL 시 코니 인계 불가)."
                   },
                   {
                       "id":  "T032",

@@ -77,14 +77,18 @@ def get_channel_info(video_id):
     import subprocess
     try:
         result = subprocess.run(
-            ["python", "-m", "yt_dlp", "--skip-download", "--print", "%(channel)s|%(channel_id)s",
+            ["C:\\hb\\python.exe", "-m", "yt_dlp", "--skip-download", "--print", "%(channel)s|%(channel_id)s",
              f"https://youtu.be/{video_id}"],
-            capture_output=True, text=True, timeout=30, encoding="utf-8"
+            capture_output=True, text=True, timeout=30, encoding="utf-8", errors="replace"
         )
-        line = result.stdout.strip().splitlines()[-1] if result.stdout.strip() else ""
+        out = (result.stdout or "").strip()
+        line = out.splitlines()[-1] if out else ""
         if "|" in line:
             name, cid = line.split("|", 1)
-            return name.strip(), cid.strip()
+            name, cid = name.strip(), cid.strip()
+            if name and cid:
+                return name, cid
+        print(f"채널 정보 조회 실패 ({video_id}): stdout={out!r} stderr={(result.stderr or '')[:200]!r}")
     except Exception as e:
         print(f"채널 정보 조회 실패 ({video_id}): {e}")
     return None, None
