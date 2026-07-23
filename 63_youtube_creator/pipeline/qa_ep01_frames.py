@@ -1,5 +1,8 @@
 import cv2
+import numpy as np
 import sys
+
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 import os
 
 def check_text_overflow(video_path):
