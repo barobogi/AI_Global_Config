@@ -14,7 +14,6 @@ async def generate_tts_edge(text: str, output_path: str):
     cmd = [
         "edge-tts",
         "--voice", "ko-KR-SunHiNeural",
-        "--rate=-20%",
         "--text", text,
         "--write-media", output_path
     ]

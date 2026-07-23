@@ -1,9 +1,6 @@
 @echo off
-if "%1"=="standalone" goto run
-start cmd /k "%~f0" standalone
-exit
-:run
-taskkill /F /IM bun.exe 2>nul
+powershell -NoProfile -Command "Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'claude.exe' -and $_.CommandLine -like '*channels*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
+taskkill /F /IM bun.exe >nul 2>&1
 timeout /t 2 /nobreak > nul
 cd /d D:\AI
 FOR /D %%G IN ("C:\Users\82102\.vscode\extensions\anthropic.claude-code-*-win32-x64") DO SET EXT_DIR=%%G
