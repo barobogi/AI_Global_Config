@@ -37,6 +37,7 @@ async def build_pipeline():
     for scene in scenes:
         s_id = scene["scene_id"]
         text = scene["text"]
+        tts_text = scene.get("tts_text", text)
         
         s_id_padded = f"{int(s_id):02d}"
         print(f"=== Scene {s_id_padded} 처리 중 ===")
@@ -51,7 +52,7 @@ async def build_pipeline():
             print(f"  - 이미지 로드 성공: {img_path}")
             
         if not os.path.exists(audio_path):
-            await generate_tts_edge(text, audio_path)
+            await generate_tts_edge(tts_text, audio_path)
         else:
             print(f"  - 오디오 캐시 사용: {audio_path}")
             
