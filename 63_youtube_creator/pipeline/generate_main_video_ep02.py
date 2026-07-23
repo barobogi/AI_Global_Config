@@ -14,15 +14,15 @@ async def generate_tts_edge(text: str, output_path: str):
     cmd = [
         "edge-tts",
         "--voice", "ko-KR-SunHiNeural",
-        "--rate", "-20%",
+        "--rate=-20%",
         "--text", text,
         "--write-media", output_path
     ]
     try:
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         return True
-    except Exception as e:
-        print(f"TTS 생성 실패: {e}")
+    except subprocess.CalledProcessError as e:
+        print(f"TTS 생성 실패: {e.stderr}")
         return False
 
 async def build_pipeline():
