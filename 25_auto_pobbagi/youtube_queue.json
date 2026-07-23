@@ -252,6 +252,13 @@
       "channel_name": "Cloud Codes",
       "status": "pending",
       "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "znj-WpMj1dI",
+      "title": "(바로보기님 제공) https://youtu.be/znj-WpMj1dI?si=08DcIwSyOonGKF8t",
+      "channel_name": "Wanderloots",
+      "status": "pending",
+      "source": "check_youtube_drive"
     }
   ],
   "processed": [

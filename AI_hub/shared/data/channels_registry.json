@@ -47,6 +47,12 @@
       "channel_id": "UCyyUJMnya9mhIKC8stSwKTg",
       "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCyyUJMnya9mhIKC8stSwKTg",
       "active": true
+    },
+    {
+      "name": "Wanderloots",
+      "channel_id": "UCFiU1vIpPD3lQltke_18m3A",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFiU1vIpPD3lQltke_18m3A",
+      "active": true
     }
   ],
   "_note": "신규 채널 추가: channels 배열에 항목 추가. master_watch.py가 1시간마다 자동 감지."
