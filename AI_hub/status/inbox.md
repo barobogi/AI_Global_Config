@@ -61,6 +61,7 @@
   - [10:50] `AI_hub/shared/messages/안티→만복_20260718_반성문_코니무한루프사태_검토요청.md`
 
 ### 코니 수신 (53개)
+  - [06:17] `AI_hub/shared/eval_logs/20260724_eval_report.md` (Eval 자동 보고서 검토 요청)
   - [06:01] `AI_hub/shared/messages/만복→코니_20260724_GitHub10_3일주기재검토_안내.md`
   - [05:59] `AI_hub/shared/messages/안티→코니_20260724_7개스킬보강안_검토요청.md`
   - [05:59] `AI_hub/shared/messages/만복→코니_20260724_EP02_대본_분량여전히미달_확장요청.md`
