@@ -13,3 +13,14 @@ description: 안티가 로컬에서 작성한 웹앱 프로젝트 코드를 GitH
 2. 승인이 떨어지면, 동봉된 파이썬 스크립트(`scripts\deploy.py`)를 실행합니다.
 3. 스크립트가 알아서 로컬 Git 커밋, GitHub 저장소 Push, 그리고 Vercel CLI를 통한 Production 배포를 순차적으로 자동 실행합니다.
 4. 산출된 Live URL을 사용자에게 보고합니다.
+
+
+## Eval 테스트 케이스
+1. 로컬 React 앱 배포
+2. 순수 HTML/JS 앱 배포
+3. Next.js 프로젝트 배포
+4. 오류 있는 프로젝트 실패 테스트
+5. 환경변수 포함 배포
+
+## 성공/실패 채점 기준
+Vercel CLI 명령어가 에러 없이 실행되고, 최종 Production URL이 정상적으로 반환(HTTP 200)되는가? (5/5 통과 시 PASS)

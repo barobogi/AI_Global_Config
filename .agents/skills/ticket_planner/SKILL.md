@@ -31,3 +31,14 @@ python D:\AI\.agents\skills\ticket_planner\scripts\ticket_splitter.py --prompt "
 
 ## 출력 형태
 스크립트 실행 후 `tasks.json` 형태의 하위 작업 목록과 안티에게 지시할 수 있는 GPS(Goal, Proof, Steps) 구조를 얻을 수 있습니다. 이후 만복(Planner)은 안티(Operator)에게 각 티켓을 하나씩 개별적으로 지시하세요.
+
+
+## Eval 테스트 케이스
+1. 그냥 웹사이트 만들어줘
+2. 데이터 분석해
+3. 자동화 스크립트 필요
+4. 아무거나 추천해
+5. 시스템 고쳐줘
+
+## 성공/실패 채점 기준
+코딩을 시작하기 전, 사용자에게 최소 3개 이상의 핵심 역질문(Grill)을 던져 스펙을 구체화하고 JSON 티켓으로 분할했는가? (5/5 통과 시 PASS)

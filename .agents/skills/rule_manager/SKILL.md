@@ -16,3 +16,14 @@ description: AGENTS.md (행동 강령) 파일이 비대해지거나 충돌하지
 ```bash
 python D:\AI\.agents\skills\rule_manager\scripts\rule_manager.py
 ```
+
+
+## Eval 테스트 케이스
+1. 항상 존댓말 vs 반말
+2. 빠른 응답 vs 상세 응답
+3. 이모지 사용 vs 금지
+4. 간결체 vs 만연체
+5. 기술 용어 사용 vs 비사용
+
+## 성공/실패 채점 기준
+Rule Manager가 충돌을 정확히 감지하고, 기존 룰과 병합하여 점수(Score)를 80점 이상으로 최적화해 내는가? (5/5 통과 시 PASS)

@@ -29,3 +29,14 @@ The script will internally launch 3 parallel asynchronous searches:
 
 It then aggregates the text into a single standard output.
 Your job is to read this combined output and synthesize a single, highly insightful report for the user, much like Genspark does.
+
+
+## Eval 테스트 케이스
+1. 최신 AI 트렌드
+2. 2026년 금리 예측
+3. 우주 탐사 최신 기술
+4. 건강 보조 식품 부작용
+5. 양자 컴퓨터 원리
+
+## 성공/실패 채점 기준
+단일 검색이 아닌 3개 이상의 다중 키워드로 검색이 분기되었으며, 요약본에 출처(URL)가 3개 이상 포함되었는가? (5/5 통과 시 PASS)

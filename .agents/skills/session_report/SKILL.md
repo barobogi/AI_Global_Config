@@ -17,3 +17,14 @@ description: 사용자가 '/session-report'라고 입력하거나 세션 종료 
 python D:\AI\.agents\skills\session_report\scripts\generate_report.py
 ```
 실행 후 생성된 `session_report.html` 경로를 읽어서 사용자에게 제공합니다.
+
+
+## Eval 테스트 케이스
+1. 3,000토큰 사용 세션
+2. 에러 5번 발생 세션
+3. 10분 짧은 세션
+4. 대규모 파일 수정 세션
+5. 단순 질의응답 세션
+
+## 성공/실패 채점 기준
+세션 리포트(HTML)가 지정된 폴더에 정상 생성되고, 토큰 사용량과 핵심 요약이 100% 기재되었는가? (5/5 통과 시 PASS)
