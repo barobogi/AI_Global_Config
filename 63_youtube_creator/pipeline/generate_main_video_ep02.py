@@ -97,6 +97,16 @@ async def build_pipeline():
         final_clip = concatenate_videoclips(clips, method="compose")
         final_clip.write_videofile(FINAL_VIDEO, fps=24, codec="libx264", audio_codec="aac", threads=4)
         print(f"\n[대성공] 본편 EP02 렌더링 완벽 완료! -> {FINAL_VIDEO}")
+        
+        print("\n=== 시각 품질 검증(ToFu/OCR) 시작 ===")
+        qa_script = os.path.join(os.path.dirname(__file__), "qa_video_visuals.py")
+        try:
+            subprocess.run([sys.executable, qa_script, FINAL_VIDEO], check=True)
+            print("[검증 통과] 폰트 깨짐 없음!")
+        except subprocess.CalledProcessError:
+            print("[검증 실패] 폰트 깨짐이 발견되었습니다! (ToFu 에러)")
+            sys.exit(1)
 
 if __name__ == "__main__":
+    import sys
     asyncio.run(build_pipeline())
