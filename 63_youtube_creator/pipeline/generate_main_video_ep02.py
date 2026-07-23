@@ -73,7 +73,7 @@ async def build_pipeline():
 
             font_size = int(H * 0.055)
             txt_clip = TextClip(
-                font=r"C:\Windows\Fonts\consola.ttf",
+                font=r"C:\Windows\Fonts\malgun.ttf",
                 text=wrapped_text,
                 font_size=font_size,
                 color="white",
