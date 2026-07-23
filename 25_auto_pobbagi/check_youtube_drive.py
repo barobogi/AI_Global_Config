@@ -1,11 +1,15 @@
 # 구글드라이브 "Check youtube" 폴더 자동 체크 — 신규 영상 발견 시 채널 자동등록 + 큐 등록
 import os
 import re
+import sys
 import json
 import pickle
 import urllib.request
 from pathlib import Path
 from datetime import datetime
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -74,24 +78,36 @@ def extract_video_id(text):
 
 
 def get_channel_info(video_id):
+    """channel_id는 yt-dlp(--print)로, channel 표시명은 oEmbed(JSON, 인코딩 안전)로 가져온다."""
     import subprocess
+    channel_id = None
+    channel_name = None
+
     try:
         result = subprocess.run(
-            ["C:\\hb\\python.exe", "-m", "yt_dlp", "--skip-download", "--print", "%(channel)s|%(channel_id)s",
+            ["C:\\hb\\python.exe", "-m", "yt_dlp", "--skip-download", "--print", "%(channel_id)s",
              f"https://youtu.be/{video_id}"],
             capture_output=True, text=True, timeout=30, encoding="utf-8", errors="replace"
         )
         out = (result.stdout or "").strip()
         line = out.splitlines()[-1] if out else ""
-        if "|" in line:
-            name, cid = line.split("|", 1)
-            name, cid = name.strip(), cid.strip()
-            if name and cid:
-                return name, cid
-        print(f"채널 정보 조회 실패 ({video_id}): stdout={out!r} stderr={(result.stderr or '')[:200]!r}")
+        if line and line != "NA":
+            channel_id = line
     except Exception as e:
-        print(f"채널 정보 조회 실패 ({video_id}): {e}")
-    return None, None
+        print(f"channel_id 조회 실패 ({video_id}): {e}")
+
+    try:
+        req = urllib.request.Request(
+            f"https://www.youtube.com/oembed?url=https://youtu.be/{video_id}&format=json",
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            channel_name = data.get("author_name")
+    except Exception as e:
+        print(f"oEmbed 채널명 조회 실패 ({video_id}): {e}")
+
+    return channel_name, channel_id
 
 
 def main():
@@ -116,36 +132,40 @@ def main():
     new_channel_count = 0
 
     for f in files:
-        video_id = extract_video_id(f["name"])
-        if not video_id or video_id in known_video_ids:
+        try:
+            video_id = extract_video_id(f["name"])
+            if not video_id or video_id in known_video_ids:
+                continue
+
+            print(f"[신규 발견] {f['name']} -> {video_id}")
+            channel_name, channel_id = get_channel_info(video_id)
+
+            if channel_id and channel_id not in known_channel_ids:
+                registry["channels"].append({
+                    "name": channel_name,
+                    "channel_id": channel_id,
+                    "rss_url": f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}",
+                    "active": True,
+                })
+                known_channel_ids.add(channel_id)
+                new_channel_count += 1
+                print(f"  -> new channel registered: {channel_id}")
+
+            if video_id not in queued_video_ids:
+                queue.setdefault("pending", []).append({
+                    "video_id": video_id,
+                    "title": f"(바로보기님 제공) {f['name']}",
+                    "channel_name": channel_name or "unknown",
+                    "status": "pending",
+                    "source": "check_youtube_drive",
+                })
+                queued_video_ids.add(video_id)
+
+            known_video_ids.add(video_id)
+            new_count += 1
+        except Exception as e:
+            print(f"[오류] {f.get('name','?')} 처리 중 실패: {e}")
             continue
-
-        print(f"[신규 발견] {f['name']} → {video_id}")
-        channel_name, channel_id = get_channel_info(video_id)
-
-        if channel_id and channel_id not in known_channel_ids:
-            registry["channels"].append({
-                "name": channel_name,
-                "channel_id": channel_id,
-                "rss_url": f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}",
-                "active": True,
-            })
-            known_channel_ids.add(channel_id)
-            new_channel_count += 1
-            print(f"  → 신규 채널 등록: {channel_name}")
-
-        if video_id not in queued_video_ids:
-            queue.setdefault("pending", []).append({
-                "video_id": video_id,
-                "title": f"(바로보기님 제공) {f['name']}",
-                "channel_name": channel_name or "unknown",
-                "status": "pending",
-                "source": "check_youtube_drive",
-            })
-            queued_video_ids.add(video_id)
-
-        known_video_ids.add(video_id)
-        new_count += 1
 
     seen["video_ids"] = list(known_video_ids)
     save_json(SEEN_FILE, seen)

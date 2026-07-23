@@ -41,6 +41,12 @@
       "channel_id": "UCPGrgwfbkjTIgPoOh2q1BAg",
       "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCPGrgwfbkjTIgPoOh2q1BAg",
       "active": true
+    },
+    {
+      "name": "로치의개발일기",
+      "channel_id": "UCyyUJMnya9mhIKC8stSwKTg",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCyyUJMnya9mhIKC8stSwKTg",
+      "active": true
     }
   ],
   "_note": "신규 채널 추가: channels 배열에 항목 추가. master_watch.py가 1시간마다 자동 감지."
