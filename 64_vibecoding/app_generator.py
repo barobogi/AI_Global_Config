@@ -3,6 +3,7 @@ import re
 import glob
 import subprocess
 import json
+import qa_vibecoding
 
 # Claude CLI 실행 파일 탐색 로직 (VSCode 확장 경로 탐색)
 _claude_paths = glob.glob(r"C:\Users\82102\.vscode\extensions\anthropic.claude-code-*-win32-x64\resources\native-binary\claude.exe")
@@ -61,9 +62,8 @@ def apply_feedback_whitelist(app_dir: str, prompt: str) -> bool:
 
 def generate_with_llm(app_dir: str, prompt: str):
     """
-    Generate or update app using Claude CLI via subprocess.
+    Generate or update app using Claude CLI via subprocess with Auto-healing QA Loop.
     """
-    # Read existing files to give context if they exist
     existing_code = ""
     for file_name in ["index.html", "style.css", "script.js"]:
         path = os.path.join(app_dir, file_name)
@@ -72,7 +72,7 @@ def generate_with_llm(app_dir: str, prompt: str):
                 existing_code += f"\n\n--- {file_name} ---\n"
                 existing_code += f.read()
                 
-    system_prompt = f"""
+    system_prompt_base = f"""
 You are an expert Web Application Generator.
 Create a complete web application based on the user's prompt.
 You MUST output EXACTLY three files: index.html, style.css, and script.js.
@@ -98,48 +98,61 @@ Use this specific format with markdown code blocks:
 Ensure standard CSS variables like --main-color, --layout-grid, and --base-font-size are defined in :root.
 """
     if existing_code:
-        system_prompt += f"\nHere is the existing code (modify it according to the prompt):\n{existing_code}"
+        system_prompt_base += f"\nHere is the existing code (modify it according to the prompt):\n{existing_code}"
 
-    full_prompt = f"{system_prompt}\n\nUser Request: {prompt}"
+    full_prompt = f"{system_prompt_base}\n\nUser Request: {prompt}"
 
-    # Call Claude CLI via subprocess
-    try:
-        result = subprocess.run(
-            [CLAUDE_EXE, "--print", full_prompt],
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace',
-            timeout=120
-        )
-        response_text = result.stdout
-    except Exception as e:
-        response_text = f"Subprocess Error: {e}"
-        with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
-            f.write(f"Failed to run Claude CLI:\n{response_text}\n")
-        return
+    for attempt in range(3):
+        try:
+            result = subprocess.run(
+                [CLAUDE_EXE, "--print", full_prompt],
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                errors='replace',
+                timeout=120
+            )
+            response_text = result.stdout
+        except Exception as e:
+            with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
+                f.write(f"Failed to run Claude CLI:\n{e}\n")
+            return
 
-    # Parse the response and write files
-    html_match = re.search(r'```html\n(.*?)\n```', response_text, re.DOTALL)
-    css_match = re.search(r'```css\n(.*?)\n```', response_text, re.DOTALL)
-    js_match = re.search(r'```(?:javascript|js)\n(.*?)\n```', response_text, re.DOTALL)
-    
-    os.makedirs(app_dir, exist_ok=True)
-    
-    if html_match:
-        with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
-            f.write(html_match.group(1))
-    if css_match:
-        with open(os.path.join(app_dir, "style.css"), "w", encoding="utf-8") as f:
-            f.write(css_match.group(1))
-    if js_match:
-        with open(os.path.join(app_dir, "script.js"), "w", encoding="utf-8") as f:
-            f.write(js_match.group(1))
+        html_match = re.search(r'```html\n(.*?)\n```', response_text, re.DOTALL)
+        css_match = re.search(r'```css\n(.*?)\n```', response_text, re.DOTALL)
+        js_match = re.search(r'```(?:javascript|js)\n(.*?)\n```', response_text, re.DOTALL)
+        
+        os.makedirs(app_dir, exist_ok=True)
+        
+        if html_match:
+            with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
+                f.write(html_match.group(1))
+        if css_match:
+            with open(os.path.join(app_dir, "style.css"), "w", encoding="utf-8") as f:
+                f.write(css_match.group(1))
+        if js_match:
+            with open(os.path.join(app_dir, "script.js"), "w", encoding="utf-8") as f:
+                f.write(js_match.group(1))
+                
+        if not html_match and not css_match:
+            with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
+                f.write(f"Failed to parse LLM response (Attempt {attempt+1}):\n{result.stdout}\n")
+            return
+
+        # QA 검증 로직 실행
+        qa_errors = qa_vibecoding.run_qa(app_dir)
+        if not qa_errors:
+            # 에러 없으면 루프 종료 및 성공 반환
+            return True
             
-    # If no blocks matched, it might have failed to format. We just log it.
-    if not html_match and not css_match:
+        # 에러가 있으면 프롬프트에 피드백을 추가하고 재시도
+        error_msg = "\n".join(qa_errors)
+        full_prompt = f"{system_prompt_base}\n\nUser Request: {prompt}\n\n[시스템 QA 피드백 - 수정 요망]\n이전 생성에서 다음 Syntax 에러가 발견되었습니다:\n{error_msg}\n위 에러를 수정한 코드를 다시 생성해주세요."
+        
         with open(os.path.join(app_dir, "error.log"), "a", encoding="utf-8") as f:
-            f.write(f"Failed to parse LLM response:\n{result.stdout}\n")
+            f.write(f"[Attempt {attempt+1}] QA Errors found:\n{error_msg}\n")
+            
+    return False
 
 
 def process_prompt(app_name: str, prompt: str):
