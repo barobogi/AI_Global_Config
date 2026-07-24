@@ -22,6 +22,7 @@ logging.basicConfig(
 
 app = Flask(__name__)
 REGISTRY_PATH = r"D:\AI\Global_Define\agent_registry.json"
+_ui_lock = threading.Lock()  # 클립보드+포커스 조작은 전역 자원이라 동시 실행 시 서로 다른 창에 잘못된 메시지가 붙여넣어질 수 있음 — 직렬화 필수
 
 class LASTINPUTINFO(ctypes.Structure):
     _fields_ = [("cbSize", ctypes.c_uint), ("dwTime", ctypes.c_ulong)]
@@ -66,33 +67,36 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
         if not all_wins:
             logging.error(f"{agent_id} window ('{window_title}') not found!")
             return False
-            
+
         hwnd = all_wins[0][0]
         logging.info(f"Found {agent_id} window: {all_wins[0][1]}")
-        
-        hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
-        pyautogui.press('alt')
-        time.sleep(0.1)
+        # 클립보드+포커스는 전역 자원 — 동시에 여러 타깃이 격발되면 서로 다른 창에
+        # 잘못된 메시지가 붙여넣어질 수 있어 아래 구간 전체를 직렬화한다.
+        with _ui_lock:
+            hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
-        ctypes.windll.user32.ShowWindow(hwnd, 9)
-        time.sleep(0.2)
-        ctypes.windll.user32.SetForegroundWindow(hwnd)
-        time.sleep(0.5)
+            pyautogui.press('alt')
+            time.sleep(0.1)
 
-        if len(shortcut) > 0:
-            pyautogui.hotkey(*shortcut)
+            ctypes.windll.user32.ShowWindow(hwnd, 9)
+            time.sleep(0.2)
+            ctypes.windll.user32.SetForegroundWindow(hwnd)
             time.sleep(0.5)
 
-        pyperclip.copy(message)
-        pyautogui.hotkey('ctrl', 'v')
-        time.sleep(0.3)
-        pyautogui.press('enter')
-        time.sleep(0.5)
-        
-        if hwnd_active:
-            ctypes.windll.user32.SetForegroundWindow(hwnd_active)
-            
+            if len(shortcut) > 0:
+                pyautogui.hotkey(*shortcut)
+                time.sleep(0.5)
+
+            pyperclip.copy(message)
+            pyautogui.hotkey('ctrl', 'v')
+            time.sleep(0.3)
+            pyautogui.press('enter')
+            time.sleep(0.5)
+
+            if hwnd_active:
+                ctypes.windll.user32.SetForegroundWindow(hwnd_active)
+
         logging.info(f"PyAutoGUI successfully triggered {agent_id}.")
         return True
     except Exception as e:
