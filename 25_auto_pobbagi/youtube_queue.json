@@ -439,6 +439,104 @@
             "title": "The biggest benefit of AI isn’t saving time, it’s creating the space to think.",
             "channel_name": "Samin Yasar",
             "status": "pending"
+        },
+        {
+            "video_id": "2cuYpywrPZk",
+            "title": "서비스 만들 때 필수 클라우드 구성도 바로 이해할 수 있습니다. | 바이브코딩 하시는 분들 꼭 끝까지 보세요.",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending"
+        },
+        {
+            "video_id": "wqzmZ97vAOY",
+            "title": "쉽게 이해하는 네트워크 및 인프라 구성도 | 바이브 코딩 하는 분들을 꼭 끝까지 보세요.",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending"
+        },
+        {
+            "video_id": "fdL0vnOxv7I",
+            "title": "비전공자를 위한 컴퓨터구조와 운영체제 2부 | 프로세스 쓰레드 차이 | 바이브코딩 하는 분 꼭 끝까지 들어보세요.",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending"
+        },
+        {
+            "video_id": "hJBIEKRNI78",
+            "title": "클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 #Shorts",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "yLbqUmuY2-s",
+            "title": "Describe what you want, and let AI build the system. 🤖",
+            "channel_name": "Samin Yasar",
+            "status": "pending"
+        },
+        {
+            "video_id": "zEC9LduTD6w",
+            "title": "The best AI tools are the ones you actually use.",
+            "channel_name": "Samin Yasar",
+            "status": "pending"
+        },
+        {
+            "video_id": "Q9S6syJUCF8",
+            "title": "If you can’t defend every claim AI generated, it’s still a draft, not a deliverable.",
+            "channel_name": "Samin Yasar",
+            "status": "pending"
+        },
+        {
+            "video_id": "xoCYO-o9n6k",
+            "title": "실패와 성공 사이",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "XBTD1pyl0SA",
+            "title": "도커 docker 컨테이너의 위력",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "lAjGtYbpOCs",
+            "title": "WEB과 WAS의 결정적 차이 #shorts",
+            "channel_name": "기술노트 with 알렉",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "WgufOlntLS8",
+            "title": "3000억 사업가의 바이브 코딩 전략",
+            "channel_name": "동기부여학파",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "V8dqlcbUmyo",
+            "title": "지금 바로 시작해야하는 경쟁없는 SNS",
+            "channel_name": "동기부여학파",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "YGxJiAp_4VU",
+            "title": "1인 개발자가 4일에 $35M 만든 방법 #startup #기술",
+            "channel_name": "동기부여학파",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "fQMRyETrqtU",
+            "title": "[한영자막] 'Claude Code' 만든 사람이 알려주는 개발자 '생존법'",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "c-LGpvBuwdk",
+            "title": "[한영자막] Matt Pocock 스킬 전체 플로우 배우기",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
         }
     ],
     "processed": [
