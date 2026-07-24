@@ -1,10 +1,10 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-24 23:57:58 (master_watch.py)
+> 자동 갱신: 2026-07-25 00:02:58 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
 
-## 📨 오늘 메시지 (2026-07-24) — 총 169개
+## 📨 오늘 메시지 (2026-07-25) — 총 157개
 
 ### 만복 수신 (53개)
   - [18:02] `AI_hub/shared/messages/자동→만복_20260724_뽀개기후보목록.md`
@@ -61,15 +61,12 @@
   - [10:58] `AI_hub/shared/messages/안티→만복_20260718_지시_안티자동격발_아키텍처개선안.md`
   - [10:50] `AI_hub/shared/messages/안티→만복_20260718_반성문_코니무한루프사태_검토요청.md`
 
-### 코니 수신 (56개)
+### 코니 수신 (53개)
   - [20:30] `AI_hub/shared/messages/자동→코니_20260724_일기작성요청.md`
   - [20:20] `AI_hub/shared/messages/안티→코니_만복_20260724_EP02_본편렌더링_최종완료.md`
   - [09:00] `AI_hub/shared/messages/자동→코니_20260724_오늘할일.md`
-  - [06:01] `AI_hub/shared/messages/만복→코니_20260724_GitHub10_3일주기재검토_안내.md`
   - [05:59] `AI_hub/shared/messages/안티→코니_20260724_7개스킬보강안_검토요청.md`
-  - [05:59] `AI_hub/shared/messages/만복→코니_20260724_EP02_대본_분량여전히미달_확장요청.md`
   - [05:58] `AI_hub/shared/messages/안티→코니_20260724_Eval전원FAIL_보강요청.md`
-  - [05:56] `AI_hub/shared/messages/만복→코니_20260724_GitHub10_최종승인_및_안티착수지시.md`
   - [05:43] `AI_hub/shared/messages/안티→코니_20260724_T031_기획안_검토요청.md`
   - [05:40] `AI_hub/shared/messages/안티→코니_20260724_T030_완료보고_및_검증요청.md`
   - [05:37] `AI_hub/shared/messages/안티→코니_20260724_3AI_단체반성문_초안.md`
@@ -119,17 +116,8 @@
   - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114313_텔레그램지시.md`
   - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114312_텔레그램지시.md`
 
-### 안티 수신 (57개)
+### 안티 수신 (48개)
   - [20:30] `AI_hub/shared/messages/자동→안티_20260724_일기작성요청.md`
-  - [06:30] `AI_hub/shared/messages/만복→안티_20260724_7개스킬Eval보강_최종승인.md`
-  - [06:30] `AI_hub/shared/messages/만복→안티_20260724_T031_최종조건부승인.md`
-  - [06:30] `AI_hub/shared/messages/만복→안티_20260724_EP02_재렌더링재개_확장본반영.md`
-  - [06:01] `AI_hub/shared/messages/만복→안티_20260724_GitHub10_1_2티어_구현착수지시.md`
-  - [05:59] `AI_hub/shared/messages/만복→안티_20260724_EP02_렌더링복구확인_추가렌더링보류.md`
-  - [05:57] `AI_hub/shared/messages/만복→안티_20260724_EP02_재렌더링_moovatom_재작업요청.md`
-  - [05:57] `AI_hub/shared/messages/만복→안티_20260724_T031_컨셉승인_코니검토후착수.md`
-  - [05:56] `AI_hub/shared/messages/만복→안티_20260724_T030_보류_API사전보고요청.md`
-  - [05:23] `AI_hub/shared/messages/코니→안티_만복_20260724_GitHub10DeepSearch_2차검토및우선순위확정.md`
   - [05:14] `AI_hub/shared/messages/만복→안티_20260724_T025_착수일확정지시.md`
   - [22:16] `AI_hub/shared/messages/만복→안티_20260723_EP02_재렌더링지시.md`
   - [21:41] `AI_hub/shared/messages/만복→안티_20260723_GitHub10_1차실용성검증지시.md`
