@@ -53,6 +53,12 @@
       "channel_id": "UCFiU1vIpPD3lQltke_18m3A",
       "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFiU1vIpPD3lQltke_18m3A",
       "active": true
+    },
+    {
+      "name": "The Next New Thing",
+      "channel_id": "UCNZEktrsM5oJZ-MK4jKPMOQ",
+      "rss_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNZEktrsM5oJZ-MK4jKPMOQ",
+      "active": true
     }
   ],
   "_note": "신규 채널 추가: channels 배열에 항목 추가. master_watch.py가 1시간마다 자동 감지."

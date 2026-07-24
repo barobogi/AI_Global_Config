@@ -537,6 +537,13 @@
       "channel_name": "Matt Pocock",
       "status": "pending",
       "fallback": true
+    },
+    {
+      "video_id": "tX9ANddpAqc",
+      "title": "(바로보기님 제공) https://youtu.be/tX9ANddpAqc?si=GV-a5Rv2PtJ61amN",
+      "channel_name": "The Next New Thing",
+      "status": "pending",
+      "source": "check_youtube_drive"
     }
   ],
   "processed": [
