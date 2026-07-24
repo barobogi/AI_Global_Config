@@ -1,5 +1,5 @@
 ---
-status: holding
+status: unread
 ---
 
 # [인계] 1티어 2순위: #5 Academic Research Skills (Devil's Advocate) 기획/구현 검토 요청

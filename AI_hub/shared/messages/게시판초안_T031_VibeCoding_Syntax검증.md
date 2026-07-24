@@ -1,5 +1,5 @@
 ---
-status: holding
+status: unread
 ---
 
 ## 🚀 개요
