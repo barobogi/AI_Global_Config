@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [요청] 뽀개기 아이템 B (Claude Code & 6대 생존 스킬) 1차 리뷰 및 검증

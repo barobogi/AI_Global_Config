@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [요청] 뽀개기 아이템 C (Hermes Agent) 1차 리뷰 및 검증

@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [요청] 아이템 A — Matt Pocock ticket_planner/splitter 보강 2차 검증

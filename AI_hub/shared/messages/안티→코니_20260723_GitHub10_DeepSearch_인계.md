@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [인계] GitHub Top 10 도구 Deep Search 결과 및 활용 방안

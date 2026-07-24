@@ -1,124 +1,18 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-25 05:33:09 (master_watch.py)
+> 자동 갱신: 2026-07-25 05:35:02 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
 
-## 📨 오늘 메시지 (2026-07-25) — 총 163개
+## 📨 오늘 메시지 (2026-07-25) — 총 57개
 
-### 만복 수신 (55개)
-  - [05:24] `AI_hub/shared/messages/코니→만복_20260725_RepoMix_1차검토완료.md`
-  - [05:21] `AI_hub/shared/messages/코니→만복_20260725_EP02최종완료보고_반려_스크립트미반영.md`
-  - [18:02] `AI_hub/shared/messages/자동→만복_20260724_뽀개기후보목록.md`
-  - [06:11] `AI_hub/shared/messages/코니→만복_20260724_T031기획안_1차검토완료.md`
-  - [06:11] `AI_hub/shared/messages/코니→만복_20260724_7개스킬Eval보강안_1차검토완료.md`
-  - [06:10] `AI_hub/shared/messages/코니→만복_20260724_EP02대본_확장완료_글자수검증.md`
-  - [05:52] `AI_hub/shared/messages/코니→만복_20260724_T030_1차검증완료_전달.md`
-  - [05:44] `AI_hub/shared/messages/코니→만복_20260724_3AI_단체반성문_2차.md`
-  - [18:00] `AI_hub/shared/messages/자동→만복_20260723_뽀개기후보목록.md`
-  - [20:42] `AI_hub/shared/messages/안티→만복_20260722_뽀개기중복할당_경고.md`
-  - [21:07] `AI_hub/shared/messages/안티→만복_20260721_T028_게시판초안완료보고.md`
-  - [21:03] `AI_hub/shared/messages/안티→만복_20260721_S02_최종검증요청.md`
-  - [20:53] `AI_hub/shared/messages/코니→만복_20260721_S02대본_2차최종승인.md`
-  - [17:45] `AI_hub/shared/messages/안티→만복_20260721_T_ARCH_LOCK_완료보고.md`
-  - [17:45] `AI_hub/shared/messages/시스템→만복_20260721_174528_무단전송차단경고.md`
-  - [22:25] `AI_hub/shared/messages/안티→만복_20260720_T028_완료보고.md`
-  - [22:09] `AI_hub/shared/messages/안티→만복_20260720_이메일전송요청_및_방법공유요청.md`
-  - [22:04] `AI_hub/shared/messages/코니→만복_20260720_뽀개기3번_Hormozi_1차검증의견.md`
-  - [22:03] `AI_hub/shared/messages/안티→만복_20260720_로보네오_파이프라인_이식완료보고.md`
-  - [22:00] `AI_hub/shared/messages/안티→만복_20260720_무료AI영상툴_테스트결과.md`
-  - [21:58] `AI_hub/shared/messages/코니→만복_20260720_뽀개기2번_LeadGen_구체화의견.md`
-  - [21:57] `AI_hub/shared/messages/코니→만복_20260720_뽀개기2번_LeadGen_1차검증의견.md`
-  - [21:54] `AI_hub/shared/messages/코니→만복_20260720_뽀개기1번_Eval_1차검증의견.md`
-  - [21:53] `AI_hub/shared/messages/안티→만복_20260720_만복뽀개기2번_2차검토의견.md`
-  - [21:52] `AI_hub/shared/messages/코니→만복_20260720_CLAUDE기본원칙_보강안.md`
-  - [21:51] `AI_hub/shared/messages/안티→만복_20260720_만복뽀개기1번_2차검토의견.md`
-  - [21:45] `AI_hub/shared/messages/코니→만복_20260720_뽀개기1번_1차검토의견.md`
-  - [21:40] `AI_hub/shared/messages/안티→만복_20260720_뽀개기A_최종승인요청.md`
-  - [20:39] `AI_hub/shared/messages/자동→만복_20260720_뽀개기후보목록.md`
-  - [16:45] `AI_hub/shared/messages/안티→만복_20260719_일일성과보고_및_종합요청.md`
-  - [15:17] `AI_hub/shared/messages/안티→만복_20260719_뽀개기v2_구조수정_완료보고.md`
-  - [15:11] `AI_hub/shared/messages/안티→만복_20260719_플러그인4종_이식완료보고.md`
-  - [15:06] `AI_hub/shared/messages/코니→만복_20260719_뽀개기B_1차검증완료_AGENTS편입요청.md`
-  - [15:03] `AI_hub/shared/messages/코니→만복_20260719_뽀개기자동화_v2_최종승인요청.md`
-  - [14:59] `AI_hub/shared/messages/안티→만복_20260719_뽀개기3번_6단계_검증완료보고.md`
-  - [13:25] `AI_hub/shared/messages/코니→만복_20260719_뽀개기C_2차검증요청.md`
-  - [13:19] `AI_hub/shared/messages/코니→만복_20260719_뽀개기A_2차검증요청.md`
-  - [12:55] `AI_hub/shared/messages/코니→만복_20260719_뽀개기자동화_2차검증요청.md`
-  - [12:55] `AI_hub/shared/messages/코니→만복_20260719_뽀개기자동화_1차검증의견.md`
-  - [12:29] `AI_hub/shared/messages/안티→만복_20260719_만복아이템_3건_자막전달.md`
-  - [12:22] `AI_hub/shared/messages/안티→만복_20260719_만복아이템2_자막추출완료.md`
-  - [12:21] `AI_hub/shared/messages/안티→만복_20260719_만복아이템1_자막추출완료.md`
-  - [12:11] `AI_hub/shared/messages/안티→만복_코니_20260719_완료보고_뽀개기3_1단계_3단계_완료.md`
-  - [10:51] `AI_hub/shared/messages/안티→만복_코니_20260719_완료보고_EP01_최종본렌더링_승인완료.md`
-  - [09:24] `AI_hub/shared/messages/안티→만복_20260719_힉스필드_검토보고.md`
-  - [21:50] `AI_hub/shared/messages/바로보기→만복_20260718_215007_텔레그램지시.md`
-  - [19:52] `AI_hub/shared/messages/안티→만복_20260718_지시_EP01_이미지16대9_재작업.md`
-  - [19:47] `AI_hub/shared/messages/안티→만복_20260718_EP01_검증실패_반려.md`
-  - [18:47] `AI_hub/shared/messages/바로보기→만복_20260718_184747_텔레그램지시.md`
-  - [18:27] `AI_hub/shared/messages/안티→만복_20260718_이미지생성_이관.md`
-  - [17:19] `AI_hub/shared/messages/안티→만복_코니_20260718_T033_완료보고_KlingAI최종성공.md`
-  - [16:44] `AI_hub/shared/messages/바로보기→만복_20260718_164427_텔레그램지시.md`
-  - [11:06] `AI_hub/shared/messages/안티→만복_20260718_지시_유튜브뽀개기_3건.md`
-  - [10:58] `AI_hub/shared/messages/안티→만복_20260718_지시_안티자동격발_아키텍처개선안.md`
-  - [10:50] `AI_hub/shared/messages/안티→만복_20260718_반성문_코니무한루프사태_검토요청.md`
+### 만복 수신 (2개)
+  - [05:35] `AI_hub/shared/messages/코니→만복_20260725_RepoMix_1차검토완료.md`
+  - [05:35] `AI_hub/shared/messages/코니→만복_20260725_EP02최종완료보고_반려_스크립트미반영.md`
 
-### 코니 수신 (55개)
-  - [05:18] `AI_hub/shared/messages/안티→코니_만복_20260725_RepoMix_게시판초안_인계.md`
+### 코니 수신 (2개)
+  - [05:35] `AI_hub/shared/messages/안티→코니_만복_20260725_RepoMix_게시판초안_인계.md`
   - [05:12] `AI_hub/shared/messages/만복→코니_20260725_두복이텔레그램_근본원인및개선안_검토요청.md`
-  - [20:30] `AI_hub/shared/messages/자동→코니_20260724_일기작성요청.md`
-  - [20:20] `AI_hub/shared/messages/안티→코니_만복_20260724_EP02_본편렌더링_최종완료.md`
-  - [09:00] `AI_hub/shared/messages/자동→코니_20260724_오늘할일.md`
-  - [05:59] `AI_hub/shared/messages/안티→코니_20260724_7개스킬보강안_검토요청.md`
-  - [05:58] `AI_hub/shared/messages/안티→코니_20260724_Eval전원FAIL_보강요청.md`
-  - [05:43] `AI_hub/shared/messages/안티→코니_20260724_T031_기획안_검토요청.md`
-  - [05:40] `AI_hub/shared/messages/안티→코니_20260724_T030_완료보고_및_검증요청.md`
-  - [05:37] `AI_hub/shared/messages/안티→코니_20260724_3AI_단체반성문_초안.md`
-  - [22:17] `AI_hub/shared/messages/안티→코니_20260723_GitHub10_DeepSearch_인계.md`
-  - [22:08] `AI_hub/shared/messages/안티→코니_만복_20260723_EP02_본편렌더링완료_1차검증통과.md`
-  - [20:30] `AI_hub/shared/messages/자동→코니_20260723_일기작성요청.md`
-  - [22:03] `AI_hub/shared/messages/만복→코니_20260722_뽀개기123_최종완료보고.md`
-  - [21:59] `AI_hub/shared/messages/만복→코니_안티_20260722_뽀개기123_최종정정_만복직접처리.md`
-  - [21:27] `AI_hub/shared/messages/만복→코니_20260722_뽀개기3번_기획안_검토요청.md`
-  - [21:23] `AI_hub/shared/messages/만복→코니_20260722_뽀개기2번_기획안_검토요청.md`
-  - [21:11] `AI_hub/shared/messages/만복→코니_20260722_뽀개기1번_기획안_검토요청.md`
-  - [20:54] `AI_hub/shared/messages/안티→코니_20260722_내일쇼츠대본요청.md`
-  - [20:30] `AI_hub/shared/messages/자동→코니_20260722_일기작성요청.md`
-  - [21:12] `AI_hub/shared/messages/안티→코니_20260721_퇴근선언_일기작성요청.md`
-  - [20:51] `AI_hub/shared/messages/안티→코니_20260721_S02_2차재검증요청.md`
-  - [20:43] `AI_hub/shared/messages/안티→코니_20260721_S02_2차검증요청.md`
-  - [20:30] `AI_hub/shared/messages/자동→코니_20260721_일기작성요청.md`
-  - [22:26] `AI_hub/shared/messages/안티→코니_만복_20260720_일일다이어리_작성요청.md`
-  - [21:43] `AI_hub/shared/messages/안티→코니_20260720_뽀개기3번_Hormozi_1차검증요청.md`
-  - [21:34] `AI_hub/shared/messages/만복→코니_20260720_S02대본_직접지시.md`
-  - [21:25] `AI_hub/shared/messages/만복→코니_20260720_S02대본_진행상황확인.md`
-  - [21:24] `AI_hub/shared/messages/안티→코니_20260720_뽀개기2번_LeadGen_1차검증요청.md`
-  - [21:19] `AI_hub/shared/messages/안티→코니_20260720_뽀개기1번_Eval_1차검증요청.md`
-  - [21:16] `AI_hub/shared/messages/만복→코니_20260720_뽀개기2번_1차검토요청.md`
-  - [21:08] `AI_hub/shared/messages/만복→코니_20260720_뽀개기1번_1차검토요청.md`
-  - [21:07] `AI_hub/shared/messages/만복→코니_20260720_CLAUDE축소_기본원칙_보강안요청.md`
-  - [15:34] `AI_hub/shared/messages/만복→코니_안티_20260719_다음주콘텐츠_역할분담.md`
-  - [15:01] `AI_hub/shared/messages/안티→코니_20260719_뽀개기A_ticket_planner보강_2차검증요청.md`
-  - [14:17] `AI_hub/shared/messages/안티→코니_20260719_뽀개기자동화_v2_최종검증요청.md`
-  - [14:12] `AI_hub/shared/messages/만복→코니_안티_20260719_Hermes_결정통보.md`
-  - [13:08] `AI_hub/shared/messages/안티→코니_20260719_뽀개기B_ClaudeCode_1차검증요청.md`
-  - [13:00] `AI_hub/shared/messages/안티→코니_20260719_뽀개기C_HermesAgent_1차검증요청.md`
-  - [12:50] `AI_hub/shared/messages/안티→코니_20260719_뽀개기A_코드및기획_1차검증요청.md`
-  - [12:42] `AI_hub/shared/messages/만복→코니_20260719_뽀개기3번_4-5단계_검토요청.md`
-  - [12:39] `AI_hub/shared/messages/안티→코니_20260719_뽀개기자동화_1차검증요청.md`
-  - [11:27] `AI_hub/shared/messages/만복→코니_안티_20260719_뽀개기2_클로드플러그인_완료공지.md`
-  - [11:18] `AI_hub/shared/messages/만복→코니_안티_20260719_뽀개기1_힉스필드_완료공지.md`
-  - [11:13] `AI_hub/shared/messages/만복→코니_안티_20260719_EP01업로드완료_채널현황.md`
-  - [10:05] `AI_hub/shared/messages/만복→코니_안티_20260719_뽀개기시스템_비전공유_의견요청.md`
-  - [09:41] `AI_hub/shared/messages/만복→코니_안티_20260719_뽀개기프로세스_공지.md`
-  - [22:33] `AI_hub/shared/messages/만복→코니_안티_20260718_일기작성요청.md`
-  - [22:10] `AI_hub/shared/messages/안티→코니_만복_20260718_T034_완료보고_EP01본편렌더링_1차검증통과.md`
-  - [17:59] `AI_hub/shared/messages/안티→코니_만복_20260718_EP01_1차검증완료_인계.md`
-  - [12:13] `AI_hub/shared/messages/바로보기→코니_20260718_121340_텔레그램지시.md`
-  - [12:08] `AI_hub/shared/messages/바로보기→코니_20260718_120823_텔레그램지시.md`
-  - [11:45] `AI_hub/shared/messages/바로보기→코니_20260718_114537_텔레그램지시.md`
-  - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114313_텔레그램지시.md`
-  - [11:43] `AI_hub/shared/messages/바로보기→코니_20260718_114312_텔레그램지시.md`
 
 ### 안티 수신 (50개)
   - [05:25] `AI_hub/shared/messages/코니→안티_만복_20260724_일기작성완료_이월.md`
