@@ -14,7 +14,7 @@ for t in fetched:
 
 text = '\n'.join(lines)
 
-with open(r'D:\AI\Temp_Manbok\langgraph_transcript.txt', 'w', encoding='utf-8') as f:
+with open(r'D:\AI\_Temp_Manbok\langgraph_transcript.txt', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print(f'완료: {len(fetched)}개 세그먼트, {len(text)}자')

@@ -125,5 +125,5 @@ doc.add_paragraph()
 p = doc.add_paragraph('* 본 문서는 특허 출원을 위한 기초 개념 정리용이며, 법적 효력은 없습니다.')
 p.italic = True
 
-doc.save('D:/AI/DEV_ITEM/호두AI_발명개념서_v0.1.docx')
+doc.save('D:/AI/_DEV_ITEM/호두AI_발명개념서_v0.1.docx')
 print('Word 파일 생성 완료')

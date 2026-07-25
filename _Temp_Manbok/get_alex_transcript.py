@@ -19,7 +19,7 @@ for t in fetched:
     lines.append(f'[{m:02d}:{s:02d}] {t.text}')
 
 text = '\n'.join(lines)
-with open(r'D:\AI\Temp_Manbok\alex_transcript.txt', 'w', encoding='utf-8') as f:
+with open(r'D:\AI\_Temp_Manbok\alex_transcript.txt', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print(f'\n완료: {len(fetched)}개 세그먼트, {len(text)}자')

@@ -51,7 +51,7 @@ def make_doc(filename, title_kr, title_en, field, background, purpose_list, stru
     doc.add_paragraph()
     doc.add_paragraph('* 본 문서는 특허 출원을 위한 기초 개념 정리용이며, 법적 효력은 없습니다.').italic = True
 
-    doc.save(f'D:/AI/DEV_ITEM/{filename}')
+    doc.save(f'D:/AI/_DEV_ITEM/{filename}')
     print(f'{filename} 완료')
 
 

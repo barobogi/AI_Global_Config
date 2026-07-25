@@ -1,7 +1,7 @@
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
-with open(r'D:\AI\Temp_Manbok\langgraph_transcript.txt', 'r', encoding='utf-8') as f:
+with open(r'D:\AI\_Temp_Manbok\langgraph_transcript.txt', 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
 # 전체를 1000줄 단위로 청크 분할하여 핵심 내용 추출
@@ -61,7 +61,7 @@ for i, line in enumerate(lines):
     if i > 10000 and in_5gang:
         break
 
-with open(r'D:\AI\Temp_Manbok\langgraph_patent_analysis.md', 'w', encoding='utf-8') as f:
+with open(r'D:\AI\_Temp_Manbok\langgraph_patent_analysis.md', 'w', encoding='utf-8') as f:
     f.write('\n'.join(report_lines))
 
 print(f"✅ 분석 완료: D:\\AI\\Temp_Manbok\\langgraph_patent_analysis.md")

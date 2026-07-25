@@ -35,9 +35,9 @@
     "semantic_hash": "3bb130f2366dd8099d4a6eac321826e3"
   },
   "11_\ud2b9\ud5c8\uc544\uc774\ub514\uc5b4/TEMP/make_hodu_v02.py": {
-    "mtime": 1782660897.5685532,
-    "ast_hash": "f11539ee672c81556568c4a3a6ea72b7",
-    "semantic_hash": "f11539ee672c81556568c4a3a6ea72b7"
+    "mtime": 1785022876.1711817,
+    "ast_hash": "a1ed1888ac63c7c31c81b598f1b8260f",
+    "semantic_hash": ""
   },
   "11_\ud2b9\ud5c8\uc544\uc774\ub514\uc5b4/TEMP/make_hodu_v03.py": {
     "mtime": 1782681126.9622083,
@@ -60,19 +60,19 @@
     "semantic_hash": "020e6df9315aa6766070b3a662f6550f"
   },
   "11_\ud2b9\ud5c8\uc544\uc774\ub514\uc5b4/TEMP/make_patent_all_doc.py": {
-    "mtime": 1782659792.4118524,
-    "ast_hash": "2e7f456f8416b7ebd5b3a33a43bd8932",
-    "semantic_hash": "2e7f456f8416b7ebd5b3a33a43bd8932"
+    "mtime": 1785022876.215625,
+    "ast_hash": "7942c89c90ec3939b4d8ed386b710e3d",
+    "semantic_hash": ""
   },
   "11_\ud2b9\ud5c8\uc544\uc774\ub514\uc5b4/TEMP/make_patent_doc.py": {
-    "mtime": 1782659304.9704978,
-    "ast_hash": "40eddf58c647fbad3532b52042cb0b15",
-    "semantic_hash": "40eddf58c647fbad3532b52042cb0b15"
+    "mtime": 1785022876.237382,
+    "ast_hash": "d2cbff15421d2173679e0616ef528e25",
+    "semantic_hash": ""
   },
   "11_\ud2b9\ud5c8\uc544\uc774\ub514\uc5b4/TEMP/make_patent_individual.py": {
-    "mtime": 1782660131.759647,
-    "ast_hash": "09ba6380760fe29e02096d57240682cf",
-    "semantic_hash": "09ba6380760fe29e02096d57240682cf"
+    "mtime": 1785022876.185734,
+    "ast_hash": "d11949d3b775b3fd248c3489da0d50b5",
+    "semantic_hash": ""
   },
   "25_auto_pobbagi/auto_pobbagi.py": {
     "mtime": 1784423667.5119314,
@@ -1159,51 +1159,6 @@
     "ast_hash": "4c8fc1dd0caef2ffda056194e9d3526f",
     "semantic_hash": "4c8fc1dd0caef2ffda056194e9d3526f"
   },
-  "\ud559\uc2b5\ucc44\ub110_\uae30\uc220\ub178\ud2b8with \uc54c\ub809/src/bieRrMRc-bg.md": {
-    "mtime": 1784245560.0474217,
-    "ast_hash": "f0d65b4e3419c333944f9ee5534b740a",
-    "semantic_hash": "f0d65b4e3419c333944f9ee5534b740a"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\uae30\uc220\ub178\ud2b8with \uc54c\ub809/src/gBDD9GWESDg.md": {
-    "mtime": 1784190731.031778,
-    "ast_hash": "de7e64bad96a073e18e7ca1c289f94b9",
-    "semantic_hash": "de7e64bad96a073e18e7ca1c289f94b9"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\uae30\uc220\ub178\ud2b8with \uc54c\ub809/src/kyYqzfQasE0.md": {
-    "mtime": 1784190734.2284207,
-    "ast_hash": "7a7917d098d5908e2929391642becbd2",
-    "semantic_hash": "7a7917d098d5908e2929391642becbd2"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ube14\ub8e8\ub2f7_AI/src/3My9sphTxtk.md": {
-    "mtime": 1784247849.7545323,
-    "ast_hash": "cfcf984e392a7e1c6e132763ae23f3b3",
-    "semantic_hash": "cfcf984e392a7e1c6e132763ae23f3b3"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ud638\ub450\uc758 AI \ubd84\uc11d\uc2e4/src/EJZfDLn67Kk.md": {
-    "mtime": 1784190746.513438,
-    "ast_hash": "096b31864b52e25a8e70a09d27e55a82",
-    "semantic_hash": "096b31864b52e25a8e70a09d27e55a82"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ud638\ub450\uc758 AI \ubd84\uc11d\uc2e4/src/G1E921X5LYI.md": {
-    "mtime": 1784190743.5220146,
-    "ast_hash": "146700852302d3d7402a2e1c7b0b4256",
-    "semantic_hash": "146700852302d3d7402a2e1c7b0b4256"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ud638\ub450\uc758 AI \ubd84\uc11d\uc2e4/src/QC3yJ-blDAE.md": {
-    "mtime": 1784190740.480075,
-    "ast_hash": "01f7072bff917162c0ec988814198d54",
-    "semantic_hash": "01f7072bff917162c0ec988814198d54"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ud638\ub450\uc758 AI \ubd84\uc11d\uc2e4/src/RJnEMixTJlw.md": {
-    "mtime": 1784190737.4134066,
-    "ast_hash": "173ff779c172cf626cf9f3f038741d74",
-    "semantic_hash": "173ff779c172cf626cf9f3f038741d74"
-  },
-  "\ud559\uc2b5\ucc44\ub110_\ud638\ub450\uc758 AI \ubd84\uc11d\uc2e4/src/luZQNhehDXU.md": {
-    "mtime": 1784190749.5123367,
-    "ast_hash": "b33c5da1fdc8bb3e4d1007a53aa71d58",
-    "semantic_hash": "b33c5da1fdc8bb3e4d1007a53aa71d58"
-  },
   "64_vibecoding/qa_vibecoding.py": {
     "mtime": 1784930670.720688,
     "ast_hash": "84e7ec6f1b85f9b673ac78154e594a73",
@@ -1340,8 +1295,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ub9cc\ubcf5_heartbeat.json": {
-    "mtime": 1785022517.578289,
-    "ast_hash": "51506742b08ee2f812dba8a234bdd75a",
+    "mtime": 1785022935.3549583,
+    "ast_hash": "2d94d4767b04253962016d8a53d5663a",
     "semantic_hash": ""
   },
   "AI_hub/status/\uc548\ud2f0_heartbeat.json": {
@@ -4460,8 +4415,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/inbox.md": {
-    "mtime": 1785022517.7872336,
-    "ast_hash": "1be9ca0b2563fcd53d6046c046df2c70",
+    "mtime": 1785022935.5558476,
+    "ast_hash": "9f762b627d96ef43a5b38ca71b9393f6",
     "semantic_hash": ""
   },
   "AI_hub/status/trigger_anti.txt": {
@@ -4470,8 +4425,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ucf54\ub2c8_\ube0c\ub9ac\ud551_\ucd5c\uc2e0.md": {
-    "mtime": 1785022517.702556,
-    "ast_hash": "611b681e7cb24285210a56847f6e3d15",
+    "mtime": 1785022935.446182,
+    "ast_hash": "13bd3f9461d68c4c190d7eede23723f3",
     "semantic_hash": ""
   },
   "AI_hub/telegram_history.md": {
@@ -4480,73 +4435,68 @@
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.21_\uc694\uc57d_2ffdcc1c.md": {
-    "mtime": 1785021741.8832967,
+    "mtime": 1785022844.6822486,
     "ast_hash": "f4c6c2e870d93c9cb7faf3ee3b7517d2",
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.2_468da52a.md": {
-    "mtime": 1785021741.8203318,
+    "mtime": 1785022844.5975552,
     "ast_hash": "ab5962a8800929bcf056ea8d472d29e2",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2460_AI\uc138\uc158_\ucee8\ud14d\uc2a4\ud2b8_\ub3d9\uae30\ud654_v0.1_84d02b4a.md": {
-    "mtime": 1785021742.2887273,
+    "mtime": 1785022844.83503,
     "ast_hash": "3d1acbbe931c0b68358f42413adeb1e8",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2461_\uc678\ubd80AI_\uc704\uc784\uc2e4\ud589_v0.1_33cf5e1c.md": {
-    "mtime": 1785021742.3381517,
+    "mtime": 1785022844.9701777,
     "ast_hash": "4eaa52d38fbc185d72d326357f03ec05",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2462_\uc2dc\uc7a5\uae30\ubc18_\uc2e0\ud638\uc790\ub3d9\ud559\uc2b5_v0.1_d1f03d6a.md": {
-    "mtime": 1785021742.4269292,
+    "mtime": 1785022845.141247,
     "ast_hash": "44d8a18060459d14c1cdd9458fb8edf0",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2463_4\uacc4\uce35_AI\ud611\uc5c5_\uc544\ud0a4\ud14d\ucc98_v0.1_7de66d7a.md": {
-    "mtime": 1785021742.488868,
+    "mtime": 1785022845.2234783,
     "ast_hash": "d2f7e3b93737828d4dfd88d35475c69b",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\ud6c4\ubcf4_\uac1c\ub150\uc11c_\ubaa8\uc74c_v0.1_043b1b21.md": {
-    "mtime": 1785021742.6331954,
+    "mtime": 1785022845.349012,
     "ast_hash": "0df489973fb3643a5c4fd71145a56ac1",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.1_4013122e.md": {
-    "mtime": 1785021742.7083764,
+    "mtime": 1785022845.4950478,
     "ast_hash": "d1595fe06320e3b848b5aabfffd2cf6e",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.2_df928649.md": {
-    "mtime": 1785021742.7834947,
+    "mtime": 1785022845.5921266,
     "ast_hash": "ed93273db4a181940f37d9352b489928",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.31_\uc694\uc57d_a5de2aa5.md": {
-    "mtime": 1785021743.1133628,
+    "mtime": 1785022845.9191191,
     "ast_hash": "0132342444f48f877a33fe4962dca685",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.3_c3c5bb8b.md": {
-    "mtime": 1785021742.9999073,
+    "mtime": 1785022845.7938707,
     "ast_hash": "0af2a65344a3ddbb62ed93dc503dfa88",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ud2b9\ud5c8\uac80\ud1a0_v0.3_20260629_79b87374.md": {
-    "mtime": 1785021743.2058938,
+    "mtime": 1785022846.0313275,
     "ast_hash": "cadb78d5e34f222739f90a9357ecefd4",
     "semantic_hash": ""
   },
   "temp.txt": {
     "mtime": 1784251649.2195501,
     "ast_hash": "49032149c0369a310430ce68d300b847",
-    "semantic_hash": ""
-  },
-  "\ud559\uc2b5\ucc44\ub110_\uae30\uc220\ub178\ud2b8with \uc54c\ub809/src/CcEBaDXgjq0.md": {
-    "mtime": 1784245577.8368194,
-    "ast_hash": "57ebd0b30d4754b506d1a808e059a2d9",
     "semantic_hash": ""
   },
   "25_auto_pobbagi/debug_ui.png": {
@@ -6100,18 +6050,18 @@
     "semantic_hash": ""
   },
   "_Temp_Manbok/analyze_transcript.py": {
-    "mtime": 1784206400.0854287,
-    "ast_hash": "f16c55dd08bad3227b00f19958ab3995",
+    "mtime": 1785022900.40917,
+    "ast_hash": "44dedddb661db26bcaac7a1e3de88e0d",
     "semantic_hash": ""
   },
   "_Temp_Manbok/get_alex_transcript.py": {
-    "mtime": 1784207741.0255535,
-    "ast_hash": "46fa22d5aa0668ecdb0f14e82a0d034c",
+    "mtime": 1785022895.5239327,
+    "ast_hash": "1f27d4fc95382bdeae9c9c3b15372eaf",
     "semantic_hash": ""
   },
   "_Temp_Manbok/get_transcript.py": {
-    "mtime": 1784206210.4077508,
-    "ast_hash": "cbc615c4122a2bc62947a3daa1816717",
+    "mtime": 1785022905.0850124,
+    "ast_hash": "7e1de880f6127f9b06c5255eda243497",
     "semantic_hash": ""
   },
   "_Temp_Manbok/manbok_news/2026-07-03.json": {
@@ -6587,6 +6537,26 @@
   "_Temp_Manbok/\ucf54\ub2c8_\uc77c\uc77c\uc815\ub9ac_20260718.md": {
     "mtime": 1784381644.000524,
     "ast_hash": "18eefda78c0e09293c49dae25d195898",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\uc2b9\uc778\ucd94\ucc9c_\ub9cc\ubcf5\uc804\ub2ec_\uc2b9\uc778.md": {
+    "mtime": 1785022620.3359425,
+    "ast_hash": "b23b9a54fca2e787215934de52d0f80e",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae303Karpathy_\uc7ac\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md": {
+    "mtime": 1785022683.803721,
+    "ast_hash": "bfdfae19cbe56175b30a07ecdee29930",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8\u2192\ub9cc\ubcf5_20260726_0840_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\uc7ac\uc791\uc5c5_2\ucc28\uac80\uc99d\uc644\ub8cc_\uc2b9\uc778\ucd94\ucc9c.md": {
+    "mtime": 1785022617.1490166,
+    "ast_hash": "95788d4203722d69eb3d1202c8bcb189",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0843_\ubf40\uac1c\uae303_Karpathy_\uc7ac\ubc18\ub824_EmotionPrompt\uc5ec\uc804\ud788\uc8fd\uc740\ucf54\ub4dc.md": {
+    "mtime": 1785022679.6125836,
+    "ast_hash": "b1823aa012acfc1f82a0460c65f0f788",
     "semantic_hash": ""
   }
 }
