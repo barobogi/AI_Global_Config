@@ -213,10 +213,13 @@ def phase_2_execute_selection(selection_data):
             f"**영상 제목:** {title}\n**URL:** https://youtu.be/{vid_id}\n\n"
             f"## G (Goal)\n이 영상을 분석해 기술노트 뽀개기 8단계 프로세스(자막 추출→Deep 서치→저작권 확인)에 따라 기획안을 도출하고 Obsidian 및 [[Graphify]] 연동용 [[LLM Wiki]] 파이프라인을 적용한다.\n\n"
             f"## P (Proof)\n자막 텍스트 파일 + Deep 서치 결과 + [[Graphify]] 노드로 연동된 [[LLM Wiki]] 기획안 3종 세트가 만복에게 인계되고 pass 검증을 통과한다.\n\n"
-            f"## S (Steps)\n1. yt-dlp로 자막 추출 (`transcripts/` 저장)\n2. `parallel_search.py`로 관련 사례/최신 정보 Deep 서치\n3. 저작권/출처 확인 (스터디 목적, 재가공 채널 발행 금지)\n4. 친절한 멘토 EmotionPrompt를 적용하여 기획안 작성 및 핵심 용어를 [[키워드]] 형태 위키링크로 연결\n5. 작성 완료 후 반드시 `python fact_checker.py --stt [STT경로] --summary [기획안경로]` 실행하여 PASS 검증\n6. 팩트체크 리포트(`.factcheck.md`)와 함께 코니 1차 검토 요청 → 만복 인계"
+            f"## S (Steps)\n1. yt-dlp로 자막 추출 (`transcripts/` 저장)\n2. `parallel_search.py`로 관련 사례/최신 정보 Deep 서치\n3. 저작권/출처 확인 (스터디 목적, 재가공 채널 발행 금지)\n4. 친절한 멘토 EmotionPrompt를 적용하여 기획안 작성 및 핵심 용어를 [[키워드]] 형태 위키링크로 연결\n5. 작성 완료 후 반드시 `python fact_checker.py --stt [STT경로] --summary [기획안경로]` 실행하여 PASS 검증\n6. 팩트체크 리포트(`.factcheck.md`)와 함께 코니 1차 검토 요청 → 만복"
         )
         
-        wiki_applied = extract_and_link_graphify_nodes(base_instructions)
+        # 1) EmotionPrompt 멘토 템플릿 실제 호출 연동
+        emotion_applied = build_summary_prompt(base_instructions)
+        # 2) Karpathy LLM Wiki 키워드 자동 위키링크 치환 및 Graphify 노드 연동
+        wiki_applied = extract_and_link_graphify_nodes(emotion_applied)
         content = f"---\nstatus: unread\n---\n\n{wiki_applied}"
         
         with open(md_path, "w", encoding="utf-8") as f:

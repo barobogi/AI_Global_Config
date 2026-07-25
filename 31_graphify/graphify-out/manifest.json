@@ -110,8 +110,8 @@
     "semantic_hash": "59b6d23b08035e1ee98027e34f7b62c1"
   },
   "25_auto_pobbagi/daily_pobbagi_runner.py": {
-    "mtime": 1785022201.0813158,
-    "ast_hash": "0e060a2497875218301684aa13a3353f",
+    "mtime": 1785023300.1156921,
+    "ast_hash": "0ce1a8841137770c5e31b22d01b9466b",
     "semantic_hash": ""
   },
   "25_auto_pobbagi/drive_check_seen.json": {
@@ -145,8 +145,8 @@
     "semantic_hash": "b4909ecfe6d4639a770be11ce00a7478"
   },
   "25_auto_pobbagi/youtube_queue.json": {
-    "mtime": 1785019011.378057,
-    "ast_hash": "2ea0dd1b520292c3c5f29eeaa0d9d994",
+    "mtime": 1785023309.3841152,
+    "ast_hash": "949bd5a7a6cca909eed2a2a29a6b91e1",
     "semantic_hash": ""
   },
   "25_auto_pobbagi/youtube_rss_watcher.py": {
@@ -530,8 +530,8 @@
     "semantic_hash": "9d81dbd8f042e46cd7c355a1560c3998"
   },
   ".agents/AGENTS.md": {
-    "mtime": 1785022170.9733703,
-    "ast_hash": "e3cc1cd7a73465f08563385827facf35",
+    "mtime": 1785023284.7935178,
+    "ast_hash": "91f5aa9bc3ce798578daa85b2400382e",
     "semantic_hash": ""
   },
   ".agents/skills/academic_research_devil/SKILL.md": {
@@ -1295,8 +1295,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ub9cc\ubcf5_heartbeat.json": {
-    "mtime": 1785023167.9474049,
-    "ast_hash": "0cee153165e87742f3451b18883c9787",
+    "mtime": 1785023535.731357,
+    "ast_hash": "9991da2cc2e2bce62a7dd65f5f477414",
     "semantic_hash": ""
   },
   "AI_hub/status/\uc548\ud2f0_heartbeat.json": {
@@ -4415,8 +4415,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/inbox.md": {
-    "mtime": 1785023172.9947114,
-    "ast_hash": "3c260d072b4c51618d5da69c1016192f",
+    "mtime": 1785023535.8952343,
+    "ast_hash": "8ddc513ba05a2f90bdbc8d7e7c14ced1",
     "semantic_hash": ""
   },
   "AI_hub/status/trigger_anti.txt": {
@@ -4425,8 +4425,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ucf54\ub2c8_\ube0c\ub9ac\ud551_\ucd5c\uc2e0.md": {
-    "mtime": 1785023172.8982036,
-    "ast_hash": "9531533122cd64d2f10e8d3725632f5f",
+    "mtime": 1785023535.8131993,
+    "ast_hash": "4c7f69f4fd499aa073bf16501a9095db",
     "semantic_hash": ""
   },
   "AI_hub/telegram_history.md": {
@@ -6577,6 +6577,36 @@
   "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0848_AgentMemory_\ubc18\ub824_search\ud544\ud130\ubc84\uadf8\ubc0f\ud45c\ud604\uacfc\uc7a5.md": {
     "mtime": 1785022980.8984375,
     "ast_hash": "801307f08912146384b8a9dea836b15e",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ub9cc\ubcf5\u2192\uc548\ud2f0_20260726_\ubf40\uac1c\uae301\ubc88_\uc9c0\uc2dc.md": {
+    "mtime": 1785023307.414675,
+    "ast_hash": "6168f18bec8a9cb61c143db2c9a46f3b",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ub9cc\ubcf5\u2192\ucf54\ub2c8_\uc548\ud2f0_20260726_0848_D_AI\ub8e8\ud2b8_\ud3f4\ub354\uc0dd\uc131\uae08\uc9c0_\uacf5\uc2dd\ud1b5\ubcf4.md": {
+    "mtime": 1785023329.9715438,
+    "ast_hash": "49aa368831dcb59caa4ab303a915c8f4",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0848_Karpathy3\uc911\uac80\uc99d_\uc804\uc1a1\uc2b9\uc778.md": {
+    "mtime": 1785023316.575579,
+    "ast_hash": "f4e250bb2f9cf5dd31719ed977705da7",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0848_\ub8e8\ud2b8\ud3f4\ub354\uc0dd\uc131\uae08\uc9c0_\uacf5\uc2dd\ud1b5\ubcf4_\uc2b9\uc778.md": {
+    "mtime": 1785023321.2268965,
+    "ast_hash": "bf9e3baeba2b6ca7537fed8fc441e06f",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_20260726_0848_Karpathy_LLMWiki_3\uc911\uac80\uc99d\uc644\ub8cc\ubcf4\uace0.md": {
+    "mtime": 1785023534.5120406,
+    "ast_hash": "7188ff7827b9c7b1ca95835ad934fb8a",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0852_Karpathy_\ucd5c\uc885\uc804\uc1a1\uc2b9\uc778.md": {
+    "mtime": 1785023529.674777,
+    "ast_hash": "8f5bf26ea479854f76c53c42ad7b85c5",
     "semantic_hash": ""
   }
 }

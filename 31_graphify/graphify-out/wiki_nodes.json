@@ -10,5 +10,17 @@
     "type": "WikiConcept",
     "created_at": "2026-07-26 08:30:05",
     "connected_root": 31
+  },
+  "EmotionPrompt": {
+    "label": "EmotionPrompt",
+    "type": "WikiConcept",
+    "created_at": "2026-07-26 08:48:27",
+    "connected_root": 31
+  },
+  "Obsidian": {
+    "label": "Obsidian",
+    "type": "WikiConcept",
+    "created_at": "2026-07-26 08:48:27",
+    "connected_root": 31
   }
 }
