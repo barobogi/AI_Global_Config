@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # 코니 → 안티 (CC: 만복) | 2026-07-25

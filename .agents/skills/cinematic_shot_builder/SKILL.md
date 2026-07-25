@@ -52,6 +52,9 @@ Higgsfield 공식 Elements/Soul ID 기능 (캐릭터·장소 일관성, `github.
 
 
 ## Eval 테스트 케이스
+
+
+## Eval 테스트 케이스
 1. 비 내리는 사이버펑크 도시
 2. 조용한 숲속의 아침
 3. 긴장감 넘치는 추격전
@@ -59,4 +62,5 @@ Higgsfield 공식 Elements/Soul ID 기능 (캐릭터·장소 일관성, `github.
 5. 미래 우주선 내부
 
 ## 성공/실패 채점 기준
-씬 당 카메라 구도(Angle), 조명(Lighting), 캐릭터 일관성(Reference) 키워드가 100% 포함되었는가? (5/5 통과 시 PASS)
+씬 당 카메라 구도(Angle), 조명(Lighting), 캐릭터 일관성(Reference) 키워드가 100% 포함되었는가?
+(단, 위 기준의 달성 여부는 안티가 주관적으로 판단하지 않고, 반드시 `fact_checker.py` (Devil's Advocate) 스크립트를 통해 객관적으로 자동 채점하여 "최종판정: PASS"를 받아야만 5/5 통과로 인정됨)

@@ -7,24 +7,6 @@
       "status": "pending"
     },
     {
-      "video_id": "lELDMIMZMjA",
-      "title": "The best AI automates repetitive work so you can focus on growing your business. 🤖",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
-      "video_id": "19RhOJeJI5A",
-      "title": "Bring your preferences, workflow, and context with you. 🤖",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
-      "video_id": "Dj8RtBObP58",
-      "title": "AI isn’t just for finding answers. It’s for finding patterns, insights, and opportunities.",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
       "video_id": "bieRrMRc-bg",
       "title": "함수 클래스 모듈 패키지 API OpenAPI | 바이브코딩 하시는 분들 끝까지 들어보세요.",
       "channel_name": "기술노트 with 알렉",
@@ -429,18 +411,6 @@
       "status": "pending"
     },
     {
-      "video_id": "C0keycC8ZrA",
-      "title": "The best AI workflows aren’t built every day. They’re built once and used again and again.",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
-      "video_id": "DXddd6oMoks",
-      "title": "The biggest benefit of AI isn’t saving time, it’s creating the space to think.",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
       "video_id": "2cuYpywrPZk",
       "title": "서비스 만들 때 필수 클라우드 구성도 바로 이해할 수 있습니다. | 바이브코딩 하시는 분들 꼭 끝까지 보세요.",
       "channel_name": "기술노트 with 알렉",
@@ -462,24 +432,6 @@
       "video_id": "hJBIEKRNI78",
       "title": "클로드 코드로 기획부터 자동 루프 실행까지, 40분 만에 끝내는 법 #Shorts",
       "channel_name": "Matt Pocock",
-      "status": "pending"
-    },
-    {
-      "video_id": "yLbqUmuY2-s",
-      "title": "Describe what you want, and let AI build the system. 🤖",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
-      "video_id": "zEC9LduTD6w",
-      "title": "The best AI tools are the ones you actually use.",
-      "channel_name": "Samin Yasar",
-      "status": "pending"
-    },
-    {
-      "video_id": "Q9S6syJUCF8",
-      "title": "If you can’t defend every claim AI generated, it’s still a draft, not a deliverable.",
-      "channel_name": "Samin Yasar",
       "status": "pending"
     },
     {
@@ -544,6 +496,106 @@
       "channel_name": "The Next New Thing",
       "status": "pending",
       "source": "check_youtube_drive"
+    },
+    {
+      "video_id": "kMwMzokPOiU",
+      "title": "생산성 400배 오른 진짜 이유 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "aXqdeHuDsN8",
+      "title": "다들 필요없다던 이 프리뷰 환경, 이제는 다릅니다 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "8wNDbiygDKE",
+      "title": "[한영자막] 이제 모든 회사엔 '브레인'이 필요하다",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "2J3uX8iRNng",
+      "title": "I Tested Opus 5 vs. Fable 5. What You Need to Know.",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "k7VI66CkKEY",
+      "title": "Claude Opus 5 is Going to Save You Money",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "qGdhSw0TfEQ",
+      "title": "아키텍쳐 vs 아키텍트 #shorts",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "dZsHxrblfaw",
+      "title": "개발자가 메모리를 만났을 때 #Shorts",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "8mn1ccqf0cQ",
+      "title": "메모리 vs 캐시메모리 vs 레지스터 #Shorts",
+      "channel_name": "기술노트 with 알렉",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "2JTIZEvWsxM",
+      "title": "고객 한 명과의 연결이 비즈니스를 바꾼다",
+      "channel_name": "동기부여학파",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "4QAI_o4e8e8",
+      "title": "고객이 거절할 수 없는 제안",
+      "channel_name": "동기부여학파",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "iD6Ud3o7Al0",
+      "title": "고객이 떠나는 진짜 이유 #saas #온라인사업",
+      "channel_name": "동기부여학파",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "Q8PEMtBQjyk",
+      "title": "[한영자막] AI 엔지니어링, 1년 사이 완전히 달라졌다",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "EeY8wqJ5BOI",
+      "title": "Seedance 2.0 + Claude Code = Beautiful $10k Websites",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "p9mgmKhUz_4",
+      "title": "Andrej Karpathy Just 10x'd Everyone's Claude Code",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "F3nYY3N2wgw",
+      "title": "How to Use Claude Code for 99% CHEAPER",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending",
+      "fallback": true
     }
   ],
   "processed": [

@@ -164,5 +164,11 @@ def process_prompt(app_name: str, prompt: str):
         return "whitelist"
         
     # Otherwise, LLM
-    generate_with_llm(app_dir, prompt)
+    success = generate_with_llm(app_dir, prompt)
+    if not success:
+        # 에스컬레이션 로직: 3회 실패 시 코니/만복에게 자동 알림
+        msg = f"---\nstatus: unread\n---\n# 시스템 → 코니, 만복\n## [에러 에스컬레이션] VibeCoding 앱 생성 실패\n\n앱 `{app_name}` 생성 중 3회 치유 루프가 모두 실패했습니다. (침묵의 실패 방지 기능 작동)\n에러 로그 위치: `{os.path.join(app_dir, 'error.log')}`\n"
+        with open(r"D:\AI\AI_hub\shared\messages\시스템→코니_만복_VibeCoding_실패알림.md", "w", encoding="utf-8") as f:
+            f.write(msg)
+        return "failed"
     return "llm"

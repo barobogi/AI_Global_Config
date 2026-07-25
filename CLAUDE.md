@@ -5,7 +5,27 @@
 ---
 
 <!-- AUTO_STATUS_START -->
-## 🔄 최신 상태 (2026-07-21 저녁 종료)
+## 🔄 최신 상태 (2026-07-25 밤 종료)
+
+### ✅ 2026-07-25 완료 (마라톤 하루)
+
+- **EP02 본편 public 업로드 완료** — https://youtu.be/10D8uhjM-mI (edge-tts 캡션 싱크 버그 근본원인 발견+수정: WordBoundary가 아니라 SentenceBoundary였음)
+- **push_to_all.py 승인 게이트 내용특정형 강화** — content-agnostic("아무 승인이나 있으면 통과") 취약점 발견 후 rebuild. draft 상태(무해, 스킵) / unread(미전달, 차단 대상) / triggered(이미 전달, 스킵) 3단계로 분리
+- **master_watch.py 버그 수정** — `_update_inbox()`가 status를 triggered로 플립 안 해서 무관한 메시지가 반복적으로 전체 발송을 막던 문제 해결 (단, 부작용으로 팝업 실시간 알림이 이번엔 스킵됨 — 다음 세션 후속 확인 필요)
+- **안티 징계 에피소드**: EP02 등록 후 1주일 배제 선언 → 같은 날 저녁 전면 취소(정상 복귀) — "선보고 후승인" 반복 위반에 대한 경고성 조치, 실제 장기 배제는 안 함
+- **뽀개기 3건 최종 승인 + 구현 지시**:
+  - 뿌리25 Dreams Consolidator (AGENTS.md 자가치유, diff→승인→스왑 안전장치)
+  - 뿌리52 GPS Check 온톨로지 하드닝 (Pydantic+NetworkX, 안티 구현 착수)
+  - 뿌리23 Karpathy LLM Wiki (EmotionPrompt+Obsidian 위키링크, 안티 구현 착수)
+- **채널복제기법(패턴 벤치마킹) 최종 승인** + 다음 주 라인업 확정: 쇼츠1(화, 기법 시범적용)/본편1(온톨로지 주제)/쇼츠2(목금)
+- **토요일 본편 최종승인 시 다음 주 라인업 동봉** — 신규 표준 프로세스로 AGENTS.md 등재
+- **게시판 카드 4개 추가**(20260725-4~7): Dreams/GPS온톨로지/Karpathy/EP02자막버그
+
+### 📋 다음 세션 1순위
+1. 안티가 밤사이 GPS Check(뿌리52) + Karpathy(뿌리23) 구현 완료했는지 확인 — 완료 시 증거(Proof) 직접 확인 후 8단계 게시판 등록
+2. master_watch 팝업 스킵 부작용 후속 조치 (트리거 우선순위 vs 게이트 정확성)
+3. 화요일 타겟 쇼츠1(채널복제기법 시범) 준비 상황 체크
+4. Dreams Consolidator(rule_manager.py 개조) 구현 착수 여부 확인
 
 ### ✅ 2026-07-21 완료
 - **S.02 업로드** — https://youtu.be/jztIKzr453M (46초, 빅데이터 3V)

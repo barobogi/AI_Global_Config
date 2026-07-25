@@ -19,6 +19,9 @@ python D:\AI\.agents\skills\rule_manager\scripts\rule_manager.py
 
 
 ## Eval 테스트 케이스
+
+
+## Eval 테스트 케이스
 1. 항상 존댓말 vs 반말
 2. 빠른 응답 vs 상세 응답
 3. 이모지 사용 vs 금지
@@ -26,4 +29,5 @@ python D:\AI\.agents\skills\rule_manager\scripts\rule_manager.py
 5. 기술 용어 사용 vs 비사용
 
 ## 성공/실패 채점 기준
-Rule Manager가 충돌을 정확히 감지하고, 기존 룰과 병합하여 점수(Score)를 80점 이상으로 최적화해 내는가? (5/5 통과 시 PASS)
+Rule Manager가 충돌을 정확히 감지하고, 기존 룰과 병합하여 점수(Score)를 80점 이상으로 최적화해 내는가?
+(단, 위 기준의 달성 여부는 안티가 주관적으로 판단하지 않고, 반드시 `fact_checker.py` (Devil's Advocate) 스크립트를 통해 객관적으로 자동 채점하여 "최종판정: PASS"를 받아야만 5/5 통과로 인정됨)

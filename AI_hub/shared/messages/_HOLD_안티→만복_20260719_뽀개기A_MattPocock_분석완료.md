@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [완료보고] 뽀개기 아이템 A (Matt Pocock 스킬 플로우) 1~3단계 분석 완료

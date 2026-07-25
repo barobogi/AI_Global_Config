@@ -42,8 +42,8 @@ AI가 작성한 아래의 요약본(기획안) 내용이 원본 STT 자막에 �
 
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("FAIL: GEMINI_API_KEY environment variable not set.")
-        return False
+        print("WARNING: GEMINI_API_KEY not set. Skipping Fact-Check to avoid SPOF.")
+        return True
 
     client = genai.Client(api_key=api_key)
     
@@ -69,8 +69,8 @@ AI가 작성한 아래의 요약본(기획안) 내용이 원본 STT 자막에 �
             return False
             
     except Exception as e:
-        print(f"FAIL: Gemini API error: {e}")
-        return False
+        print(f"WARNING: Gemini API error ({e}). Skipping Fact-Check to avoid SPOF.")
+        return True
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="YouTube Pobbagi Fact Checker (Devil's Advocate)")

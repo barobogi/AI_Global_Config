@@ -20,6 +20,9 @@ python D:\AI\.agents\skills\session_report\scripts\generate_report.py
 
 
 ## Eval 테스트 케이스
+
+
+## Eval 테스트 케이스
 1. 3,000토큰 사용 세션
 2. 에러 5번 발생 세션
 3. 10분 짧은 세션
@@ -27,4 +30,5 @@ python D:\AI\.agents\skills\session_report\scripts\generate_report.py
 5. 단순 질의응답 세션
 
 ## 성공/실패 채점 기준
-세션 리포트(HTML)가 지정된 폴더에 정상 생성되고, 토큰 사용량과 핵심 요약이 100% 기재되었는가? (5/5 통과 시 PASS)
+세션 리포트(HTML)가 지정된 폴더에 정상 생성되고, 토큰 사용량과 핵심 요약이 100% 기재되었는가?
+(단, 위 기준의 달성 여부는 안티가 주관적으로 판단하지 않고, 반드시 `fact_checker.py` (Devil's Advocate) 스크립트를 통해 객관적으로 자동 채점하여 "최종판정: PASS"를 받아야만 5/5 통과로 인정됨)

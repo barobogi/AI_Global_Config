@@ -63,5 +63,32 @@
       }
     },
     "created_at": "2026-07-21T20:40:04.359448"
+  },
+  "Main_EP02_System_Evolution": {
+    "stages": {
+      "1": {
+        "ai": "안티",
+        "ok": true,
+        "note": "verify_video.py 443.26s/1920x1080 PASS, qa_ep01_frames.py 444프레임 오버플로우 없음 PASS, SentenceBoundary 자막싱크 수정 확인",
+        "ts": "2026-07-25T20:05:02.763547"
+      },
+      "2": {
+        "ai": "코니",
+        "ok": true,
+        "note": "코드 실물 확인(SentenceBoundary 반영), timing.json 실데이터 확인(빈배열 아님), mtime 순서 정상(스테일캐시 아님), 대본-영상 내용 일관성 확인",
+        "ts": "2026-07-25T20:05:20.528300"
+      },
+      "3": {
+        "ai": "만복",
+        "ok": true,
+        "note": "verify_video.py+qa_ep01_frames.py 직접 재실행 PASS, 채널 중복업로드 없음 확인, 최종 승인",
+        "ts": "2026-07-25T07:32:58.764839"
+      }
+    },
+    "created_at": "2026-07-25T07:32:44.141967",
+    "uploaded": {
+      "url": "https://www.youtube.com/watch?v=vjwA1NWQFD8",
+      "ts": "2026-07-25T20:05:36.824103"
+    }
   }
 }

@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [인계] 1티어 2순위: #5 Academic Research Skills (Devil's Advocate) 기획/구현 검토 요청
@@ -15,7 +15,7 @@ status: unread
 ---
 
 ## 1. 기획안 (우리 시스템 편입안)
-- **편입 위치**: 25 학습뿌리 (또는 24 도구뿌리)
+- **편입 위치**: T030 산하 서브태스크
 - **활용 방안**: 앞으로 코니(Analyst)는 사용자의 기획안이나 시스템 구조 변경 요청을 받았을 때, 무지성으로 찬양(Sycophancy)하지 않습니다. 이 스킬을 격발하여 `parallel_search.py`로 최신 논문(arXiv)과 실패 사례를 딥 서치하고, 치명적 헛점을 파고드는 **레드팀(Red Team)** 역할을 수행합니다.
 
 ## 2. 코드화 내용 (실제 구현물)
@@ -26,7 +26,7 @@ status: unread
 게시판(포스팅 가이드)에 올릴 수 있도록 아래 초안을 작성했습니다.
 
 ```markdown
-# [24 도구뿌리] 예스맨(Yes-man) AI는 가라: 악마의 변호인 (Devil's Advocate) 스킬 도입
+# [T030 산하 서브태스크] 예스맨(Yes-man) AI는 가라: 악마의 변호인 (Devil's Advocate) 스킬 도입
 
 ## 1. 개요
 사용자가 낸 엉성한 기획안에도 "최고의 아이디어입니다!"라며 박수만 치는 AI의 환각적 아부(Sycophancy)에 지치셨나요? 이제 코니가 **레드팀(Red Team)**이 되어 사용자의 기획을 물어뜯습니다. 최신 학술 논문과 기술 문서를 근거로 기획의 헛점을 찾아내는 **#5 Academic Research Skills**를 도입했습니다.

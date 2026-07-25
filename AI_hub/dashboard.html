@@ -407,6 +407,15 @@
                                     <div class="node-box" onclick="filterTasks(2)">2 Global Define</div>
                                     <ul id="children-2">
                                         <li>
+                                            <div class="node-box" onclick="filterTasks(23)">23 인프라뿌리</div>
+                                            <ul id="children-23">
+                                                <li>
+                                                    <div class="node-box" onclick="filterTasks(31)">31 Graphify (지식그래프)</div>
+                                                    <ul id="children-31"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
                                             <div class="node-box" onclick="filterTasks(24)">24 도구뿌리</div>
                                             <ul id="children-24">
                                                 <li>
@@ -446,6 +455,10 @@
                                                 <li>
                                                     <div class="node-box" onclick="filterTasks(63)">63 유튜브채널</div>
                                                     <ul id="children-63"></ul>
+                                                </li>
+                                                <li>
+                                                    <div class="node-box" onclick="filterTasks(64)">64 바이브코딩</div>
+                                                    <ul id="children-64"></ul>
                                                 </li>
                                             </ul>
                                         </li>
@@ -555,10 +568,11 @@
 
         // 상위 뿌리 → 포함되는 모든 하위 뿌리 번호
         const ROOT_CHILDREN = {
-            2:  [2, 24, 25, 26, 27, 41, 42, 51, 52, 61, 62, 71, 72],
+            2:  [2, 23, 31, 24, 25, 26, 27, 41, 42, 51, 52, 61, 62, 63, 64, 71, 72],
+            23: [23, 31],
             24: [24, 41, 42],
             25: [25, 51, 52],
-            26: [26, 61, 62, 63],
+            26: [26, 61, 62, 63, 64],
             27: [27, 71, 72],
         };
 

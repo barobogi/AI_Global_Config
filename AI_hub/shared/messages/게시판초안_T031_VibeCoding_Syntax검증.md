@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 ## 🚀 개요

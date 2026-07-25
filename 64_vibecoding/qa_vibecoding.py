@@ -12,6 +12,11 @@ class SimpleHTMLValidator(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag not in self.void_elements:
             self.tags.append(tag)
+        # 접근성(A11y) 체크: img 태그에 alt 속성 필수
+        if tag == 'img':
+            has_alt = any(attr[0] == 'alt' for attr in attrs)
+            if not has_alt:
+                self.errors.append("[접근성] <img> 태그에 alt 속성이 누락되었습니다.")
 
     def handle_endtag(self, tag):
         if tag not in self.void_elements:
@@ -38,6 +43,10 @@ def validate_html(html_path):
     if validator.tags:
         validator.errors.append(f"닫히지 않은 태그가 있습니다: {', '.join(validator.tags)}")
         
+    # 시맨틱 헤딩(접근성) 체크
+    if '<h1' not in html_content:
+        validator.errors.append("[접근성] 문서에 <h1> 태그가 없습니다. (시맨틱 웹 위반)")
+        
     return validator.errors
 
 def validate_js(js_path):
@@ -51,6 +60,15 @@ def validate_js(js_path):
         errors.append("JavaScript 중괄호 '{', '}' 짝이 맞지 않습니다.")
     if content.count('(') != content.count(')'):
         errors.append("JavaScript 소괄호 '(', ')' 짝이 맞지 않습니다.")
+        
+    # 보안(Security) 스캔
+    if 'eval(' in content:
+        errors.append("[보안] 위험한 eval() 함수 사용이 감지되었습니다.")
+    if 'innerHTML' in content:
+        errors.append("[보안] XSS 공격 위험이 있는 innerHTML 사용이 감지되었습니다.")
+    if re.search(r'(AIza[0-9A-Za-z-_]{35}|sk-[a-zA-Z0-9]{48})', content):
+        errors.append("[보안] 하드코딩된 API 키(Google 또는 OpenAI 패턴)가 감지되었습니다.")
+        
     return errors
 
 def validate_css(css_path):

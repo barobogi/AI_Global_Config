@@ -1,5 +1,5 @@
 ---
-status: unread
+status: triggered
 ---
 
 # [지시] T_ARCH_LOCK — 4대 기본 원칙 Python 아키텍처 Lock 구현
