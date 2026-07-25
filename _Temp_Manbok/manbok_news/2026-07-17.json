@@ -1,0 +1,145 @@
+{
+  "date": "2026-07-17",
+  "items": [
+    {
+      "title": "+50% 다음 −50%는 본전이 아니다, 자산의 1/4이 사라진다",
+      "url": "https://opula.io/ko/blog/average-return-volatility-drag",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Hackney 라이딩 서비스 비교 앱",
+      "url": "https://hackney.app/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "앤트로픽·블랙스톤, 15억 달러 규모 'AI 구현' 합작사 Ode 출범",
+      "url": "https://techcrunch.com/2026/07/15/anthropic-blackstone-bet-the-next-trillion-dollar-ai-business-is-implementation-not-models/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "Databricks가 자체 코딩 AI 벤치마크를 만든 방법과 결과",
+      "url": "https://www.databricks.com/blog/benchmarking-coding-agents-databricks-multi-million-line-codebase",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "「Machine Learning Study 혼자 해보기」",
+      "url": "https://github.com/teddylee777/machine-learning",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "noisia - PostgreSQL용 유해한 워크로드 생성기",
+      "url": "https://github.com/lesovsky/noisia",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Hexana - JetBrains의 WebAssembly 및 바이너리 분석 도구",
+      "url": "https://jetbrains.github.io/hexana/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "MS 깃허브 개인 액세스 토큰(PAT) 대량 유출…경찰 수사 착수",
+      "url": "https://www.mt.co.kr/society/2026/07/14/2026071410063885156",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "FOSS for All, 국내 오픈소스 소액 지원 사업 시작",
+      "url": "https://forum.fossforall.org/t/foss-for-all-microgrants-2026/105",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "GeekNews로 어쩌다가 취업하기",
+      "url": "https://throneinvest.ai",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "순서대로, 한 번만, 빠르게",
+      "url": "https://engineering.ab180.co/stories/kafka-event-ordering-at-scale",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Papermake - Typst 기반의 셀프 호스팅 가능한 PDF 문서 생성 서버",
+      "url": "https://github.com/rkstgr/papermake",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "AR 글래스의 미래와 Even G2 AR 글래스 리뷰",
+      "url": "https://cse.ac/jun/even-g2-review/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "GitFut - GitHub 통계를 월드컵 스타일 선수 카드로 변환",
+      "url": "https://github.com/Younesfdj/gitfut",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "AI 에이전트 180개로 하루 만에 iOS 앱 버그 55개를 잡은 검증 파이프라인",
+      "url": "https://velog.io/@soungjunban/%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%ED%95%A8%EB%8C%80%EC%9D%98-%ED%95%B4%EB%B6%80-AI-180%EA%B0%9C%EB%A1%9C-%ED%95%98%EB%A3%A8%EC%97%90-%EB%B2%84%EA%B7%B8-55%EA%B0%9C%EB%A5%BC-%EC%9E%A1%EC%9D%80-%EA%B2%80%EC%A6%9D-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "gpt-5.6-sol이 PowerShell의 $HOME 변수 충돌로 사용자 홈 디렉터리를 날려버릴 뻔한 건에 대하여",
+      "url": "https://gist.github.com/xamong/e98478b333bb9951b175284f744eb0ed",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "앤트로픽, 한국 무료 사용자에 1,660만 달러 '유령 청구서' 발송",
+      "url": "https://www.thenews.com.pk/latest/1408788-why-did-anthropic-charge-a-free-user-166-million-despite-zero-api-usage",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "AgentsView - 여러 AI 코딩 에이전트의 세션 검색/분석/비용 추적 도구",
+      "url": "https://github.com/kenn-io/agentsview",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "sem - Git 위에 함수/클래스 단위 변경 추적을 추가하는 시맨틱 버전 관리 도구",
+      "url": "https://github.com/Ataraxy-Labs/sem",
+      "tags": [
+        "특허"
+      ]
+    },
+    {
+      "title": "양극성 LISP 프로그래머",
+      "url": "https://www.marktarver.com/bipolar.html",
+      "tags": [
+        "트렌드"
+      ]
+    }
+  ]
+}

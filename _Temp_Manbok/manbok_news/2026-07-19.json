@@ -1,0 +1,138 @@
+{
+  "date": "2026-07-19",
+  "items": [
+    {
+      "title": "AI에게 투자 결정을 맡기면 안 되는 이유",
+      "url": "https://opula.io/ko/blog/ai-investment-agent-trap",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "개인의 AI, 개발자의 AI",
+      "url": "https://irepublic.tistory.com/7891382",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "Claude Fable 5, 7월 20일부터 Max/Team Premium 요금제에 기본 포함",
+      "url": "https://x.com/claudeai/status/2078302415804379218",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "StackRender - 데이터베이스 스키마 설계 및 생성 도구",
+      "url": "https://github.com/stackrender/stackrender",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "유튜브보다 깁니다. 하루 체류 150분, 캐릭터 AI 챗 산업 분석",
+      "url": "https://www.onlydecks.app/r/wCBDNxk",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "GPT-5.6 모델 선택 기준: 가격은 5배 차이, 코딩 성능은 4.1%p 차이",
+      "url": "https://www.onlydecks.app/r/rCUJ8zl",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "Uber, 독일 딜리버리 히어로(배달의 민족 모회사) 약 22조원에 인수",
+      "url": "https://www.theguardian.com/technology/2026/jul/16/uber-buy-germany-delivery-hero-148bn-global-deal",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "LeafWiki – 서버와 DB없이 단일 바이너리로 실행하는 셀프 호스팅 위키",
+      "url": "https://leafwiki.com/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "+50% 다음 −50%는 본전이 아니다, 자산의 1/4이 사라진다",
+      "url": "https://opula.io/ko/blog/average-return-volatility-drag",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Hackney 라이딩 서비스 비교 앱",
+      "url": "https://hackney.app/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "앤트로픽·블랙스톤, 15억 달러 규모 'AI 구현' 합작사 Ode 출범",
+      "url": "https://techcrunch.com/2026/07/15/anthropic-blackstone-bet-the-next-trillion-dollar-ai-business-is-implementation-not-models/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "Databricks가 자체 코딩 AI 벤치마크를 만든 방법과 결과",
+      "url": "https://www.databricks.com/blog/benchmarking-coding-agents-databricks-multi-million-line-codebase",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "「Machine Learning Study 혼자 해보기」",
+      "url": "https://github.com/teddylee777/machine-learning",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "noisia - PostgreSQL용 유해한 워크로드 생성기",
+      "url": "https://github.com/lesovsky/noisia",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Hexana - JetBrains의 WebAssembly 및 바이너리 분석 도구",
+      "url": "https://jetbrains.github.io/hexana/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "MS 깃허브 개인 액세스 토큰(PAT) 대량 유출…경찰 수사 착수",
+      "url": "https://www.mt.co.kr/society/2026/07/14/2026071410063885156",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "FOSS for All, 국내 오픈소스 소액 지원 사업 시작",
+      "url": "https://forum.fossforall.org/t/foss-for-all-microgrants-2026/105",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "GeekNews로 어쩌다가 취업하기",
+      "url": "https://throneinvest.ai",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "순서대로, 한 번만, 빠르게",
+      "url": "https://engineering.ab180.co/stories/kafka-event-ordering-at-scale",
+      "tags": [
+        "트렌드"
+      ]
+    }
+  ]
+}

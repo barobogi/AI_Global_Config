@@ -1,0 +1,133 @@
+{
+  "date": "2026-07-24",
+  "items": [
+    {
+      "title": "45권의 기술 서적에서 얻은 핵심 인사이트",
+      "url": "https://www.youtube.com/watch?v=k2ek5MsUEMo",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "OmniRoute — 흩어진 무료/저가 AI 티어를 하나로 묶는 게이트웨이",
+      "url": "https://github.com/diegosouzapw/OmniRoute",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "재배포했더니 이미 보낸 푸시가 또 갔다 — FCM 알림 중복 발송 잡기",
+      "url": "https://whale-tail.tistory.com/entry/Troubleshooting-%EC%9E%AC%EB%B0%B0%ED%8F%AC%ED%96%88%EB%8D%94%EB%8B%88-%EC%9D%B4%EB%AF%B8-%EB%B3%B4%EB%82%B8-%ED%91%B8%EC%8B%9C%EA%B0%80-%EB%98%90-%EA%B0%94%EB%8B%A4-%E2%80%94-FCM-%EC%95%8C%EB%A6%BC-%EC%A4%91%EB%B3%B5-%EB%B0%9C%EC%86%A1-%EC%9E%A1%EA%B8%B0",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Knowledge Factory - 하니스 엔지니어링을 지식 생산에 적용하기",
+      "url": "https://alfadur7.github.io/llm-wiki-newsroom/ko/knowledge-factory/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "OpenMMO - AI Agent와 인간 플레이어가 동등하게 대우받는 MMORPG",
+      "url": "https://x.com/appledelhi/status/2079022142663094356",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "AI 코딩 세션의 휘발성 맥락을 프로젝트 기억으로 남기기 — rhwp 적용 사례",
+      "url": "https://github.com/edwardkim/rhwp/discussions/2252",
+      "tags": [
+        "학습",
+        "특허"
+      ]
+    },
+    {
+      "title": "Malloy - 데이터 관계/변환/모델링을 위한 모던 오픈소스 언어",
+      "url": "https://www.malloydata.dev/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "설정 토글 하나가 분산 시스템이 되는 순간 — 오프라인 off와 스테일 on",
+      "url": "https://velog.io/@soungjunban/%EC%84%A4%EC%A0%95-%ED%86%A0%EA%B8%80-%ED%95%98%EB%82%98%EA%B0%80-%EB%B6%84%EC%82%B0-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%B4-%EB%90%98%EB%8A%94-%EC%88%9C%EA%B0%84-%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-off%EC%99%80-%EC%8A%A4%ED%85%8C%EC%9D%BC-on%EC%9D%98-%ED%95%B4%EB%B6%80",
+      "tags": [
+        "특허"
+      ]
+    },
+    {
+      "title": "구글 제미나이 새 모델(3.6 Flash, 3.5 Flash-Lite, 3.5 Flash Cyber) 출시",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "美 연방법원, 앤트로픽 15억 달러 저작권 합의 최종 승인",
+      "url": "https://wsau.com/2026/07/20/us-judge-approves-anthropics-1-5-billion-settlement-of-copyright-lawsuit/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Apple Maps 군시설 노출과 정보보안",
+      "url": "https://cse.ac/jun/locards-exchange-principle/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "monitor-input-rs - DDC/CI로 모니터 입력 소스를 바꾸는 커맨드라인 도구",
+      "url": "https://github.com/kojiishi/monitor-input-rs",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "왜 LangGraph 도입 후 코드가 더 복잡해졌나 — 실패에서 배운 기록",
+      "url": "https://neocode24.com/blog/langgraph-spaghetti-lessons-from-failure",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Codex CLI의 Subagent 세션 로그가 수백 GB까지 증가해 디스크를 소진하는 문제",
+      "url": "https://github.com/openai/codex/issues/34061",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "파일 공유로 인터넷을 재발명하기",
+      "url": "https://irepublic.tistory.com/7891384",
+      "tags": [
+        "특허"
+      ]
+    },
+    {
+      "title": "말기 4기 췌장암의 마지막 두 달: 증상 변화와 가족 돌봄의 핵심",
+      "url": "https://www.quora.com/I-am-dying-of-stage-4-pancreatic-cancer-What-will-the-final-2-months-be-like",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "OpenWiki - 코드베이스를 위한 에이전트용 문서를 작성하고 관리하는 CLI",
+      "url": "https://github.com/langchain-ai/openwiki",
+      "tags": [
+        "학습",
+        "특허"
+      ]
+    },
+    {
+      "title": "오픈소스 LLM vs 빅테크 LLM API: AI 사업의 비용과 리스크 정리",
+      "url": "https://chessire.tistory.com/entry/opensource-llm-vs-bigtech-api-cost-risk",
+      "tags": [
+        "학습"
+      ]
+    }
+  ]
+}

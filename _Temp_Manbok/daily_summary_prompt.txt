@@ -1,0 +1,17 @@
+매일 저녁 7시 자동 실행: 오늘 만복이가 한 작업을 D:\AI\Temp_Manbok\ 에 저장.
+
+1. 오늘 날짜 확인 (YYYYMMDD 형식)
+2. 아래 프로젝트들의 오늘 git 커밋 이력 수집:
+   - D:\AI\260619_2_Daily_for_stock_TEMP
+   - D:\AI\260625_1_n8n_finance
+   - D:\AI\260624_superpowers
+   - D:\AI\260622_1_Remote_claude
+   - D:\AI\260623_1_study_all
+3. 현재 실행 중인 Python 프로세스 확인
+4. D:\AI\Temp_Manbok\만복_{YYYYMMDD}.md 파일 생성:
+   - 오늘 완료한 작업 목록 (git log 기반)
+   - 수정된 핵심 파일
+   - 현재 실행 중인 프로세스
+   - 내일/다음 세션에서 해야 할 것 (REF_continue.md 참고)
+   - 주요 경로 치트시트
+파일이 이미 존재하면 덮어쓰기. 만복1(데스크탑)이 내일 바로 이어받을 수 있도록 빠짐없이 기록할 것.

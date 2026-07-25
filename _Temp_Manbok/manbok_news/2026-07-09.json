@@ -1,0 +1,139 @@
+{
+  "date": "2026-07-09",
+  "items": [
+    {
+      "title": "디지털 시대의 돈 — 화폐 진화와 디지털 화폐의 제도적 선택",
+      "url": "https://velog.io/@baeba1/main.md",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Firebase Dynamic Links 종료 대응기 — 유니버설 링크·AASA·카톡 공유를 자체 인프라로 재구축",
+      "url": "https://velog.io/@soungjunban/%EC%A3%BD%EC%9D%80-%EB%8B%A8%EC%B6%95%EB%A7%81%ED%81%AC%EC%9D%98-%ED%95%B4%EB%B6%80-Firebase-Dynamic-Links-%EC%97%86%EC%9D%B4-%EC%9C%A0%EB%8B%88%EB%B2%84%EC%84%A4-%EB%A7%81%ED%81%AC%EB%94%94%ED%8D%BC%EB%93%9C-%EB%94%A5%EB%A7%81%ED%81%AC%EC%B9%B4%ED%86%A1-%EA%B3%B5%EC%9C%A0%EB%A5%BC-%EC%9E%90%EC%B2%B4-%EC%9D%B8%ED%94%84%EB%9D%BC%EB%A1%9C-%EB%90%98%EC%82%B4%EB%A6%AC%EA%B8%B0",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Weave Router - 프롬프트마다 최적의 모델로 라우팅하는 에이전트용 모델 라우터",
+      "url": "https://github.com/workweave/router",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "TypeScript v7 Released",
+      "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Oracle Always Free 백엔드 구축 기록: 용량 부족, PAYG 전환, 과금 차단",
+      "url": "https://yoramilji.kr/blog/394765fe-8b67-81a9-94b6-ceb34a4c353c",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "30 Papers - 일리야 서츠케버 추천 AI 핵심 논문 목록 요약",
+      "url": "https://30papers.com/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "no-mistakes - git push 할 때 실수를 방지하기",
+      "url": "https://github.com/kunchenguid/no-mistakes",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "AI 시대에 취미가 곧 비즈니스 기회가 되는 이유",
+      "url": "https://cse.ac/jun/hobby-capital/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "오픈소스 애플리케이션의 구조와 설계 지식 공유",
+      "url": "https://aosabook.org/en/",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Rocky - 파이프라인 전체를 타입 검사해 실행 전에 깨지는 변경을 잡아내는 SQL 변환 엔진",
+      "url": "https://github.com/rocky-data/rocky",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "Astryx - Meta가 공개한 오픈소스 디자인 시스템",
+      "url": "https://astryx.atmeta.com/",
+      "tags": [
+        "특허"
+      ]
+    },
+    {
+      "title": "의미가 보이는 프로젝트를 작성하기",
+      "url": "https://oborona.zip/post/-c",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "메모리 아끼면서 Cross Entropy Loss 계산하기",
+      "url": "https://trillion-labs.github.io/blog/posts/fused-linear-cross-entropy/",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "AI 코딩 시대의 개발자 역할 변화: 코딩 실행자에서 맥락·검증·제품화 설계자로",
+      "url": "https://velog.io/@teo/ai-era-developer-role",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "dbtrail - 모든 행 변경을 기억하고 되돌리기 가능한 MySQL용 타임머신",
+      "url": "https://github.com/dbtrail/dbtrail",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "OpenTag - Slack용 Claude Tag의 오픈소스 대안",
+      "url": "https://github.com/CopilotKit/OpenTag",
+      "tags": [
+        "학습"
+      ]
+    },
+    {
+      "title": "MemNixFS - 리눅스 메모리 덤프를 파일시스템으로 변환해 조사하는 도구",
+      "url": "https://github.com/MemNixFS/MemNixFS",
+      "tags": [
+        "학습",
+        "특허"
+      ]
+    },
+    {
+      "title": "모니터링 직접 만들지 말고 무료 SaaS에 맡겨라 — Sentry + PostHog로 0원 관측",
+      "url": "https://whale-tail.tistory.com/entry/DevOps-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%A7%81%EC%A0%91-%EB%A7%8C%EB%93%A4%EC%A7%80-%EB%A7%90%EA%B3%A0-%EB%AC%B4%EB%A3%8C-SaaS%EC%97%90-%EB%A7%A1%EA%B2%A8%EB%9D%BC-%E2%80%94-Sentry-PostHog%EB%A1%9C-0%EC%9B%90-%EA%B4%80%EC%B8%A1",
+      "tags": [
+        "트렌드"
+      ]
+    },
+    {
+      "title": "epiq - Git 기반 분산형 로컬 CLI 네이티브 이슈 트래커",
+      "url": "https://github.com/ljtn/epiq",
+      "tags": [
+        "트렌드"
+      ]
+    }
+  ]
+}
