@@ -530,8 +530,8 @@
     "semantic_hash": "9d81dbd8f042e46cd7c355a1560c3998"
   },
   ".agents/AGENTS.md": {
-    "mtime": 1785020909.9823892,
-    "ast_hash": "1dded5348fbe680c939d11c3e9afd69f",
+    "mtime": 1785021399.7592702,
+    "ast_hash": "392f59c117fcc7dd02f292d76fa458b2",
     "semantic_hash": ""
   },
   ".agents/skills/academic_research_devil/SKILL.md": {
@@ -1355,8 +1355,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ub9cc\ubcf5_heartbeat.json": {
-    "mtime": 1785021311.426121,
-    "ast_hash": "e0b92a43e115d6d2622c7ef30346513d",
+    "mtime": 1785021720.8815734,
+    "ast_hash": "369bc1b1d65bdfdae3c5f6bbcd21afe4",
     "semantic_hash": ""
   },
   "AI_hub/status/\uc548\ud2f0_heartbeat.json": {
@@ -4475,8 +4475,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/inbox.md": {
-    "mtime": 1785021311.642603,
-    "ast_hash": "e24a3fd5106dcf6be337373f6dc1eaf4",
+    "mtime": 1785021721.0317602,
+    "ast_hash": "4d410408d9ec69d5a9ec2a19191c6645",
     "semantic_hash": ""
   },
   "AI_hub/status/trigger_anti.txt": {
@@ -4485,8 +4485,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ucf54\ub2c8_\ube0c\ub9ac\ud551_\ucd5c\uc2e0.md": {
-    "mtime": 1785021311.5385232,
-    "ast_hash": "ef41f318f6e6c600126c115f5865315c",
+    "mtime": 1785021720.9585369,
+    "ast_hash": "041d71659de4bb22df1fd9e391cad2d7",
     "semantic_hash": ""
   },
   "AI_hub/telegram_history.md": {
@@ -4495,62 +4495,62 @@
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.21_\uc694\uc57d_2ffdcc1c.md": {
-    "mtime": 1784926661.7495232,
+    "mtime": 1785021741.8832967,
     "ast_hash": "f4c6c2e870d93c9cb7faf3ee3b7517d2",
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.2_468da52a.md": {
-    "mtime": 1784926661.4768102,
+    "mtime": 1785021741.8203318,
     "ast_hash": "ab5962a8800929bcf056ea8d472d29e2",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2460_AI\uc138\uc158_\ucee8\ud14d\uc2a4\ud2b8_\ub3d9\uae30\ud654_v0.1_84d02b4a.md": {
-    "mtime": 1784926664.865508,
+    "mtime": 1785021742.2887273,
     "ast_hash": "3d1acbbe931c0b68358f42413adeb1e8",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2461_\uc678\ubd80AI_\uc704\uc784\uc2e4\ud589_v0.1_33cf5e1c.md": {
-    "mtime": 1784926664.9719632,
+    "mtime": 1785021742.3381517,
     "ast_hash": "4eaa52d38fbc185d72d326357f03ec05",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2462_\uc2dc\uc7a5\uae30\ubc18_\uc2e0\ud638\uc790\ub3d9\ud559\uc2b5_v0.1_d1f03d6a.md": {
-    "mtime": 1784926665.0873516,
+    "mtime": 1785021742.4269292,
     "ast_hash": "44d8a18060459d14c1cdd9458fb8edf0",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2463_4\uacc4\uce35_AI\ud611\uc5c5_\uc544\ud0a4\ud14d\ucc98_v0.1_7de66d7a.md": {
-    "mtime": 1784926665.1910822,
+    "mtime": 1785021742.488868,
     "ast_hash": "d2f7e3b93737828d4dfd88d35475c69b",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\ud6c4\ubcf4_\uac1c\ub150\uc11c_\ubaa8\uc74c_v0.1_043b1b21.md": {
-    "mtime": 1784926665.674005,
+    "mtime": 1785021742.6331954,
     "ast_hash": "0df489973fb3643a5c4fd71145a56ac1",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.1_4013122e.md": {
-    "mtime": 1784926665.797057,
+    "mtime": 1785021742.7083764,
     "ast_hash": "d1595fe06320e3b848b5aabfffd2cf6e",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.2_df928649.md": {
-    "mtime": 1784926665.90095,
+    "mtime": 1785021742.7834947,
     "ast_hash": "ed93273db4a181940f37d9352b489928",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.31_\uc694\uc57d_a5de2aa5.md": {
-    "mtime": 1784926666.230443,
+    "mtime": 1785021743.1133628,
     "ast_hash": "0132342444f48f877a33fe4962dca685",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.3_c3c5bb8b.md": {
-    "mtime": 1784926666.102653,
+    "mtime": 1785021742.9999073,
     "ast_hash": "0af2a65344a3ddbb62ed93dc503dfa88",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ud2b9\ud5c8\uac80\ud1a0_v0.3_20260629_79b87374.md": {
-    "mtime": 1784926666.4457805,
+    "mtime": 1785021743.2058938,
     "ast_hash": "cadb78d5e34f222739f90a9357ecefd4",
     "semantic_hash": ""
   },
@@ -6062,6 +6062,31 @@
   "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md": {
     "mtime": 1785021203.9295545,
     "ast_hash": "4434adc69697ce8a01a195e59d24d921",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae303Karpathy_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md": {
+    "mtime": 1785021573.4030392,
+    "ast_hash": "157e28677072364457a562bcaa63472c",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ucf54\ub2c8\ubc18\uc131\ubb38_\ub9cc\ubcf5\ub9ac\ubdf0\uc694\uccad_\uc2b9\uc778.md": {
+    "mtime": 1785021625.6614008,
+    "ast_hash": "75ca33eec643fb8bfc7fab087c62f900",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8_\ubc18\uc131\ubb38_20260726_Karpathy\uac80\uc99d_\uae30\ud68d\uc548\ubbf8\ub300\uc870.md": {
+    "mtime": 1785021607.0639982,
+    "ast_hash": "38e5fe3d7ee03994297d94dd3b139020",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8\u2192\ub9cc\ubcf5_20260726_0818_\ubc18\uc131\ubb38_Karpathy\uac80\uc99d\ubd80\uc2e4_1\ucc28\ub9ac\ubdf0\uc694\uccad.md": {
+    "mtime": 1785021622.649907,
+    "ast_hash": "6cfb4e1a57ba5c81d9bb405bf920de58",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0815_\ubf40\uac1c\uae303_Karpathy_\ubc18\ub824_\uae30\ud68d\uc548\ubbf8\uc900\uc2182\uac74_\uc7ac\uc791\uc5c5\uc694\uccad.md": {
+    "mtime": 1785021570.2317595,
+    "ast_hash": "cbbceb0810de9b7ac412ffb79dd2ad49",
     "semantic_hash": ""
   }
 }
