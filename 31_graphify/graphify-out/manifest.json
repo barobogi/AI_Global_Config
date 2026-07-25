@@ -1295,8 +1295,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ub9cc\ubcf5_heartbeat.json": {
-    "mtime": 1785022935.3549583,
-    "ast_hash": "2d94d4767b04253962016d8a53d5663a",
+    "mtime": 1785023167.9474049,
+    "ast_hash": "0cee153165e87742f3451b18883c9787",
     "semantic_hash": ""
   },
   "AI_hub/status/\uc548\ud2f0_heartbeat.json": {
@@ -4415,8 +4415,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/inbox.md": {
-    "mtime": 1785022935.5558476,
-    "ast_hash": "9f762b627d96ef43a5b38ca71b9393f6",
+    "mtime": 1785023172.9947114,
+    "ast_hash": "3c260d072b4c51618d5da69c1016192f",
     "semantic_hash": ""
   },
   "AI_hub/status/trigger_anti.txt": {
@@ -4425,8 +4425,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ucf54\ub2c8_\ube0c\ub9ac\ud551_\ucd5c\uc2e0.md": {
-    "mtime": 1785022935.446182,
-    "ast_hash": "13bd3f9461d68c4c190d7eede23723f3",
+    "mtime": 1785023172.8982036,
+    "ast_hash": "9531533122cd64d2f10e8d3725632f5f",
     "semantic_hash": ""
   },
   "AI_hub/telegram_history.md": {
@@ -4435,62 +4435,62 @@
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.21_\uc694\uc57d_2ffdcc1c.md": {
-    "mtime": 1785022844.6822486,
+    "mtime": 1785023182.8870478,
     "ast_hash": "f4c6c2e870d93c9cb7faf3ee3b7517d2",
     "semantic_hash": ""
   },
   "graphify-out/converted/11_7_\uba40\ud2f0\ucc44\ub110AI_\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158_v0.2_468da52a.md": {
-    "mtime": 1785022844.5975552,
+    "mtime": 1785023182.8357534,
     "ast_hash": "ab5962a8800929bcf056ea8d472d29e2",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2460_AI\uc138\uc158_\ucee8\ud14d\uc2a4\ud2b8_\ub3d9\uae30\ud654_v0.1_84d02b4a.md": {
-    "mtime": 1785022844.83503,
+    "mtime": 1785023183.2380147,
     "ast_hash": "3d1acbbe931c0b68358f42413adeb1e8",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2461_\uc678\ubd80AI_\uc704\uc784\uc2e4\ud589_v0.1_33cf5e1c.md": {
-    "mtime": 1785022844.9701777,
+    "mtime": 1785023183.2895346,
     "ast_hash": "4eaa52d38fbc185d72d326357f03ec05",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2462_\uc2dc\uc7a5\uae30\ubc18_\uc2e0\ud638\uc790\ub3d9\ud559\uc2b5_v0.1_d1f03d6a.md": {
-    "mtime": 1785022845.141247,
+    "mtime": 1785023183.3507802,
     "ast_hash": "44d8a18060459d14c1cdd9458fb8edf0",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\u2463_4\uacc4\uce35_AI\ud611\uc5c5_\uc544\ud0a4\ud14d\ucc98_v0.1_7de66d7a.md": {
-    "mtime": 1785022845.2234783,
+    "mtime": 1785023183.435666,
     "ast_hash": "d2f7e3b93737828d4dfd88d35475c69b",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud2b9\ud5c8\ud6c4\ubcf4_\uac1c\ub150\uc11c_\ubaa8\uc74c_v0.1_043b1b21.md": {
-    "mtime": 1785022845.349012,
+    "mtime": 1785023183.5683644,
     "ast_hash": "0df489973fb3643a5c4fd71145a56ac1",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.1_4013122e.md": {
-    "mtime": 1785022845.4950478,
+    "mtime": 1785023183.6371415,
     "ast_hash": "d1595fe06320e3b848b5aabfffd2cf6e",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.2_df928649.md": {
-    "mtime": 1785022845.5921266,
+    "mtime": 1785023183.7332423,
     "ast_hash": "ed93273db4a181940f37d9352b489928",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.31_\uc694\uc57d_a5de2aa5.md": {
-    "mtime": 1785022845.9191191,
+    "mtime": 1785023184.002081,
     "ast_hash": "0132342444f48f877a33fe4962dca685",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ubc1c\uba85\uac1c\ub150\uc11c_v0.3_c3c5bb8b.md": {
-    "mtime": 1785022845.7938707,
+    "mtime": 1785023183.95249,
     "ast_hash": "0af2a65344a3ddbb62ed93dc503dfa88",
     "semantic_hash": ""
   },
   "graphify-out/converted/\ud638\ub450AI_\ud2b9\ud5c8\uac80\ud1a0_v0.3_20260629_79b87374.md": {
-    "mtime": 1785022846.0313275,
+    "mtime": 1785023184.123447,
     "ast_hash": "cadb78d5e34f222739f90a9357ecefd4",
     "semantic_hash": ""
   },
@@ -6557,6 +6557,26 @@
   "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0843_\ubf40\uac1c\uae303_Karpathy_\uc7ac\ubc18\ub824_EmotionPrompt\uc5ec\uc804\ud788\uc8fd\uc740\ucf54\ub4dc.md": {
     "mtime": 1785022679.6125836,
     "ast_hash": "b1823aa012acfc1f82a0460c65f0f788",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ub9cc\ubcf5\u2192\uc548\ud2f0_20260726_0844_graphify_\uc0ac\uc6a9\ubc95_\uc815\uc815_watch\uae08\uc9c0.md": {
+    "mtime": 1785023103.2647538,
+    "ast_hash": "48f4269a2d097a9a9a325d3654b681f6",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0844_graphify\uc0ac\uc6a9\ubc95\uc815\uc815_\uc2b9\uc778.md": {
+    "mtime": 1785023098.8706293,
+    "ast_hash": "ea62028bb84d42b5280b9e11260464ec",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_AgentMemory_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md": {
+    "mtime": 1785022984.2889178,
+    "ast_hash": "0b8a29ad90a3b17d456f67c8d510b5df",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0848_AgentMemory_\ubc18\ub824_search\ud544\ud130\ubc84\uadf8\ubc0f\ud45c\ud604\uacfc\uc7a5.md": {
+    "mtime": 1785022980.8984375,
+    "ast_hash": "801307f08912146384b8a9dea836b15e",
     "semantic_hash": ""
   }
 }

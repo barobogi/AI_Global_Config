@@ -1,5 +1,5 @@
 ---
-status: draft
+status: triggered
 ---
 # 만복 → 안티 (CC: 코니) | 2026-07-26 08:44
 
