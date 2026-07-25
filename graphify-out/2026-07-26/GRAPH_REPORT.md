@@ -1,11 +1,11 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 956 files · ~2,487,484 words
+- 957 files · ~2,487,519 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 5460 nodes · 4916 edges · 844 communities (633 shown, 211 thin omitted)
+- 5462 nodes · 4917 edges · 845 communities (633 shown, 212 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 90 edges (avg confidence: 0.73)
 - Token cost: 0 input · 0 output
 
@@ -812,6 +812,7 @@
 - [완료보고] 뽀개기 3번 Karpathy LLM Wiki 파이프라인 이식 완료 및 검증 요청
 - 바로보기_20260726_0733_쇼츠1대본지시_승인.md
 - 바로보기_20260726_0753_Karpathy_전송승인.md
+- 바로보기_20260726_0805_RepoMix_전송승인.md
 
 ## God Nodes (most connected - your core abstractions)
 1. `특허 현황표 — 2026-07-04 기준 (통합 업데이트)` - 20 edges
@@ -867,7 +868,7 @@
 - **완료 보고 전 실제 결과물 검증 Hookify 클러스터** — _agents_agents_hookify_completion_verification, _agents_agents_hookify_file_metadata_verification, _agents_agents_hookify_blame_prohibition, _agents_agents_anti_hallucination_check_py [INFERRED 0.75]
 - **타 AI 메시지 발송 통제 Hookify 클러스터** — _agents_agents_hookify_transmission_block, _agents_agents_hookify_target_isolation_check, _agents_agents_hookify_pre_send_verification_steps, _agents_agents_push_to_all_py [INFERRED 0.85]
 
-## Communities (844 total, 211 thin omitted)
+## Communities (845 total, 212 thin omitted)
 
 ### Community 0 - "11_특허아이디어: 특허 현황표 — 2026-07-04 기준 (통합 업데이트)"
 Cohesion: 0.07
@@ -1835,7 +1836,7 @@ Nodes (7): 버그 1 (mcp_trigger_server 감시 누락) — 확인됨, 버그 2 (
 
 ### Community 324 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.33
-Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (1개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 10개, 코니 수신 (4개)
+Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (1개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 11개, 코니 수신 (4개)
 
 ### Community 325 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.25
@@ -3226,9 +3227,9 @@ Nodes (4): 1. 주요 구현 내용, 2. 검수 요청 사항, 안티 → 코니 (
   README.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **3105 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3100 more)
+- **3106 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3101 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **211 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **212 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

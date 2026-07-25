@@ -1,16 +1,16 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 957 files · ~2,487,519 words
+- 961 files · ~2,488,168 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 5462 nodes · 4917 edges · 845 communities (633 shown, 212 thin omitted)
+- 5481 nodes · 4932 edges · 849 communities (636 shown, 213 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 90 edges (avg confidence: 0.73)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f5f0c9e0`
+- Built from commit: `09415fb2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -813,6 +813,10 @@
 - 바로보기_20260726_0733_쇼츠1대본지시_승인.md
 - 바로보기_20260726_0753_Karpathy_전송승인.md
 - 바로보기_20260726_0805_RepoMix_전송승인.md
+- [착수 전 기획검토] T_TG_TOPIC (Telegram 멀티 Topic 연동)
+- [완료보고] GitHub 2티어 Agent Memory 파일럿 구현 및 검증 요청
+- 바로보기 승인 | 2026-07-26 07:50
+- 바로보기_20260726_0810_AgentMemory_전송승인.md
 
 ## God Nodes (most connected - your core abstractions)
 1. `특허 현황표 — 2026-07-04 기준 (통합 업데이트)` - 20 edges
@@ -868,7 +872,7 @@
 - **완료 보고 전 실제 결과물 검증 Hookify 클러스터** — _agents_agents_hookify_completion_verification, _agents_agents_hookify_file_metadata_verification, _agents_agents_hookify_blame_prohibition, _agents_agents_anti_hallucination_check_py [INFERRED 0.75]
 - **타 AI 메시지 발송 통제 Hookify 클러스터** — _agents_agents_hookify_transmission_block, _agents_agents_hookify_target_isolation_check, _agents_agents_hookify_pre_send_verification_steps, _agents_agents_push_to_all_py [INFERRED 0.85]
 
-## Communities (845 total, 212 thin omitted)
+## Communities (849 total, 213 thin omitted)
 
 ### Community 0 - "11_특허아이디어: 특허 현황표 — 2026-07-04 기준 (통합 업데이트)"
 Cohesion: 0.07
@@ -1836,7 +1840,7 @@ Nodes (7): 버그 1 (mcp_trigger_server 감시 누락) — 확인됨, 버그 2 (
 
 ### Community 324 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.33
-Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (1개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 11개, 코니 수신 (4개)
+Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (2개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 15개, 코니 수신 (5개)
 
 ### Community 325 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.25
@@ -3214,6 +3218,18 @@ Nodes (5): 1. 주요 구현 내용, 2. 실증 테스트 결과 (P Proof 4항목 
 Cohesion: 0.40
 Nodes (4): 1. 주요 구현 내용, 2. 검수 요청 사항, 안티 → 코니 (CC: 만복) | 2026-07-26 07:53, [완료보고] 뽀개기 3번 Karpathy LLM Wiki 파이프라인 이식 완료 및 검증 요청
 
+### Community 845 - "[착수 전 기획검토] T_TG_TOPIC (Telegram 멀티 Topic 연동)"
+Cohesion: 0.29
+Nodes (6): 기술 난이도: 낮음~중 (전면 재작성 아님), 뿌리체계 / 실사용성, [착수 전 기획검토] T_TG_TOPIC (Telegram 멀티 Topic 연동), ⚠️ 착수 전 반드시 짚을 리스크 3가지, 코니 → 안티 (CC: 만복) | 2026-07-26 07:50, 현재 구조 실측 (`D:\AI\AI_hub\shared\T020_human_in_the_loop\n8n_telegram_bot.py`)
+
+### Community 846 - "[완료보고] GitHub 2티어 Agent Memory 파일럿 구현 및 검증 요청"
+Cohesion: 0.33
+Nodes (5): 1. 주요 구현 내용, 2. 실증 결과, 3. 검수 요청 사항, 안티 → 코니 (CC: 만복) | 2026-07-26 08:10, [완료보고] GitHub 2티어 Agent Memory 파일럿 구현 및 검증 요청
+
+### Community 847 - "바로보기 승인 | 2026-07-26 07:50"
+Cohesion: 0.50
+Nodes (3): 바로보기 승인 | 2026-07-26 07:50, 승인 내용, 승인 대상 메시지
+
 ## Ambiguous Edges - Review These
 - `역할분리 이종 에이전트 3단계 교차검증 기반 사내 지식자산 자동화 시스템` → `다중 AI 제안 사전 중복탐지 + 첫실사용시나리오 강제 검증 파이프라인`  [AMBIGUOUS]
   11_특허아이디어/번호별정리/11_17_다중AI제안검증파이프라인/11_17_다중AI제안검증파이프라인_v0.3_코니보강.md · relation: conceptually_related_to
@@ -3227,9 +3243,9 @@ Nodes (4): 1. 주요 구현 내용, 2. 검수 요청 사항, 안티 → 코니 (
   README.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **3106 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3101 more)
+- **3116 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3111 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **212 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **213 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -3244,7 +3260,7 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `Daily_for_Barobogi/ (AI Study/Logs 블로그)` and `README.md — YouTube Subtitle Extractor (Playwright)`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `GitHub Top10 상세리뷰 (만복 1차 검토, 코니 전달용)` connect `25_auto_pobbagi: channel_manager.py` to `63_youtube_creator: [S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 대본`, `25_auto_pobbagi: Content Octopus (콘텐츠 재활용 시스템)`, `11_특허아이디어: 폴더 재구조화 금지 원칙 및 재개조건 (n8n 안정화 후)`, `25_auto_pobbagi: check_youtube_drive.py`?**
+- **Why does `[영상] Hermes Agent 8가지 실전 활용법` connect `25_auto_pobbagi: AI로 월 $103,000 만드는 법 (8개 수익원) 요약` to `25_auto_pobbagi: channel_manager.py`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
-- **Why does `parse_markdown()` connect `25_auto_pobbagi: Academic Research Skills` to `63_youtube_creator: audio_processor.py`?**
+- **Why does `OpenHuman (Early Beta, Hermes Agent 비교표)` connect `25_auto_pobbagi: channel_manager.py` to `25_auto_pobbagi: AI로 월 $103,000 만드는 법 (8개 수익원) 요약`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
