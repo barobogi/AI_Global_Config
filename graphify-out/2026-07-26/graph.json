@@ -21561,6 +21561,72 @@
       "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175\u1102\u1175\u11b7 \u110c\u1165\u11ab\u1109\u1169\u11bc \u1109\u1173\u11bc\u110b\u1175\u11ab"
     },
     {
+      "label": "\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_0810_agentmemory_\uc804\uc1a1\uc2b9\uc778",
+      "community": 848,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175_20260726_0810_agentmemory_\u110c\u1165\u11ab\u1109\u1169\u11bc\u1109\u1173\u11bc\u110b\u1175\u11ab.md"
+    },
+    {
+      "label": "\ubc14\ub85c\ubcf4\uae30\ub2d8 \uc804\uc1a1 \uc2b9\uc778",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_0810_agentmemory_\uc804\uc1a1\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30\ub2d8_\uc804\uc1a1_\uc2b9\uc778",
+      "community": 848,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175\u1102\u1175\u11b7 \u110c\u1165\u11ab\u1109\u1169\u11bc \u1109\u1173\u11bc\u110b\u1175\u11ab"
+    },
+    {
+      "label": "\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778",
+      "community": 847,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 07:50",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175_20260726_ttgtopic_\u1100\u1175\u1112\u116c\u11a8\u1100\u1165\u11b7\u1110\u1169_\u110b\u1161\u11ab\u1110\u1175\u110c\u1165\u11ab\u1103\u1161\u11af_\u1109\u1173\u11bc\u110b\u1175\u11ab.md"
+    },
+    {
+      "label": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 07:50",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_07_50",
+      "community": 847,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 07:50",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175 \u1109\u1173\u11bc\u110b\u1175\u11ab | 2026-07-26 07:50"
+    },
+    {
+      "label": "\uc2b9\uc778 \ub300\uc0c1 \uba54\uc2dc\uc9c0",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub300\uc0c1_\uba54\uc2dc\uc9c0",
+      "community": 847,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 07:50",
+      "norm_label": "\u1109\u1173\u11bc\u110b\u1175\u11ab \u1103\u1162\u1109\u1161\u11bc \u1106\u1166\u1109\u1175\u110c\u1175"
+    },
+    {
+      "label": "\uc2b9\uc778 \ub0b4\uc6a9",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub0b4\uc6a9",
+      "community": 847,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 07:50",
+      "norm_label": "\u1109\u1173\u11bc\u110b\u1175\u11ab \u1102\u1162\u110b\u116d\u11bc"
+    },
+    {
       "label": "\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
       "file_type": "document",
       "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
@@ -31349,6 +31415,72 @@
       "community": 527,
       "community_name": "[\uc644\ub8cc\ubcf4\uace0] T_OOM_Fix_Supervisor_Mutex : Supervisor \ubc0f Master Watch \ub2e8\uc77c \uc778\uc2a4\ud134\uc2a4 \ubcf4\uc7a5(Mutex) \ucc98\ub9ac \uc644\ub8cc",
       "norm_label": "3. \u110b\u116f\u11ab\u1107\u1169\u11ab \u1106\u1175\u11be \u1100\u1166\u1109\u1175\u1111\u1161\u11ab \u1103\u1173\u11bc\u1105\u1169\u11a8 \u110e\u1169\u110b\u1161\u11ab"
+    },
+    {
+      "label": "\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "\u110b\u1161\u11ab\u1110\u1175\u2192\u110f\u1169\u1102\u1175_\u1106\u1161\u11ab\u1107\u1169\u11a8_20260726_0810_agentmemory_\u1111\u1161\u110b\u1175\u11af\u1105\u1165\u11ba_\u1100\u116e\u1112\u1167\u11ab\u110b\u116a\u11ab\u1105\u116d\u1107\u1169\u1100\u1169.md"
+    },
+    {
+      "label": "\uc548\ud2f0 \u2192 \ucf54\ub2c8 (CC: \ub9cc\ubcf5) | 2026-07-26 08:10",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc548\ud2f0_\ucf54\ub2c8_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "\u110b\u1161\u11ab\u1110\u1175 \u2192 \u110f\u1169\u1102\u1175 (cc: \u1106\u1161\u11ab\u1107\u1169\u11a8) | 2026-07-26 08:10"
+    },
+    {
+      "label": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc644\ub8cc\ubcf4\uace0_github_2\ud2f0\uc5b4_agent_memory_\ud30c\uc77c\ub7ff_\uad6c\ud604_\ubc0f_\uac80\uc99d_\uc694\uccad",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "[\u110b\u116a\u11ab\u1105\u116d\u1107\u1169\u1100\u1169] github 2\u1110\u1175\u110b\u1165 agent memory \u1111\u1161\u110b\u1175\u11af\u1105\u1165\u11ba \u1100\u116e\u1112\u1167\u11ab \u1106\u1175\u11be \u1100\u1165\u11b7\u110c\u1173\u11bc \u110b\u116d\u110e\u1165\u11bc"
+    },
+    {
+      "label": "1. \uc8fc\uc694 \uad6c\ud604 \ub0b4\uc6a9",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_1_\uc8fc\uc694_\uad6c\ud604_\ub0b4\uc6a9",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "1. \u110c\u116e\u110b\u116d \u1100\u116e\u1112\u1167\u11ab \u1102\u1162\u110b\u116d\u11bc"
+    },
+    {
+      "label": "2. \uc2e4\uc99d \uacb0\uacfc",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_2_\uc2e4\uc99d_\uacb0\uacfc",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "2. \u1109\u1175\u11af\u110c\u1173\u11bc \u1100\u1167\u11af\u1100\u116a"
+    },
+    {
+      "label": "3. \uac80\uc218 \uc694\uccad \uc0ac\ud56d",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_3_\uac80\uc218_\uc694\uccad_\uc0ac\ud56d",
+      "community": 846,
+      "community_name": "[\uc644\ub8cc\ubcf4\uace0] GitHub 2\ud2f0\uc5b4 Agent Memory \ud30c\uc77c\ub7ff \uad6c\ud604 \ubc0f \uac80\uc99d \uc694\uccad",
+      "norm_label": "3. \u1100\u1165\u11b7\u1109\u116e \u110b\u116d\u110e\u1165\u11bc \u1109\u1161\u1112\u1161\u11bc"
     },
     {
       "label": "\uc790\ub3d9\u2192\ub9cc\ubcf5_20260720_\ubf40\uac1c\uae30\ud6c4\ubcf4\ubaa9\ub85d.md",
@@ -51910,6 +52042,83 @@
       "norm_label": "\u1100\u1166\u110b\u1175\u1110\u1173"
     },
     {
+      "label": "\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u110f\u1169\u1102\u1175\u2192\u110b\u1161\u11ab\u1110\u1175_20260726_0750_ttgtopic_\u110e\u1161\u11a8\u1109\u116e\u110c\u1165\u11ab_\u1100\u1175\u1112\u116c\u11a8\u1100\u1165\u11b7\u1110\u1169\u110b\u1174\u1100\u1167\u11ab.md"
+    },
+    {
+      "label": "\ucf54\ub2c8 \u2192 \uc548\ud2f0 (CC: \ub9cc\ubcf5) | 2026-07-26 07:50",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_07_50",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u110f\u1169\u1102\u1175 \u2192 \u110b\u1161\u11ab\u1110\u1175 (cc: \u1106\u1161\u11ab\u1107\u1169\u11a8) | 2026-07-26 07:50"
+    },
+    {
+      "label": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "[\u110e\u1161\u11a8\u1109\u116e \u110c\u1165\u11ab \u1100\u1175\u1112\u116c\u11a8\u1100\u1165\u11b7\u1110\u1169] t_tg_topic (telegram \u1106\u1165\u11af\u1110\u1175 topic \u110b\u1167\u11ab\u1103\u1169\u11bc)"
+    },
+    {
+      "label": "\ud604\uc7ac \uad6c\uc870 \uc2e4\uce21 (`D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\n8n_telegram_bot.py`)",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ud604\uc7ac_\uad6c\uc870_\uc2e4\uce21_d_ai_ai_hub_shared_t020_human_in_the_loop_n8n_telegram_bot_py",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u1112\u1167\u11ab\u110c\u1162 \u1100\u116e\u110c\u1169 \u1109\u1175\u11af\u110e\u1173\u11a8 (`d:\\ai\\ai_hub\\shared\\t020_human_in_the_loop\\n8n_telegram_bot.py`)"
+    },
+    {
+      "label": "\uae30\uc220 \ub09c\uc774\ub3c4: \ub0ae\uc74c~\uc911 (\uc804\uba74 \uc7ac\uc791\uc131 \uc544\ub2d8)",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\uae30\uc220_\ub09c\uc774\ub3c4_\ub0ae\uc74c_\uc911_\uc804\uba74_\uc7ac\uc791\uc131_\uc544\ub2d8",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u1100\u1175\u1109\u116e\u11af \u1102\u1161\u11ab\u110b\u1175\u1103\u1169: \u1102\u1161\u11bd\u110b\u1173\u11b7~\u110c\u116e\u11bc (\u110c\u1165\u11ab\u1106\u1167\u11ab \u110c\u1162\u110c\u1161\u11a8\u1109\u1165\u11bc \u110b\u1161\u1102\u1175\u11b7)"
+    },
+    {
+      "label": "\u26a0\ufe0f \ucc29\uc218 \uc804 \ubc18\ub4dc\uc2dc \uc9da\uc744 \ub9ac\uc2a4\ud06c 3\uac00\uc9c0",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\ubc18\ub4dc\uc2dc_\uc9da\uc744_\ub9ac\uc2a4\ud06c_3\uac00\uc9c0",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u26a0\ufe0f \u110e\u1161\u11a8\u1109\u116e \u110c\u1165\u11ab \u1107\u1161\u11ab\u1103\u1173\u1109\u1175 \u110c\u1175\u11c1\u110b\u1173\u11af \u1105\u1175\u1109\u1173\u110f\u1173 3\u1100\u1161\u110c\u1175"
+    },
+    {
+      "label": "\ubfcc\ub9ac\uccb4\uacc4 / \uc2e4\uc0ac\uc6a9\uc131",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ubfcc\ub9ac\uccb4\uacc4_\uc2e4\uc0ac\uc6a9\uc131",
+      "community": 845,
+      "community_name": "[\ucc29\uc218 \uc804 \uae30\ud68d\uac80\ud1a0] T_TG_TOPIC (Telegram \uba40\ud2f0 Topic \uc5f0\ub3d9)",
+      "norm_label": "\u1108\u116e\u1105\u1175\u110e\u1166\u1100\u1168 / \u1109\u1175\u11af\u1109\u1161\u110b\u116d\u11bc\u1109\u1165\u11bc"
+    },
+    {
       "label": "\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
       "file_type": "document",
       "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
@@ -53296,43 +53505,43 @@
       "norm_label": "\ud83d\udcec 3ai \u1110\u1169\u11bc\u1112\u1161\u11b8 \u1109\u116e\u1109\u1175\u11ab\u1112\u1161\u11b7"
     },
     {
-      "label": "\ud83d\udce8 \uc624\ub298 \uba54\uc2dc\uc9c0 (2026-07-26) \u2014 \ucd1d 11\uac1c",
+      "label": "\ud83d\udce8 \uc624\ub298 \uba54\uc2dc\uc9c0 (2026-07-26) \u2014 \ucd1d 15\uac1c",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_11\uac1c",
+      "id": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
       "community": 324,
       "community_name": "\ud83d\udce8 \ub9cc\ubcf5 \u2192 \uc548\ud2f0 (CC: \ucf54\ub2c8)",
-      "norm_label": "\ud83d\udce8 \u110b\u1169\u1102\u1173\u11af \u1106\u1166\u1109\u1175\u110c\u1175 (2026-07-26) \u2014 \u110e\u1169\u11bc 11\u1100\u1162"
+      "norm_label": "\ud83d\udce8 \u110b\u1169\u1102\u1173\u11af \u1106\u1166\u1109\u1175\u110c\u1175 (2026-07-26) \u2014 \u110e\u1169\u11bc 15\u1100\u1162"
     },
     {
-      "label": "\ucf54\ub2c8 \uc218\uc2e0 (4\uac1c)",
+      "label": "\ucf54\ub2c8 \uc218\uc2e0 (5\uac1c)",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
       "source_location": "L9",
       "_origin": "ast",
-      "id": "ai_hub_status_inbox_\ucf54\ub2c8_\uc218\uc2e0_4\uac1c",
+      "id": "ai_hub_status_inbox_\ucf54\ub2c8_\uc218\uc2e0_5\uac1c",
       "community": 324,
       "community_name": "\ud83d\udce8 \ub9cc\ubcf5 \u2192 \uc548\ud2f0 (CC: \ucf54\ub2c8)",
-      "norm_label": "\u110f\u1169\u1102\u1175 \u1109\u116e\u1109\u1175\u11ab (4\u1100\u1162)"
+      "norm_label": "\u110f\u1169\u1102\u1175 \u1109\u116e\u1109\u1175\u11ab (5\u1100\u1162)"
     },
     {
-      "label": "\uc548\ud2f0 \uc218\uc2e0 (1\uac1c)",
+      "label": "\uc548\ud2f0 \uc218\uc2e0 (2\uac1c)",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast",
-      "id": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_1\uac1c",
+      "id": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_2\uac1c",
       "community": 324,
       "community_name": "\ud83d\udce8 \ub9cc\ubcf5 \u2192 \uc548\ud2f0 (CC: \ucf54\ub2c8)",
-      "norm_label": "\u110b\u1161\u11ab\u1110\u1175 \u1109\u116e\u1109\u1175\u11ab (1\u1100\u1162)"
+      "norm_label": "\u110b\u1161\u11ab\u1110\u1175 \u1109\u116e\u1109\u1175\u11ab (2\u1100\u1162)"
     },
     {
       "label": "\ud83d\udd04 \uc624\ub298 tasks.json \ubcc0\uacbd",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "ai_hub_status_inbox_\uc624\ub298_tasks_json_\ubcc0\uacbd",
       "community": 324,
@@ -81494,6 +81703,50 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_0810_AgentMemory_\uc804\uc1a1\uc2b9\uc778.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_0810_agentmemory_\uc804\uc1a1\uc2b9\uc778",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_0810_agentmemory_\uc804\uc1a1\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30\ub2d8_\uc804\uc1a1_\uc2b9\uc778",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_07_50",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_07_50",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub0b4\uc6a9",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_TTGTOPIC_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_07_50",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_ttgtopic_\uae30\ud68d\uac80\ud1a0_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub300\uc0c1_\uba54\uc2dc\uc9c0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
       "source_location": "L4",
       "weight": 1.0,
@@ -88980,6 +89233,61 @@
       "_origin": "ast",
       "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260725_repomix_\uac8c\uc2dc\ud310\ucd08\uc548_\uc778\uacc4_\uc778\uacc4_1\ud2f0\uc5b4_\ub3c4\uad6c_repomix_\uad6c\ud604_\ubc0f_\uac8c\uc2dc\ud310_\ucd08\uc548_\uac80\ud1a0_\uc694\uccad",
       "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260725_repomix_\uac8c\uc2dc\ud310\ucd08\uc548_\uc778\uacc4_3_\uc6d0\ubcf8_\ubc0f_\uac8c\uc2dc\ud310_\ub4f1\ub85d_\ucd08\uc548",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0",
+      "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc548\ud2f0_\ucf54\ub2c8_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc548\ud2f0_\ucf54\ub2c8_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc644\ub8cc\ubcf4\uace0_github_2\ud2f0\uc5b4_agent_memory_\ud30c\uc77c\ub7ff_\uad6c\ud604_\ubc0f_\uac80\uc99d_\uc694\uccad",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc644\ub8cc\ubcf4\uace0_github_2\ud2f0\uc5b4_agent_memory_\ud30c\uc77c\ub7ff_\uad6c\ud604_\ubc0f_\uac80\uc99d_\uc694\uccad",
+      "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_1_\uc8fc\uc694_\uad6c\ud604_\ub0b4\uc6a9",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc644\ub8cc\ubcf4\uace0_github_2\ud2f0\uc5b4_agent_memory_\ud30c\uc77c\ub7ff_\uad6c\ud604_\ubc0f_\uac80\uc99d_\uc694\uccad",
+      "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_2_\uc2e4\uc99d_\uacb0\uacfc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_AgentMemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_\uc644\ub8cc\ubcf4\uace0_github_2\ud2f0\uc5b4_agent_memory_\ud30c\uc77c\ub7ff_\uad6c\ud604_\ubc0f_\uac80\uc99d_\uc694\uccad",
+      "target": "ai_hub_shared_messages_\uc548\ud2f0_\ucf54\ub2c8_\ub9cc\ubcf5_20260726_0810_agentmemory_\ud30c\uc77c\ub7ff_\uad6c\ud604\uc644\ub8cc\ubcf4\uace0_3_\uac80\uc218_\uc694\uccad_\uc0ac\ud56d",
       "confidence_score": 1.0
     },
     {
@@ -107410,6 +107718,72 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_07_50",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_07_50",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\uae30\uc220_\ub09c\uc774\ub3c4_\ub0ae\uc74c_\uc911_\uc804\uba74_\uc7ac\uc791\uc131_\uc544\ub2d8",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ubfcc\ub9ac\uccb4\uacc4_\uc2e4\uc0ac\uc6a9\uc131",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\ubc18\ub4dc\uc2dc_\uc9da\uc744_\ub9ac\uc2a4\ud06c_3\uac00\uc9c0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0750_TTGTOPIC_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ucc29\uc218_\uc804_\uae30\ud68d\uac80\ud1a0_t_tg_topic_telegram_\uba40\ud2f0_topic_\uc5f0\ub3d9",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0750_ttgtopic_\ucc29\uc218\uc804_\uae30\ud68d\uac80\ud1a0\uc758\uacac_\ud604\uc7ac_\uad6c\uc870_\uc2e4\uce21_d_ai_ai_hub_shared_t020_human_in_the_loop_n8n_telegram_bot_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
       "source_location": "L11",
       "weight": 1.0,
@@ -108621,7 +108995,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "ai_hub_status_inbox_3ai_\ud1b5\ud569_\uc218\uc2e0\ud568",
@@ -108636,18 +109010,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "ai_hub_status_inbox_3ai_\ud1b5\ud569_\uc218\uc2e0\ud568",
-      "target": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_11\uac1c",
+      "target": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_11\uac1c",
-      "target": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_1\uac1c",
+      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
+      "target": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_2\uac1c",
       "confidence_score": 1.0
     },
     {
@@ -108657,8 +109031,8 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_11\uac1c",
-      "target": "ai_hub_status_inbox_\ucf54\ub2c8_\uc218\uc2e0_4\uac1c",
+      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
+      "target": "ai_hub_status_inbox_\ucf54\ub2c8_\uc218\uc2e0_5\uac1c",
       "confidence_score": 1.0
     },
     {
@@ -116056,5 +116430,5 @@
       "source_file": ".agents/AGENTS.md"
     }
   ],
-  "built_at_commit": "f5f0c9e07290f4d3dca4a1beca99f1ee1fc88959"
+  "built_at_commit": "09415fb2e09a903399b75729c0b539ec677620b3"
 }

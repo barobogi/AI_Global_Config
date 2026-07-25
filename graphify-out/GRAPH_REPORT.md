@@ -1,16 +1,16 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 961 files · ~2,488,168 words
+- 963 files · ~2,488,482 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 5481 nodes · 4932 edges · 849 communities (636 shown, 213 thin omitted)
+- 5492 nodes · 4941 edges · 851 communities (638 shown, 213 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 90 edges (avg confidence: 0.73)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `09415fb2`
+- Built from commit: `c21c6086`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -817,6 +817,8 @@
 - [완료보고] GitHub 2티어 Agent Memory 파일럿 구현 및 검증 요청
 - 바로보기 승인 | 2026-07-26 07:50
 - 바로보기_20260726_0810_AgentMemory_전송승인.md
+- [반려] 뽀개기2 GPS Check 온톨로지 하드닝 — NetworkX 검증이 죽은 코드
+- 바로보기 승인 | 2026-07-26 08:10
 
 ## God Nodes (most connected - your core abstractions)
 1. `특허 현황표 — 2026-07-04 기준 (통합 업데이트)` - 20 edges
@@ -872,7 +874,7 @@
 - **완료 보고 전 실제 결과물 검증 Hookify 클러스터** — _agents_agents_hookify_completion_verification, _agents_agents_hookify_file_metadata_verification, _agents_agents_hookify_blame_prohibition, _agents_agents_anti_hallucination_check_py [INFERRED 0.75]
 - **타 AI 메시지 발송 통제 Hookify 클러스터** — _agents_agents_hookify_transmission_block, _agents_agents_hookify_target_isolation_check, _agents_agents_hookify_pre_send_verification_steps, _agents_agents_push_to_all_py [INFERRED 0.85]
 
-## Communities (849 total, 213 thin omitted)
+## Communities (851 total, 213 thin omitted)
 
 ### Community 0 - "11_특허아이디어: 특허 현황표 — 2026-07-04 기준 (통합 업데이트)"
 Cohesion: 0.07
@@ -1840,7 +1842,7 @@ Nodes (7): 버그 1 (mcp_trigger_server 감시 누락) — 확인됨, 버그 2 (
 
 ### Community 324 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.33
-Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (2개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 15개, 코니 수신 (5개)
+Nodes (5): 📬 3AI 통합 수신함, 안티 수신 (3개), 🔄 오늘 tasks.json 변경, 📨 오늘 메시지 (2026-07-26) — 총 17개, 코니 수신 (5개)
 
 ### Community 325 - "📨 만복 → 안티 (CC: 코니)"
 Cohesion: 0.25
@@ -3230,6 +3232,14 @@ Nodes (5): 1. 주요 구현 내용, 2. 실증 결과, 3. 검수 요청 사항, �
 Cohesion: 0.50
 Nodes (3): 바로보기 승인 | 2026-07-26 07:50, 승인 내용, 승인 대상 메시지
 
+### Community 849 - "[반려] 뽀개기2 GPS Check 온톨로지 하드닝 — NetworkX 검증이 죽은 코드"
+Cohesion: 0.29
+Nodes (6): 게이트, [반려] 뽀개기2 GPS Check 온톨로지 하드닝 — NetworkX 검증이 죽은 코드, ❌ 반려 사유: `validate_steps_graph`가 항상 통과하는 죽은 검증, 재작업 방향 (택1), ✅ 정상 (유지할 것), 코니 → 안티 (CC: 만복) | 2026-07-26 08:10
+
+### Community 850 - "바로보기 승인 | 2026-07-26 08:10"
+Cohesion: 0.50
+Nodes (3): 바로보기 승인 | 2026-07-26 08:10, 승인 내용, 승인 대상 메시지
+
 ## Ambiguous Edges - Review These
 - `역할분리 이종 에이전트 3단계 교차검증 기반 사내 지식자산 자동화 시스템` → `다중 AI 제안 사전 중복탐지 + 첫실사용시나리오 강제 검증 파이프라인`  [AMBIGUOUS]
   11_특허아이디어/번호별정리/11_17_다중AI제안검증파이프라인/11_17_다중AI제안검증파이프라인_v0.3_코니보강.md · relation: conceptually_related_to
@@ -3243,7 +3253,7 @@ Nodes (3): 바로보기 승인 | 2026-07-26 07:50, 승인 내용, 승인 대상 
   README.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **3116 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3111 more)
+- **3122 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+3117 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **213 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -3260,7 +3270,7 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `Daily_for_Barobogi/ (AI Study/Logs 블로그)` and `README.md — YouTube Subtitle Extractor (Playwright)`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `[영상] Hermes Agent 8가지 실전 활용법` connect `25_auto_pobbagi: AI로 월 $103,000 만드는 법 (8개 수익원) 요약` to `25_auto_pobbagi: channel_manager.py`?**
+- **Why does `GitHub Top10 상세리뷰 (만복 1차 검토, 코니 전달용)` connect `25_auto_pobbagi: channel_manager.py` to `63_youtube_creator: [S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 대본`, `25_auto_pobbagi: Content Octopus (콘텐츠 재활용 시스템)`, `11_특허아이디어: 폴더 재구조화 금지 원칙 및 재개조건 (n8n 안정화 후)`, `25_auto_pobbagi: check_youtube_drive.py`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
-- **Why does `OpenHuman (Early Beta, Hermes Agent 비교표)` connect `25_auto_pobbagi: channel_manager.py` to `25_auto_pobbagi: AI로 월 $103,000 만드는 법 (8개 수익원) 요약`?**
+- **Why does `T026 자율감시 파이프라인 실증 사례` connect `63_youtube_creator: approve_and_upload.py` to `63_youtube_creator: [S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 대본`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._

@@ -21627,6 +21627,50 @@
       "norm_label": "\u1109\u1173\u11bc\u110b\u1175\u11ab \u1102\u1162\u110b\u116d\u11bc"
     },
     {
+      "label": "\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778",
+      "community": 850,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 08:10",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175_20260726_\u1108\u1169\u1100\u1162\u1100\u11752\u110b\u1169\u11ab\u1110\u1169\u11af\u1105\u1169\u110c\u1175_\u1107\u1161\u11ab\u1105\u1167_\u110b\u1161\u11ab\u1110\u1175\u110c\u1165\u11ab\u1103\u1161\u11af_\u1109\u1173\u11bc\u110b\u1175\u11ab.md"
+    },
+    {
+      "label": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 08:10",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_08_10",
+      "community": 850,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 08:10",
+      "norm_label": "\u1107\u1161\u1105\u1169\u1107\u1169\u1100\u1175 \u1109\u1173\u11bc\u110b\u1175\u11ab | 2026-07-26 08:10"
+    },
+    {
+      "label": "\uc2b9\uc778 \ub300\uc0c1 \uba54\uc2dc\uc9c0",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub300\uc0c1_\uba54\uc2dc\uc9c0",
+      "community": 850,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 08:10",
+      "norm_label": "\u1109\u1173\u11bc\u110b\u1175\u11ab \u1103\u1162\u1109\u1161\u11bc \u1106\u1166\u1109\u1175\u110c\u1175"
+    },
+    {
+      "label": "\uc2b9\uc778 \ub0b4\uc6a9",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub0b4\uc6a9",
+      "community": 850,
+      "community_name": "\ubc14\ub85c\ubcf4\uae30 \uc2b9\uc778 | 2026-07-26 08:10",
+      "norm_label": "\u1109\u1173\u11bc\u110b\u1175\u11ab \u1102\u1162\u110b\u116d\u11bc"
+    },
+    {
       "label": "\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
       "file_type": "document",
       "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
@@ -52119,6 +52163,83 @@
       "norm_label": "\u1108\u116e\u1105\u1175\u110e\u1166\u1100\u1168 / \u1109\u1175\u11af\u1109\u1161\u110b\u116d\u11bc\u1109\u1165\u11bc"
     },
     {
+      "label": "\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u110f\u1169\u1102\u1175\u2192\u110b\u1161\u11ab\u1110\u1175_20260726_0810_\u1108\u1169\u1100\u1162\u1100\u11752_\u110b\u1169\u11ab\u1110\u1169\u11af\u1105\u1169\u110c\u1175_\u1107\u1161\u11ab\u1105\u1167_networkx\u110c\u116e\u11a8\u110b\u1173\u11ab\u1100\u1165\u11b7\u110c\u1173\u11bc_\u110c\u1162\u110c\u1161\u11a8\u110b\u1165\u11b8\u110b\u116d\u110e\u1165\u11bc.md"
+    },
+    {
+      "label": "\ucf54\ub2c8 \u2192 \uc548\ud2f0 (CC: \ub9cc\ubcf5) | 2026-07-26 08:10",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u110f\u1169\u1102\u1175 \u2192 \u110b\u1161\u11ab\u1110\u1175 (cc: \u1106\u1161\u11ab\u1107\u1169\u11a8) | 2026-07-26 08:10"
+    },
+    {
+      "label": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "[\u1107\u1161\u11ab\u1105\u1167] \u1108\u1169\u1100\u1162\u1100\u11752 gps check \u110b\u1169\u11ab\u1110\u1169\u11af\u1105\u1169\u110c\u1175 \u1112\u1161\u1103\u1173\u1102\u1175\u11bc \u2014 networkx \u1100\u1165\u11b7\u110c\u1173\u11bc\u110b\u1175 \u110c\u116e\u11a8\u110b\u1173\u11ab \u110f\u1169\u1103\u1173"
+    },
+    {
+      "label": "\u2705 \uc815\uc0c1 (\uc720\uc9c0\ud560 \uac83)",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uc815\uc0c1_\uc720\uc9c0\ud560_\uac83",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u2705 \u110c\u1165\u11bc\u1109\u1161\u11bc (\u110b\u1172\u110c\u1175\u1112\u1161\u11af \u1100\u1165\u11ba)"
+    },
+    {
+      "label": "\u274c \ubc18\ub824 \uc0ac\uc720: `validate_steps_graph`\uac00 \ud56d\uc0c1 \ud1b5\uacfc\ud558\ub294 \uc8fd\uc740 \uac80\uc99d",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\uc0ac\uc720_validate_steps_graph_\uac00_\ud56d\uc0c1_\ud1b5\uacfc\ud558\ub294_\uc8fd\uc740_\uac80\uc99d",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u274c \u1107\u1161\u11ab\u1105\u1167 \u1109\u1161\u110b\u1172: `validate_steps_graph`\u1100\u1161 \u1112\u1161\u11bc\u1109\u1161\u11bc \u1110\u1169\u11bc\u1100\u116a\u1112\u1161\u1102\u1173\u11ab \u110c\u116e\u11a8\u110b\u1173\u11ab \u1100\u1165\u11b7\u110c\u1173\u11bc"
+    },
+    {
+      "label": "\uc7ac\uc791\uc5c5 \ubc29\ud5a5 (\ud0dd1)",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uc7ac\uc791\uc5c5_\ubc29\ud5a5_\ud0dd1",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u110c\u1162\u110c\u1161\u11a8\u110b\u1165\u11b8 \u1107\u1161\u11bc\u1112\u1163\u11bc (\u1110\u1162\u11a81)"
+    },
+    {
+      "label": "\uac8c\uc774\ud2b8",
+      "file_type": "document",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uac8c\uc774\ud2b8",
+      "community": 849,
+      "community_name": "[\ubc18\ub824] \ubf40\uac1c\uae302 GPS Check \uc628\ud1a8\ub85c\uc9c0 \ud558\ub4dc\ub2dd \u2014 NetworkX \uac80\uc99d\uc774 \uc8fd\uc740 \ucf54\ub4dc",
+      "norm_label": "\u1100\u1166\u110b\u1175\u1110\u1173"
+    },
+    {
       "label": "\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
       "file_type": "document",
       "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
@@ -53505,15 +53626,15 @@
       "norm_label": "\ud83d\udcec 3ai \u1110\u1169\u11bc\u1112\u1161\u11b8 \u1109\u116e\u1109\u1175\u11ab\u1112\u1161\u11b7"
     },
     {
-      "label": "\ud83d\udce8 \uc624\ub298 \uba54\uc2dc\uc9c0 (2026-07-26) \u2014 \ucd1d 15\uac1c",
+      "label": "\ud83d\udce8 \uc624\ub298 \uba54\uc2dc\uc9c0 (2026-07-26) \u2014 \ucd1d 17\uac1c",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
+      "id": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_17\uac1c",
       "community": 324,
       "community_name": "\ud83d\udce8 \ub9cc\ubcf5 \u2192 \uc548\ud2f0 (CC: \ucf54\ub2c8)",
-      "norm_label": "\ud83d\udce8 \u110b\u1169\u1102\u1173\u11af \u1106\u1166\u1109\u1175\u110c\u1175 (2026-07-26) \u2014 \u110e\u1169\u11bc 15\u1100\u1162"
+      "norm_label": "\ud83d\udce8 \u110b\u1169\u1102\u1173\u11af \u1106\u1166\u1109\u1175\u110c\u1175 (2026-07-26) \u2014 \u110e\u1169\u11bc 17\u1100\u1162"
     },
     {
       "label": "\ucf54\ub2c8 \uc218\uc2e0 (5\uac1c)",
@@ -53527,21 +53648,21 @@
       "norm_label": "\u110f\u1169\u1102\u1175 \u1109\u116e\u1109\u1175\u11ab (5\u1100\u1162)"
     },
     {
-      "label": "\uc548\ud2f0 \uc218\uc2e0 (2\uac1c)",
+      "label": "\uc548\ud2f0 \uc218\uc2e0 (3\uac1c)",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
       "source_location": "L16",
       "_origin": "ast",
-      "id": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_2\uac1c",
+      "id": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_3\uac1c",
       "community": 324,
       "community_name": "\ud83d\udce8 \ub9cc\ubcf5 \u2192 \uc548\ud2f0 (CC: \ucf54\ub2c8)",
-      "norm_label": "\u110b\u1161\u11ab\u1110\u1175 \u1109\u116e\u1109\u1175\u11ab (2\u1100\u1162)"
+      "norm_label": "\u110b\u1161\u11ab\u1110\u1175 \u1109\u116e\u1109\u1175\u11ab (3\u1100\u1162)"
     },
     {
       "label": "\ud83d\udd04 \uc624\ub298 tasks.json \ubcc0\uacbd",
       "file_type": "document",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "ai_hub_status_inbox_\uc624\ub298_tasks_json_\ubcc0\uacbd",
       "community": 324,
@@ -81747,6 +81868,39 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_08_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_08_10",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub0b4\uc6a9",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\ubc14\ub85c\ubcf4\uae30_\uc2b9\uc778_2026_07_26_08_10",
+      "target": "ai_hub_shared_messages_\ubc14\ub85c\ubcf4\uae30_20260726_\ubf40\uac1c\uae302\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_\uc548\ud2f0\uc804\ub2ec_\uc2b9\uc778_\uc2b9\uc778_\ub300\uc0c1_\uba54\uc2dc\uc9c0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_\uc1fc\uce201\ub300\ubcf8_\uc548\ud2f0\uc778\uacc4_\uc2b9\uc778.md",
       "source_location": "L4",
       "weight": 1.0,
@@ -107784,6 +107938,72 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ucf54\ub2c8_\uc548\ud2f0_cc_\ub9cc\ubcf5_2026_07_26_08_10",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uac8c\uc774\ud2b8",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\uc0ac\uc720_validate_steps_graph_\uac00_\ud56d\uc0c1_\ud1b5\uacfc\ud558\ub294_\uc8fd\uc740_\uac80\uc99d",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uc7ac\uc791\uc5c5_\ubc29\ud5a5_\ud0dd1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_NetworkX\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\ubc18\ub824_\ubf40\uac1c\uae302_gps_check_\uc628\ud1a8\ub85c\uc9c0_\ud558\ub4dc\ub2dd_networkx_\uac80\uc99d\uc774_\uc8fd\uc740_\ucf54\ub4dc",
+      "target": "ai_hub_shared_messages_\ucf54\ub2c8_\uc548\ud2f0_20260726_0810_\ubf40\uac1c\uae302_\uc628\ud1a8\ub85c\uc9c0_\ubc18\ub824_networkx\uc8fd\uc740\uac80\uc99d_\uc7ac\uc791\uc5c5\uc694\uccad_\uc815\uc0c1_\uc720\uc9c0\ud560_\uac83",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "AI_hub/shared/messages/\ucf54\ub2c8\u2192\uc548\ud2f0_\ub9cc\ubcf5_20260716_11_18_v0.2\ubcf4\uac15\ub0b4\uc6a9_\uacf5\uc720.md",
       "source_location": "L11",
       "weight": 1.0,
@@ -108995,7 +109215,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AI_hub/status/inbox.md",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "ai_hub_status_inbox_3ai_\ud1b5\ud569_\uc218\uc2e0\ud568",
@@ -109010,7 +109230,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "ai_hub_status_inbox_3ai_\ud1b5\ud569_\uc218\uc2e0\ud568",
-      "target": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
+      "target": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_17\uac1c",
       "confidence_score": 1.0
     },
     {
@@ -109020,8 +109240,8 @@
       "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
-      "target": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_2\uac1c",
+      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_17\uac1c",
+      "target": "ai_hub_status_inbox_\uc548\ud2f0_\uc218\uc2e0_3\uac1c",
       "confidence_score": 1.0
     },
     {
@@ -109031,7 +109251,7 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_15\uac1c",
+      "source": "ai_hub_status_inbox_\uc624\ub298_\uba54\uc2dc\uc9c0_2026_07_26_\ucd1d_17\uac1c",
       "target": "ai_hub_status_inbox_\ucf54\ub2c8_\uc218\uc2e0_5\uac1c",
       "confidence_score": 1.0
     },
@@ -116430,5 +116650,5 @@
       "source_file": ".agents/AGENTS.md"
     }
   ],
-  "built_at_commit": "09415fb2e09a903399b75729c0b539ec677620b3"
+  "built_at_commit": "c21c6086fd5768c94b56ee3f359a00d959093d70"
 }
