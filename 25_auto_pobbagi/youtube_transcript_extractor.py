@@ -39,8 +39,9 @@ def extract_transcript(video_id):
         # 자막 데이터 가져오기
         transcript_data = transcript.fetch()
         
-        # 순수 텍스트만 추출해서 이어붙이기
-        clean_text = " ".join([item['text'] for item in transcript_data])
+        # 순수 텍스트만 추출해서 이어붙이기 (youtube-transcript-api 1.2+는 dict가 아니라
+        # FetchedTranscriptSnippet 객체를 반환 — 속성 접근(.text)으로 변경, 2026-07-26)
+        clean_text = " ".join([item.text for item in transcript_data])
         
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(clean_text)
