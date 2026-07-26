@@ -1295,8 +1295,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ub9cc\ubcf5_heartbeat.json": {
-    "mtime": 1785052018.2805107,
-    "ast_hash": "64df17c427f5d7a71e47cdb7be6d4754",
+    "mtime": 1785052318.6665008,
+    "ast_hash": "60ed386a902a5ad3b47c336984481d14",
     "semantic_hash": ""
   },
   "AI_hub/status/\uc548\ud2f0_heartbeat.json": {
@@ -4415,8 +4415,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/inbox.md": {
-    "mtime": 1785052052.3789654,
-    "ast_hash": "a7ae1fd3f9e383bbb98d76d2ea7dbf02",
+    "mtime": 1785052337.9391744,
+    "ast_hash": "33b0be23ac08d15d5946b8ec0517f457",
     "semantic_hash": ""
   },
   "AI_hub/status/trigger_anti.txt": {
@@ -4425,8 +4425,8 @@
     "semantic_hash": ""
   },
   "AI_hub/status/\ucf54\ub2c8_\ube0c\ub9ac\ud551_\ucd5c\uc2e0.md": {
-    "mtime": 1785052018.3880517,
-    "ast_hash": "061378ea4029a675dce90004f9ea8bdf",
+    "mtime": 1785052337.7671213,
+    "ast_hash": "ea8a386ee736a406a45ab43dabad7a43",
     "semantic_hash": ""
   },
   "AI_hub/telegram_history.md": {
@@ -6580,8 +6580,8 @@
     "semantic_hash": ""
   },
   "AI_hub/shared/messages/\ub9cc\ubcf5\u2192\uc548\ud2f0_20260726_\ubf40\uac1c\uae301\ubc88_\uc9c0\uc2dc.md": {
-    "mtime": 1785052003.0733688,
-    "ast_hash": "a74e9e43a0aa7cf10f4e156ed4a3756a",
+    "mtime": 1785052090.4198856,
+    "ast_hash": "a5fd3bcb482caedb5519d355b1c6ccf7",
     "semantic_hash": ""
   },
   "AI_hub/shared/messages/\ub9cc\ubcf5\u2192\ucf54\ub2c8_\uc548\ud2f0_20260726_0848_D_AI\ub8e8\ud2b8_\ud3f4\ub354\uc0dd\uc131\uae08\uc9c0_\uacf5\uc2dd\ud1b5\ubcf4.md": {
@@ -6717,6 +6717,16 @@
   "AI_hub/shared/messages/\uc548\ud2f0\u2192\ucf54\ub2c8_20260726_1647_Karpathy_LLMWiki_B\uc548\uc815\ub3c8\uc644\ub8cc\ubcf4\uace0.md": {
     "mtime": 1785052052.2179005,
     "ast_hash": "ce85b4552ebd1a1d5c85b9ed03a0c0cd",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\ubc14\ub85c\ubcf4\uae30_20260726_1647_Karpathy_B\uc548_\uc804\uc1a1\uc2b9\uc778.md": {
+    "mtime": 1785052084.153306,
+    "ast_hash": "f60902570a60d4fcd1dd3d46ee929b4f",
+    "semantic_hash": ""
+  },
+  "AI_hub/shared/messages/\uc2dc\uc2a4\ud15c\u2192\ub9cc\ubcf5_20260726_164801_\ubb34\ub2e8\uc804\uc1a1\ucc28\ub2e8\uacbd\uace0.md": {
+    "mtime": 1785052090.418884,
+    "ast_hash": "f6022967c6512a511424254715e0110c",
     "semantic_hash": ""
   }
 }

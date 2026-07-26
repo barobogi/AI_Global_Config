@@ -146,14 +146,14 @@
       "label": "CodeGraphParser",
       "type": "Class",
       "file": "codegraph_parser.py",
-      "line": 92
+      "line": 91
     },
     {
       "id": "func:codegraph_parser.py:CodeGraphParser.__init__",
       "label": "CodeGraphParser.__init__",
       "type": "Function",
       "file": "codegraph_parser.py",
-      "line": 93,
+      "line": 92,
       "parent_class": "CodeGraphParser"
     },
     {
@@ -161,7 +161,7 @@
       "label": "CodeGraphParser.parse_file",
       "type": "Function",
       "file": "codegraph_parser.py",
-      "line": 97,
+      "line": 96,
       "parent_class": "CodeGraphParser"
     },
     {
@@ -169,7 +169,7 @@
       "label": "CodeGraphParser.export_to_graphify",
       "type": "Function",
       "file": "codegraph_parser.py",
-      "line": 131,
+      "line": 145,
       "parent_class": "CodeGraphParser"
     },
     {
@@ -177,696 +177,11 @@
       "label": "main",
       "type": "Function",
       "file": "codegraph_parser.py",
-      "line": 153,
+      "line": 172,
       "parent_class": null
     }
   ],
   "edges": [
-    {
-      "source": "class:gps_check.py:GPSInstruction",
-      "target": "func:gps_check.py:GPSInstruction.validate_goal",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_goal",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_goal",
-      "target": "len",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_goal",
-      "target": "ValueError",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_goal",
-      "target": "field_validator",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:gps_check.py:GPSInstruction",
-      "target": "func:gps_check.py:GPSInstruction.validate_proof",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "len",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "ValueError",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "any",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "ValueError",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_proof",
-      "target": "field_validator",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:gps_check.py:GPSInstruction",
-      "target": "func:gps_check.py:GPSInstruction.validate_steps",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_steps",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_steps",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_steps",
-      "target": "ValueError",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:GPSInstruction.validate_steps",
-      "target": "field_validator",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "splitlines",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "find",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "find",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "search",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "find",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "join",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "join",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "join",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "splitlines",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "match",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "sub",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "splitlines",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:parse_gps_markdown",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "len",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "Path",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exists",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "open",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "read",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "parse_gps_markdown",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "GPSInstruction",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "errors",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "get",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "get",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "upper",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "join",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "len",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "exit",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:agent_memory.py:AgentMemory",
-      "target": "func:agent_memory.py:AgentMemory.__init__",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.__init__",
-      "target": "makedirs",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.__init__",
-      "target": "dirname",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.__init__",
-      "target": "_init_db",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:agent_memory.py:AgentMemory",
-      "target": "func:agent_memory.py:AgentMemory._init_db",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory._init_db",
-      "target": "connect",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory._init_db",
-      "target": "cursor",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory._init_db",
-      "target": "execute",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory._init_db",
-      "target": "commit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory._init_db",
-      "target": "close",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:agent_memory.py:AgentMemory",
-      "target": "func:agent_memory.py:AgentMemory.add_memory",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "join",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "strftime",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "now",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "connect",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "cursor",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "execute",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "commit",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.add_memory",
-      "target": "close",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:agent_memory.py:AgentMemory",
-      "target": "func:agent_memory.py:AgentMemory.search_memory",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "connect",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "cursor",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "execute",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "fetchall",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "close",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.search_memory",
-      "target": "split",
-      "type": "CALLS"
-    },
-    {
-      "source": "class:agent_memory.py:AgentMemory",
-      "target": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "type": "CONTAINS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "connect",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "cursor",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "execute",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "execute",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "fetchall",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "close",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "append",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:AgentMemory.get_recent_memories",
-      "target": "split",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "ArgumentParser",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_argument",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "parse_args",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "AgentMemory",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "strip",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "split",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "add_memory",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "search_memory",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "len",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "get_recent_memories",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:agent_memory.py:main",
-      "target": "print_help",
-      "type": "CALLS"
-    },
     {
       "source": "class:gps_check.py:GPSInstruction",
       "target": "func:gps_check.py:GPSInstruction.validate_goal",
@@ -889,7 +204,7 @@
     },
     {
       "source": "func:gps_check.py:main",
-      "target": "func:gps_check.py:GPSInstruction",
+      "target": "class:gps_check.py:GPSInstruction",
       "type": "CALLS"
     },
     {
@@ -919,27 +234,27 @@
     },
     {
       "source": "func:agent_memory.py:AgentMemory.__init__",
-      "target": "func:agent_memory.py:_init_db",
+      "target": "func:agent_memory.py:AgentMemory._init_db",
       "type": "CALLS"
     },
     {
       "source": "func:agent_memory.py:main",
-      "target": "func:agent_memory.py:AgentMemory",
+      "target": "class:agent_memory.py:AgentMemory",
       "type": "CALLS"
     },
     {
       "source": "func:agent_memory.py:main",
-      "target": "func:agent_memory.py:add_memory",
+      "target": "func:agent_memory.py:AgentMemory.add_memory",
       "type": "CALLS"
     },
     {
       "source": "func:agent_memory.py:main",
-      "target": "func:agent_memory.py:search_memory",
+      "target": "func:agent_memory.py:AgentMemory.search_memory",
       "type": "CALLS"
     },
     {
       "source": "func:agent_memory.py:main",
-      "target": "func:agent_memory.py:get_recent_memories",
+      "target": "func:agent_memory.py:AgentMemory.get_recent_memories",
       "type": "CALLS"
     },
     {
@@ -979,27 +294,22 @@
     },
     {
       "source": "func:codegraph_parser.py:CodeGraphParser.parse_file",
-      "target": "func:codegraph_parser.py:CodeGraphVisitor",
+      "target": "class:codegraph_parser.py:CodeGraphVisitor",
       "type": "CALLS"
     },
     {
       "source": "func:codegraph_parser.py:main",
-      "target": "func:codegraph_parser.py:CodeGraphParser",
+      "target": "class:codegraph_parser.py:CodeGraphParser",
       "type": "CALLS"
     },
     {
       "source": "func:codegraph_parser.py:main",
-      "target": "func:codegraph_parser.py:parse_file",
+      "target": "func:codegraph_parser.py:CodeGraphParser.parse_file",
       "type": "CALLS"
     },
     {
       "source": "func:codegraph_parser.py:main",
-      "target": "func:codegraph_parser.py:export_to_graphify",
-      "type": "CALLS"
-    },
-    {
-      "source": "func:gps_check.py:main",
-      "target": "class:gps_check.py:GPSInstruction",
+      "target": "func:codegraph_parser.py:CodeGraphParser.export_to_graphify",
       "type": "CALLS"
     }
   ]

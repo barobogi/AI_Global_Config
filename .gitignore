@@ -16,9 +16,15 @@ REF_DEBUG/
 # 개발 환경
 Global_Define/
 TEMP_MANBOK/
+_Temp_Manbok/
+DEV_ITEM/
+_DEV_ITEM/
+REF_DEBUG/
+_REF_DEBUG/
 Obsidian/
 MYBOX/
 GD/
+_GD/
 cline/
 n8n_data/
 "n8n_data/"
@@ -26,8 +32,11 @@ n8n_data*/
 
 # 시스템 파일
 .claude/
+.secrets/
 .secrets.json
 .env
+cookies.txt
+**/cookies.txt
 client_secret*.json
 *.pickle
 credentials*.json
