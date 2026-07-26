@@ -1,5 +1,5 @@
 ---
-status: draft
+status: triggered
 ---
 # 안티 → 코니 | 2026-07-26 17:31
 
