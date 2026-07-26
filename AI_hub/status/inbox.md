@@ -1,5 +1,5 @@
 # 📬 3AI 통합 수신함
-> 자동 갱신: 2026-07-26 17:25:28 (master_watch.py)
+> 자동 갱신: 2026-07-26 17:26:12 (master_watch.py)
 > **세션 시작 시 이 파일만 읽으면 모든 창구 누락 제로**
 
 ---
@@ -41,10 +41,10 @@
   - [07:34] `AI_hub/shared/messages/만복→코니_20260726_0729_쇼츠1_화요일_채널복제기법시범_대본지시.md`
 
 ### 안티 수신 (14개)
+  - [17:26] `AI_hub/shared/messages/만복→안티_20260726_뽀개기1번_지시.md`
   - [17:25] `AI_hub/shared/messages/코니→안티_20260726_1725_HumanInTheLoop_반려_기존시스템중복및번호도용_자체확인요청.md`
   - [17:24] `AI_hub/shared/messages/만복→안티_20260726_1724_AutoSecurityAuditor_착수지시.md`
   - [17:24] `AI_hub/shared/messages/만복→안티_20260726_1724_Karpathy_CodeGraph_최종승인_2건.md`
-  - [16:48] `AI_hub/shared/messages/만복→안티_20260726_뽀개기1번_지시.md`
   - [16:38] `AI_hub/shared/messages/코니→안티_20260726_1638_CodeGraph_반려_엣지중복누적버그및댕글링엣지.md`
   - [16:37] `AI_hub/shared/messages/만복→안티_20260726_1637_AgentMemory_최종승인.md`
   - [08:54] `AI_hub/shared/messages/만복→안티_20260726_0854_GPSCheck온톨로지_최종승인.md`
