@@ -1,11 +1,11 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 1089 files · ~2,704,434 words
+- 1090 files · ~2,704,648 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 7023 nodes · 6204 edges · 978 communities (781 shown, 197 thin omitted)
+- 7018 nodes · 6200 edges · 977 communities (780 shown, 197 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.76)
 - Token cost: 0 input · 0 output
 
@@ -554,7 +554,6 @@
 - RepoMix 게시판초안 — 뿌리체계 위치 정정 + eval_logs 헤더 오류 수정 지시
 - 뽀개기1(Dreams) 구현제안 — 조건부 승인 (자동 스왑 → 검토 후 수동 승인으로 변경)
 - [긴급 정정] graphify_watch.py 실행 금지 — Graphify 동기화는 1회성 명령으로
-- [지시] 뽀개기 자동 할당 1번
 - 📨 만복 → 안티, 코니
 - 📨 만복 → 안티, 코니
 - 📨 만복 → 안티 (CC: 코니)
@@ -968,7 +967,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (978 total, 197 thin omitted)
+## Communities (977 total, 197 thin omitted)
 
 ### Community 0 - "main.py"
 Cohesion: 0.07
@@ -3122,10 +3121,6 @@ Nodes (4): 만복 → 안티 (CC: 코니) | 2026-07-25, 문제, 뽀개기1(Dream
 Cohesion: 0.40
 Nodes (4): [긴급 정정] graphify_watch.py 실행 금지 — Graphify 동기화는 1회성 명령으로, 대신 이렇게 하세요, 만복 → 안티 (CC: 코니) | 2026-07-26 08:44, 하지 말 것
 
-### Community 542 - "[지시] 뽀개기 자동 할당 1번"
-Cohesion: 0.40
-Nodes (4): G (Goal), P (Proof), S (Steps), [지시] 뽀개기 자동 할당 1번
-
 ### Community 543 - "📨 만복 → 안티, 코니"
 Cohesion: 0.40
 Nodes (4): 다음, 📨 만복 → 안티, 코니, 산출물, 완료 내용
@@ -3883,7 +3878,7 @@ Cohesion: 0.50
 Nodes (3): ✅ 최근 완료된 과제 (Completed), 🐰 코니의 최신 브리핑 (자동 동기화), 🚀 현재 진행 중인 주요 과제 (In Progress)
 
 ## Knowledge Gaps
-- **4374 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+4369 more)
+- **4371 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+4366 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -3897,7 +3892,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 15 inferred relationships involving `Path` (e.g. with `main()` and `main()`) actually correct?**
   _`Path` has 15 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `version`, `description` to the rest of the system?**
-  _4374 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _4371 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `main.py` be split into smaller, more focused modules?**
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `📋 Next Projects — Barobogi + 만복` be split into smaller, more focused modules?**
