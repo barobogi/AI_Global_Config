@@ -1,11 +1,11 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 1080 files · ~2,703,538 words
+- 1082 files · ~2,707,492 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 7042 nodes · 6231 edges · 979 communities (782 shown, 197 thin omitted)
+- 7035 nodes · 6225 edges · 978 communities (781 shown, 197 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.76)
 - Token cost: 0 input · 0 output
 
@@ -383,7 +383,6 @@
 - [반려] 뽀개기3 Karpathy LLM Wiki 이식 — 어제 확정 기획안 대비 구현 불일치 2건
 - 📋 코니 → 안티 (CC: 만복, 바로보기)
 - 내일 (2026-07-17) 작업
-- 코니 세션 시작 브리핑
 - 만복2 세션 시작 시 이 파일을 읽어 이전 대화 맥락을 복원한다
 - 20260624_barobogi_collaboration_system.md
 - 호두AI_발명개념서_v0.31_요약_a5de2aa5.md
@@ -969,7 +968,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (979 total, 197 thin omitted)
+## Communities (978 total, 197 thin omitted)
 
 ### Community 0 - "main.py"
 Cohesion: 0.07
@@ -2443,10 +2442,6 @@ Nodes (6): 🔄 **3AI 체계 역할 확인**, 📌 **정정 사항**, ✅ **제�
 Cohesion: 0.29
 Nodes (6): 🔧 T026 + P1-A 킥오프 (안티), 내일 (2026-07-17) 작업, 뽀개기 5번 (만복), 뽀개기 6번 (만복), 뽀개기 7번 (만복), 📺 호두채널 뽀개기 3개 (만복)
 
-### Community 369 - "코니 세션 시작 브리핑"
-Cohesion: 0.29
-Nodes (6): 만복 현재 상태, 만복 현재 작업, 📬 메시지, 코니 세션 시작 브리핑, 현재 상태 스냅샷, 현재 상태 요약
-
 ### Community 370 - "만복2 세션 시작 시 이 파일을 읽어 이전 대화 맥락을 복원한다"
 Cohesion: 0.29
 Nodes (6): 2026-07-05 (일) ~ 2026-07-06 (월), 2026-07-06 저녁 (만복1 데스크탑 세션), 다음 만복2 세션 시작 시 읽을 것, ⚡ 데스크탑 세션 위임 (만복1 즉시 실행), 만복2 세션 시작 시 이 파일을 읽어 이전 대화 맥락을 복원한다, 텔레그램 대화 이력 (만복2 세션 컨텍스트 브릿지)
@@ -3888,7 +3883,7 @@ Cohesion: 0.50
 Nodes (3): ✅ 최근 완료된 과제 (Completed), 🐰 코니의 최신 브리핑 (자동 동기화), 🚀 현재 진행 중인 주요 과제 (In Progress)
 
 ## Knowledge Gaps
-- **4379 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+4374 more)
+- **4374 isolated node(s):** `name`, `version`, `description`, `main`, `subtitles` (+4369 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -3904,7 +3899,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 15 inferred relationships involving `Path` (e.g. with `main()` and `main()`) actually correct?**
   _`Path` has 15 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `version`, `description` to the rest of the system?**
-  _4379 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _4374 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `main.py` be split into smaller, more focused modules?**
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `📋 Next Projects — Barobogi + 만복` be split into smaller, more focused modules?**

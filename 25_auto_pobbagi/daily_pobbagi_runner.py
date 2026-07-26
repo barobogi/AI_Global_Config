@@ -44,9 +44,13 @@ TECH_KEYWORDS = [
     "Whisper", "Claude", "Obsidian", "Playwright", "LLM Wiki", "GPS Check", "Agent Memory", "CodeGraph"
 ]
 
-def build_summary_prompt(stt_text: str) -> str:
-    """실제 요약/분석 LLM 호출부에 주입되는 친절한 멘토 EmotionPrompt 템플릿"""
-    return f"{EMOTION_MENTOR_PROMPT}아래 자막 전사 텍스트를 바탕으로 핵심 기획안과 요약을 도출하십시오:\n\n{stt_text}"
+def build_summary_prompt(instruction_text: str) -> str:
+    """만복 지시서 전달 시 안티의 친절한 멘토 EmotionPrompt 및 지식 아키텍처 맥락을 전면에 결합합니다."""
+    header = (
+        f"{EMOTION_MENTOR_PROMPT}"
+        f"안티는 초보 개발자에게 세심하게 설명하는 친절한 멘토의 시각으로 아래 지시사항 및 기술 뽀개기 8단계 프로세스를 완수하십시오:\n\n"
+    )
+    return f"{header}{instruction_text}"
 
 def register_graphify_nodes(wiki_keywords: list):
     """추출된 위키 키워드를 Graphify 지식 노드 DB/파일(wiki_nodes.json)에 등록하여 실질 지식망으로 연결합니다."""

@@ -1,16 +1,16 @@
 # Graph Report - AI  (2026-07-26)
 
 ## Corpus Check
-- 1082 files · ~2,707,492 words
+- 1089 files · ~2,704,434 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 7035 nodes · 6225 edges · 978 communities (781 shown, 197 thin omitted)
+- 7023 nodes · 6204 edges · 978 communities (781 shown, 197 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.76)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `07783ee3`
+- Built from commit: `f8003081`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1159,8 +1159,8 @@ Cohesion: 0.11
 Nodes (18): 1️⃣ 개념카드 D·E 검토, 2️⃣ T063 슬라이드 모듈 충돌 확인, 3️⃣ python-pptx 선택 검토, 4️⃣ 오늘 뽀개기 3개 전체 우선순위, 5️⃣ 코니의 최종 의견, **python-pptx 선택 타당성**, **T063 슬라이드 모듈**, **개념카드 D·E 상태** (+10 more)
 
 ### Community 47 - "daily_pobbagi_runner.py"
-Cohesion: 0.21
-Nodes (16): add_channel(), load_channels(), remove_channel(), save_channels(), update_channel_weight(), build_summary_prompt(), extract_and_link_graphify_nodes(), init_db() (+8 more)
+Cohesion: 0.73
+Nodes (5): add_channel(), load_channels(), remove_channel(), save_channels(), update_channel_weight()
 
 ### Community 48 - "📔 3AI 일일 다이어리 — 2026-07-16 (목)"
 Cohesion: 0.11
@@ -3890,11 +3890,9 @@ Nodes (3): ✅ 최근 완료된 과제 (Completed), 🐰 코니의 최신 브리
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `verify()` connect `verify` to `Path`?**
+  _High betweenness centrality (0.000) - this node is a cross-community bridge._
 - **Why does `parse_markdown()` connect `Path` to `main.py`?**
-  _High betweenness centrality (0.000) - this node is a cross-community bridge._
-- **Why does `main()` connect `approve_and_upload.py` to `Path`, `youtube_uploader.py`?**
-  _High betweenness centrality (0.000) - this node is a cross-community bridge._
-- **Why does `upload_video()` connect `youtube_uploader.py` to `approve_and_upload.py`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
 - **Are the 15 inferred relationships involving `Path` (e.g. with `main()` and `main()`) actually correct?**
   _`Path` has 15 INFERRED edges - model-reasoned connections that need verification._
@@ -3904,3 +3902,5 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `📋 Next Projects — Barobogi + 만복` be split into smaller, more focused modules?**
   _Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected._
+- **Should `🔒 [특허 명세서 최종본] Seed 11_18 이종 AI 멀티에이전트 MCP 브릿지 동기화 시스템` be split into smaller, more focused modules?**
+  _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
