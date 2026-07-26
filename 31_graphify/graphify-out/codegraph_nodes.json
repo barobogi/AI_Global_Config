@@ -996,6 +996,11 @@
       "source": "func:codegraph_parser.py:main",
       "target": "func:codegraph_parser.py:export_to_graphify",
       "type": "CALLS"
+    },
+    {
+      "source": "func:gps_check.py:main",
+      "target": "class:gps_check.py:GPSInstruction",
+      "type": "CALLS"
     }
   ]
 }
