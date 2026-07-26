@@ -233,6 +233,11 @@ Why: Claude Code for Non-Coders 뽀개기 도출. "결과물에 내 이름과 �
 안티(또는 담당 AI)는 작업 중 치명적인 시스템 에러를 발생시키거나 사용자(바로보기님)로부터 행동/판단 오류에 대한 지적을 받을 경우, 단순히 사과하고 넘어가는 것을 엄격히 금지합니다.
 반드시 즉시 스스로 원인을 분석하고, 동일한 실수가 반복되지 않도록 방어 규칙을 본 `AGENTS.md` 파일에 **직접 업데이트(영구 박제)**하여 '하네스 엔지니어링(Hookify)'을 자동 수행해야 합니다.
 
+### [Hookify: 두복이(텔레그램) 실행 시 출력 리다이렉트 절대 금지 (2026-07-26 재박제, v0.01 유실됨)]
+- **발생한 에러**: `claude.exe --channels plugin:telegram@claude-plugins-official`를 자동화로 실행할 때마다 즉시 종료(`Error: Input must be provided either through stdin or as a prompt argument when using --print`). 사실 2026-06-27에 이미 정확히 진단하고 고쳤던 문제(`REF_DEBUG/Dubok_20260627_v0.01.md`)인데, 그 사이 원상복구되거나 유실되어 2026-07-26에 똑같이 재발함.
+- **원인**: `claude --help`에 명시된 대로 stdout이 TTY가 아니면(파이프/파일 리다이렉트) 자동으로 `--print`(비대화형) 모드로 인식됨 — `--channels`(상시 리스너) 모드까지 이 오인의 영향을 받아 프롬프트 인자를 요구하며 즉시 종료됨.
+- **영구 차단 조치**: 두복이 관련 프로세스는 절대 `-RedirectStandardOutput`/`-RedirectStandardError`(PowerShell) 또는 `subprocess.Popen`의 stdout/stderr 캡처를 쓰지 말 것. `CREATE_NEW_CONSOLE`만 쓰고 출력은 그대로 콘솔에 흘려보낼 것. 2026-07-26에 추가로 `CLAUDE_CODE_OAUTH_TOKEN`(`claude setup-token`으로 발급, `.secrets/telegram_oauth_token.txt` 보관) 인증까지 결합해서 재검증 완료 — `start_telegram.bat`에 반영됨. **이 파일을 다시 손댈 일이 있으면 리다이렉트를 절대 추가하지 말 것.**
+
 ### [Hookify: 코니 검증 시 확정 기획안 미대조 — 인상비평으로 반려 사유를 애매한 의심으로 격하 (2026-07-26 박제, 코니 반성문)]
 - **발생한 에러**: 뽀개기3 Karpathy 완료보고 검증 시, 코니가 어제 확정된 기획안(`안티→만복_코니_20260725_뽀개기3번_Karpathy_최종안.md`) 원문을 대조하지 않고 코드만 훑어 "실효성 의심 2건"으로 뭉뚱그려 조건부 통과시킬 뻔함. 실제로는 기획안 대비 명백한 구현 불일치 2건(EmotionPrompt가 요약 LLM 호출이 아닌 지시서 텍스트에만 박제됨, 위키링크가 Graphify 노드로 실제 연결 안 됨)이었고 반려가 맞는 사안이었음. 바로보기님이 "1차 검증 돈 건인데 왜 이제 실효성 얘기냐"고 짚은 뒤에야 원문 대조로 드러남.
 - **원인**: 검증자(코니)가 안티의 완료보고에는 엄격한 기준(훅 존재/파일 갱신시각/헤더-본문 일치 의심)을 적용하면서, 정작 자신의 검증에는 확정 기획안 대조라는 기본을 생략하고 "의심된다/애매하다"는 식으로 뭉뚱그림 — 애매한 표현이 검증 회피의 도피처가 됨.
