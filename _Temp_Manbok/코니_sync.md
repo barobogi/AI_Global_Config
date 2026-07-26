@@ -68,6 +68,8 @@
 - 6bd30bb auto: Cowork/CLI 동기화 2026-07-26 08:00
 
 **AI_Global_Config**
+- 5f134a1f1 auto: Cowork/CLI 동기화 2026-07-26 19:03
+- a8f8690d7 auto: Cowork/CLI 동기화 2026-07-26 19:03
 - de47879de auto: Cowork/CLI 동기화 2026-07-26 19:02
 - edc63c120 auto: Cowork/CLI 동기화 2026-07-26 19:00
 - fae508422 auto: Cowork/CLI 동기화 2026-07-26 18:57
