@@ -709,6 +709,13 @@
             "status": "pending"
         },
         {
+            "video_id": "XNqrW__UD0o",
+            "title": "[한영자막] TypeScript 7 정식 출시, 컴파일 속도가 진짜 10배 빨라졌을까요?",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
+        },
+        {
             "video_id": "DBwNyTjFsyE",
             "title": "스펙 짜는 데 시간 쓰지 마세요, 프로토타입이 답입니다 #Shorts",
             "channel_name": "Matt Pocock",
