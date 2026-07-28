@@ -1,13 +1,5 @@
 {
-    "pending_shorts": [
-        {
-            "video_id": "GiC8vPxyvG0",
-            "title": "[S.04] 코딩 몰라도 인기 유튜브 채널 벤치마킹하는 법 #Shorts",
-            "type": "shorts",
-            "status": "unlisted",
-            "uploaded_at": "2026-07-28 20:39:05"
-        }
-    ],
+    "pending_shorts": [],
     "pending_full": [
         {
             "video_id": "cogwbtcNMjw",
@@ -39,6 +31,14 @@
             "status": "public",
             "uploaded_at": "2026-07-23 20:41:37",
             "published_at": "2026-07-23 20:42:11"
+        },
+        {
+            "video_id": "GiC8vPxyvG0",
+            "title": "[S.04] 코딩 몰라도 인기 유튜브 채널 벤치마킹하는 법 #Shorts",
+            "type": "shorts",
+            "status": "public",
+            "uploaded_at": "2026-07-28 20:39:05",
+            "published_at": "2026-07-28 22:00:12"
         }
     ]
 }
