@@ -10,11 +10,17 @@ import sys
 import re
 from collections import Counter
 
-if sys.stdout.encoding.lower() != 'utf-8':
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     try:
         sys.stdout.reconfigure(encoding='utf-8')
     except Exception:
         pass
+
+STOPWORDS = {
+    "그리고", "그런데", "그래서", "하지만", "저희는", "우리는", "저희가", "우리가",
+    "이제", "이런", "저런", "그런", "이것", "저것", "그것", "때문에", "그러면",
+    "합니다", "습니다", "있습니다", "됩니다", "입니다",
+}
 
 def analyze_script(script_text):
     print("==================================================")
@@ -41,15 +47,17 @@ def analyze_script(script_text):
     if sentences:
         hook_text = sentences[0]
         hook_chars = len(re.sub(r'\s+', '', hook_text))
+        # 3초 훅 기준(350자/분) → 약 17.5자. 기존 25자는 4.3초로 기준과 안 맞아서 정정(2026-07-28).
+        HOOK_LIMIT_CHARS = 18
         print(f"⚓ 인트로 훅 문장: \"{hook_text}\" ({hook_chars}자)")
-        if hook_chars <= 25:
-            print("✅ [Pass] 훅 문장이 간결하여 시청자 이탈 방지에 효과적입니다 (25자 이내).")
+        if hook_chars <= HOOK_LIMIT_CHARS:
+            print(f"✅ [Pass] 훅 문장이 간결하여 시청자 이탈 방지에 효과적입니다 ({HOOK_LIMIT_CHARS}자 이내, 약 3초).")
         else:
-            print("⚠️ [Warning] 훅 문장이 깁니다. 25자 이내로 단축을 권장합니다.")
-            
-    # 4. 키워드 빈도 분석
+            print(f"⚠️ [Warning] 훅 문장이 깁니다. {HOOK_LIMIT_CHARS}자 이내(약 3초)로 단축을 권장합니다.")
+
+    # 4. 키워드 빈도 분석 (불용어 제외, 2026-07-28)
     words = re.findall(r'[가-힣a-zA-Z0-9]+', script_text)
-    words_filtered = [w for w in words if len(w) > 1]
+    words_filtered = [w for w in words if len(w) > 1 and w not in STOPWORDS]
     counter = Counter(words_filtered)
     top_keywords = counter.most_common(5)
     
