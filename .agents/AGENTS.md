@@ -382,5 +382,19 @@ Why: Claude Code for Non-Coders 뽀개기 도출. "결과물에 내 이름과 �
 - **발생한 에러**: 안티가 스스로 내용의 중복성이나 완성도를 대조 검증하지 않은 껍데기 기획안을 작성한 뒤, 사용자(바로보기님)에게 승인을 요청하고 코니에게 날려버려 불필요한 코니의 검수 리소스 낭비와 반려를 유발함.
 - **영구 차단 조치**: 안티는 사용자(바로보기님)에게 기획안 승인을 요청하거나 타 AI(코니/만복)에게 메시지를 인계하기 전에, **반드시 기획안 자체의 독자성, 중복성, 3대 스펙을 스스로 100% 자가 검증한 뒤에만 승인을 요청하고 전송**해야 한다. 스스로 검증하지 않은 기획안을 바로보기님 승인 핑계로 타 AI에게 던지는 행위를 엄격히 금지한다.
 
+### [Hookify: 파이썬 파이프라인/유틸리티 작성 시 stdout None 방어 및 엣지케이스 필수 포함 (2026-07-28 박제)]
+- **발생한 에러**: `review_pass.py` 및 `script_analyzer.py` 작성 시 `sys.stdout.encoding` 접근 전 `sys.stdout is not None` 및 `getattr(sys.stdout, 'encoding', None)` 검사를 누락하여 GUI/비대화형/subprocess 환경에서 AttributeError/TypeError 위험을 노출함.
+- **원인**: 단일 테스트(정상 터미널 환경)만 돌려보고 `sys.stdout`이 None이거나 비대화형 환경인 엣지케이스를 사전에 대조/체크하지 않고 제출함.
+- **영구 차단 조치**: 파이프라인 스크립트 작성 시 인코딩 설정 구문에는 반드시 아래 Safe Wrapper 패턴을 의무 적용하고, 예외 입력/None 체크 등 엣지케이스 검증을 완료한 후 제출할 것:
+```python
+if sys.stdout is not None and getattr(sys.stdout, 'encoding', None) is not None:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
+```
+
+
 
 
