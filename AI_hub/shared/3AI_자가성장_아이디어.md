@@ -2,6 +2,23 @@
 
 > 매일 하나씩 "3AI가 스스로 더 똑똑해지는 방법" 아이디어를 스터디해서 만복이 바로보기님께 브리핑. 뽀개기(외부 콘텐츠 학습)와 별개 트랙 — 여긴 "우리 자신의 지능/구조를 어떻게 키울까"에 집중.
 
+## 운영 방식 (2026-07-28 확정, 다음 주부터 시작)
+회사 만복이(1_만복) 방식 참고 — **리뷰 → 실제 코드 작성 → "function_dev" 등록소에 구현 등록 → git 커밋/push → 코니·안티에게 전파교육**까지 한 아이템당 완결. 하루 1개, 다음 주부터 시작(오늘은 시간 제한으로 정리만).
+
+**출처**: `D:\AI\_Temp_Manbok\manbok_news\` (GeekNews 일일 크롤링, master_watch.py `_fetch_and_update_geek_news()`가 매일 08:00 저장 — 2026-07-28 그동안 라이브 사이트 갱신 경로 버그 있었음, 수정 완료)
+
+**다음 주 시작 후보 10개(2026-07-28 기준, 중요도순)**:
+1. "AI 코딩 세션 휘발성 맥락을 프로젝트 기억으로"(rhwp 사례) — AgentMemory 개선 소재
+2. CodeAlmanac — Dreams Consolidator에 재사용 가능한 "Garden" 자가정리 패턴
+3. Knowledge Factory — 하니스 엔지니어링을 지식 생산에 적용 (Hookify 검증/개선)
+4. OmniRoute — 무료/저가 AI 티어 게이트웨이 (비용 0원 철학 직결)
+5. GitHub 보안팀은 어떤 일을 하는가 — AutoSecurityAuditor 착수 시점과 연결
+6. Anthropic Opus 5 출시 — 핵심 도구(Claude) 신규 모델
+7. 젠슨황 Open Weights 성명 분석 — 전략적 배경 이해
+8. Kimi K3 weight 공개 — 오픈웨이트 동향
+9. omp — 터미널 AI 코딩 에이전트 (ORCA와 유사 결론 예상)
+10. graphify 트렌드 등재 — 액션 없음, 검증용
+
 ---
 
 ## 2026-07-28 (1일차) — 재훈련/증류 경로
