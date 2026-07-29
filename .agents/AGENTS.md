@@ -403,6 +403,11 @@ if sys.stdout is not None and getattr(sys.stdout, 'encoding', None) is not None:
   2. 자막 텍스트(`text`)에는 '3AI'로 시각적 정돈을 유지하되, TTS 낭독 인자(`tts_text`)에는 '쓰리에이아이'로 한글 독음을 분리 하드닝하여 렌더링을 강제한다.
   3. 렌더링 검증 1차 단계(`verify_video.py` 등)에 TTS 독음 체크리스트 항목을 하드 게이트로 영구 등록한다.
 
+### [Hookify: user PATH 드리프트로 bare "python" subprocess 호출이 표준 인터프리터를 비켜감 (2026-07-30 박제)]
+- **발생한 에러**: `daily_pobbagi_runner.py`가 `subprocess.run(["python", ...])`로 `gps_check.py`/`auto_stt_gemini.py`를 호출했는데, 2026-07-18에 생성된 `D:\AI\.venv`(pydantic·google-genai 미설치)가 user PATH에서 `C:\hb`보다 앞서 등록되어 있어 bare `python`이 이 빈 venv로 새어버림. 결과: `gps_check.py`가 `ModuleNotFoundError`로 죽었는데 코드는 stdout만 보고 "GPS 검증 실패(반려)"로 오판 — 정상 지시서 2건이 근거 없이 반려될 뻔함.
+- **원인**: 자동화 스크립트가 표준 인터프리터를 PATH 조회(bare `python`)에 의존 — 시스템 PATH에 다른 venv가 끼어들면 조용히 잘못된 인터프리터로 실행되고, 실패 시 exit code만 보고 원인(모듈 누락 vs 실제 검증 실패)을 구분 못 함.
+- **영구 차단 조치**: `daily_pobbagi_runner.py`에 `PYTHON_EXE = r"C:\hb\python.exe"` 상수 고정 후 모든 subprocess 호출을 이걸로 명시(완료). **다른 Global_Define/자동화 스크립트도 bare `"python"` subprocess 호출 발견 시 즉시 동일하게 하드코딩 전환할 것.** user PATH의 `D:\AI\.venv\Scripts` 항목 자체를 제거할지는 바로보기님 판단 대기 중(누가/언제 만들었는지 불명, 삭제는 사용자 승인 후).
+
 
 
 
