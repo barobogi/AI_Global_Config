@@ -6,6 +6,7 @@ import subprocess
 import sys
 from datetime import datetime
 import channel_manager
+import youtube_transcript_extractor as yte
 
 # Windows console 한글/이모지 출력 오류 방지
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
