@@ -1,0 +1,2 @@
+ddgs>=0.1.0
+duckduckgo_search>=6.0.0
