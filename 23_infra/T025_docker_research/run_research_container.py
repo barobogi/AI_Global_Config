@@ -1,6 +1,6 @@
 """
-T025 Docker Research Container Runner (v0.1)
-3AI 통합용 Docker 리서치 모듈 래퍼
+T025 Docker Research Container Runner (v0.2)
+3AI 통합용 Docker 리서치 모듈 래퍼 (SPOF 완화: Docker 데몬 미실행 시 로컬 폴백)
 """
 import os
 import sys
@@ -18,9 +18,22 @@ if sys.stdout is not None and getattr(sys.stdout, "encoding", None) is not None:
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGE_NAME = "3ai/research_search:latest"
 SHARED_DATA_DIR = r"D:\AI\AI_hub\shared\data"
+LOCAL_SCRIPT = r"D:\AI\Global_Define\parallel_search.py"
+
+def is_docker_daemon_running():
+    """Docker 데몬 실행 여부 정밀 체크"""
+    try:
+        res = subprocess.run(["docker", "info"], capture_output=True, text=True, timeout=5)
+        return res.returncode == 0
+    except Exception:
+        return False
 
 def ensure_docker_image():
     """Docker 이미지 가용성 검사 및 필요 시 빌드"""
+    if not is_docker_daemon_running():
+        print("⚠️ [T025 Warning] Docker 데몬이 실행되어 있지 않습니다. (Docker Desktop 미가동)")
+        return False
+
     print("🐳 [T025] Docker 이미지 상태 점검 중...")
     result = subprocess.run(["docker", "images", "-q", IMAGE_NAME], capture_output=True, text=True)
     if not result.stdout.strip():
@@ -35,10 +48,26 @@ def ensure_docker_image():
         print("✅ [T025] 기존 Docker 이미지를 확인했습니다.")
     return True
 
+def run_fallback_local(queries, max_results=5, output_file=None):
+    """Docker 데몬 미가동 시 안전한 로컬 parallel_search.py 폴백"""
+    print("🔄 [T025 Fallback] 로컬 parallel_search.py 파이프라인으로 안전하게 전환하여 검색을 수행합니다.")
+    cmd = [sys.executable, LOCAL_SCRIPT, "--queries"] + queries + ["--max", str(max_results)]
+    res = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="ignore")
+    if res.returncode != 0:
+        return {"status": "error", "message": f"Local fallback error: {res.stderr}"}
+    try:
+        data = json.loads(res.stdout.strip())
+        if output_file:
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        return data
+    except Exception as e:
+        return {"status": "error", "message": f"JSON parse error: {e}"}
+
 def run_container_search(queries, max_results=5, output_file=None):
-    """Docker 컨테이너를 구동하여 격리된 병렬 리서치 수행"""
+    """Docker 컨테이너를 구동하되 미가동 시 로컬 폴백 수행"""
     if not ensure_docker_image():
-        return {"status": "error", "message": "Docker image not ready"}
+        return run_fallback_local(queries, max_results, output_file)
 
     os.makedirs(SHARED_DATA_DIR, exist_ok=True)
     
@@ -54,7 +83,7 @@ def run_container_search(queries, max_results=5, output_file=None):
     
     if start_t.returncode != 0:
         print(f"❌ [Error] 컨테이너 실행 오류: {start_t.stderr}")
-        return {"status": "error", "message": start_t.stderr}
+        return run_fallback_local(queries, max_results, output_file)
         
     try:
         data = json.loads(start_t.stdout.strip())
@@ -65,7 +94,7 @@ def run_container_search(queries, max_results=5, output_file=None):
         return data
     except Exception as e:
         print(f"⚠️ [Warning] JSON 파싱 실패: {e}")
-        return {"status": "raw_output", "output": start_t.stdout}
+        return run_fallback_local(queries, max_results, output_file)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="T025 Docker Research Runner")
