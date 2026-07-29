@@ -1,5 +1,5 @@
 """
-EP.03 본편 파이프라인 렌더러 — AI가 나를 기억하기 시작했다 (TTS 3AI -> 쓰리에이아이 교정 적용)
+EP.03 본편 파이프라인 렌더러 — AI가 나를 기억하기 시작했다 (TTS 3AI -> 쓰리에이아이 교정 및 자동 하드닝 훅 내장)
 """
 import os
 import json
@@ -15,6 +15,7 @@ from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip, conc
 
 sys.path.insert(0, os.path.dirname(__file__))
 from pollinations_auto import generate_video_via_pollinations
+from script_analyzer import validate_and_fix_tts_pronunciation
 
 SCRIPT_FILE = r"D:\AI\63_youtube_creator\pipeline\scripts\main_ep03_full_script.json"
 OUTPUT_DIR = r"D:\AI\63_youtube_creator\pipeline\output\ep03"
@@ -50,11 +51,10 @@ async def generate_tts_edge(text: str, output_path: str, timing_path: str):
         json.dump(word_boundaries, f, ensure_ascii=False, indent=2)
     return True
 
-async def build_pipeline(force_clean_tts=True):
+async def build_pipeline(force_clean_tts=False):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     os.makedirs(IMAGES_DIR, exist_ok=True)
     
-    # force_clean_tts가 True이면 기존 mp3/timing.json 캐시 삭제하여 "쓰리에이아이" 낭독 재인코딩
     if force_clean_tts:
         for f in os.listdir(OUTPUT_DIR):
             if f.endswith(".mp3") or f.endswith("_timing.json"):
@@ -76,7 +76,13 @@ async def build_pipeline(force_clean_tts=True):
     for scene in scenes:
         s_id = scene["scene_id"]
         text = scene["text"]
-        tts_text = scene.get("tts_text", text)
+        raw_tts_text = scene.get("tts_text", text)
+        
+        # [자동 하드닝 훅] 3AI -> 쓰리에이아이 강제 치환 및 하드 검증
+        tts_text, is_modified = validate_and_fix_tts_pronunciation(raw_tts_text)
+        if is_modified:
+            print(f"  - 🚨 [TTS 낭독 자동 교정] Scene {s_id}: '3AI' -> '쓰리에이아이' / 'AI' -> '에이아이' 독음 하드닝 적용")
+
         bg_prompt = scene.get("prompt")
         
         s_id_padded = f"{int(s_id):02d}"
@@ -183,4 +189,4 @@ async def build_pipeline(force_clean_tts=True):
         print(f"\n🎉 [대성공] 본편 EP.03 낭독 교정 렌더링 완벽 완료! -> {FINAL_VIDEO}")
 
 if __name__ == "__main__":
-    asyncio.run(build_pipeline(force_clean_tts=True))
+    asyncio.run(build_pipeline(force_clean_tts=False))
