@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  research_search:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 3ai/research_search:latest
+    container_name: 3ai_research_search
+    volumes:
+      - d:/AI/AI_hub/shared/data:/app/shared_data
+    environment:
+      - PYTHONIOENCODING=utf-8
