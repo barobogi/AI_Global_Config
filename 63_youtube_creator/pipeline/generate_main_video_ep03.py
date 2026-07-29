@@ -1,8 +1,5 @@
 """
-EP.03 모듈형 순간 병합 파이프라인 (True Zero-Reencoding Modular Engine v0.4)
-- 변경된 Scene만 선택적으로 부분 렌더링 (Partial Re-render)
-- 미변경 Scene은 기존 씬 클립(.mp4) 재사용
-- ffmpeg -f concat (Stream Copy) 모드로 재인코딩 없이 1초 만에 순간 합성!
+EP.03 모듈형 순간 병합 파이프라인 (True Zero-Reencoding Modular Engine v0.4.2 - imageio_ffmpeg 바이너리 자동 연동)
 """
 import os
 import json
@@ -12,6 +9,7 @@ import sys
 import re
 import textwrap
 import edge_tts
+import imageio_ffmpeg
 from PIL import Image as PILImage
 import numpy as np
 from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip
@@ -55,7 +53,6 @@ async def generate_tts_edge(text: str, output_path: str, timing_path: str):
     return True
 
 def render_single_scene(scene, target_clip_path, force_rerender=False):
-    """단일 씬 개별 클립 비디오 렌더링"""
     s_id = scene["scene_id"]
     s_id_padded = f"{int(s_id):02d}"
     
@@ -113,21 +110,28 @@ def render_single_scene(scene, target_clip_path, force_rerender=False):
         txt_clips.append(txt_clip)
         
     scene_video = CompositeVideoClip([img_clip] + txt_clips).with_audio(audio_clip).with_duration(duration)
-    scene_video.write_videofile(target_clip_path, fps=24, codec="libx264", audio_codec="aac", threads=4)
+    temp_audio_file = os.path.join(OUTPUT_DIR, f"temp_{s_id_padded}_audio.m4a")
+    scene_video.write_videofile(target_clip_path, fps=24, codec="libx264", audio_codec="aac", threads=4, temp_audiofile=temp_audio_file)
+    
+    try:
+        scene_video.close()
+        audio_clip.close()
+    except Exception:
+        pass
     return True
 
 def fast_ffmpeg_concat(clip_paths, output_path):
-    """ffmpeg -f concat (Stream Copy) 방식을 사용해 1초 만에 무손실 순간 합성"""
     list_file = os.path.join(OUTPUT_DIR, "concat_list.txt")
     with open(list_file, "w", encoding="utf-8") as f:
         for path in clip_paths:
-            # ffmpeg concat 파싱용 상대/절대 경로 인코딩
             escaped_path = path.replace("\\", "/")
             f.write(f"file '{escaped_path}'\n")
             
-    print(f"🚀 [ffmpeg Stream Copy] 재인코딩 0% 순간 합성 실행 중...")
+    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    print(f"🚀 [ffmpeg Stream Copy] 재인코딩 0% 순간 합성 실행 중 (바이너리: {os.path.basename(ffmpeg_exe)})...")
+    
     cmd = [
-        "ffmpeg", "-y", "-f", "concat", "-safe", "0",
+        ffmpeg_exe, "-y", "-f", "concat", "-safe", "0",
         "-i", list_file, "-c", "copy", output_path
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)
@@ -135,7 +139,7 @@ def fast_ffmpeg_concat(clip_paths, output_path):
         print(f"🎉 [대성공] 1초 만에 무손실 순간 합성 완수! -> {output_path}")
         return True
     else:
-        print(f"⚠️ [Warning] ffmpeg Stream Copy 실패 ({res.stderr}), 폴백 진행")
+        print(f"⚠️ [Warning] ffmpeg Stream Copy 실패 ({res.stderr})")
         return False
 
 def build_fast_modular_pipeline(target_scenes_to_rerender=None):
@@ -146,7 +150,7 @@ def build_fast_modular_pipeline(target_scenes_to_rerender=None):
         scenes = json.load(f)
         
     print("==================================================")
-    print(f"⚡ [True Zero-Reencoding Engine v0.4] 총 {len(scenes)}개 씬 점검")
+    print(f"⚡ [True Zero-Reencoding Engine v0.4.2] 총 {len(scenes)}개 씬 점검")
     print("==================================================")
     
     scene_clip_paths = []

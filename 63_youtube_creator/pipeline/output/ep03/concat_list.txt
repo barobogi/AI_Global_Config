@@ -1,0 +1,6 @@
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_01_clip.mp4'
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_02_clip.mp4'
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_03_clip.mp4'
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_04_clip.mp4'
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_05_clip.mp4'
+file 'D:/AI/63_youtube_creator/pipeline/output/ep03/scene_06_clip.mp4'
