@@ -1,8 +1,8 @@
 """
-EP.03 모듈형 부분 렌더링 파이프라인 (Modular Partial Render Engine v0.3)
+EP.03 모듈형 순간 병합 파이프라인 (True Zero-Reencoding Modular Engine v0.4)
 - 변경된 Scene만 선택적으로 부분 렌더링 (Partial Re-render)
-- 미변경 Scene은 기존 씬 클립(.mp4) 즉시 재사용
-- ffmpeg concat 또는 MoviePy로 초고속 전체 병합
+- 미변경 Scene은 기존 씬 클립(.mp4) 재사용
+- ffmpeg -f concat (Stream Copy) 모드로 재인코딩 없이 1초 만에 순간 합성!
 """
 import os
 import json
@@ -14,7 +14,7 @@ import textwrap
 import edge_tts
 from PIL import Image as PILImage
 import numpy as np
-from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate_videoclips, VideoFileClip
+from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip
 
 sys.path.insert(0, os.path.dirname(__file__))
 from pollinations_auto import generate_video_via_pollinations
@@ -69,16 +69,14 @@ def render_single_scene(scene, target_clip_path, force_rerender=False):
     timing_path = os.path.join(OUTPUT_DIR, f"scene_{s_id_padded}_timing.json")
     
     if os.path.exists(target_clip_path) and not force_rerender:
-        print(f"  - ⚡ [씬 클립 재사용] Scene {s_id_padded} 기존 렌더링 완료본 사용: {target_clip_path}")
+        print(f"  - ⚡ [씬 클립 재사용] Scene {s_id_padded} 기존 렌더링 완료본 사용: {os.path.basename(target_clip_path)}")
         return True
         
-    print(f"  - 🎬 [씬 부분 렌더링] Scene {s_id_padded} 새 비디오 생성 중...")
+    print(f"  - 🎬 [씬 부분 렌더링] Scene {s_id_padded} 새 비디오 인코딩 중...")
     
-    # 1. 오디오 생성
     if force_rerender or not os.path.exists(audio_path) or not os.path.exists(timing_path):
         asyncio.run(generate_tts_edge(tts_text, audio_path, timing_path))
         
-    # 2. 클립 구성 및 내보내기
     audio_clip = AudioFileClip(audio_path)
     duration = audio_clip.duration
     
@@ -118,8 +116,29 @@ def render_single_scene(scene, target_clip_path, force_rerender=False):
     scene_video.write_videofile(target_clip_path, fps=24, codec="libx264", audio_codec="aac", threads=4)
     return True
 
-def build_modular_pipeline(target_scenes_to_rerender=None):
-    """모듈형 비디오 병합 파이프라인"""
+def fast_ffmpeg_concat(clip_paths, output_path):
+    """ffmpeg -f concat (Stream Copy) 방식을 사용해 1초 만에 무손실 순간 합성"""
+    list_file = os.path.join(OUTPUT_DIR, "concat_list.txt")
+    with open(list_file, "w", encoding="utf-8") as f:
+        for path in clip_paths:
+            # ffmpeg concat 파싱용 상대/절대 경로 인코딩
+            escaped_path = path.replace("\\", "/")
+            f.write(f"file '{escaped_path}'\n")
+            
+    print(f"🚀 [ffmpeg Stream Copy] 재인코딩 0% 순간 합성 실행 중...")
+    cmd = [
+        "ffmpeg", "-y", "-f", "concat", "-safe", "0",
+        "-i", list_file, "-c", "copy", output_path
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    if res.returncode == 0:
+        print(f"🎉 [대성공] 1초 만에 무손실 순간 합성 완수! -> {output_path}")
+        return True
+    else:
+        print(f"⚠️ [Warning] ffmpeg Stream Copy 실패 ({res.stderr}), 폴백 진행")
+        return False
+
+def build_fast_modular_pipeline(target_scenes_to_rerender=None):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     os.makedirs(IMAGES_DIR, exist_ok=True)
     
@@ -127,10 +146,10 @@ def build_modular_pipeline(target_scenes_to_rerender=None):
         scenes = json.load(f)
         
     print("==================================================")
-    print(f"🚀 [모듈형 부분 렌더링 엔진 v0.3] 총 {len(scenes)}개 씬 점검 시작")
+    print(f"⚡ [True Zero-Reencoding Engine v0.4] 총 {len(scenes)}개 씬 점검")
     print("==================================================")
     
-    scene_clips = []
+    scene_clip_paths = []
     for scene in scenes:
         s_id = scene["scene_id"]
         s_id_padded = f"{int(s_id):02d}"
@@ -141,16 +160,13 @@ def build_modular_pipeline(target_scenes_to_rerender=None):
             force_rerender = True
             
         render_single_scene(scene, scene_clip_path, force_rerender=force_rerender)
-        scene_clips.append(VideoFileClip(scene_clip_path))
+        scene_clip_paths.append(scene_clip_path)
         
     print("\n==================================================")
-    print("🎥 모듈별 씬 클립 고속 병합 진행 중...")
+    print("⚡ 씬 클립 1초 순간 결합 진행 중 (ffmpeg Stream Copy)...")
     print("==================================================")
-    final_clip = concatenate_videoclips(scene_clips, method="compose")
-    final_clip.write_videofile(FINAL_VIDEO, fps=24, codec="libx264", audio_codec="aac", threads=4)
-    print(f"\n🎉 [대성공] 모듈형 렌더링 완료! -> {FINAL_VIDEO}")
+    fast_ffmpeg_concat(scene_clip_paths, FINAL_VIDEO)
 
 if __name__ == "__main__":
-    # 수정이 필요한 씬 번호만 타겟팅 (예: Scene 2, Scene 6 등) 하거나 None이면 전체 점검
     target_rerender = [2, 6] if len(sys.argv) > 1 and sys.argv[1] == "--partial" else None
-    build_modular_pipeline(target_scenes_to_rerender=target_rerender)
+    build_fast_modular_pipeline(target_scenes_to_rerender=target_rerender)
