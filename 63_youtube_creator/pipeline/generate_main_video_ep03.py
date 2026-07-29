@@ -1,5 +1,5 @@
 """
-EP.03 본편 파이프라인 렌더러 — AI가 나를 기억하기 시작했다
+EP.03 본편 파이프라인 렌더러 — AI가 나를 기억하기 시작했다 (TTS 3AI -> 쓰리에이아이 교정 적용)
 """
 import os
 import json
@@ -13,7 +13,6 @@ from PIL import Image as PILImage
 import numpy as np
 from moviepy import ImageClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate_videoclips
 
-# Pollinations AI 연동
 sys.path.insert(0, os.path.dirname(__file__))
 from pollinations_auto import generate_video_via_pollinations
 
@@ -22,11 +21,12 @@ OUTPUT_DIR = r"D:\AI\63_youtube_creator\pipeline\output\ep03"
 FINAL_VIDEO = r"D:\AI\63_youtube_creator\pipeline\output\Main_EP03_AI_Remembers_Me.mp4"
 IMAGES_DIR = r"D:\AI\63_youtube_creator\pipeline\images\ep03"
 
-if sys.stdout.encoding.lower() != 'utf-8':
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
+if sys.stdout is not None and getattr(sys.stdout, "encoding", None) is not None:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
 
 async def generate_tts_edge(text: str, output_path: str, timing_path: str):
     print(f"  - Edge-TTS 생성 및 타임스탬프 추출 중: {os.path.basename(output_path)}")
@@ -50,10 +50,20 @@ async def generate_tts_edge(text: str, output_path: str, timing_path: str):
         json.dump(word_boundaries, f, ensure_ascii=False, indent=2)
     return True
 
-async def build_pipeline():
+async def build_pipeline(force_clean_tts=True):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     os.makedirs(IMAGES_DIR, exist_ok=True)
     
+    # force_clean_tts가 True이면 기존 mp3/timing.json 캐시 삭제하여 "쓰리에이아이" 낭독 재인코딩
+    if force_clean_tts:
+        for f in os.listdir(OUTPUT_DIR):
+            if f.endswith(".mp3") or f.endswith("_timing.json"):
+                try:
+                    os.remove(os.path.join(OUTPUT_DIR, f))
+                except Exception:
+                    pass
+        print("🧹 [TTS 캐시 초기화] '3AI' -> '쓰리에이아이' 낭독 교정을 위해 오디오 캐시를 초기화했습니다.")
+
     with open(SCRIPT_FILE, "r", encoding="utf-8") as f:
         scenes = json.load(f)
         
@@ -66,6 +76,7 @@ async def build_pipeline():
     for scene in scenes:
         s_id = scene["scene_id"]
         text = scene["text"]
+        tts_text = scene.get("tts_text", text)
         bg_prompt = scene.get("prompt")
         
         s_id_padded = f"{int(s_id):02d}"
@@ -75,7 +86,7 @@ async def build_pipeline():
         audio_path = os.path.join(OUTPUT_DIR, f"scene_{s_id_padded}.mp3")
         timing_path = os.path.join(OUTPUT_DIR, f"scene_{s_id_padded}_timing.json")
         
-        # 1. 이미지 준비 (Pollinations.ai 생성 후 16:9 크롭 & Dimmed 처리)
+        # 1. 배경 이미지
         if not os.path.exists(img_path):
             print(f"  - 배경 이미지 생성 요청: {bg_prompt}")
             temp_img = os.path.join(IMAGES_DIR, f"temp_{s_id_padded}.jpg")
@@ -96,28 +107,24 @@ async def build_pipeline():
                         bg = bg.crop((0, offset, bg.width, offset + new_h))
                     bg = bg.resize((target_w, target_h), PILImage.Resampling.LANCZOS)
                     
-                    # Dimmed (60% 검은색 반투명 오버레이)
                     overlay = PILImage.new("RGBA", (target_w, target_h), (0, 0, 0, int(255 * 0.6)))
                     base_img = PILImage.alpha_composite(bg, overlay).convert("RGB")
                     base_img.save(img_path, "JPEG")
                     if os.path.exists(temp_img): os.remove(temp_img)
-                    print(f"  - 배경 이미지 전처리(Dimming) 저장 완료: {img_path}")
-                except Exception as e:
-                    print(f"  - 배경 이미지 처리 실패 ({e}), 기본 배경 생성")
+                except Exception:
                     base_img = PILImage.new("RGB", (1920, 1080), (9, 13, 22))
                     base_img.save(img_path, "JPEG")
             else:
-                print("  - 이미지 생성 실패, 기본 딥블루 배경 사용")
                 base_img = PILImage.new("RGB", (1920, 1080), (9, 13, 22))
                 base_img.save(img_path, "JPEG")
         else:
-            print(f"  - 기존 배경 이미지 캐시 사용: {img_path}")
+            print(f"  - 기존 배경 이미지 사용: {img_path}")
             
-        # 2. TTS 생성 및 타임스탬프
+        # 2. TTS 생성 및 타임스탬프 (tts_text로 생성)
         if not os.path.exists(audio_path) or not os.path.exists(timing_path):
-            await generate_tts_edge(text, audio_path, timing_path)
+            await generate_tts_edge(tts_text, audio_path, timing_path)
         else:
-            print(f"  - 기존 오디오 캐시 사용: {audio_path}")
+            print(f"  - 기존 오디오 사용: {audio_path}")
             
         try:
             audio_clip = AudioFileClip(audio_path)
@@ -173,7 +180,7 @@ async def build_pipeline():
         print("==================================================")
         final_clip = concatenate_videoclips(clips, method="compose")
         final_clip.write_videofile(FINAL_VIDEO, fps=24, codec="libx264", audio_codec="aac", threads=4)
-        print(f"\n🎉 [대성공] 본편 EP.03 렌더링 완벽 완료! -> {FINAL_VIDEO}")
+        print(f"\n🎉 [대성공] 본편 EP.03 낭독 교정 렌더링 완벽 완료! -> {FINAL_VIDEO}")
 
 if __name__ == "__main__":
-    asyncio.run(build_pipeline())
+    asyncio.run(build_pipeline(force_clean_tts=True))
