@@ -38,3 +38,15 @@
 - 프롬프트/컨텍스트 품질 축적(코니가 제안한 재정의) 구체화 — 무엇을 어떻게 축적할지 설계
 
 ---
+
+## 2026-07-30 (2일차, 예정보다 앞당겨 시작) — rhwp Hyper-Waterfall → Task Archive
+
+**출처**: 후보 1번 "AI 코딩 세션 휘발성 맥락을 프로젝트 기억으로"(rhwp 사례, github.com/edwardkim/rhwp/discussions/2252, postmelee) — 원문 직접 확인.
+
+**핵심**: 이슈 번호 기준으로 `수행계획서→구현계획서→Stage별 보고서→최종보고서`를 문서로 남겨서, 완전히 새 세션/기여자도 문서만 보고 몇 달 전 결정 맥락을 온전히 이어받는 방법론("Hyper-Waterfall"). 회사 만복이의 function_dev와 겹치는 듯 보이지만, function_dev는 "신규 기능 만들기"로 범위가 좁고(README 1개), Hyper-Waterfall은 모든 이슈(버그/논쟁/반려 포함)에 적용되는 더 촘촘한 방법론이라는 차이를 바로보기님과 대화로 정리함.
+
+**적용 완료**: `AI_hub/shared/task_archives/` 신설 + T025(Docker 컨테이너화, 반려→보완→승인 3차 사이클)를 파일럿으로 실제 문서화. AGENTS.md에 "Task Archive — Hyper-Waterfall 경량판" 표준 절차로 등재(적용 기준: 3차 이상 이어붙여진 태스크만, 1회성 태스크는 기존 tasks.json 한 줄로 충분).
+
+**다음**: 후보 2~10 중 다음 스터디 항목 선정은 다음 세션에서.
+
+---
