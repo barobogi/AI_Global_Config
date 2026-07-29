@@ -200,7 +200,21 @@ def phase_2_execute_selection(selection_data):
         title = item["title"]
         url = f"https://youtu.be/{vid_id}"
         transcript_path = os.path.join(BASE_DIR, "transcripts", f"Manbok_{vid_id}.txt")
-        print(f"[만복] STT 추출 -> {title}")
+
+        # 2026-07-30: 자막 추출(youtube-transcript-api) 1순위 -> 실패 시 Gemini Flash STT 2순위 폴백
+        # (Gemini STT 자체는 API 키 이슈로 별도 점검 필요 — 일요일 확인 예정)
+        print(f"[만복] 자막 추출(1순위) -> {title}")
+        extracted_path = yte.extract_transcript(vid_id)
+        if extracted_path:
+            with open(extracted_path, "r", encoding="utf-8") as rf:
+                text = rf.read()
+            with open(transcript_path, "w", encoding="utf-8") as wf:
+                wf.write(text)
+            c.execute("INSERT OR REPLACE INTO pobbagi_history (video_id, title, pobbagi_date, assignee, status) VALUES (?, ?, ?, ?, ?)",
+                      (vid_id, title, date_str, "manbok", "completed"))
+            continue
+
+        print(f"[만복] 자막 실패 -> Gemini STT(2순위) 폴백 -> {title}")
         try:
             subprocess.run([PYTHON_EXE, STT_SCRIPT, url, transcript_path], check=True)
             c.execute("INSERT OR REPLACE INTO pobbagi_history (video_id, title, pobbagi_date, assignee, status) VALUES (?, ?, ?, ?, ?)",
