@@ -15,6 +15,9 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
         pass
 
 BASE_DIR = r"D:\AI\25_auto_pobbagi"
+# 2026-07-18 D:\AI\.venv가 user PATH에서 C:\hb보다 우선순위가 높아져 bare "python" 호출이
+# pydantic/google-genai 없는 빈 venv로 새버리는 문제 발견(2026-07-30) → 표준 인터프리터 명시 고정
+PYTHON_EXE = r"C:\hb\python.exe"
 DB_FILE = os.path.join(BASE_DIR, "pobbagi_history.db")
 STT_SCRIPT = os.path.join(BASE_DIR, "auto_stt_gemini.py")
 SEARCH_SCRIPT = r"D:\AI\Global_Define\parallel_search.py"
@@ -127,7 +130,7 @@ def send_telegram_msg(msg):
 def phase_1_generate_candidates():
     print(">>> [Phase 1] 뽀개기 후보군 생성 (최대 15개)")
     
-    subprocess.run(["python", WATCHER_SCRIPT], check=True)
+    subprocess.run([PYTHON_EXE, WATCHER_SCRIPT], check=True)
     
     if not os.path.exists(QUEUE_FILE):
         print("큐 파일이 없습니다.")
@@ -198,7 +201,7 @@ def phase_2_execute_selection(selection_data):
         transcript_path = os.path.join(BASE_DIR, "transcripts", f"Manbok_{vid_id}.txt")
         print(f"[만복] STT 추출 -> {title}")
         try:
-            subprocess.run(["python", STT_SCRIPT, url, transcript_path], check=True)
+            subprocess.run([PYTHON_EXE, STT_SCRIPT, url, transcript_path], check=True)
             c.execute("INSERT OR REPLACE INTO pobbagi_history (video_id, title, pobbagi_date, assignee, status) VALUES (?, ?, ?, ?, ?)",
                       (vid_id, title, date_str, "manbok", "completed"))
         except Exception as e:
@@ -230,7 +233,7 @@ def phase_2_execute_selection(selection_data):
             f.write(content)
 
         gps_check = subprocess.run(
-            ["python", os.path.join(r"D:\AI\Global_Define", "gps_check.py"), md_path],
+            [PYTHON_EXE, os.path.join(r"D:\AI\Global_Define", "gps_check.py"), md_path],
             capture_output=True, text=True
         )
         if gps_check.returncode != 0:
