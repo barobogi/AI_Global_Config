@@ -6,10 +6,20 @@ import sys
 from pathlib import Path
 
 def find_ffmpeg() -> str:
+    # 1. imageio_ffmpeg 파이썬 번들 패키지 확인
+    try:
+        import imageio_ffmpeg
+        exe = imageio_ffmpeg.get_ffmpeg_exe()
+        if os.path.exists(exe):
+            return exe
+    except Exception:
+        pass
+
+    # 2. 로컬 후보 경로 확인
     candidates = [
+        r"C:\hb\Lib\site-packages\imageio_ffmpeg\binaries\ffmpeg-win64-v4.2.2.exe",
         r"D:\AI\63_youtube_creator\pipeline\_archive\ffmpeg.exe",
         r"D:\AI\63_youtube_creator\pipeline\ffmpeg.exe",
-        r"D:\AI\63_youtube_creator\pipeline\ffmpeg\bin\ffmpeg.exe",
         r"D:\AI\25_auto_pobbagi\ffmpeg.exe",
         "ffmpeg"
     ]
@@ -19,6 +29,13 @@ def find_ffmpeg() -> str:
     return "ffmpeg"
 
 FFMPEG_EXE = find_ffmpeg()
+
+def safe_print(msg: str):
+    try:
+        print(msg)
+    except UnicodeEncodeError:
+        safe_msg = msg.encode("ascii", errors="replace").decode("ascii")
+        print(safe_msg)
 
 class SilenceCutter:
     def __init__(
@@ -42,7 +59,7 @@ class SilenceCutter:
         self.noise_threshold_db = noise_threshold_db
         self.min_silence_duration_sec = min_silence_duration_sec
 
-    def _detect_silence_intervals() -> list[tuple[float, float]]:
+    def _detect_silence_intervals(self) -> list[tuple[float, float]]:
         """FFmpeg silencedetect 필터로 무음 구간 (start, end) 목록 파싱"""
         cmd = [
             FFMPEG_EXE,
@@ -76,7 +93,7 @@ class SilenceCutter:
 
         return silence_intervals
 
-    def _get_media_duration() -> float:
+    def _get_media_duration(self) -> float:
         """FFmpeg / ffprobe 기반 미디어 전체 길이 추출"""
         cmd = [
             FFMPEG_EXE,
@@ -90,16 +107,16 @@ class SilenceCutter:
             return hours * 3600 + mins * 60 + secs
         return 0.0
 
-    def cut_silence() -> bool:
+    def cut_silence(self) -> bool:
         """무음 구간 제거 및 컷팅 수행"""
-        print(f"🎬 [SilenceCutter] 무음 감지 시작: {self.input_file.name}")
+        safe_print(f"🎬 [SilenceCutter] 무음 감지 시작: {self.input_file.name}")
         silence_intervals = self._detect_silence_intervals()
         total_duration = self._get_media_duration()
 
-        print(f"📊 감지된 무음 구간 개수: {len(silence_intervals)}개, 미디어 길이: {total_duration:.2f}초")
+        safe_print(f"📊 감지된 무음 구간 개수: {len(silence_intervals)}개, 미디어 길이: {total_duration:.2f}초")
 
         if not silence_intervals:
-            print("ℹ️ 제거할 무음 구간이 감지되지 않았습니다. 원본 유지.")
+            safe_print("ℹ️ 제거할 무음 구간이 감지되지 않았습니다. 원본 유지.")
             # 원본과 동일하게 복사/저장
             cmd = [FFMPEG_EXE, "-y", "-i", str(self.input_file), "-c", "copy", str(self.output_file)]
             subprocess.run(cmd, capture_output=True)
@@ -118,10 +135,10 @@ class SilenceCutter:
             keep_intervals.append((last_end, total_duration))
 
         if not keep_intervals:
-            print("⚠️ 전체 영상이 무음으로 감지되어 커편집을 중단합니다.")
+            safe_print("⚠️ 전체 영상이 무음으로 감지되어 커편집을 중단합니다.")
             return False
 
-        print(f"✂️ 유지할 구간 개수: {len(keep_intervals)}개")
+        safe_print(f"✂️ 유지할 구간 개수: {len(keep_intervals)}개")
 
         # FFmpeg complex_filter 생성
         is_video = self.input_file.suffix.lower() in [".mp4", ".mkv", ".avi", ".mov", ".webm"]
@@ -165,17 +182,17 @@ class SilenceCutter:
                 str(self.output_file)
             ]
 
-        print(f"🚀 FFmpeg 무음 컷팅 명령 실행 중...")
+        safe_print(f"🚀 FFmpeg 무음 컷팅 명령 실행 중...")
         res = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
         
         if res.returncode == 0 and self.output_file.exists():
             cut_duration = self._get_media_duration_path(self.output_file)
             saved_time = total_duration - cut_duration
-            print(f"✅ 커편집 완료! 최종 길이: {cut_duration:.2f}초 (단축된 시간: {saved_time:.2f}초)")
-            print(f"📁 결과 파일: {self.output_file}")
+            safe_print(f"✅ 커편집 완료! 최종 길이: {cut_duration:.2f}초 (단축된 시간: {saved_time:.2f}초)")
+            safe_print(f"📁 결과 파일: {self.output_file}")
             return True
         else:
-            print(f"❌ FFmpeg 실행 실패. Error: {res.stderr[:300]}", file=sys.stderr)
+            safe_print(f"❌ FFmpeg 실행 실패. Error: {res.stderr[:300]}")
             return False
 
     def _get_media_duration_path(self, path: Path) -> float:
