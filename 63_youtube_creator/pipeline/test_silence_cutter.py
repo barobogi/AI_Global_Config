@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, r"D:\AI\63_youtube_creator\pipeline")
-from silence_cutter import SilenceCutter
+from silence_cutter import SilenceCutter, FFMPEG_EXE
 
 class TestSilenceCutter(unittest.TestCase):
     def setUp(self):
@@ -16,7 +16,7 @@ class TestSilenceCutter(unittest.TestCase):
 
         # FFmpeg 테스트 파형 생성: 2초 무음 + 3초 소리 + 2초 무음 (총 7초)
         cmd = [
-            "ffmpeg", "-y", "-hide_banner",
+            FFMPEG_EXE, "-y", "-hide_banner",
             "-f", "lavfi", "-i", "sine=frequency=440:duration=3",
             "-af", "adelay=2000|2000,apad=pad_dur=2",
             str(self.sample_audio)

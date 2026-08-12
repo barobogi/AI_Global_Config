@@ -5,8 +5,19 @@ import subprocess
 import sys
 from pathlib import Path
 
-# FFmpeg 경로 설정 (기본 ffmpeg)
-FFMPEG_EXE = "ffmpeg"
+def find_ffmpeg() -> str:
+    candidates = [
+        r"D:\AI\63_youtube_creator\pipeline\ffmpeg.exe",
+        r"D:\AI\63_youtube_creator\pipeline\ffmpeg\bin\ffmpeg.exe",
+        r"D:\AI\25_auto_pobbagi\ffmpeg.exe",
+        "ffmpeg"
+    ]
+    for c in candidates:
+        if os.path.isabs(c) and os.path.exists(c):
+            return c
+    return "ffmpeg"
+
+FFMPEG_EXE = find_ffmpeg()
 
 class SilenceCutter:
     def __init__(
