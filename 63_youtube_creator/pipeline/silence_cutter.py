@@ -7,6 +7,7 @@ from pathlib import Path
 
 def find_ffmpeg() -> str:
     candidates = [
+        r"D:\AI\63_youtube_creator\pipeline\_archive\ffmpeg.exe",
         r"D:\AI\63_youtube_creator\pipeline\ffmpeg.exe",
         r"D:\AI\63_youtube_creator\pipeline\ffmpeg\bin\ffmpeg.exe",
         r"D:\AI\25_auto_pobbagi\ffmpeg.exe",

@@ -7,6 +7,8 @@ from pathlib import Path
 sys.path.insert(0, r"D:\AI\63_youtube_creator\pipeline")
 from silence_cutter import SilenceCutter, FFMPEG_EXE
 
+print("Detected FFMPEG_EXE:", FFMPEG_EXE)
+
 class TestSilenceCutter(unittest.TestCase):
     def setUp(self):
         self.test_dir = Path(r"D:\AI\63_youtube_creator\pipeline\tests")
