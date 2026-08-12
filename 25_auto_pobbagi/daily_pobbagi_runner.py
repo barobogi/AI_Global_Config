@@ -247,6 +247,18 @@ def phase_2_execute_selection(selection_data):
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(content)
 
+        # GoalRunner 자가치유 루프 연결 (T_GOAL_LOOP)
+        try:
+            goal_runner_script = os.path.join(r"D:\AI\Global_Define", "goal_runner.py")
+            if os.path.exists(goal_runner_script):
+                proof_cmd = f'"{PYTHON_EXE}" "{os.path.join(r"D:\AI\Global_Define", "gps_check.py")}" "{md_path}"'
+                subprocess.run(
+                    [PYTHON_EXE, goal_runner_script, "--task-id", f"T_POBBAGI_{vid_id}", "--command", f'"{PYTHON_EXE}" "{os.path.join(r"D:\AI\Global_Define", "gps_check.py")}" "{md_path}"', "--max-turns", "5"],
+                    check=False
+                )
+        except Exception as e:
+            print(f"GoalRunner 연동 알림: {e}")
+
         gps_check = subprocess.run(
             [PYTHON_EXE, os.path.join(r"D:\AI\Global_Define", "gps_check.py"), md_path],
             capture_output=True, text=True
