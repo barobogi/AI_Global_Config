@@ -743,6 +743,88 @@
             "channel_name": "Matt Pocock",
             "status": "pending",
             "fallback": true
+        },
+        {
+            "video_id": "38XCtcCu5TE",
+            "title": "AI 영상에 돈 그만 쓰세요: 지금 당장 쓸만한 무료 & 무제한 AI 영상 툴 공개합니다 (Seedance 2.5 무제한 사용 방법 포함)",
+            "channel_name": "호두의 AI 분석실",
+            "status": "pending"
+        },
+        {
+            "video_id": "bSro_nTV2E4",
+            "title": "시댄스 2.0 무료로 무제한 쓰는 역대급 꿀팁 (힉스필드 24시간 무료 사용법 공개)",
+            "channel_name": "호두의 AI 분석실",
+            "status": "pending"
+        },
+        {
+            "video_id": "FbYCu5PnJbg",
+            "title": "고객의 마음을 사로잡는 마인드 셋",
+            "channel_name": "동기부여학파",
+            "status": "pending"
+        },
+        {
+            "video_id": "zfEGIYQtky8",
+            "title": "[한영자막] 제 영감은 언제나 짜증에서 시작됩니다",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "fJD3vQerOho",
+            "title": "가중치 없인 내 제품도 없다 #Shorts",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "idS9XwpdGdU",
+            "title": "[한영자막] 당신만의 AI 스택을 소유하세요",
+            "channel_name": "Matt Pocock",
+            "status": "pending"
+        },
+        {
+            "video_id": "PQBYZQqan2g",
+            "title": "Grok Bot is For Real. What You Need to Know.",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending"
+        },
+        {
+            "video_id": "bzSN73XXiC4",
+            "title": "I Build Features Just By Talking to My Code",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending"
+        },
+        {
+            "video_id": "LVAHYV4Xrto",
+            "title": "How to Build a One Person AI Business (Using Claude Code)",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending"
+        },
+        {
+            "video_id": "nfUKLULchXE",
+            "title": "[한영자막] 왜 이제 '루프'가 아니라 '그래프'를 설계해야 할까?",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "sZrFaPMau6A",
+            "title": "[한영자막] Matt Pocock 스킬, 이번 업데이트로 확 달라졌다",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "a2jsKDTOOJY",
+            "title": "[한영자막] 지능은 빌리지 말고 소유하세요",
+            "channel_name": "Matt Pocock",
+            "status": "pending",
+            "fallback": true
+        },
+        {
+            "video_id": "IVx8OSMbTss",
+            "title": "Build & Sell AI SaaS Products (2 HOUR COURSE)",
+            "channel_name": "Nate Herk | AI Automation",
+            "status": "pending",
+            "fallback": true
         }
     ],
     "processed": [
