@@ -1,13 +1,5 @@
 {
-    "pending_shorts": [
-        {
-            "video_id": "zjo3RHbeUGU",
-            "title": "[S.05] AI는 어떻게 유튜브를 보고 스스로 진화할까? #Shorts",
-            "type": "shorts",
-            "status": "public",
-            "uploaded_at": "2026-07-30 03:30:34"
-        }
-    ],
+    "pending_shorts": [],
     "pending_full": [
         {
             "video_id": "cogwbtcNMjw",
@@ -47,6 +39,14 @@
             "status": "public",
             "uploaded_at": "2026-07-28 20:39:05",
             "published_at": "2026-07-28 22:00:12"
+        },
+        {
+            "video_id": "zjo3RHbeUGU",
+            "title": "[S.05] AI는 어떻게 유튜브를 보고 스스로 진화할까? #Shorts",
+            "type": "shorts",
+            "status": "public",
+            "uploaded_at": "2026-07-30 03:30:34",
+            "published_at": "2026-08-13 22:00:18"
         }
     ]
 }
