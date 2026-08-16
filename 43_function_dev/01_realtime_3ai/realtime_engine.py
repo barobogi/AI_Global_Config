@@ -90,8 +90,9 @@ class Realtime3AIEngine:
         Tier 2: Auto-Notified (Refactoring, task state)
         Tier 3: Human-Approved Required (Production, deploy, core rules)
         """
-        # Circuit Breaker Check (for Tier 1 internal dialogue)
-        if tier == 1 and conversation_id != "general":
+        # Circuit Breaker Check (only for Tier 1 autonomous AI-to-AI internal debate topics)
+        is_exempt_topic = conversation_id in ("general", "general_live", "chat", "direct") or sender == "human"
+        if tier == 1 and not is_exempt_topic:
             current_turns = self.get_conversation_turn_count(conversation_id)
             if current_turns >= max_turns and not self.is_conversation_decided(conversation_id):
                 # Mark conversation as escalated in messages
