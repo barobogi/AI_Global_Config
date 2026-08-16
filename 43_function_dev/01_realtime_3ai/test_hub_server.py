@@ -9,6 +9,7 @@ Tests:
 
 import sys
 import json
+import uuid
 from pathlib import Path
 from fastapi.testclient import TestClient
 
@@ -24,13 +25,14 @@ client = TestClient(app)
 
 def test_1_rest_endpoints():
     print("\n--- [Test 1] REST API Endpoints Verification ---")
+    conv_id = f"rest_test_{uuid.uuid4().hex[:6]}"
     
     # 1. Send Message via HTTP
     payload = {
         "sender": "manbok",
         "recipient": "kony",
         "content": "REST API Test message",
-        "conversation_id": "rest_test_01",
+        "conversation_id": conv_id,
         "tier": 1
     }
     res = client.post("/send", json=payload)
@@ -46,7 +48,7 @@ def test_1_rest_endpoints():
     
     # 3. Record Decision
     dec_payload = {
-        "topic": "rest_test_01",
+        "topic": conv_id,
         "consensus_summary": "REST endpoints verified",
         "participants": ["manbok", "kony"],
         "approved_by": "3AI_consensus",
@@ -61,6 +63,7 @@ def test_1_rest_endpoints():
 
 def test_2_websocket_realtime_stream():
     print("\n--- [Test 2] WebSocket Real-Time Stream Verification ---")
+    conv_id = f"ws_test_{uuid.uuid4().hex[:6]}"
     
     with client.websocket_connect("/ws/kony") as ws_kony:
         # Send a message to kony via HTTP and check if kony receives it instantly on WebSocket
@@ -68,7 +71,7 @@ def test_2_websocket_realtime_stream():
             "sender": "anti",
             "recipient": "kony",
             "content": "Instant live WebSocket push!",
-            "conversation_id": "ws_test_01",
+            "conversation_id": conv_id,
             "tier": 2
         }
         res = client.post("/send", json=msg_payload)
@@ -86,7 +89,7 @@ def test_2_websocket_realtime_stream():
 
 def test_3_circuit_breaker_http_status():
     print("\n--- [Test 3] Circuit Breaker HTTP 429 Status Verification ---")
-    conv_id = "test_cb_http_topic"
+    conv_id = f"cb_topic_{uuid.uuid4().hex[:6]}"
     
     # Send 5 turns
     for i in range(5):
