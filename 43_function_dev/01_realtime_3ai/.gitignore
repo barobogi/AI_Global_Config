@@ -1,0 +1,10 @@
+# Ignore Live SQLite Transaction DBs to prevent git commit spam
+*.db
+*.db-wal
+*.db-shm
+
+# Keep snapshots
+!snapshots/
+!snapshots/*.parquet
+!snapshots/*.duckdb
+!snapshots/*.json
