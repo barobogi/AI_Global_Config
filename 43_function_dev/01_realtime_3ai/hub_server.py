@@ -23,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
 from realtime_engine import Realtime3AIEngine, CircuitBreakerOpenError
-from real_llm_debate import call_agent_llm, PERSONAS
 
 db_engine = Realtime3AIEngine()
 
@@ -169,65 +168,6 @@ async def send_message_http(req: SendMessageRequest):
         raise HTTPException(status_code=429, detail=str(cbe))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-def _run_real_llm_debate_background(topic: str):
-    """Background runner for 3AI real-time LLM debate with live broadcast."""
-    conv_id = f"web_debate_{int(asyncio.get_event_loop_policy().get_event_loop().time() if False else 1)}"
-    history = []
-    
-    # Broadcast debate start
-    asyncio.run(manager.broadcast_live_message({"event": "debate_started", "topic": topic}))
-    
-    # Turn 1: Manbok (Planner)
-    history.append({"role": "user", "content": f"주제 '{topic}'에 대해 3AI 토론을 시작해 주세요."})
-    manbok_t1 = call_agent_llm(PERSONAS["manbok"], history)
-    history.append({"role": "assistant", "content": f"[만복]: {manbok_t1}"})
-    db_engine.send_message("manbok", "all", manbok_t1, conversation_id=topic, tier=1)
-    asyncio.run(manager.broadcast_live_message({
-        "event": "new_message", "sender": "manbok", "recipient": "all", "content": manbok_t1
-    }))
-
-    # Turn 2: Anti (Operator)
-    history.append({"role": "user", "content": "만복 형님의 제안을 바탕으로 기술 구현자(안티) 입장에서 기술적 실현 방안과 DB/파이프라인 연계 의견을 제시해 주세요."})
-    anti_t2 = call_agent_llm(PERSONAS["anti"], history)
-    history.append({"role": "assistant", "content": f"[안티]: {anti_t2}"})
-    db_engine.send_message("anti", "all", anti_t2, conversation_id=topic, tier=1)
-    asyncio.run(manager.broadcast_live_message({
-        "event": "new_message", "sender": "anti", "recipient": "all", "content": anti_t2
-    }))
-
-    # Turn 3: Kony (Auditor)
-    history.append({"role": "user", "content": "만복 형님과 안티의 발언을 검토하여, 감사관(코니) 입장에서 보안, 규칙 거버넌스, 리스크 방어 관점의 검토 의견을 제시해 주세요."})
-    kony_t3 = call_agent_llm(PERSONAS["kony"], history)
-    history.append({"role": "assistant", "content": f"[코니]: {kony_t3}"})
-    db_engine.send_message("kony", "all", kony_t3, conversation_id=topic, tier=1)
-    asyncio.run(manager.broadcast_live_message({
-        "event": "new_message", "sender": "kony", "recipient": "all", "content": kony_t3
-    }))
-
-    # Turn 4: Manbok (Final Consensus)
-    history.append({"role": "user", "content": "안티와 코니의 의견을 모두 종합하여, 3AI 만장일치 최종 합의안과 향후 구체적 실행 단계를 확정해 주세요."})
-    manbok_t4 = call_agent_llm(PERSONAS["manbok"], history)
-    history.append({"role": "assistant", "content": f"[만복 합의]: {manbok_t4}"})
-    
-    final_brief = f"[최종 승인 및 바로보기님 브리핑]\n{manbok_t4}"
-    db_engine.send_message("manbok", "all", final_brief, conversation_id=topic, tier=1)
-    db_engine.record_decision(
-        topic=topic,
-        consensus_summary=manbok_t4[:300],
-        participants=["manbok", "anti", "kony"],
-        approved_by="3AI_live_consensus",
-        tier=1
-    )
-    asyncio.run(manager.broadcast_live_message({
-        "event": "new_message", "sender": "manbok", "recipient": "all", "content": final_brief
-    }))
-    asyncio.run(manager.broadcast_live_message({"event": "debate_finished", "topic": topic}))
-
-@app.post("/api/start_debate")
-def start_debate(req: StartDebateRequest, background_tasks: BackgroundTasks):
-    threading.Thread(target=_run_real_llm_debate_background, args=(req.topic,), daemon=True).start()
-    return {"status": "started", "topic": req.topic}
 
 if __name__ == "__main__":
     import uvicorn
