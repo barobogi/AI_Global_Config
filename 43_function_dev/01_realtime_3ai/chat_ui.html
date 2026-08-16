@@ -391,9 +391,18 @@
             "human": { name: "바로보기님", role: "Architect / Owner", emoji: "👤", class: "agent-human" }
         };
 
+        function formatDisplayTime(timestamp) {
+            if (!timestamp) return new Date().toLocaleTimeString('ko-KR', { hour12: false });
+            const parts = timestamp.trim().split(" ");
+            if (parts.length === 2) {
+                return parts[1];
+            }
+            return new Date(timestamp).toLocaleTimeString('ko-KR', { hour12: false });
+        }
+
         function appendMessage(sender, content, timestamp) {
             const agent = ROLES[sender] || { name: sender, role: "Agent", emoji: "🤖", class: "agent-anti" };
-            const timeStr = timestamp ? new Date(timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
+            const timeStr = formatDisplayTime(timestamp);
 
             // Check if it's a decision message
             if (content.startsWith("[최종 합의]") || content.includes("[최종 승인 및 바로보기님 브리핑]")) {
