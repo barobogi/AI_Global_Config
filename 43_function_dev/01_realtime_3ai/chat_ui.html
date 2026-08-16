@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3AI 실시간 라이브 채팅 룸 — Real-Time Multi-Agent Live Mesh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1f2937;
+            --border-color: #374151;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            
+            --manbok-color: #f59e0b;
+            --manbok-bg: rgba(245, 158, 11, 0.12);
+            --manbok-border: rgba(245, 158, 11, 0.35);
+
+            --kony-color: #38bdf8;
+            --kony-bg: rgba(56, 189, 248, 0.12);
+            --kony-border: rgba(56, 189, 248, 0.35);
+
+            --anti-color: #10b981;
+            --anti-bg: rgba(16, 185, 129, 0.12);
+            --anti-border: rgba(16, 185, 129, 0.35);
+
+            --human-color: #a855f7;
+            --human-bg: rgba(168, 85, 247, 0.12);
+            --human-border: rgba(168, 85, 247, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .pulse-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .agent-status-bar {
+            display: flex;
+            gap: 16px;
+        }
+
+        .agent-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Chat Section */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+            overflow: hidden;
+        }
+
+        .messages-container {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .message-card {
+            display: flex;
+            gap: 14px;
+            max-width: 85%;
+            animation: slideIn 0.25s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-body {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sender-name {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .sender-role {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .msg-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .bubble {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Specific Agent Theming */
+        .agent-manbok .avatar { background: var(--manbok-bg); border-color: var(--manbok-border); }
+        .agent-manbok .sender-name { color: var(--manbok-color); }
+        .agent-manbok .sender-role { background: var(--manbok-bg); color: var(--manbok-color); }
+        .agent-manbok .bubble { border-left: 3px solid var(--manbok-color); }
+
+        .agent-kony .avatar { background: var(--kony-bg); border-color: var(--kony-border); }
+        .agent-kony .sender-name { color: var(--kony-color); }
+        .agent-kony .sender-role { background: var(--kony-bg); color: var(--kony-color); }
+        .agent-kony .bubble { border-left: 3px solid var(--kony-color); }
+
+        .agent-anti .avatar { background: var(--anti-bg); border-color: var(--anti-border); }
+        .agent-anti .sender-name { color: var(--anti-color); }
+        .agent-anti .sender-role { background: var(--anti-bg); color: var(--anti-color); }
+        .agent-anti .bubble { border-left: 3px solid var(--anti-color); }
+
+        .agent-human .avatar { background: var(--human-bg); border-color: var(--human-border); }
+        .agent-human .sender-name { color: var(--human-color); }
+        .agent-human .sender-role { background: var(--human-bg); color: var(--human-color); }
+        .agent-human .bubble { border-left: 3px solid var(--human-color); }
+
+        /* Decision Banner */
+        .decision-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.15));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .decision-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #fbbf24;
+            font-size: 15px;
+        }
+
+        .decision-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e5e7eb;
+        }
+
+        /* Control Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 16px 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .topic-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .topic-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-launch {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-launch:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-launch:disabled {
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <span style="font-size: 24px;">🧠</span>
+            <h1>3AI 실시간 라이브 채팅 룸</h1>
+            <div class="pulse-badge">
+                <div class="pulse-dot"></div>
+                <span>LIVE SOCKET STREAM</span>
+            </div>
+        </div>
+        <div class="agent-status-bar">
+            <div class="agent-pill" style="color: var(--manbok-color);">
+                <span>🦁 만복 (Planner)</span>
+                <span style="color: #34d399;">● Online</span>
+            </div>
+            <div class="agent-pill" style="color: var(--kony-color);">
+                <span>🦉 코니 (Auditor)</span>
+                <span style="color: #34d399;">● Online</span>
+            </div>
+            <div class="agent-pill" style="color: var(--anti-color);">
+                <span>⚡ 안티 (Operator)</span>
+                <span style="color: #34d399;">● Online</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="chat-area">
+            <div class="messages-container" id="messagesContainer">
+                <!-- Messages will appear here live -->
+            </div>
+            <footer>
+                <input type="text" id="topicInput" class="topic-input" placeholder="3AI에게 실시간으로 토론 및 기획을 의뢰할 주제를 입력하세요..." value="02_rule_governance_db 실운영 적용 및 향후 고도화 로드맵">
+                <button class="btn-launch" id="btnLaunch" onclick="launchDebate()">
+                    <span>🚀 3AI 실시간 토론 시작</span>
+                </button>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        const container = document.getElementById("messagesContainer");
+        const topicInput = document.getElementById("topicInput");
+        const btnLaunch = document.getElementById("btnLaunch");
+
+        const ROLES = {
+            "manbok": { name: "만복", role: "Planner / PM", emoji: "🦁", class: "agent-manbok" },
+            "kony": { name: "코니", role: "Auditor / Analyst", emoji: "🦉", class: "agent-kony" },
+            "anti": { name: "안티", role: "Operator / Engineer", emoji: "⚡", class: "agent-anti" },
+            "human": { name: "바로보기님", role: "Architect / Owner", emoji: "👤", class: "agent-human" }
+        };
+
+        function appendMessage(sender, content, timestamp) {
+            const agent = ROLES[sender] || { name: sender, role: "Agent", emoji: "🤖", class: "agent-anti" };
+            const timeStr = timestamp ? new Date(timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
+
+            // Check if it's a decision message
+            if (content.startsWith("[최종 합의]") || content.includes("[최종 승인 및 바로보기님 브리핑]")) {
+                const decDiv = document.createElement("div");
+                decDiv.className = "decision-card";
+                decDiv.innerHTML = `
+                    <div class="decision-header">
+                        <span>🏛️ 3AI 만장일치 의사결정 합의문</span>
+                        <span style="font-size: 12px; color: var(--text-muted); font-family: monospace;">${timeStr}</span>
+                    </div>
+                    <div class="decision-text">${escapeHtml(content)}</div>
+                `;
+                container.appendChild(decDiv);
+            } else {
+                const msgDiv = document.createElement("div");
+                msgDiv.className = `message-card ${agent.class}`;
+                msgDiv.innerHTML = `
+                    <div class="avatar">${agent.emoji}</div>
+                    <div class="message-body">
+                        <div class="message-meta">
+                            <span class="sender-name">${agent.name}</span>
+                            <span class="sender-role">${agent.role}</span>
+                            <span class="msg-time">${timeStr}</span>
+                        </div>
+                        <div class="bubble">${escapeHtml(content)}</div>
+                    </div>
+                `;
+                container.appendChild(msgDiv);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.innerText = text;
+            return div.innerHTML;
+        }
+
+        // Load History
+        async function loadHistory() {
+            try {
+                const res = await fetch("/api/history");
+                const data = await res.json();
+                if (data.messages && data.messages.length > 0) {
+                    data.messages.forEach(m => {
+                        appendMessage(m.sender, m.content, m.created_at);
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load history:", e);
+            }
+        }
+
+        // WebSocket Connection
+        let socket;
+        function connectWebSocket() {
+            const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+            socket = new WebSocket(`${protocol}//${window.location.host}/ws/human`);
+
+            socket.onopen = () => {
+                console.log("[WebSocket] Connected to 3AI Live Hub.");
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.event === "new_message") {
+                    appendMessage(data.sender, data.content, new Date().toISOString());
+                } else if (data.event === "debate_started") {
+                    btnLaunch.disabled = true;
+                    btnLaunch.innerText = "⏳ 3AI 실시간 토론 진행 중...";
+                } else if (data.event === "debate_finished") {
+                    btnLaunch.disabled = false;
+                    btnLaunch.innerText = "🚀 3AI 실시간 토론 시작";
+                }
+            };
+
+            socket.onclose = () => {
+                console.log("[WebSocket] Reconnecting in 2s...");
+                setTimeout(connectWebSocket, 2000);
+            };
+        }
+
+        async function launchDebate() {
+            const topic = topicInput.value.trim();
+            if (!topic) return;
+
+            btnLaunch.disabled = true;
+            btnLaunch.innerText = "⏳ 3AI 실시간 토론 진행 중...";
+
+            try {
+                await fetch("/api/start_debate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ topic: topic })
+                });
+            } catch (e) {
+                console.error("Error launching debate:", e);
+                btnLaunch.disabled = false;
+                btnLaunch.innerText = "🚀 3AI 실시간 토론 시작";
+            }
+        }
+
+        // Init
+        loadHistory();
+        connectWebSocket();
+    </script>
+</body>
+</html>
