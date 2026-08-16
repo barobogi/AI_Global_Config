@@ -24,6 +24,17 @@ class AuditorVerdictError(Exception):
     """Raised when Auditor output fails strict JSON validation or returns FAIL."""
     pass
 
+class ImpersonationSecurityError(Exception):
+    """Raised when an unauthorized script attempts to forge or audit on behalf of another AI without session token."""
+    pass
+
+AGENT_SESSION_TOKENS = {
+    "manbok": os.environ.get("MANBOK_SESSION_TOKEN", "token_manbok_session_auth"),
+    "kony": os.environ.get("KONY_SESSION_TOKEN", "token_kony_session_auth"),
+    "anti": os.environ.get("ANTI_SESSION_TOKEN", "token_anti_session_auth"),
+    "system": "token_system_internal"
+}
+
 class RuleGovernanceEngine:
     def __init__(self, db_path: Path = DEFAULT_DB_PATH):
         self.db_path = db_path
@@ -105,11 +116,20 @@ class RuleGovernanceEngine:
 
     # --- 2. Read-Only Auditor Subagent & Structured Verification ---
     def run_auditor_verification(self, target_task: str, caller_ai: str, 
-                                 test_command: list) -> dict:
+                                 test_command: list, auth_token: str = None) -> dict:
         """
         Execute validation using Read-Only Auditor pattern.
+        Enforces security provenance: caller_ai must provide matching session auth_token.
         Enforces strict JSON schema: {"verdict": "PASS" | "FAIL", "evidence": "..."}
         """
+        # Provenance verification
+        if caller_ai in AGENT_SESSION_TOKENS:
+            expected = AGENT_SESSION_TOKENS[caller_ai]
+            if auth_token != expected and os.environ.get("ENFORCE_PROVENANCE_AUTH", "1") == "1":
+                raise ImpersonationSecurityError(
+                    f"[Security Gate] Impersonation blocked: Cannot execute audit request as '{caller_ai}' without valid session token."
+                )
+
         aud_id = f"aud_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
         
         # Execute test command in read-only / subproc environment

@@ -147,6 +147,38 @@ def test_4_project_status_registry():
     
     print("[PASS] [Test 4] Project status registry functional.")
 
+def test_5_provenance_anti_impersonation():
+    print("\n--- [Test 5] Provenance Security Gate (Anti-Impersonation) ---")
+    engine = RuleGovernanceEngine(db_path=TEST_DB_PATH)
+    
+    # 1. Valid audit with correct session token
+    python_pass_cmd = [sys.executable, "-c", "import json; print(json.dumps({'verdict': 'PASS', 'evidence': 'Authenticated audit'}))"]
+    res_valid = engine.run_auditor_verification(
+        target_task="T066_auth", 
+        caller_ai="anti", 
+        test_command=python_pass_cmd, 
+        auth_token="token_anti_session_auth"
+    )
+    assert res_valid["verdict"] == "PASS"
+    print("Valid session token accepted: PASS")
+    
+    # 2. Impersonation attempt (wrong token) -> must raise ImpersonationSecurityError
+    from rule_engine import ImpersonationSecurityError
+    impersonation_blocked = False
+    try:
+        engine.run_auditor_verification(
+            target_task="T066_auth",
+            caller_ai="manbok",
+            test_command=python_pass_cmd,
+            auth_token="fake_token_attacker"
+        )
+    except ImpersonationSecurityError as e:
+        impersonation_blocked = True
+        print(f"Impersonation successfully blocked by gate: {e}")
+        
+    assert impersonation_blocked, "Security gate allowed unauthorized AI impersonation!"
+    print("[PASS] [Test 5] Provenance security gate 100% verified.")
+
 def run_all_tests():
     print("==================================================")
     print("Running 3AI Rule Governance Production Test Suite")
@@ -155,10 +187,12 @@ def run_all_tests():
     test_2_auditor_structured_verdict()
     test_3_query_isolation()
     test_4_project_status_registry()
+    test_5_provenance_anti_impersonation()
     cleanup_test_db()
     print("\n==================================================")
-    print("ALL 4 TEST SUITES PASSED WITH 100% SUCCESS")
+    print("ALL 5 TEST SUITES PASSED WITH 100% SUCCESS")
     print("==================================================")
 
 if __name__ == "__main__":
     run_all_tests()
+
