@@ -173,7 +173,8 @@ def trigger():
     def _enum_cb(hwnd, _):
         buf = ctypes.create_unicode_buffer(256)
         ctypes.windll.user32.GetWindowTextW(hwnd, buf, 256)
-        if window_title.lower() in buf.value.lower() and ctypes.windll.user32.IsWindowVisible(hwnd):
+        val = buf.value.strip()
+        if val and window_title.lower() in val.lower():
             all_wins.append(hwnd)
         return True
     _WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_size_t, ctypes.c_size_t)
