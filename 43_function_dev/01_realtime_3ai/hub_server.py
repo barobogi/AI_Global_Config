@@ -100,7 +100,7 @@ def get_chat_ui():
 
 @app.get("/api/history")
 def get_chat_history(limit: int = 50):
-    with db_engine._get_connection(readonly=True) as conn:
+    with db_engine._get_connection() as conn:
         cursor = conn.execute(
             "SELECT * FROM messages ORDER BY id ASC LIMIT ?", (limit,)
         )
