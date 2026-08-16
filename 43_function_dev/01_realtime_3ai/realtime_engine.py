@@ -22,6 +22,18 @@ class CircuitBreakerOpenError(Exception):
     """Raised when an agent conversation exceeds maximum turn limits without consensus."""
     pass
 
+class ImpersonationSecurityError(Exception):
+    """Raised when an unauthorized script attempts to forge or record actions on behalf of another AI."""
+    pass
+
+# Authenticated session tokens for 3AI identity provenance
+AGENT_SESSION_TOKENS = {
+    "manbok": os.environ.get("MANBOK_SESSION_TOKEN", "token_manbok_session_auth"),
+    "kony": os.environ.get("KONY_SESSION_TOKEN", "token_kony_session_auth"),
+    "anti": os.environ.get("ANTI_SESSION_TOKEN", "token_anti_session_auth"),
+    "system": "token_system_internal"
+}
+
 class Realtime3AIEngine:
     MAX_TURNS_DEFAULT = 5
 
@@ -131,19 +143,29 @@ class Realtime3AIEngine:
             conn.execute("UPDATE messages SET status = ? WHERE msg_id = ?", (status, msg_id))
             conn.commit()
 
-    def record_decision(self, topic: str, consensus_summary: str, participants: list, 
-                        approved_by: str, tier: int = 1, git_ref: str = None) -> str:
-        """Record consensus, resetting/satisfying the circuit breaker for this topic."""
+    def record_decision(self, topic: str, consensus_summary: str, 
+                        participants: list, approved_by: str, tier: int = 1,
+                        git_ref: str = None, auth_token: str = None) -> str:
+        """
+        Record final consensus decision into SQLite WAL.
+        Enforces security provenance: 'approved_by' must provide matching auth_token.
+        """
+        # Provenance verification gate
+        if approved_by in AGENT_SESSION_TOKENS:
+            expected_token = AGENT_SESSION_TOKENS[approved_by]
+            if auth_token != expected_token and os.environ.get("ENFORCE_PROVENANCE_AUTH", "1") == "1":
+                raise ImpersonationSecurityError(
+                    f"[Security Gate] Impersonation blocked: Cannot sign decision as '{approved_by}' without valid session token."
+                )
+
         dec_id = f"dec_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
-        parts_str = json.dumps(participants, ensure_ascii=False)
-        
         with self._get_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO decisions (decision_id, topic, consensus_summary, participants, tier, approved_by, git_commit_ref)
+                INSERT INTO decisions (decision_id, topic, consensus_summary, participants, approved_by, tier, git_commit_ref)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
-                (dec_id, topic, consensus_summary, parts_str, tier, approved_by, git_ref)
+                (dec_id, topic, consensus_summary, json.dumps(participants, ensure_ascii=False), approved_by, tier, git_ref)
             )
             conn.commit()
         return dec_id
