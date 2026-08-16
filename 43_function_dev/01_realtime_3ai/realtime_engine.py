@@ -113,14 +113,15 @@ class Realtime3AIEngine:
 
         msg_id = f"msg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
         meta_str = json.dumps(metadata or {}, ensure_ascii=False)
+        local_time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         with self._get_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO messages (msg_id, conversation_id, sender, recipient, content, tier, status, metadata)
-                VALUES (?, ?, ?, ?, ?, ?, 'unread', ?)
+                INSERT INTO messages (msg_id, conversation_id, sender, recipient, content, tier, status, metadata, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, 'unread', ?, ?)
                 """,
-                (msg_id, conversation_id, sender, recipient, content, tier, meta_str)
+                (msg_id, conversation_id, sender, recipient, content, tier, meta_str, local_time_str)
             )
             conn.commit()
 
