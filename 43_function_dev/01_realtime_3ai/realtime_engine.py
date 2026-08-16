@@ -1,5 +1,5 @@
 """
-3AI Real-Time Hybrid Engine (SQLite WAL + DuckDB Exporter)
+3AI Real-Time Hybrid Engine (SQLite WAL + DuckDB Daily Delta Exporter + Circuit Breaker)
 Project: 43_function_dev/01_realtime_3ai
 Author: Anti (Operator)
 """
@@ -10,7 +10,7 @@ import time
 import json
 import sqlite3
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 
 # Paths
@@ -18,7 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent
 DEFAULT_SQLITE_PATH = BASE_DIR / "realtime_3ai.db"
 DEFAULT_DUCKDB_DIR = BASE_DIR / "snapshots"
 
+class CircuitBreakerOpenError(Exception):
+    """Raised when an agent conversation exceeds maximum turn limits without consensus."""
+    pass
+
 class Realtime3AIEngine:
+    MAX_TURNS_DEFAULT = 5
+
     def __init__(self, db_path: Path = DEFAULT_SQLITE_PATH):
         self.db_path = db_path
         self._init_db()
@@ -40,14 +46,59 @@ class Realtime3AIEngine:
                 conn.executescript(schema_sql)
                 conn.commit()
 
+    def get_conversation_turn_count(self, conversation_id: str) -> int:
+        """Count the number of non-system dialogue turns in a conversation."""
+        with self._get_connection() as conn:
+            cursor = conn.execute(
+                """
+                SELECT COUNT(*) as cnt FROM messages 
+                WHERE conversation_id = ? AND sender IN ('manbok', 'kony', 'anti')
+                """,
+                (conversation_id,)
+            )
+            row = cursor.fetchone()
+            return row["cnt"] if row else 0
+
+    def is_conversation_decided(self, conversation_id: str) -> bool:
+        """Check if a decision/consensus has already been recorded for this topic."""
+        with self._get_connection() as conn:
+            cursor = conn.execute(
+                "SELECT COUNT(*) as cnt FROM decisions WHERE topic = ?",
+                (conversation_id,)
+            )
+            row = cursor.fetchone()
+            return (row["cnt"] > 0) if row else False
+
     def send_message(self, sender: str, recipient: str, content: str, 
-                     conversation_id: str = "general", tier: int = 1, metadata: dict = None) -> str:
+                     conversation_id: str = "general", tier: int = 1, 
+                     metadata: dict = None, max_turns: int = MAX_TURNS_DEFAULT) -> str:
         """
-        Send a real-time message between agents.
-        Tier 1: Zero-Human (Internal brainstorm, syntax test)
+        Send a real-time message between agents with Circuit Breaker protection.
+        Tier 1: Zero-Human (Internal brainstorm, syntax test) - Hard Cap 5 turns
         Tier 2: Auto-Notified (Refactoring, task state)
         Tier 3: Human-Approved Required (Production, deploy, core rules)
         """
+        # Circuit Breaker Check (for Tier 1 internal dialogue)
+        if tier == 1 and conversation_id != "general":
+            current_turns = self.get_conversation_turn_count(conversation_id)
+            if current_turns >= max_turns and not self.is_conversation_decided(conversation_id):
+                # Mark conversation as escalated in messages
+                esc_msg_id = f"esc_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+                with self._get_connection() as conn:
+                    conn.execute(
+                        """
+                        INSERT INTO messages (msg_id, conversation_id, sender, recipient, content, tier, status, metadata)
+                        VALUES (?, ?, 'system', 'all', ?, 1, 'escalated', ?)
+                        """,
+                        (esc_msg_id, conversation_id, 
+                         f"[Circuit Breaker Tripped] 대화 {conversation_id}가 {max_turns}턴 내 합의에 도달하지 못해 강제 중단되었습니다.",
+                         json.dumps({"reason": "max_turns_exceeded", "turns": current_turns}))
+                    )
+                    conn.commit()
+                raise CircuitBreakerOpenError(
+                    f"Circuit Breaker Tripped: Conversation '{conversation_id}' exceeded {max_turns} turns without consensus."
+                )
+
         msg_id = f"msg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
         meta_str = json.dumps(metadata or {}, ensure_ascii=False)
         
@@ -82,6 +133,7 @@ class Realtime3AIEngine:
 
     def record_decision(self, topic: str, consensus_summary: str, participants: list, 
                         approved_by: str, tier: int = 1, git_ref: str = None) -> str:
+        """Record consensus, resetting/satisfying the circuit breaker for this topic."""
         dec_id = f"dec_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
         parts_str = json.dumps(participants, ensure_ascii=False)
         
@@ -113,49 +165,64 @@ class Realtime3AIEngine:
             )
             conn.commit()
 
-    def export_daily_snapshot_to_duckdb(self, export_dir: Path = DEFAULT_DUCKDB_DIR) -> Path:
+    def export_daily_snapshot_to_duckdb(self, target_date: str = None, export_dir: Path = DEFAULT_DUCKDB_DIR) -> Path:
         """
-        Export live SQLite messages & decisions into a DuckDB / Parquet snapshot for Git versioning.
+        Export ONLY the delta (rows created on target_date) into a DuckDB / Parquet snapshot.
+        This ensures each daily snapshot file is an independent, non-bloating daily delta.
+        target_date: YYYY-MM-DD or YYYYMMDD format. Default is today.
         """
         export_dir.mkdir(parents=True, exist_ok=True)
-        today_str = datetime.now().strftime("%Y%m%d")
-        snapshot_file = export_dir / f"snapshot_{today_str}.parquet"
+        if not target_date:
+            target_date = datetime.now().strftime("%Y-%m-%d")
+        else:
+            # Normalize target_date to YYYY-MM-DD
+            target_date = target_date.replace("_", "-")
+            if len(target_date) == 8:
+                target_date = f"{target_date[:4]}-{target_date[4:6]}-{target_date[6:]}"
+
+        date_compact = target_date.replace("-", "")
         
-        # Read from SQLite
+        # Read ONLY today's delta from SQLite
         with self._get_connection() as conn:
-            cursor = conn.execute("SELECT * FROM messages")
-            messages_data = [dict(r) for r in cursor.fetchall()]
+            cursor = conn.execute(
+                "SELECT * FROM messages WHERE DATE(created_at) = DATE(?)",
+                (target_date,)
+            )
+            messages_delta = [dict(r) for r in cursor.fetchall()]
             
-            cursor = conn.execute("SELECT * FROM decisions")
-            decisions_data = [dict(r) for r in cursor.fetchall()]
+            cursor = conn.execute(
+                "SELECT * FROM decisions WHERE DATE(created_at) = DATE(?)",
+                (target_date,)
+            )
+            decisions_delta = [dict(r) for r in cursor.fetchall()]
 
         # Try DuckDB if available, otherwise structured JSON snapshot
         try:
             import duckdb
-            duck_db_file = export_dir / f"archive_{today_str}.duckdb"
+            duck_db_file = export_dir / f"delta_{date_compact}.duckdb"
             con = duckdb.connect(str(duck_db_file))
-            con.execute("CREATE OR REPLACE TABLE daily_messages AS SELECT * FROM sqlite_scan(?, 'messages')", (str(self.db_path),))
-            con.execute("CREATE OR REPLACE TABLE daily_decisions AS SELECT * FROM sqlite_scan(?, 'decisions')", (str(self.db_path),))
+            con.execute(
+                "CREATE OR REPLACE TABLE daily_messages AS SELECT * FROM sqlite_scan(?, 'messages') WHERE strftime(created_at, '%Y-%m-%d') = ?",
+                (str(self.db_path), target_date)
+            )
+            con.execute(
+                "CREATE OR REPLACE TABLE daily_decisions AS SELECT * FROM sqlite_scan(?, 'decisions') WHERE strftime(created_at, '%Y-%m-%d') = ?",
+                (str(self.db_path), target_date)
+            )
             con.close()
             return duck_db_file
         except Exception:
-            # Fallback to structured JSON snapshot
-            json_file = export_dir / f"snapshot_{today_str}.json"
+            json_file = export_dir / f"delta_{date_compact}.json"
             snapshot_payload = {
+                "snapshot_date": target_date,
                 "exported_at": datetime.now().isoformat(),
-                "messages": messages_data,
-                "decisions": decisions_data
+                "row_counts": {
+                    "messages": len(messages_delta),
+                    "decisions": len(decisions_delta)
+                },
+                "messages": messages_delta,
+                "decisions": decisions_delta
             }
             with open(json_file, "w", encoding="utf-8") as f:
                 json.dump(snapshot_payload, f, ensure_ascii=False, indent=2)
             return json_file
-
-if __name__ == "__main__":
-    engine = Realtime3AIEngine()
-    print("Initializing 3AI Real-Time Engine...")
-    msg_id = engine.send_message("anti", "kony", "Real-time engine self-test", conversation_id="T065_test", tier=1)
-    print(f"Sent message ID: {msg_id}")
-    unread = engine.get_unread_messages("kony")
-    print(f"Unread messages for Kony: {len(unread)}")
-    snap = engine.export_daily_snapshot_to_duckdb()
-    print(f"Exported snapshot to: {snap}")
