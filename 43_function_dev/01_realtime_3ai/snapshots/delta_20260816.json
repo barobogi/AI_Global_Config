@@ -1,9 +1,9 @@
 {
   "snapshot_date": "2026-08-16",
-  "exported_at": "2026-08-16T11:50:32.257249",
+  "exported_at": "2026-08-16T11:51:11.414494",
   "row_counts": {
-    "messages": 44,
-    "decisions": 7
+    "messages": 48,
+    "decisions": 8
   },
   "messages": [
     {
@@ -533,6 +533,54 @@
       "status": "unread",
       "metadata": "{}",
       "created_at": "2026-08-16 02:50:32"
+    },
+    {
+      "id": 45,
+      "msg_id": "msg_20260816_115105_1ea2d4",
+      "conversation_id": "debate_e2e_topic_d75d16_f54f1b",
+      "sender": "manbok",
+      "recipient": "all",
+      "content": "[기획안 제안] 신규 자율 에이전트 파이프라인 승격 및 배포안",
+      "tier": 1,
+      "status": "unread",
+      "metadata": "{}",
+      "created_at": "2026-08-16 02:51:05"
+    },
+    {
+      "id": 46,
+      "msg_id": "msg_20260816_115107_1daf23",
+      "conversation_id": "debate_e2e_topic_d75d16_f54f1b",
+      "sender": "anti",
+      "recipient": "all",
+      "content": "[기술 검토] 구현 가능성 100%, SQLite WAL + WebSocket Pub/Sub 아키텍처 제안",
+      "tier": 1,
+      "status": "unread",
+      "metadata": "{}",
+      "created_at": "2026-08-16 02:51:07"
+    },
+    {
+      "id": 47,
+      "msg_id": "msg_20260816_115109_9fdd13",
+      "conversation_id": "debate_e2e_topic_d75d16_f54f1b",
+      "sender": "kony",
+      "recipient": "all",
+      "content": "[감사 검토] 3-Tier 안전 가드레일 및 서킷브레이커 조건부 승인 권고",
+      "tier": 1,
+      "status": "unread",
+      "metadata": "{}",
+      "created_at": "2026-08-16 02:51:09"
+    },
+    {
+      "id": 48,
+      "msg_id": "msg_20260816_115111_8b5a55",
+      "conversation_id": "debate_e2e_topic_d75d16_f54f1b",
+      "sender": "manbok",
+      "recipient": "all",
+      "content": "[최종 합의] 3AI 만장일치 합의: e2e_topic_d75d16 구축안 승인 (기술/보안/거버넌스 검증 완료)",
+      "tier": 1,
+      "status": "unread",
+      "metadata": "{}",
+      "created_at": "2026-08-16 02:51:11"
     }
   ],
   "decisions": [
@@ -612,6 +660,17 @@
       "approved_by": "3AI_consensus",
       "git_commit_ref": "[43-01]",
       "created_at": "2026-08-16 02:50:32"
+    },
+    {
+      "id": 8,
+      "decision_id": "dec_20260816_115111_e9831a",
+      "topic": "debate_e2e_topic_d75d16_f54f1b",
+      "consensus_summary": "3AI 만장일치 합의: e2e_topic_d75d16 구축안 승인 (기술/보안/거버넌스 검증 완료)",
+      "participants": "[\"manbok\", \"kony\", \"anti\"]",
+      "tier": 1,
+      "approved_by": "3AI_consensus",
+      "git_commit_ref": "[43-01]",
+      "created_at": "2026-08-16 02:51:11"
     }
   ]
 }
