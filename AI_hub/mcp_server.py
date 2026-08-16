@@ -34,6 +34,8 @@ def get_idle_time():
     millis = ctypes.windll.kernel32.GetTickCount() - lii.dwTime
     return millis / 1000.0
 
+import sqlite3
+
 def load_registry():
     try:
         with open(REGISTRY_PATH, "r", encoding="utf-8") as f:
@@ -41,6 +43,30 @@ def load_registry():
     except Exception as e:
         logging.error(f"Failed to load registry: {e}")
         return {}
+
+def get_dynamic_trigger_message(target: str) -> str:
+    db_path = r"D:\AI\43_function_dev\01_realtime_3ai\realtime_3ai.db"
+    try:
+        if os.path.exists(db_path):
+            with sqlite3.connect(db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.execute(
+                    "SELECT sender, content FROM messages WHERE (recipient = ? OR recipient = 'all') ORDER BY id DESC LIMIT 1",
+                    (target,)
+                )
+                row = cursor.fetchone()
+                if row:
+                    sender = row["sender"]
+                    preview = row["content"].strip()[:70].replace("\n", " ")
+                    return f"[{sender} 알림] {preview}... (수신함 및 실시간 채팅 확인 후 지침에 따라 처리해 주세요)"
+    except Exception as e:
+        logging.warning(f"Failed to fetch dynamic unread summary: {e}")
+
+    if target == "manbok":
+        return "수신함(inbox.md)의 최신 1순위 메시지를 확인하고 검토 후 지침에 따라 처리해 주세요."
+    elif target == "kony":
+        return "수신함(inbox.md)의 최신 검토/감사 요청 메시지를 확인하고 판정해 주세요."
+    return "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
 
 def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
     try:
@@ -191,11 +217,7 @@ def trigger():
         logging.warning(f"Target '{target}' (window '{window_title}') not found. Returning 404 for Fallback.")
         return jsonify({"status": "failed", "error": "window_not_found"}), 404
 
-    msg = "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
-    if target == "manbok":
-        msg = "수신함(inbox.md)의 최신 1순위 메시지를 확인하고 지침에 따라 처리해 주세요."
-    elif target == "kony":
-        msg = "수신함(inbox.md)의 최신 검토/감사 요청 메시지를 확인하고 판정해 주세요."
+    msg = get_dynamic_trigger_message(target)
     t = threading.Thread(target=trigger_agent_ui_task, args=(target, window_title, shortcut, msg))
     t.start()
     return jsonify({"status": "success", "message": f"{target} triggered"}), 200
