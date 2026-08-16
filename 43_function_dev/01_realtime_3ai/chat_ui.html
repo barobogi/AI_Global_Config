@@ -341,18 +341,48 @@
                 <!-- Messages will appear here live -->
             </div>
             <footer>
-                <input type="text" id="topicInput" class="topic-input" placeholder="3AI에게 실시간으로 토론 및 기획을 의뢰할 주제를 입력하세요..." value="02_rule_governance_db 실운영 적용 및 향후 고도화 로드맵">
-                <button class="btn-launch" id="btnLaunch" onclick="launchDebate()">
-                    <span>🚀 3AI 실시간 토론 시작</span>
-                </button>
+                <div style="display: flex; gap: 12px; width: 100%;">
+                    <input type="text" id="userInput" class="topic-input" style="flex: 1;" placeholder="바로보기님 메시지를 입력하세요 (Enter로 전송)..." onkeydown="if(event.key === 'Enter') sendUserMessage()">
+                    <button class="btn-launch" id="btnSend" onclick="sendUserMessage()" style="background: var(--human-color); width: 120px;">
+                        <span>💬 전송</span>
+                    </button>
+                </div>
             </footer>
         </div>
     </main>
 
     <script>
         const container = document.getElementById("messagesContainer");
-        const topicInput = document.getElementById("topicInput");
-        const btnLaunch = document.getElementById("btnLaunch");
+        const userInput = document.getElementById("userInput");
+        const btnSend = document.getElementById("btnSend");
+
+        async function sendUserMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            userInput.value = "";
+            btnSend.disabled = true;
+
+            try {
+                await fetch("/send", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sender: "human",
+                        recipient: "all",
+                        content: text,
+                        conversation_id: "general_live",
+                        tier: 1
+                    })
+                });
+                loadHistory();
+            } catch (e) {
+                console.error("Error sending user message:", e);
+            } finally {
+                btnSend.disabled = false;
+                userInput.focus();
+            }
+        }
 
         const ROLES = {
             "manbok": { name: "만복", role: "Planner / PM", emoji: "🦁", class: "agent-manbok" },
