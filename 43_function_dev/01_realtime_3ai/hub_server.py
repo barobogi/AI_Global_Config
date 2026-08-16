@@ -69,6 +69,7 @@ class SendMessageRequest(BaseModel):
     conversation_id: str = "general"
     tier: int = 1
     metadata: dict = None
+    auth_token: str = None
 
 class StartDebateRequest(BaseModel):
     topic: str
@@ -118,13 +119,15 @@ async def websocket_endpoint(websocket: WebSocket, agent_name: str):
                 content = msg_payload.get("content", "")
                 conversation_id = msg_payload.get("conversation_id", "general")
                 tier = int(msg_payload.get("tier", 1))
+                auth_token = msg_payload.get("auth_token")
                 
                 msg_id = db_engine.send_message(
                     sender=sender,
                     recipient=recipient,
                     content=content,
                     conversation_id=conversation_id,
-                    tier=tier
+                    tier=tier,
+                    auth_token=auth_token
                 )
                 
                 out_payload = {
@@ -151,7 +154,8 @@ async def send_message_http(req: SendMessageRequest):
             content=req.content,
             conversation_id=req.conversation_id,
             tier=req.tier,
-            metadata=req.metadata
+            metadata=req.metadata,
+            auth_token=req.auth_token
         )
         out_payload = {
             "event": "new_message",
