@@ -78,14 +78,24 @@ def test_2_auditor_structured_verdict():
     
     # Case A: Auditor command returning valid PASS JSON
     python_pass_cmd = [sys.executable, "-c", "import json; print(json.dumps({'verdict': 'PASS', 'evidence': 'All 3 tests passed cleanly'}))"]
-    res_pass = engine.run_auditor_verification(target_task="T066_test", caller_ai="anti", test_command=python_pass_cmd)
+    res_pass = engine.run_auditor_verification(
+        target_task="T066_test", 
+        caller_ai="anti", 
+        test_command=python_pass_cmd, 
+        auth_token="token_anti_session_auth"
+    )
     print(f"Auditor Pass Result: {res_pass}")
     assert res_pass["verdict"] == "PASS"
     assert "All 3 tests passed" in res_pass["evidence"]
     
     # Case B: Auditor command returning valid FAIL JSON
     python_fail_cmd = [sys.executable, "-c", "import json; print(json.dumps({'verdict': 'FAIL', 'evidence': 'AssertionError on turn 6'}))"]
-    res_fail = engine.run_auditor_verification(target_task="T066_test", caller_ai="anti", test_command=python_fail_cmd)
+    res_fail = engine.run_auditor_verification(
+        target_task="T066_test", 
+        caller_ai="anti", 
+        test_command=python_fail_cmd, 
+        auth_token="token_anti_session_auth"
+    )
     print(f"Auditor Fail Result: {res_fail}")
     assert res_fail["verdict"] == "FAIL"
     assert "AssertionError" in res_fail["evidence"]
