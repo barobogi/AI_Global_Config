@@ -402,14 +402,19 @@
             return div.innerHTML;
         }
 
-        // Load History
+        const renderedMsgIds = new Set();
+
+        // Load History with Deduplication & Auto-Sync
         async function loadHistory() {
             try {
-                const res = await fetch("/api/history");
+                const res = await fetch("/api/history?limit=100");
                 const data = await res.json();
                 if (data.messages && data.messages.length > 0) {
                     data.messages.forEach(m => {
-                        appendMessage(m.sender, m.content, m.created_at);
+                        if (!renderedMsgIds.has(m.msg_id)) {
+                            renderedMsgIds.add(m.msg_id);
+                            appendMessage(m.sender, m.content, m.created_at);
+                        }
                     });
                 }
             } catch (e) {
@@ -430,7 +435,10 @@
             socket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 if (data.event === "new_message") {
-                    appendMessage(data.sender, data.content, new Date().toISOString());
+                    if (!renderedMsgIds.has(data.msg_id)) {
+                        renderedMsgIds.add(data.msg_id);
+                        appendMessage(data.sender, data.content, new Date().toISOString());
+                    }
                 } else if (data.event === "debate_started") {
                     btnLaunch.disabled = true;
                     btnLaunch.innerText = "⏳ 3AI 실시간 토론 진행 중...";
@@ -469,6 +477,7 @@
         // Init
         loadHistory();
         connectWebSocket();
+        setInterval(loadHistory, 2000); // Auto-sync with DB every 2 seconds
     </script>
 </body>
 </html>
