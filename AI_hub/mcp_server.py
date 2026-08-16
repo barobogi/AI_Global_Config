@@ -190,10 +190,10 @@ def trigger():
             "사용자에게 되묻지 말고 지시 내용에 따라 즉시 자율 코딩 및 구현에 착수하세요."
         )
     elif target == "kony":
-        msg += (
-            "\n\n[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
-            "절대 자체적으로 백그라운드 태스크나 스케줄(/schedule, cron 등)을 예약하지 마십시오. "
-            "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
+        msg = (
+            "코니야! 안티가 실시간 DB 채팅방(conversation_id: 'anti_kony_live_chat_01')을 열고 검토 요청 메시지를 보냈습니다. "
+            "D:\\AI\\43_function_dev\\01_realtime_3ai\\realtime_3ai.db 의 messages 테이블을 확인하고, "
+            "코니의 실제 감사 의견을 realtime_engine.py 또는 agent_client.py를 통해 직접 답변으로 작성해 주세요."
         )
     t = threading.Thread(target=trigger_agent_ui_task, args=(target, window_title, shortcut, msg))
     t.start()
