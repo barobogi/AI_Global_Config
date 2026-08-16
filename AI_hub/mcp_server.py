@@ -184,7 +184,12 @@ def trigger():
         return jsonify({"status": "failed", "error": "window_not_found"}), 404
 
     msg = "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
-    if target == "kony":
+    if target == "manbok":
+        msg = (
+            "수신함(inbox.md)의 긴급 1순위 항목(실시간3AI 세션 어댑터 구현)을 즉시 확인하고, "
+            "사용자에게 되묻지 말고 지시 내용에 따라 즉시 자율 코딩 및 구현에 착수하세요."
+        )
+    elif target == "kony":
         msg += (
             "\n\n[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
             "절대 자체적으로 백그라운드 태스크나 스케줄(/schedule, cron 등)을 예약하지 마십시오. "
