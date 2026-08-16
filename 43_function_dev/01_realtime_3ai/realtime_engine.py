@@ -83,13 +83,22 @@ class Realtime3AIEngine:
 
     def send_message(self, sender: str, recipient: str, content: str, 
                      conversation_id: str = "general", tier: int = 1, 
-                     metadata: dict = None, max_turns: int = MAX_TURNS_DEFAULT) -> str:
+                     metadata: dict = None, max_turns: int = MAX_TURNS_DEFAULT,
+                     auth_token: str = None) -> str:
         """
-        Send a real-time message between agents with Circuit Breaker protection.
+        Send a real-time message between agents with Circuit Breaker and Provenance protection.
         Tier 1: Zero-Human (Internal brainstorm, syntax test) - Hard Cap 5 turns
         Tier 2: Auto-Notified (Refactoring, task state)
         Tier 3: Human-Approved Required (Production, deploy, core rules)
         """
+        # Provenance verification gate for sender
+        if sender in AGENT_SESSION_TOKENS and sender not in ("system", "test_runner"):
+            expected_token = AGENT_SESSION_TOKENS[sender]
+            if auth_token != expected_token and os.environ.get("ENFORCE_PROVENANCE_AUTH", "1") == "1":
+                raise ImpersonationSecurityError(
+                    f"[Security Gate] Impersonation blocked: Cannot send message as '{sender}' without valid session token."
+                )
+
         # Circuit Breaker Check (only for Tier 1 autonomous AI-to-AI internal debate topics)
         is_exempt_topic = conversation_id in ("general", "general_live", "chat", "direct") or sender == "human"
         if tier == 1 and not is_exempt_topic:

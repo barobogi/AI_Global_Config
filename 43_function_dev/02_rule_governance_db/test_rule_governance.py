@@ -100,13 +100,25 @@ def test_2_auditor_structured_verdict():
     assert res_fail["verdict"] == "FAIL"
     assert "AssertionError" in res_fail["evidence"]
     
-    # Verify audit logs in DB
+    # Case C: Exit code 0 but missing structured JSON -> MUST BE FAIL
+    python_no_json_cmd = [sys.executable, "-c", "print('Build succeeded without JSON output')"]
+    res_no_json = engine.run_auditor_verification(
+        target_task="T066_test",
+        caller_ai="anti",
+        test_command=python_no_json_cmd,
+        auth_token="token_anti_session_auth"
+    )
+    print(f"Auditor Missing JSON Result: {res_no_json}")
+    assert res_no_json["verdict"] == "FAIL", "Missing JSON output was not marked as FAIL!"
+    assert "Strict JSON violation" in res_no_json["evidence"]
+    
+    # Verify audit logs in DB (3 cases: Pass, Fail, No-JSON-Fail)
     with engine._get_connection() as conn:
         cursor = conn.execute("SELECT COUNT(*) as cnt FROM rule_audit_logs WHERE target_task = 'T066_test'")
         log_cnt = cursor.fetchone()["cnt"]
-        assert log_cnt == 2
+        assert log_cnt == 3
         
-    print("[PASS] [Test 2] Structured Auditor output enforcement & audit logging verified.")
+    print("[PASS] [Test 2] Structured Auditor output enforcement & strict non-JSON FAIL verified.")
 
 def test_3_query_isolation():
     print("\n--- [Test 3] Query Isolation & Fast Read Connection ---")

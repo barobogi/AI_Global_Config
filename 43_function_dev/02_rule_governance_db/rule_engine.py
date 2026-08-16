@@ -148,17 +148,11 @@ class RuleGovernanceEngine:
             # Parse structured JSON verdict from output
             parsed = self._extract_structured_verdict(stdout)
             if not parsed:
-                # If command exited 0 and no JSON, parse based on exit code & output
-                if res.returncode == 0:
-                    parsed = {
-                        "verdict": "PASS",
-                        "evidence": f"Process exited with code 0. Output:\n{stdout[:500]}"
-                    }
-                else:
-                    parsed = {
-                        "verdict": "FAIL",
-                        "evidence": f"Process exited with code {res.returncode}. Error:\n{stderr[:500]}\nOutput:\n{stdout[:500]}"
-                    }
+                # Strict enforcement: Missing or invalid JSON output is ALWAYS a FAIL verdict
+                parsed = {
+                    "verdict": "FAIL",
+                    "evidence": f"Strict JSON violation: Auditor output does not contain structured JSON schema {{'verdict': 'PASS'|'FAIL', 'evidence': '...'}}. ExitCode: {res.returncode}. Output:\n{stdout[:300]}"
+                }
         except Exception as e:
             parsed = {
                 "verdict": "FAIL",
