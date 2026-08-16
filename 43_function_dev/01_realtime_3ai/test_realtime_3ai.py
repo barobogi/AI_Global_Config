@@ -22,7 +22,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
-from realtime_engine import Realtime3AIEngine, CircuitBreakerOpenError
+from realtime_engine import Realtime3AIEngine, CircuitBreakerOpenError, AGENT_SESSION_TOKENS
 
 TEST_DB_PATH = BASE_DIR / "test_realtime_3ai.db"
 TEST_SNAPSHOTS_DIR = BASE_DIR / "test_snapshots"
@@ -30,13 +30,15 @@ TEST_SNAPSHOTS_DIR = BASE_DIR / "test_snapshots"
 def _worker_write_task(agent_name: str, msg_count: int, db_path: Path):
     """Worker function executed by independent OS processes."""
     engine = Realtime3AIEngine(db_path=db_path)
+    auth_tok = AGENT_SESSION_TOKENS.get(agent_name)
     for i in range(msg_count):
         engine.send_message(
             sender=agent_name,
             recipient="all",
             content=f"Concurrent message {i} from {agent_name}",
             conversation_id="stress_test",
-            tier=2
+            tier=2,
+            auth_token=auth_tok
         )
         time.sleep(0.01)
 
@@ -102,7 +104,8 @@ def test_2_circuit_breaker():
             recipient="all",
             content=f"Debate turn {turn+1}",
             conversation_id=conv_id,
-            tier=1
+            tier=1,
+            auth_token=AGENT_SESSION_TOKENS.get(sender)
         )
         
     turn_count = engine.get_conversation_turn_count(conv_id)
@@ -117,7 +120,8 @@ def test_2_circuit_breaker():
             recipient="anti",
             content="6th turn should be blocked",
             conversation_id=conv_id,
-            tier=1
+            tier=1,
+            auth_token=AGENT_SESSION_TOKENS.get("kony")
         )
     except CircuitBreakerOpenError as e:
         tripped = True
@@ -214,7 +218,7 @@ def test_5_provenance_and_trigger_dispatch():
     print(f"Authenticated decision recorded: {dec_id}")
     
     # 2. Decision record with forged/unauthorized token -> must raise ImpersonationSecurityError
-    blocked = False
+    blocked_dec = False
     try:
         engine.record_decision(
             topic="T065_auth_test",
@@ -225,18 +229,36 @@ def test_5_provenance_and_trigger_dispatch():
             auth_token="invalid_forged_token"
         )
     except ImpersonationSecurityError as e:
-        blocked = True
-        print(f"Impersonation blocked: {e}")
+        blocked_dec = True
+        print(f"Decision impersonation blocked: {e}")
         
-    assert blocked, "Impersonation was not blocked by provenance gate!"
+    assert blocked_dec, "Decision impersonation was not blocked by provenance gate!"
+
+    # 3. Message sending with forged/unauthorized token -> must raise ImpersonationSecurityError
+    blocked_msg = False
+    try:
+        engine.send_message(
+            sender="manbok",
+            recipient="all",
+            content="Forged message without token",
+            conversation_id="trigger_test",
+            tier=1,
+            auth_token="invalid_forged_token"
+        )
+    except ImpersonationSecurityError as e:
+        blocked_msg = True
+        print(f"Message send impersonation blocked: {e}")
+
+    assert blocked_msg, "Message send impersonation was not blocked by provenance gate!"
     
-    # 3. Trigger dispatch check (send message to kony triggers dispatch)
+    # 4. Trigger dispatch check (send message with valid token to kony triggers dispatch)
     msg_id = engine.send_message(
         sender="anti",
         recipient="kony",
         content="Test trigger dispatch message",
         conversation_id="trigger_test",
-        tier=1
+        tier=1,
+        auth_token=AGENT_SESSION_TOKENS.get("anti")
     )
     assert msg_id.startswith("msg_")
     print(f"Message sent and trigger dispatched: {msg_id}")
