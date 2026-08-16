@@ -76,25 +76,32 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
         with _ui_lock:
             hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
-            pyautogui.press('alt')
-            time.sleep(0.1)
-
-            ctypes.windll.user32.ShowWindow(hwnd, 9)
-            time.sleep(0.2)
+            # Bring target window to top reliably
+            ctypes.windll.user32.ShowWindow(hwnd, 9)  # SW_RESTORE
+            time.sleep(0.15)
             ctypes.windll.user32.SetForegroundWindow(hwnd)
-            time.sleep(0.5)
+            time.sleep(0.3)
+
+            # Strict guard: If target window failed to gain focus, DO NOT press keys or paste!
+            current_fg = ctypes.windll.user32.GetForegroundWindow()
+            if current_fg != hwnd:
+                logging.warning(
+                    f"Focus verification failed for {agent_id} (target={hwnd}, current_fg={current_fg}). "
+                    f"Aborting keystroke injection to protect active applications/browser."
+                )
+                return False
 
             if len(shortcut) > 0:
                 pyautogui.hotkey(*shortcut)
-                time.sleep(0.5)
+                time.sleep(0.4)
 
             pyperclip.copy(message)
             pyautogui.hotkey('ctrl', 'v')
             time.sleep(0.3)
             pyautogui.press('enter')
-            time.sleep(0.5)
+            time.sleep(0.3)
 
-            if hwnd_active:
+            if hwnd_active and hwnd_active != hwnd:
                 ctypes.windll.user32.SetForegroundWindow(hwnd_active)
 
         logging.info(f"PyAutoGUI successfully triggered {agent_id}.")
@@ -186,16 +193,9 @@ def trigger():
 
     msg = "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
     if target == "manbok":
-        msg = (
-            "수신함(inbox.md)의 긴급 1순위 항목(실시간3AI 세션 어댑터 구현)을 즉시 확인하고, "
-            "사용자에게 되묻지 말고 지시 내용에 따라 즉시 자율 코딩 및 구현에 착수하세요."
-        )
+        msg = "수신함(inbox.md)의 최신 1순위 메시지를 확인하고 지침에 따라 처리해 주세요."
     elif target == "kony":
-        msg = (
-            "코니야! 안티가 실시간 DB 채팅방(conversation_id: 'anti_kony_live_chat_01')을 열고 검토 요청 메시지를 보냈습니다. "
-            "D:\\AI\\43_function_dev\\01_realtime_3ai\\realtime_3ai.db 의 messages 테이블을 확인하고, "
-            "코니의 실제 감사 의견을 realtime_engine.py 또는 agent_client.py를 통해 직접 답변으로 작성해 주세요."
-        )
+        msg = "수신함(inbox.md)의 최신 검토/감사 요청 메시지를 확인하고 판정해 주세요."
     t = threading.Thread(target=trigger_agent_ui_task, args=(target, window_title, shortcut, msg))
     t.start()
     return jsonify({"status": "success", "message": f"{target} triggered"}), 200
