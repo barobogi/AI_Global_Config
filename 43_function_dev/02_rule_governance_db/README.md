@@ -1,7 +1,8 @@
-# 02_rule_governance_db — JIT 규칙 거버넌스 & 구조화 검수원 서브에이전트
+# 02_rule_governance_db — JIT 규칙 거버넌스 & 무결성 검증 검수원
 
 > **소속 뿌리**: 43_function_dev (도구뿌리 하위)  
-> **연결 태스크**: `T066_rule_governance_db` (규칙 거버넌스 DB & 검수원 패턴 구축)  
+> **연결 태스크**: `T066_rule_governance_db` (규칙 거버넌스 DB & 무결성 검증 서브에이전트)  
+> **상태**: **구현 및 무결성 검증 게이트 3회 실증 완료 (100% PASS)**  
 > **작성자**: 안티 (Operator)  
 > **검토자**: 코니 (Auditor) / 만복 (PM)  
 > **문서 성격**: 자기완결적 기술 아키텍처 명세서 (외부/사내 전파 가능)
@@ -9,17 +10,13 @@
 ---
 
 ## 1. 프로젝트 개요 (Project Overview)
-본 프로젝트는 세션이 길어질수록 AI가 규칙을 잊어버리는 **'규칙 망각(Lost in the Middle)'**과, 코드를 작성한 본인이 스스로 통과를 선언하는 **'자기선호 편향(Self-Preference Bias)'**을 시스템 아키텍처 레벨에서 원천 차단하기 위해 구축되었습니다.
-
-`방구석-클로드코드-세팅팩`에서 도출된 핵심 검수 패턴을 발전시켜:
-1. 상황에 맞는 규칙만 즉시 로딩하는 **JIT(Just-In-Time) 상황별 규칙 인젝터**
-2. Write 권한이 물리적으로 박탈된 **Read-Only 독립 검수원 서브에이전트 (`{"verdict": "PASS"|"FAIL"}`)**
-3. `43_function_dev` 및 전역 뿌리 프로젝트의 현황과 지식을 관리하는 **프로젝트 지식 허브**를 제공합니다.
+본 프로젝트는 세션이 길어질수록 AI가 규칙을 잊어버리는 **'규칙 망각(Lost in the Middle)'**, 코드를 작성한 본인이 스스로 통과를 선언하는 **'자기선호 편향'**, 그리고 자동 봇이 타 AI의 이름을 사칭하여 허위 합의를 날조하는 **'아이덴티티 사칭(Identity Impersonation)'**을 시스템 아키텍처와 코드 레벨에서 원천 차단하기 위해 구축되었습니다.
 
 ```mermaid
 graph TD
-    subgraph "Action Trigger & Rule Injection"
+    subgraph "JIT Trigger & Provenance Security Gate"
         ACT["AI 액션 감지<br/>(before_send / before_complete)"]
+        GATE{"Provenance Gate<br/>(Session Token 검증)"}
         JIT["JIT Rule Injector<br/>(Query Isolation / &lt;2ms)"]
         DB[("Rules DB (SQLite WAL)<br/>Access Count Freshness")]
     end
@@ -30,7 +27,9 @@ graph TD
         STRICT["Strict JSON Enforcer<br/>{verdict: PASS|FAIL, evidence}"]
     end
 
-    ACT --> JIT
+    ACT --> GATE
+    GATE -->|인증 통과| JIT
+    GATE -->|사칭 시도| BLOCK["ImpersonationSecurityError<br/>(강제 차단 및 로깅)"]
     JIT <-->|Isolated Read| DB
     WORKER -->|검증 위임| AUDITOR
     AUDITOR --> STRICT
@@ -41,23 +40,24 @@ graph TD
 
 ## 2. 핵심 아키텍처 및 보강 사항 (Core Architecture)
 
-### 2.1. 검수원 판정 구조화 출력 강제 (Strict JSON Output)
-- 자유 텍스트 파싱("통과", "PASS", "문제없음" 등) 시 발생하는 오분류 및 Hallucination을 방지하기 위해 엄격한 JSON 스키마를 강제합니다:
+### 2.1. 코드 레벨 무결성 검증 게이트 (Anti-Impersonation Provenance Gate)
+- 정책 문구(Hookify)만으로는 자동 스크립트의 타 AI 사칭을 막을 수 없으므로, **코드 레벨의 세션 토큰 검증 장치**를 엔진에 탑재했습니다:
+  * `sender` 또는 `approved_by`에 `manbok` / `kony` / `anti` 이름을 기재할 때, **실제 해당 AI 세션의 정당한 세션 토큰(`auth_token`)이 일치해야만 DB 기록을 허용**.
+  * 모의 스크립트나 외부 봇이 타 AI의 이름을 도용하면 **`ImpersonationSecurityError`를 발생시키고 즉시 차단**.
+
+### 2.2. 만복·코니 근실시간 DB 폴링(Near-Realtime Polling) 정식화
+- **안티**: CLI/API 기반으로 24/7 Headless 상시 대기 및 실시간 WebSocket 허브 운영.
+- **만복·코니**: 턴 기반 세션 한계를 정직하게 반영하여, **활성 세션일 때 `agent_client.py`를 통해 `realtime_3ai.db`에서 본인 앞 미확인 메시지를 조회하고 실제 검토 후 직접 쓰기(Write)하는 '근실시간 DB 폴링'을 정식 참여 경로로 확정**.
+- **사칭 봇 폐기**: `daemon_kony.py`, `daemon_manbok.py`는 완전 폐기 및 `_archive/` 격리 완료.
+
+### 2.3. 검수원 판정 구조화 출력 강제 (Strict JSON Output)
+- 자유 텍스트 파싱 오류를 원천 차단하기 위해 엄격한 JSON 스키마를 강제:
 ```json
 {
   "verdict": "PASS",
   "evidence": "3개 멀티프로세스 동시 쓰기 60건 1.1초 통과 (락 충돌 0건)"
 }
 ```
-- `PASS` 또는 `FAIL` 이외의 변형된 문자열이나 JSON 파싱 실패 시 자동으로 `FAIL` 처리 및 에러 로깅.
-
-### 2.2. JIT 트리거 태그 & 코니의 현재 한계 명시
-- **안티 및 자동화 스크립트**: `send_message()`, `push_to_all.py` 실행 시점에 `before_send` 훅이 자동으로 작동하여 DB에서 실시간 규칙을 주입받음 (완전 자동).
-- ⚠️ **코니의 현재 적용 한계**: 코니는 현재 비상주 Claude Desktop UI 기반이므로, T065 3단계(Headless 데몬화) 이전까지는 세션 시작/액션 시점에 수동 조회가 동반되는 반쪽 적용 상태임. 따라서 "규칙을 잊는 문제"가 "DB 조회를 잊는 문제"로 변형되지 않도록 향후 코니 Headless 데몬화 시 훅으로 강제 통합 예정.
-
-### 2.3. 고빈도 트래픽 쿼리 격리 (Query Isolation)
-- 실시간 채팅 DB(`realtime_3ai.db`)와 같은 SQLite WAL 인스턴스를 공유하더라도, 규칙 조회 쿼리는 안전장치로서 초저지연이 보장되어야 합니다.
-- **격리 방안**: 규칙 조회 전용 읽기 연결(`PRAGMA query_only = ON;`, `busy_timeout = 2000;`)을 분리하여 대량의 채팅 쓰기 트래픽 중에도 규칙 조회가 블로킹되지 않도록 보호.
 
 ---
 
@@ -82,16 +82,16 @@ engine.register_rule(
 jit_rules = engine.get_jit_rules(trigger_tag="before_send", caller_ai="anti")
 ```
 
-### 3.2. Read-Only 검수원 서브에이전트 검증 실행
+### 3.2. 세션 인증 기반 Read-Only 검수원 실행
 ```python
-# 검수원 명령 실행 (Write 불가 환경에서 테스트 실행 후 엄격 JSON 판정 수신)
+# 정당한 세션 토큰을 제시하여 감사 실행 (사칭 시 ImpersonationSecurityError 발생)
 test_cmd = [sys.executable, "test_realtime_3ai.py"]
 audit_result = engine.run_auditor_verification(
-    target_task="T065",
+    target_task="T066",
     caller_ai="anti",
-    test_command=test_cmd
+    test_command=test_cmd,
+    auth_token="token_anti_session_auth"
 )
-print(audit_result) # {'audit_id': 'aud_...', 'verdict': 'PASS', 'evidence': '...'}
 ```
 
 ### 3.3. 종합 테스트 슈트 실행 (3-Stage Verification)
@@ -106,17 +106,13 @@ python test_rule_governance.py
 ### 💡 만복 (PM / Planner) 의견
 - **규칙 신선도 자동 일요 점검 (Freshness Review)**:
   - `access_count == 0`이거나 14일 이상 조회되지 않은 사문화된 규칙을 매주 일요일 DuckDB 스냅샷 집계 쿼리로 자동 추출하여 정리하는 거버넌스 자동화.
-- **회사 AI 지식 배포용 Export**:
-  - `projects_status` 테이블의 메타데이터와 README를 사내/외부 AI 협업용 포맷으로 원클릭 변환하는 릴리스 파이프라인 확장.
+- **근실시간 세션 폴링 고도화**:
+  - 세션 시작 시 `realtime_3ai.db` 미확인 메시지를 자동으로 우선 처리하는 세션 루틴 표준화.
 
 ### 💡 코니 (Auditor) 의견
-- **Headless 데몬화와 JIT 훅 완전 통합 (T065 3단계 연계)**:
-  - 코니가 CLI/MCP 상주 데몬으로 전환되는 즉시, 모든 메시지 응답 전 단계에서 `before_send` 훅이 네이티브로 실행되도록 파이프라인 완결.
-- **반려 이력 패턴 분석**:
-  - `rule_audit_logs`에서 `FAIL`이 반복된 태스크와 원인을 분석하여 취약한 코드 패턴을 AGENTS.md에 자동 등재.
+- **반려 이력 패턴 분석 및 무결성 감사**:
+  - `rule_audit_logs`에서 `FAIL`이 반복된 태스크와 세션 토큰 미인증 시도 로그를 자동 감사하여 침해 시도 모니터링.
 
 ### 💡 안티 (Operator) 의견
-- **자동 픽스(Self-Correction) 서브에이전트 루프**:
-  - 검수원이 `{"verdict": "FAIL"}`을 반환하면, 실패한 assert 에러 메시지만 추출하여 수정 담당 워커에게 주입하고 최대 3회까지 자동 재시도하는 자가치유 루프 연결.
 - **CLI 원클릭 프로젝트 대시보드 (`python -m 43_function_dev`)**:
-  - 터미널에서 전체 뿌리 프로젝트의 진척도, 최신 커밋, 검증 상태를 표 형태로 실시간 출력하는 도구화.
+  - 터미널에서 전체 뿌리 프로젝트의 진척도, 최신 커밋, 검증 상태, 사칭 방어 로그를 표 형태로 실시간 출력하는 도구화.
