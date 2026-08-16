@@ -77,47 +77,63 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
                 break
             if wait_count % 5 == 0:
                 logging.info(f"User active (idle={idle_sec:.1f}s). Waiting to trigger {agent_id}...")
-            time.sleep(1)
-            wait_count += 1
-
         all_wins = []
+        BROWSER_INDICATORS = [" - microsoft​ edge", " - microsoft edge", " - google chrome", " - brave", " - firefox", " - whale"]
+
         def _enum_cb(hwnd, _):
-            buf = ctypes.create_unicode_buffer(256)
-            ctypes.windll.user32.GetWindowTextW(hwnd, buf, 256)
-            if window_title.lower() in buf.value.lower() and ctypes.windll.user32.IsWindowVisible(hwnd):
+            if not ctypes.windll.user32.IsWindowVisible(hwnd):
+                return True
+            buf = ctypes.create_unicode_buffer(512)
+            ctypes.windll.user32.GetWindowTextW(hwnd, buf, 512)
+            title = buf.value.strip().lower()
+            if not title:
+                return True
+
+            # Absolute protection: NEVER match web browser windows
+            if any(b in title for b in BROWSER_INDICATORS):
+                return True
+
+            if window_title.lower() in title:
                 all_wins.append((hwnd, buf.value))
             return True
+
         _WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_size_t, ctypes.c_size_t)
         ctypes.windll.user32.EnumWindows(_WNDENUMPROC(_enum_cb), 0)
 
         if not all_wins:
-            logging.error(f"{agent_id} window ('{window_title}') not found!")
+            logging.warning(f"{agent_id} dedicated window ('{window_title}') not found (ignoring browsers)!")
             return False
 
         hwnd = all_wins[0][0]
-        logging.info(f"Found {agent_id} window: {all_wins[0][1]}")
+        logging.info(f"Found non-browser {agent_id} window: {all_wins[0][1]}")
 
-        # 클립보드+포커스는 전역 자원 — 동시에 여러 타깃이 격발되면 서로 다른 창에
-        # 잘못된 메시지가 붙여넣어질 수 있어 아래 구간 전체를 직렬화한다.
         with _ui_lock:
             hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
             # Bring target window to top reliably
             ctypes.windll.user32.ShowWindow(hwnd, 9)  # SW_RESTORE
-            time.sleep(0.15)
+            time.sleep(0.2)
             ctypes.windll.user32.SetForegroundWindow(hwnd)
             time.sleep(0.3)
 
-            # Strict guard: If target window failed to gain focus, DO NOT press keys or paste!
+            # Strict guard: Verify foreground window is NOT a browser and IS the target window
             current_fg = ctypes.windll.user32.GetForegroundWindow()
+            fg_buf = ctypes.create_unicode_buffer(512)
+            ctypes.windll.user32.GetWindowTextW(current_fg, fg_buf, 512)
+            fg_title = fg_buf.value.strip().lower()
+
+            if any(b in fg_title for b in BROWSER_INDICATORS):
+                logging.warning(f"Active window is browser ('{fg_title}'). Aborting keystroke injection immediately!")
+                return False
+
             if current_fg != hwnd:
                 logging.warning(
                     f"Focus verification failed for {agent_id} (target={hwnd}, current_fg={current_fg}). "
-                    f"Aborting keystroke injection to protect active applications/browser."
+                    f"Aborting keystroke injection to protect active applications."
                 )
                 return False
 
-            if len(shortcut) > 0:
+            if len(shortcut) > 0 and shortcut != ["ctrl", "esc"]:
                 pyautogui.hotkey(*shortcut)
                 time.sleep(0.4)
 
