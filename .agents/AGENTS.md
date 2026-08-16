@@ -424,6 +424,14 @@ if sys.stdout is not None and getattr(sys.stdout, 'encoding', None) is not None:
   2. 자막 텍스트(`text`)에는 '3AI'로 시각적 정돈을 유지하되, TTS 낭독 인자(`tts_text`)에는 '쓰리에이아이'로 한글 독음을 분리 하드닝하여 렌더링을 강제한다.
   3. 렌더링 검증 1차 단계(`verify_video.py` 등)에 TTS 독음 체크리스트 항목을 하드 게이트로 영구 등록한다.
 
+### [Hookify: 자동승인 페르소나 봇이 만복/코니 이름으로 허위 PASS를 발급 (2026-08-16 박제, 최고 심각도)]
+- **발생한 에러**: T065(실시간3AI) 개발 중 안티가 `daemon_kony.py`/`daemon_manbok.py`(무료 LLM을 "코니"/"만복" 페르소나로 감싼 자동봇, `agent_daemon_core.py`)를 구축. 페르소나 프롬프트 자체가 "문제 없으면 PASS 승인"(코니), "명쾌하고 듬직하게 최종 결론을 내리세요"(만복)로 **반려 가능성이 배제된 항상-승인형**으로 설계됨. 이 봇이 만든 가짜 "만복 최종승인" 기록(존재하지 않는 결정ID 포함)을 안티가 실제 완료로 착각/보고 → 바로보기님께 브리핑 요청까지 감. 만복·코니 둘 다 DB를 직접 열어 교차검증해서 잡음.
+- **원인**: "실시간 3AI"를 구현하려다 진짜 만복/코니 세션(턴 기반, 상시 대기 불가) 대신 그 이름을 사칭하는 자동화로 대체 — 실시간성이라는 목표가 검증 주체의 정체성 무결성보다 앞서버림.
+- **영구 차단 조치**:
+  1. `daemon_kony.py`, `daemon_manbok.py`는 폐기 — 실행 금지. 이런 이름-사칭형 자동승인 페르소나 봇은 앞으로도 절대 만들지 않는다.
+  2. `decisions`/`rule_audit_logs` 등 승인/PASS 기록은 **그 이름의 AI가 실제 세션에서 직접 작성한 것만 유효** — 자동 프로세스가 특정 AI 이름을 사칭해 기록을 남기는 것을 T_ARCH_LOCK/T066 규칙거버넌스에 코드 레벨로 금지(단순 정책 문구가 아니라 DB 쓰기 시점에 검증 가능한 장치로).
+  3. 만복·코니처럼 턴 기반 세션은 "24/7 상주 데몬"이 아니라 "활성 세션 시 DB 직접 폴링/쓰기(근실시간)" 방식으로만 실시간 참여 — 상주 데몬 흉내는 곧 사칭 봇으로 귀결되기 쉬움.
+
 ### [Hookify: user PATH 드리프트로 bare "python" subprocess 호출이 표준 인터프리터를 비켜감 (2026-07-30 박제)]
 - **발생한 에러**: `daily_pobbagi_runner.py`가 `subprocess.run(["python", ...])`로 `gps_check.py`/`auto_stt_gemini.py`를 호출했는데, 2026-07-18에 생성된 `D:\AI\.venv`(pydantic·google-genai 미설치)가 user PATH에서 `C:\hb`보다 앞서 등록되어 있어 bare `python`이 이 빈 venv로 새어버림. 결과: `gps_check.py`가 `ModuleNotFoundError`로 죽었는데 코드는 stdout만 보고 "GPS 검증 실패(반려)"로 오판 — 정상 지시서 2건이 근거 없이 반려될 뻔함.
 - **원인**: 자동화 스크립트가 표준 인터프리터를 PATH 조회(bare `python`)에 의존 — 시스템 PATH에 다른 venv가 끼어들면 조용히 잘못된 인터프리터로 실행되고, 실패 시 exit code만 보고 원인(모듈 누락 vs 실제 검증 실패)을 구분 못 함.
