@@ -196,7 +196,51 @@ def test_4_heartbeat_and_decisions():
     )
     assert dec_id.startswith("dec_")
     print(f"Decision recorded: {dec_id}")
-    print("[PASS] [Test 4] Heartbeat & Decision engine functional.")
+def test_5_provenance_and_trigger_dispatch():
+    print("\n--- [Test 5] Provenance Security Gate & Trigger Dispatch ---")
+    engine = Realtime3AIEngine(db_path=TEST_DB_PATH)
+    from realtime_engine import ImpersonationSecurityError
+    
+    # 1. Decision record with valid session token
+    dec_id = engine.record_decision(
+        topic="T065_auth_test",
+        consensus_summary="Consensus with valid session auth",
+        participants=["manbok", "anti"],
+        approved_by="manbok",
+        tier=1,
+        auth_token="token_manbok_session_auth"
+    )
+    assert dec_id.startswith("dec_")
+    print(f"Authenticated decision recorded: {dec_id}")
+    
+    # 2. Decision record with forged/unauthorized token -> must raise ImpersonationSecurityError
+    blocked = False
+    try:
+        engine.record_decision(
+            topic="T065_auth_test",
+            consensus_summary="Forged consensus",
+            participants=["manbok", "anti"],
+            approved_by="manbok",
+            tier=1,
+            auth_token="invalid_forged_token"
+        )
+    except ImpersonationSecurityError as e:
+        blocked = True
+        print(f"Impersonation blocked: {e}")
+        
+    assert blocked, "Impersonation was not blocked by provenance gate!"
+    
+    # 3. Trigger dispatch check (send message to kony triggers dispatch)
+    msg_id = engine.send_message(
+        sender="anti",
+        recipient="kony",
+        content="Test trigger dispatch message",
+        conversation_id="trigger_test",
+        tier=1
+    )
+    assert msg_id.startswith("msg_")
+    print(f"Message sent and trigger dispatched: {msg_id}")
+    print("[PASS] [Test 5] Provenance gate & trigger dispatch functional.")
 
 def run_all_tests():
     print("==================================================")
@@ -206,11 +250,13 @@ def run_all_tests():
     test_2_circuit_breaker()
     test_3_daily_delta_snapshot()
     test_4_heartbeat_and_decisions()
+    test_5_provenance_and_trigger_dispatch()
     cleanup_test_files()
     print("\n==================================================")
-    print("ALL 4 TEST SUITES PASSED WITH 100% SUCCESS")
+    print("ALL 5 TEST SUITES PASSED WITH 100% SUCCESS")
     print("==================================================")
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()
     run_all_tests()
+

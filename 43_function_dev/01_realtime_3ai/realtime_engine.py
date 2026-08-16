@@ -123,7 +123,32 @@ class Realtime3AIEngine:
                 (msg_id, conversation_id, sender, recipient, content, tier, meta_str)
             )
             conn.commit()
+
+        # Trigger popup notification over MCP bridge (port 5003)
+        if recipient in ("manbok", "kony") and sender != recipient:
+            self._dispatch_popup_trigger(recipient)
+        elif recipient == "all" and sender not in ("system", "test_runner"):
+            for r in ("manbok", "kony"):
+                if r != sender:
+                    self._dispatch_popup_trigger(r)
+
         return msg_id
+
+    def _dispatch_popup_trigger(self, target: str):
+        """Asynchronously notify mcp_server on port 5003 when a new message is inserted."""
+        def _post():
+            try:
+                import urllib.request
+                url = "http://127.0.0.1:5003/trigger"
+                payload = json.dumps({"target": target}).encode("utf-8")
+                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+                with urllib.request.urlopen(req, timeout=2.0) as resp:
+                    pass
+            except Exception:
+                pass
+        import threading
+        t = threading.Thread(target=_post, daemon=True)
+        t.start()
 
     def get_unread_messages(self, recipient: str) -> list:
         with self._get_connection() as conn:
