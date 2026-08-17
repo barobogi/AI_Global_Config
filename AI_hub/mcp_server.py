@@ -11,6 +11,12 @@ import pygetwindow as gw
 import pyautogui
 import pyperclip
 
+try:
+    from pywinauto import Application as _UIAApplication
+    _UIA_AVAILABLE = True
+except Exception:
+    _UIA_AVAILABLE = False
+
 # nvidia_nim_client 경로 등록
 sys.path.insert(0, r"D:\AI\Global_Define")
 
