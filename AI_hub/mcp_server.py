@@ -124,12 +124,16 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
             if any(b in title for b in BROWSER_INDICATORS):
                 return True
 
+            pname = get_process_name(hwnd)
+            # 1. Primary: Match by dedicated process name (e.g. claude.exe)
+            if required_process_name and pname.lower() == required_process_name.lower():
+                all_wins.append((hwnd, buf.value))
+                return True
+
+            # 2. Secondary: Match by window title substring (if no strict process or matches title)
             if window_title.lower() in title:
-                if required_process_name:
-                    proc_name = get_process_name(hwnd)
-                    if proc_name.lower() != required_process_name.lower():
-                        logging.info(f"Title matched '{window_title}' but process was '{proc_name}' (need '{required_process_name}') - skipping (likely a console/log window with a coincidental title substring).")
-                        return True
+                if required_process_name and pname.lower() != required_process_name.lower():
+                    return True
                 all_wins.append((hwnd, buf.value))
             return True
 
