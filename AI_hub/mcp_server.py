@@ -199,16 +199,18 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
             SCAN_RETURN = 0x1C
             KEYEVENTF_KEYUP = 0x0002
 
-            # 1. Hardware scan code down & up
+            # 1. Hardware scan code Enter
             ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, 0, 0)
             time.sleep(0.06)
             ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, KEYEVENTF_KEYUP, 0)
             time.sleep(0.3)
 
-            # 2. Fallback secondary enter
-            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, 0, 0)
-            time.sleep(0.06)
-            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, KEYEVENTF_KEYUP, 0)
+            # 2. Universal Electron/Claude Force Submit: Ctrl + Enter
+            pyautogui.hotkey('ctrl', 'enter')
+            time.sleep(0.3)
+
+            # 3. Standard Enter
+            pyautogui.press('enter')
             time.sleep(0.3)
 
             if hwnd_active and hwnd_active != hwnd:
