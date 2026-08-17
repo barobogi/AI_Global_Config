@@ -68,7 +68,31 @@ def get_dynamic_trigger_message(target: str) -> str:
         return "수신함(inbox.md)의 최신 검토/감사 요청 메시지를 확인하고 판정해 주세요."
     return "새로운 메시지가 수신함(inbox.md)에 도착했습니다."
 
-def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
+def get_process_name(hwnd):
+    """Resolve a window's owning process image name (e.g. 'Claude.exe').
+    Used to disambiguate windows whose TITLE happens to contain a substring
+    match (e.g. a master_watch.py console window titled '...claude...' is
+    NOT the Claude Desktop app, even though the title matches)."""
+    try:
+        pid = ctypes.c_ulong(0)
+        ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+        h_process = ctypes.windll.kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid.value)
+        if not h_process:
+            return ""
+        try:
+            buf = ctypes.create_unicode_buffer(260)
+            size = ctypes.c_ulong(260)
+            ok = ctypes.windll.kernel32.QueryFullProcessImageNameW(h_process, 0, buf, ctypes.byref(size))
+            if ok:
+                return os.path.basename(buf.value)
+            return ""
+        finally:
+            ctypes.windll.kernel32.CloseHandle(h_process)
+    except Exception:
+        return ""
+
+def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_process_name=None):
     try:
         wait_count = 0
         MAX_IDLE_WAIT_SEC = 15.0  # give up waiting for idle and inject anyway past this
@@ -101,6 +125,11 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
                 return True
 
             if window_title.lower() in title:
+                if required_process_name:
+                    proc_name = get_process_name(hwnd)
+                    if proc_name.lower() != required_process_name.lower():
+                        logging.info(f"Title matched '{window_title}' but process was '{proc_name}' (need '{required_process_name}') - skipping (likely a console/log window with a coincidental title substring).")
+                        return True
                 all_wins.append((hwnd, buf.value))
             return True
 
