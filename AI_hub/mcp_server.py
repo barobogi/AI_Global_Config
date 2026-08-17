@@ -120,19 +120,26 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
             # Bring target window to top reliably.
             # Plain SetForegroundWindow() is blocked by Windows' focus-stealing
             # prevention when called from a background process with no recent
-            # user input - AttachThreadInput tricks Windows into allowing it.
+            # user input. The working trick: attach OUR thread's input queue to
+            # the CURRENT FOREGROUND window's thread (not the target's) - that
+            # foreground thread currently holds the "permission" to change focus,
+            # and attaching lets our thread borrow it. Also tap Alt to reset the
+            # internal lock timer, another well-known part of this workaround.
             ctypes.windll.user32.ShowWindow(hwnd, 9)  # SW_RESTORE
             time.sleep(0.2)
             current_thread_id = ctypes.windll.kernel32.GetCurrentThreadId()
-            target_pid = ctypes.c_ulong(0)
-            target_thread_id = ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(target_pid))
+            fg_hwnd_before = ctypes.windll.user32.GetForegroundWindow()
+            fg_pid = ctypes.c_ulong(0)
+            fg_thread_id = ctypes.windll.user32.GetWindowThreadProcessId(fg_hwnd_before, ctypes.byref(fg_pid))
             attached = False
-            if target_thread_id and target_thread_id != current_thread_id:
-                attached = bool(ctypes.windll.user32.AttachThreadInput(current_thread_id, target_thread_id, True))
-            ctypes.windll.user32.SetForegroundWindow(hwnd)
+            if fg_thread_id and fg_thread_id != current_thread_id:
+                attached = bool(ctypes.windll.user32.AttachThreadInput(current_thread_id, fg_thread_id, True))
+            pyautogui.keyDown('alt')
+            pyautogui.keyUp('alt')
             ctypes.windll.user32.BringWindowToTop(hwnd)
+            ctypes.windll.user32.SetForegroundWindow(hwnd)
             if attached:
-                ctypes.windll.user32.AttachThreadInput(current_thread_id, target_thread_id, False)
+                ctypes.windll.user32.AttachThreadInput(current_thread_id, fg_thread_id, False)
             time.sleep(0.3)
 
             # Strict guard: Verify foreground window is NOT a browser and IS the target window
