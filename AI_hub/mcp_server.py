@@ -192,8 +192,10 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
 
             pyperclip.copy(message)
             pyautogui.hotkey('ctrl', 'v')
-            time.sleep(0.3)
+            time.sleep(0.6)  # React / Electron input state update delay
             pyautogui.press('enter')
+            time.sleep(0.4)
+            pyautogui.press('enter')  # Fallback enter in case first was consumed by IME/state transition
             time.sleep(0.3)
 
             if hwnd_active and hwnd_active != hwnd:
