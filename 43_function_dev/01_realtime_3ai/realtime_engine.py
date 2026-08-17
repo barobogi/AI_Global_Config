@@ -10,6 +10,7 @@ import time
 import json
 import sqlite3
 import uuid
+import hashlib
 from datetime import datetime, date
 from pathlib import Path
 
@@ -17,6 +18,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 DEFAULT_SQLITE_PATH = BASE_DIR / "realtime_3ai.db"
 DEFAULT_DUCKDB_DIR = BASE_DIR / "snapshots"
+APPEND_LOG_PATH = BASE_DIR / "messages_append_log.jsonl"
 
 class CircuitBreakerOpenError(Exception):
     """Raised when an agent conversation exceeds maximum turn limits without consensus."""
@@ -124,7 +126,7 @@ class Realtime3AIEngine:
         msg_id = f"msg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
         meta_str = json.dumps(metadata or {}, ensure_ascii=False)
         local_time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        
+
         with self._get_connection() as conn:
             conn.execute(
                 """
@@ -134,6 +136,14 @@ class Realtime3AIEngine:
                 (msg_id, conversation_id, sender, recipient, content, tier, meta_str, local_time_str)
             )
             conn.commit()
+
+        # Tamper-evident append-only mirror, independent of the SQLite table.
+        # 2026-08-16: SQLite messages table was found repeatedly wiped/rebuilt with no
+        # trace in any committed script - this log survives even if that table is reset.
+        self._append_to_log({
+            "msg_id": msg_id, "conversation_id": conversation_id, "sender": sender,
+            "recipient": recipient, "content": content, "tier": tier, "created_at": local_time_str
+        })
 
         # Trigger popup notification over MCP bridge (port 5003)
         if recipient in ("manbok", "kony") and sender != recipient:
@@ -160,6 +170,69 @@ class Realtime3AIEngine:
         import threading
         t = threading.Thread(target=_post, daemon=True)
         t.start()
+
+    def _append_to_log(self, entry: dict) -> None:
+        """Hash-chained append-only log. Each line commits to the previous line's hash,
+        so a deleted/edited line breaks the chain and is detectable by verify_log_integrity()."""
+        prev_hash = "0" * 64
+        try:
+            if APPEND_LOG_PATH.exists() and APPEND_LOG_PATH.stat().st_size > 0:
+                with open(APPEND_LOG_PATH, "r", encoding="utf-8") as f:
+                    last_line = None
+                    for line in f:
+                        if line.strip():
+                            last_line = line
+                    if last_line:
+                        prev_hash = json.loads(last_line).get("entry_hash", prev_hash)
+        except Exception:
+            pass
+
+        record = dict(entry)
+        record["prev_hash"] = prev_hash
+        payload = json.dumps(record, sort_keys=True, ensure_ascii=False)
+        record["entry_hash"] = hashlib.sha256((prev_hash + payload).encode("utf-8")).hexdigest()
+
+        with open(APPEND_LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+
+    def verify_log_integrity(self) -> dict:
+        """Recompute the hash chain and cross-check every logged msg_id against the live
+        SQLite table. Returns which msg_ids the log has that the DB does NOT (i.e. lost/tampered)."""
+        result = {"chain_valid": True, "broken_at_line": None, "total_logged": 0, "missing_from_db": []}
+        if not APPEND_LOG_PATH.exists():
+            return result
+
+        prev_hash = "0" * 64
+        logged_msg_ids = []
+        with open(APPEND_LOG_PATH, "r", encoding="utf-8") as f:
+            for i, line in enumerate(f, start=1):
+                if not line.strip():
+                    continue
+                record = json.loads(line)
+                claimed_hash = record.pop("entry_hash", None)
+                payload = json.dumps(record, sort_keys=True, ensure_ascii=False)
+                expected_hash = hashlib.sha256((prev_hash + payload).encode("utf-8")).hexdigest()
+                if claimed_hash != expected_hash:
+                    result["chain_valid"] = False
+                    result["broken_at_line"] = i
+                    break
+                prev_hash = claimed_hash
+                logged_msg_ids.append(record["msg_id"])
+
+        result["total_logged"] = len(logged_msg_ids)
+        if logged_msg_ids:
+            with self._get_connection() as conn:
+                placeholders = ",".join("?" for _ in logged_msg_ids)
+                cursor = conn.execute(
+                    f"SELECT msg_id FROM messages WHERE msg_id IN ({placeholders})",
+                    logged_msg_ids
+                )
+                present = {row["msg_id"] for row in cursor.fetchall()}
+            result["missing_from_db"] = [m for m in logged_msg_ids if m not in present]
+
+        return result
 
     def get_unread_messages(self, recipient: str) -> list:
         with self._get_connection() as conn:
