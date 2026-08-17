@@ -107,8 +107,21 @@ def get_process_name(hwnd):
 UIA_AGENT_CONFIG = {
     "kony": {
         "process_name": "claude.exe",
+        "match": "title",  # Edit/Button found by exact accessible name
         "edit_title": "메시지를 입력하세요…",
         "send_button_title": "메시지 보내기",
+    },
+    "manbok": {
+        "process_name": "Code.exe",
+        "match": "position",  # Claude Code (VS Code extension): the Edit
+        # control's accessible name is the PLACEHOLDER text only while empty -
+        # it changes to reflect typed content once non-empty, so exact-title
+        # matching is unreliable. The Send button has NO accessible name at
+        # all. Both are consistently the LAST Edit / LAST Button in the
+        # window's descendants (confirmed across repeated tree dumps
+        # 2026-08-17), so match positionally instead.
+        # Requires "editor.accessibilitySupport": "on" in VS Code settings.json
+        # - without it, VS Code doesn't build a full accessibility tree at all.
     },
 }
 
@@ -125,11 +138,22 @@ def try_uia_send(agent_id: str, pid: int, message: str) -> bool:
     try:
         app = _UIAApplication(backend="uia").connect(process=pid)
         win = app.top_window()
-        edit = win.child_window(control_type="Edit", found_index=0)
+
+        if cfg.get("match") == "position":
+            edits = win.descendants(control_type="Edit")
+            buttons = win.descendants(control_type="Button")
+            if not edits or not buttons:
+                logging.warning(f"[UIA] No Edit/Button controls found for {agent_id}.")
+                return False
+            edit = edits[-1]
+            send_btn = buttons[-1]
+        else:
+            edit = win.child_window(control_type="Edit", found_index=0)
+            send_btn = win.child_window(title=cfg["send_button_title"], control_type="Button")
+
         edit.set_focus()
         edit.set_edit_text(message)
         time.sleep(0.3)
-        send_btn = win.child_window(title=cfg["send_button_title"], control_type="Button")
         if not send_btn.exists() or not send_btn.is_enabled():
             logging.warning(f"[UIA] Send button not found/enabled for {agent_id} after setting text.")
             return False
@@ -315,9 +339,12 @@ def trigger():
             "절대 자체적으로 백그라운드 태스크나 스케줄을 예약하지 마십시오. "
             "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
         )
+        # 2026-08-17: window_title="Antigravity" 매칭이 항상 실패했음 - 실제 창
+        # 제목이 앱 이름이 아니라 대화 주제 기반(예: "활기찬 하루 시작하기")이라
+        # 오늘 이미 코니/만복에서 겪은 것과 같은 문제. 프로세스명으로 강제 매칭.
         t = threading.Thread(
             target=trigger_agent_ui_task,
-            args=("anti", "Antigravity", agent_info.get("shortcut", []), anti_msg)
+            args=("anti", "Antigravity", agent_info.get("shortcut", []), anti_msg, "Antigravity.exe")
         )
         t.start()
         # 파일도 병행 기록 (anti_watchdog 호환)
