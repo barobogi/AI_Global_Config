@@ -117,10 +117,22 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
         with _ui_lock:
             hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
-            # Bring target window to top reliably
+            # Bring target window to top reliably.
+            # Plain SetForegroundWindow() is blocked by Windows' focus-stealing
+            # prevention when called from a background process with no recent
+            # user input - AttachThreadInput tricks Windows into allowing it.
             ctypes.windll.user32.ShowWindow(hwnd, 9)  # SW_RESTORE
             time.sleep(0.2)
+            current_thread_id = ctypes.windll.kernel32.GetCurrentThreadId()
+            target_pid = ctypes.c_ulong(0)
+            target_thread_id = ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(target_pid))
+            attached = False
+            if target_thread_id and target_thread_id != current_thread_id:
+                attached = bool(ctypes.windll.user32.AttachThreadInput(current_thread_id, target_thread_id, True))
             ctypes.windll.user32.SetForegroundWindow(hwnd)
+            ctypes.windll.user32.BringWindowToTop(hwnd)
+            if attached:
+                ctypes.windll.user32.AttachThreadInput(current_thread_id, target_thread_id, False)
             time.sleep(0.3)
 
             # Strict guard: Verify foreground window is NOT a browser and IS the target window

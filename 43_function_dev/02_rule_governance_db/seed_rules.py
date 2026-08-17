@@ -19,6 +19,11 @@ def seed_all_rules():
     print("Seeding rules from MIGRATION_MAP.md into SQLite WAL DB...")
     
     rules = [
+        # --- Top Constitutional Rules (Hookify) ---
+        ("H-01_ZERO_SIMULATION", "모의 대화/사칭 대필 절대 금지", "before_send", "타 AI 본체가 직접 발화하지 않은 모의/대필 데이터를 절대 실제 발언으로 포장하지 말 것.", "all"),
+        ("H-02_USER_APPROVAL_GATE", "선보고 후승인 원칙", "before_send", "타 AI 인계 전 반드시 바로보기님의 명시적 승인을 득할 것.", "all"),
+        ("H-03_ROOT_FOLDER_PROTECT", "D:\\AI 루트 폴더 생성 금지", "before_file_io", "D:\\AI 최상위에는 뿌리체계 프로젝트 폴더 외 임의 산출물 생성을 엄금할 것.", "all"),
+
         # --- Common JIT Rules ---
         ("J-01_PUSH_ALL", "3AI 동시 격발 규정", "before_send", "메시지 발송 직후 반드시 push_to_all.py를 실행하여 3AI 전원을 동시 격발할 것.", "all"),
         ("J-02_CC_RULE", "메시지 CC 최소화", "before_send", "불필요한 노이즈 방지를 위해 필요한 시점에만 CC를 걸고 순차적으로 전달할 것.", "all"),
