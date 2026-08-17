@@ -71,12 +71,19 @@ def get_dynamic_trigger_message(target: str) -> str:
 def trigger_agent_ui_task(agent_id, window_title, shortcut, message):
     try:
         wait_count = 0
+        MAX_IDLE_WAIT_SEC = 15.0  # give up waiting for idle and inject anyway past this
+        started_waiting = time.time()
         while True:
             idle_sec = get_idle_time()
             if idle_sec > 3.0:
                 break
+            if time.time() - started_waiting > MAX_IDLE_WAIT_SEC:
+                logging.info(f"Idle wait exceeded {MAX_IDLE_WAIT_SEC}s for {agent_id}, proceeding anyway.")
+                break
             if wait_count % 5 == 0:
                 logging.info(f"User active (idle={idle_sec:.1f}s). Waiting to trigger {agent_id}...")
+            wait_count += 1
+            time.sleep(0.5)
         all_wins = []
         BROWSER_INDICATORS = [" - microsoft​ edge", " - microsoft edge", " - google chrome", " - brave", " - firefox", " - whale"]
 
