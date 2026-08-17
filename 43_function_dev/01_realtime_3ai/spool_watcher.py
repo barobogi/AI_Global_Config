@@ -6,16 +6,24 @@ requires all writers to share the same machine's -shm file; a network-mounted
 session (kony) can never safely write SQLite WAL directly - per SQLite's own
 docs this causes silent data loss/inconsistency across network filesystems.
 
-This watcher lets kony avoid SQLite entirely: she drops a plain JSON file into
-spool/ (a plain file write IS safe over a network mount, unlike WAL), and this
-script - running natively on the Windows host, no network mount involved -
-performs the actual local SQLite INSERT on her behalf via the existing
-send_message() provenance-checked API.
+This watcher lets kony avoid SQLite entirely for WRITES: she drops a plain
+JSON file into spool/ (a plain file write IS safe over a network mount,
+unlike WAL), and this script - running natively on the Windows host, no
+network mount involved - performs the actual local SQLite INSERT on her
+behalf via the existing send_message() provenance-checked API.
+
+It also solves the matching READ-side problem (2026-08-17): kony was still
+querying realtime_3ai.db directly to read messages, which occasionally hit
+"database is locked" against her own EXCLUSIVE-mode connection racing other
+writers. Each loop iteration this script also dumps a plain JSON snapshot of
+the latest messages to latest_snapshot.json - kony reads that file instead of
+ever opening the SQLite file herself, for both reading and writing.
 """
 
 import sys
 import json
 import time
+import sqlite3
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -26,6 +34,10 @@ SPOOL_DIR = BASE_DIR / "spool"
 FAILED_DIR = SPOOL_DIR / "_failed"
 SPOOL_DIR.mkdir(exist_ok=True)
 FAILED_DIR.mkdir(exist_ok=True)
+
+SNAPSHOT_PATH = BASE_DIR / "latest_snapshot.json"
+SNAPSHOT_TMP_PATH = BASE_DIR / "latest_snapshot.json.tmp"
+SNAPSHOT_MESSAGE_COUNT = 50
 
 
 def process_spool_file(engine: Realtime3AIEngine, path: Path):
