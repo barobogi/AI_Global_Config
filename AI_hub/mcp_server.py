@@ -162,9 +162,6 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
             fg_thread_id = ctypes.windll.user32.GetWindowThreadProcessId(fg_hwnd_before, ctypes.byref(fg_pid))
             attached = False
             if fg_thread_id and fg_thread_id != current_thread_id:
-                attached = bool(ctypes.windll.user32.AttachThreadInput(current_thread_id, fg_thread_id, True))
-            pyautogui.keyDown('alt')
-            pyautogui.keyUp('alt')
             ctypes.windll.user32.BringWindowToTop(hwnd)
             ctypes.windll.user32.SetForegroundWindow(hwnd)
             if attached:
