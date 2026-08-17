@@ -71,12 +71,34 @@ def process_spool_file(engine: Realtime3AIEngine, path: Path):
             pass
 
 
+def export_snapshot(engine: Realtime3AIEngine):
+    """Write the latest messages to a plain JSON file (atomic write-then-rename)
+    so kony can read chat state without ever opening the SQLite file herself."""
+    try:
+        with engine._get_connection() as conn:
+            rows = conn.execute(
+                "SELECT id, msg_id, sender, recipient, conversation_id, content, "
+                "tier, status, created_at FROM messages ORDER BY id DESC LIMIT ?",
+                (SNAPSHOT_MESSAGE_COUNT,),
+            ).fetchall()
+        payload = {
+            "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "messages": [dict(r) for r in reversed(rows)],
+        }
+        with open(SNAPSHOT_TMP_PATH, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+        SNAPSHOT_TMP_PATH.replace(SNAPSHOT_PATH)  # atomic on the same filesystem
+    except Exception as e:
+        print(f"[spool_watcher] snapshot export failed: {e}", flush=True)
+
+
 def run(poll_interval: float = 1.0):
     engine = Realtime3AIEngine()
     print(f"[spool_watcher] watching {SPOOL_DIR} every {poll_interval}s", flush=True)
     while True:
         for path in sorted(SPOOL_DIR.glob("*.json")):
             process_spool_file(engine, path)
+        export_snapshot(engine)
         time.sleep(poll_interval)
 
 

@@ -462,9 +462,13 @@ if sys.stdout is not None and getattr(sys.stdout, 'encoding', None) is not None:
   1. `realtime_engine.py`에 해시체인 append-only 로그(`messages_append_log.jsonl`) 추가 완료(만복 구현, 2026-08-17). `send_message()` 성공 시 SQLite INSERT와 별개로 이 로그에도 기록되며, 각 줄이 직전 줄의 해시를 커밋 — 로그 파일 자체를 편집/삭제해도 체인이 끊겨 탐지됨.
   2. `verify_log_integrity()` 메서드로 로그 vs SQLite 테이블을 대조해 `missing_from_db`(로그엔 있는데 테이블엔 없는 msg_id)를 즉시 확인 가능. DB 행 삭제 시뮬레이션 + 로그 파일 편집 시뮬레이션 둘 다 실제 테스트로 탐지 확인(만복 직접 실행, PASS).
   3. 이 장치는 탐지만 하지 예방하진 못함 — 근본적으로는 DB 직접 write 권한을 가진 프로세스/개인이 줄어들수록 안전. 향후 SQLite 파일 자체에 대한 쓰기 권한 최소화(예: 단일 hub_server.py 프로세스만 write, 나머지는 API 경유)를 T065 2단계 후보로 고려.
+- **후속 근본원인 확정 (2026-08-17)**: 코니가 네트워크 마운트로 SQLite WAL을 직접 쓰는 구조 자체가 원인이었음(SQLite 공식 문서: WAL은 모든 프로세스가 동일 머신의 `-shm` 공유메모리를 써야 안전, 네트워크 파일시스템 넘으면 데이터 유실). **해결**: `spool_watcher.py` 신설 — 코니는 SQLite를 아예 안 열고 `spool/`에 JSON 파일만 드롭(네트워크 마운트에서도 파일 쓰기는 원자적으로 안전), 호스트 네이티브 프로세스가 대신 INSERT. 읽기도 동일 원리로 `latest_snapshot.json`(1초마다 최신 50개 자동 갱신)만 읽게 전환. 실증: 정상 릴레이 성공(DB 영구 보존 확인) + 사칭 토큰 정상 차단.
 
-
-
+### [Hookify: GUI 자동화 시 키보드/클립보드 합성 입력이 아니라 UI Automation(접근성 API)이 정답인 경우가 있음 (2026-08-17 박제, 패턴 기록)]
+- **겪은 문제**: 코니(Claude 데스크톱)를 자동으로 깨우는 트리거에서, 텍스트 붙여넣기는 항상 성공했는데 자동으로 보낸 Enter 키(표준/이중시도/Ctrl+Enter/하드웨어 스캔코드 keybd_event까지 4가지 방식 전부)가 한 번도 전송(submit)에 성공하지 못함 — 사람이 직접 누른 Enter는 매번 성공. Electron/Chromium 앱이 신뢰된(trusted) OS 입력만 받고 합성 키 이벤트를 걸러내는 것으로 추정(코니의 정황 분석).
+- **해결**: `pywinauto`(Windows UI Automation 백엔드)로 (1) 메시지 입력창을 `control_type="Edit"`로 찾아 `set_edit_text()`(UIA ValuePattern)로 값을 직접 설정, (2) 텍스트가 들어가면 나타나는 "메시지 보내기" 버튼을 `control_type="Button"`으로 찾아 `.invoke()`(UIA InvokePattern) — 키보드/마우스 시뮬레이션이 전혀 아니라 앱의 접근성 트리를 통한 정식 프로그래밍 경로라서, 4번의 키보드 시도가 실패한 것과 달리 즉시 성공(실제 코니 세션에 메시지 도착 확인).
+- **일반화 가능한 교훈**: 앱이 합성 키/클립보드 이벤트를 거부하는 것으로 의심되면(자동화가 "성공" 로그를 남기는데 앱 쪽엔 아무 변화가 없는 패턴), 더 정교한 키 주입 방식을 계속 추측하기보다 **`pywinauto`/UI Automation으로 전환**해서 실제 컨트롤(Edit/Button)을 이름으로 찾아 값 설정+Invoke하는 방식을 우선 시도할 것. `win.print_control_identifiers(depth=N)`로 대상 앱의 실제 접근성 트리를 먼저 덤프해서 컨트롤 이름을 확인하고 시작.
+- **한계**: 이 방식은 대상 앱이 UI Automation 프로바이더를 제대로 구현한 경우에만 동작(대부분의 최신 Electron/네이티브 Windows 앱은 지원). VS Code(만복 트리거 대상)에도 아직 적용/검증 안 됨 — `Ctrl+Escape` 전역단축키 충돌로 비활성화된 상태 그대로, 다음에 이 방식으로 재시도 후보.
 
 
 
