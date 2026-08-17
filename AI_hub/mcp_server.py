@@ -193,9 +193,22 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
             pyperclip.copy(message)
             pyautogui.hotkey('ctrl', 'v')
             time.sleep(0.6)  # React / Electron input state update delay
-            pyautogui.press('enter')
-            time.sleep(0.4)
-            pyautogui.press('enter')  # Fallback enter in case first was consumed by IME/state transition
+
+            # Hardware Scan Code Enter injection (Bypasses Chromium synthetic input filter)
+            VK_RETURN = 0x0D
+            SCAN_RETURN = 0x1C
+            KEYEVENTF_KEYUP = 0x0002
+
+            # 1. Hardware scan code down & up
+            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, 0, 0)
+            time.sleep(0.06)
+            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, KEYEVENTF_KEYUP, 0)
+            time.sleep(0.3)
+
+            # 2. Fallback secondary enter
+            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, 0, 0)
+            time.sleep(0.06)
+            ctypes.windll.user32.keybd_event(VK_RETURN, SCAN_RETURN, KEYEVENTF_KEYUP, 0)
             time.sleep(0.3)
 
             if hwnd_active and hwnd_active != hwnd:
