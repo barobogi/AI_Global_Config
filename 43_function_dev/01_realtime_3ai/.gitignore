@@ -3,6 +3,10 @@
 *.db-wal
 *.db-shm
 
+# Regenerated every ~1s by spool_watcher.py - would spam commit history
+latest_snapshot.json
+latest_snapshot.json.tmp
+
 # Keep snapshots
 !snapshots/
 !snapshots/*.parquet
