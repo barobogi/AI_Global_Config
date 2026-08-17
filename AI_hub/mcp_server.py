@@ -273,25 +273,19 @@ def trigger():
         threading.Thread(target=_nim_fallback).start()
         return jsonify({"status": "success", "message": "nvidia_nim fallback triggered"}), 200
 
-    all_wins = []
-    def _enum_cb(hwnd, _):
-        buf = ctypes.create_unicode_buffer(256)
-        ctypes.windll.user32.GetWindowTextW(hwnd, buf, 256)
-        val = buf.value.strip()
-        if val and window_title.lower() in val.lower():
-            all_wins.append(hwnd)
-        return True
-    _WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_size_t, ctypes.c_size_t)
-    ctypes.windll.user32.EnumWindows(_WNDENUMPROC(_enum_cb), 0)
-
-    if not all_wins:
-        logging.warning(f"Target '{target}' (window '{window_title}') not found. Returning 404 for Fallback.")
-        return jsonify({"status": "failed", "error": "window_not_found"}), 404
-
+    # Window-finding is done once, safely, inside trigger_agent_ui_task itself
+    # (browser exclusion + process-name verification). No redundant pre-check
+    # here - a second, looser enum used to run here with none of those guards,
+    # which is how the kony trigger once matched master_watch.py's console
+    # window (title happened to contain "claude") instead of Claude.exe.
     msg = get_dynamic_trigger_message(target)
-    t = threading.Thread(target=trigger_agent_ui_task, args=(target, window_title, shortcut, msg))
+    required_process_name = agent_info.get("process_name")
+    t = threading.Thread(
+        target=trigger_agent_ui_task,
+        args=(target, window_title, shortcut, msg, required_process_name)
+    )
     t.start()
-    return jsonify({"status": "success", "message": f"{target} triggered"}), 200
+    return jsonify({"status": "success", "message": f"{target} triggered (async)"}), 200
 
 @app.route("/trigger_inbox_check", methods=["POST"])
 def trigger_inbox_check():
