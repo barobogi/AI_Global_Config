@@ -98,6 +98,49 @@ def get_process_name(hwnd):
     except Exception:
         return ""
 
+# UIA-capable agents: Edit control title + Send button title, confirmed by hand
+# (2026-08-17) against the live app. Keyboard/clipboard injection (SendInput,
+# hardware scan codes, Ctrl+Enter) all failed for Claude Desktop - it appears
+# to only act on trusted UI Automation value changes / button invocations, not
+# synthetic keyboard events. UIA SetValue + Invoke bypasses that entirely since
+# it goes through the app's own accessibility provider, not simulated input.
+UIA_AGENT_CONFIG = {
+    "kony": {
+        "process_name": "claude.exe",
+        "edit_title": "메시지를 입력하세요…",
+        "send_button_title": "메시지 보내기",
+    },
+}
+
+
+def try_uia_send(agent_id: str, pid: int, message: str) -> bool:
+    """Set the message text and click Send via UI Automation. Returns True on
+    success. Never raises - caller falls back to keyboard/clipboard injection
+    on any failure (unknown app, missing pywinauto, control not found, etc)."""
+    if not _UIA_AVAILABLE:
+        return False
+    cfg = UIA_AGENT_CONFIG.get(agent_id)
+    if not cfg:
+        return False
+    try:
+        app = _UIAApplication(backend="uia").connect(process=pid)
+        win = app.top_window()
+        edit = win.child_window(control_type="Edit", found_index=0)
+        edit.set_focus()
+        edit.set_edit_text(message)
+        time.sleep(0.3)
+        send_btn = win.child_window(title=cfg["send_button_title"], control_type="Button")
+        if not send_btn.exists() or not send_btn.is_enabled():
+            logging.warning(f"[UIA] Send button not found/enabled for {agent_id} after setting text.")
+            return False
+        send_btn.invoke()
+        logging.info(f"[UIA] Successfully sent message to {agent_id} via UI Automation Invoke().")
+        return True
+    except Exception as e:
+        logging.warning(f"[UIA] send attempt failed for {agent_id}: {e}")
+        return False
+
+
 def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_process_name=None):
     try:
         wait_count = 0
