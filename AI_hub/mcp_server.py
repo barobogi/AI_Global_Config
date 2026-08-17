@@ -196,6 +196,19 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
         hwnd = all_wins[0][0]
         logging.info(f"Found non-browser {agent_id} window: {all_wins[0][1]}")
 
+        # Try UI Automation first for agents we have a confirmed-working
+        # Edit/Send-button mapping for (see UIA_AGENT_CONFIG). This sets the
+        # text via the accessibility ValuePattern and clicks Send via Invoke()
+        # - no keyboard/clipboard simulation, so it isn't affected by whatever
+        # synthetic-input filtering blocked plain Enter injection for kony.
+        if agent_id in UIA_AGENT_CONFIG:
+            with _ui_lock:
+                pid_out = ctypes.c_ulong(0)
+                ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid_out))
+                if try_uia_send(agent_id, pid_out.value, message):
+                    return True
+            logging.info(f"[UIA] Fell back to keyboard/clipboard injection for {agent_id}.")
+
         with _ui_lock:
             hwnd_active = ctypes.windll.user32.GetForegroundWindow()
 
