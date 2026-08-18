@@ -1,0 +1,31 @@
+# 🔄 3AI 세션 연속성 로그 (만복1 → 만복2)
+
+> 최신 세션 상태만 여기 유지. 오래된 항목은 `SESSION_LOG_ARCHIVE.md`로 이동.
+> 세션 시작 시 `D:\AI\CLAUDE.md`(헌법) + 이 파일(최신 상태) 둘 다 읽을 것.
+> 2026-08-19 신설 — CLAUDE.md가 이 로그 누적으로 계속 불어나던 문제(T066 취지와 모순) 해결 위해 분리.
+
+---
+
+## 🔄 최신 상태 (2026-08-18 밤 종료)
+
+### ✅ 2026-08-18 완료
+
+- **T066 실제 적용 완료**: AGENTS.md 474→344줄(27%↓), 체크리스트 15개 DB 이관 + C-1~5 헌법급 규칙 CLAUDE.md 이관, Hookify 사고기록 38건 보존(grep 카운트 확인). `push_to_all.py`에 `get_jit_rules('before_send')` 실제 연동+테스트 통과. tasks.json completed 반영.
+- **master_watch.py 버그 2건 발견+수정**: (1) 19:03 정확한 1분에만 발화하는 트리거 → 그 시각에 프로세스 안 떠있으면 그날치 통째 스킵(코니_quick_sync.md 20일 방치 원인) → 날짜단위 캐치업 로직으로 수정. (2) `re.sub()`에 백슬래시 포함 경로 문자열을 직접 repl로 넘겨서 "bad escape \A" 에러나던 버그 3곳 → lambda 래핑으로 수정.
+- **CLAUDE.md 자체 사고 + 복구**: 위 (2) 수정 직후 `_update_claude_md_latest_status()`가 처음으로 실제 성공 → 그 성공이 몇 주간 손으로 누적해온 CLAUDE.md 상태 섹션 전체를 빈 자동생성 블록으로 덮어씀. git(`b21a6938d`)에서 즉시 전체 복구.
+- **CLAUDE.md 비대화 구조적 해결 (근본조치)**: 바로보기님이 "T066(DB 도입해서 파일 줄이기)이랑 지금 하는 짓(CLAUDE.md에 계속 누적)이 앞뒤가 안 맞는다"고 지적 → 정확한 지적으로 인정. `_update_claude_md_latest_status()` 함수 자체를 삭제(자동배치 호출은 이미 제외했었음, 데이터소스인 NEXT_PROJECTS.md도 7/19 이후 방치돼 이미 사문화 상태였음). 상태로그를 이 파일(`SESSION_LOG.md`)로 완전 이관, CLAUDE.md엔 짧은 포인터만 남김. **DB(rule_governance_db)로 넣지 않은 이유**: 그 DB는 trigger_tag 기반 "상황별 규칙 조회"용으로 설계된 것이지 날짜순 서사 로그와 성격이 다름 — 오늘 CLAUDE.md 사고 자체가 "성격 다른 두 콘텐츠를 한 자리에 욱여넣은" 결과라 같은 실수를 DB에서 반복하지 않기 위함. 또한 git diff/history로 추적 가능한 이점을 유지하기 위해 마크다운 파일 유지.
+- **spool_watcher.py WinError5 버그**: 코니가 로그에서 스냅샷 rename 실패(액세스거부) 1건 발견 + "어제 완벽해결 판정 성급했다" 스스로 정정(사실 밤새 트래픽이 없어서 검증 자체가 안 된 것). 만복이 로그 직접 검증 후 rename 3회 재시도+로그 타임스탬프 추가, 커밋(`b02f258d1`)+재기동. T065 "완전해결" 판정은 보류로 되돌림 — 낮 실트래픽에서 재관찰 후 확정.
+- **LunaChatCoder(GeekNews #32606) 기술검토**: 안티 완료, 바로보기님 공유승인. 결론: 실전도구 미도입(3AI가 이미 로컬 완전제어 중이라 웹샌드박스 왕복 실익 없음), 설계 3개 벤치마킹 채택 — ①진단후최소패치 복구패턴→T_GOAL_LOOP 코드대조 검증 필요(다음 세션 1순위) ②base SHA 검증→특허11_18 참고각주로만 추가예정 ③모바일비상용→액션불필요, 옵션으로만 인지.
+- **만복 UIA 최종 submit 재실패 확인**: 안티의 랜덤 타이밍 격발 테스트(00:01) 실측 결과 — `mcp_server_push.log`에 "Both invoke() and keyboard-Enter submit attempts failed for manbok" → PyAutoGUI 구형 폴백으로 겨우 도착. 어제 "고쳤다"던 게 실전에선 여전히 실패 — 재수정 필요.
+
+### 📋 다음 세션 1순위
+1. **goal_runner.py(T_GOAL_LOOP) 재시도 로직 코드 대조** — luna-chat-coder 벤치마킹 결론 반영, "로그/부분결과 진단 후 최소패치" 패턴 따르는지 확인, 8/12에 잡힌 에스컬레이션 중복발동 버그와 연관 여부 확인. 미흡하면 안티에게 개선 지시서.
+2. **만복 UIA 최종 submit 재수정** — 00:01 랜덤 테스트에서 여전히 invoke()+keyboard-Enter 둘 다 실패 확인됨. 안티에게 재진단 지시.
+3. T065 "완전해결" 최종 판정 — 낮 실트래픽에서 spool_watcher 재관찰 후 확정.
+4. 특허 11_18 문서에 luna-chat-coder base SHA 검증 참고각주 추가 (저priority).
+5. MIGRATION_MAP.md "33개→28개" 오탈자 수정 (코니 지적, 저priority).
+6. 이월: D:\AI\.venv PATH 드리프트 원인조사, T035 나머지 4개 3차 재검토, 7/30 승인파일위조 구조적 대책.
+
+---
+
+> 8/17 이전 항목은 `SESSION_LOG_ARCHIVE.md` 참조.
