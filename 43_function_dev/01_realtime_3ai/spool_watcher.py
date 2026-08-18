@@ -24,6 +24,7 @@ import sys
 import json
 import time
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -38,6 +39,14 @@ FAILED_DIR.mkdir(exist_ok=True)
 SNAPSHOT_PATH = BASE_DIR / "latest_snapshot.json"
 SNAPSHOT_TMP_PATH = BASE_DIR / "latest_snapshot.json.tmp"
 SNAPSHOT_MESSAGE_COUNT = 50
+
+RENAME_RETRY_ATTEMPTS = 3
+RENAME_RETRY_DELAY_SEC = 0.15
+
+
+def _log(msg: str):
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{ts}] {msg}", flush=True)
 
 
 def process_spool_file(engine: Realtime3AIEngine, path: Path):
@@ -58,13 +67,13 @@ def process_spool_file(engine: Realtime3AIEngine, path: Path):
             metadata=data.get("metadata"),
             auth_token=data.get("auth_token"),
         )
-        print(f"[spool_watcher] relayed {path.name} -> msg_id={msg_id}", flush=True)
+        _log(f"[spool_watcher] relayed {path.name} -> msg_id={msg_id}")
         path.unlink()
     except ImpersonationSecurityError as e:
-        print(f"[spool_watcher] BLOCKED (impersonation) {path.name}: {e}", flush=True)
+        _log(f"[spool_watcher] BLOCKED (impersonation) {path.name}: {e}")
         path.rename(FAILED_DIR / path.name)
     except Exception as e:
-        print(f"[spool_watcher] FAILED {path.name}: {e}", flush=True)
+        _log(f"[spool_watcher] FAILED {path.name}: {e}")
         try:
             path.rename(FAILED_DIR / path.name)
         except Exception:
@@ -87,14 +96,30 @@ def export_snapshot(engine: Realtime3AIEngine):
         }
         with open(SNAPSHOT_TMP_PATH, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
-        SNAPSHOT_TMP_PATH.replace(SNAPSHOT_PATH)  # atomic on the same filesystem
+        # os.replace()/Path.replace()는 같은 파일시스템에서 원자적이지만, Windows에서는
+        # 대상 파일(latest_snapshot.json)을 다른 프로세스(코니의 읽기, 백신, 동기화 도구 등)가
+        # 그 순간 열어두고 있으면 WinError 5(액세스 거부)로 실패할 수 있음 (2026-08-18 코니 발견,
+        # 실제 로그에서 1회 발생 확인). 원자성 자체는 깨지지 않으므로(부분쓰기 없음) 짧은 재시도로
+        # 대부분 다음 폴링 루프를 기다리지 않고 즉시 회복 가능.
+        last_err = None
+        for attempt in range(1, RENAME_RETRY_ATTEMPTS + 1):
+            try:
+                SNAPSHOT_TMP_PATH.replace(SNAPSHOT_PATH)
+                last_err = None
+                break
+            except OSError as e:
+                last_err = e
+                if attempt < RENAME_RETRY_ATTEMPTS:
+                    time.sleep(RENAME_RETRY_DELAY_SEC)
+        if last_err is not None:
+            raise last_err
     except Exception as e:
-        print(f"[spool_watcher] snapshot export failed: {e}", flush=True)
+        _log(f"[spool_watcher] snapshot export failed: {e}")
 
 
 def run(poll_interval: float = 1.0):
     engine = Realtime3AIEngine()
-    print(f"[spool_watcher] watching {SPOOL_DIR} every {poll_interval}s", flush=True)
+    _log(f"[spool_watcher] watching {SPOOL_DIR} every {poll_interval}s")
     while True:
         for path in sorted(SPOOL_DIR.glob("*.json")):
             process_spool_file(engine, path)
