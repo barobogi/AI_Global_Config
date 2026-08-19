@@ -911,6 +911,51 @@
       "channel_name": "Matt Pocock",
       "status": "pending",
       "fallback": true
+    },
+    {
+      "video_id": "XXAqTnvp2XI",
+      "title": "아직 아무도 모르는 무료 AI 영상 생성 사이트 4개 추천",
+      "channel_name": "호두의 AI 분석실",
+      "status": "pending"
+    },
+    {
+      "video_id": "wQkFDtqwQCk",
+      "title": "[한글자막] AI 자동화에 5000시간을 쏟고 깨달은 핵심 교훈 12가지",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "CSVg3rUZSQo",
+      "title": "[한글자막] AI 에이전트와 도구를 연결하는 5가지 핵심 패턴: API부터 MCP까지",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "S_PeI8JUqMg",
+      "title": "[한글자막] 사람이 아닌 에이전트를 위한 문서 작성법: OpenWiki 내부 공개",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "1eMDZjsVOh4",
+      "title": "[한글자막] OpenAI는 왜 코딩 에이전트 하네스를 이렇게 설계했을까요?",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "kvQZ8mpOduo",
+      "title": "왜 이제 '루프'가 아니라 '그래프'를 설계해야 할까? #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "B5uQr1k6Wko",
+      "title": "Matt Pocock 스킬, 이번 업데이트로 확 달라졌다 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
     }
   ],
   "processed": [

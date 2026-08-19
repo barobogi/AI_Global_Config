@@ -113,31 +113,32 @@ UIA_AGENT_CONFIG = {
     },
     "manbok": {
         "process_name": "Code.exe",
-        "match": "position",  # Claude Code (VS Code extension): the Edit
-        # control's accessible name is the PLACEHOLDER text only while empty -
-        # it changes to reflect typed content once non-empty, so exact-title
-        # matching is unreliable. The Send button has NO accessible name at
-        # all. Both are consistently the LAST Edit / LAST Button in the
-        # window's descendants (confirmed across repeated tree dumps
-        # 2026-08-17), so match positionally instead.
+        "match": "position",  # Claude Code (VS Code extension) positional match
         # Requires "editor.accessibilitySupport": "on" in VS Code settings.json
-        # - without it, VS Code doesn't build a full accessibility tree at all.
+    },
+    "anti": {
+        "process_name": "Antigravity.exe",
+        "match": "position",  # Antigravity IDE Chat view positional match
     },
 }
 
 
-def try_uia_send(agent_id: str, pid: int, message: str) -> bool:
-    """Set the message text and click Send via UI Automation. Returns True on
-    success. Never raises - caller falls back to keyboard/clipboard injection
-    on any failure (unknown app, missing pywinauto, control not found, etc)."""
+def try_uia_send(agent_id: str, hwnd_or_pid: int, message: str, is_hwnd: bool = True) -> bool:
+    """Set the message text and click Send via UI Automation using window HWND or PID.
+    Returns True on success. Never raises - caller falls back to keyboard/clipboard
+    injection on any failure (unknown app, missing pywinauto, control not found, etc)."""
     if not _UIA_AVAILABLE:
         return False
     cfg = UIA_AGENT_CONFIG.get(agent_id)
     if not cfg:
         return False
     try:
-        app = _UIAApplication(backend="uia").connect(process=pid)
-        win = app.top_window()
+        if is_hwnd:
+            app = _UIAApplication(backend="uia").connect(handle=hwnd_or_pid)
+            win = app.window(handle=hwnd_or_pid)
+        else:
+            app = _UIAApplication(backend="uia").connect(process=hwnd_or_pid)
+            win = app.top_window()
 
         if cfg.get("match") == "position":
             edits = win.descendants(control_type="Edit")
@@ -154,12 +155,49 @@ def try_uia_send(agent_id: str, pid: int, message: str) -> bool:
         edit.set_focus()
         edit.set_edit_text(message)
         time.sleep(0.3)
-        if not send_btn.exists() or not send_btn.is_enabled():
-            logging.warning(f"[UIA] Send button not found/enabled for {agent_id} after setting text.")
+
+        def _box_is_cleared():
+            # Check with polling: verify the compose box is verifiably cleared
+            for _ in range(5):
+                try:
+                    current = win.descendants(control_type="Edit")[-1].window_text() if cfg.get("match") == "position" else edit.window_text()
+                    if message.strip() not in current:
+                        return True
+                except Exception:
+                    pass
+                time.sleep(0.2)
             return False
-        send_btn.invoke()
-        logging.info(f"[UIA] Successfully sent message to {agent_id} via UI Automation Invoke().")
-        return True
+
+        submitted = False
+
+        # 1. Try UIA button invoke
+        try:
+            if hasattr(send_btn, "is_enabled") and send_btn.is_enabled():
+                send_btn.invoke()
+                submitted = _box_is_cleared()
+        except Exception as e:
+            logging.info(f"[UIA] invoke() raised for {agent_id}: {e}")
+
+        # 2. Fallback: Hardware scan code Enter + Ctrl+Enter + standard Enter
+        if not submitted:
+            try:
+                # Hardware Scan code for Enter
+                ctypes.windll.user32.keybd_event(0x0D, 0x1C, 0, 0)
+                time.sleep(0.05)
+                ctypes.windll.user32.keybd_event(0x0D, 0x1C, 2, 0)
+                time.sleep(0.2)
+                pyautogui.hotkey('ctrl', 'enter')
+                time.sleep(0.2)
+                pyautogui.press('enter')
+                submitted = _box_is_cleared()
+            except Exception as e:
+                logging.info(f"[UIA] keyboard fallback raised for {agent_id}: {e}")
+
+        if submitted:
+            logging.info(f"[UIA] VERIFIED sent message to {agent_id} (compose box confirmed cleared).")
+        else:
+            logging.warning(f"[UIA] Both invoke() and keyboard-Enter submit attempts failed for {agent_id}.")
+        return submitted
     except Exception as e:
         logging.warning(f"[UIA] send attempt failed for {agent_id}: {e}")
         return False
@@ -220,16 +258,10 @@ def trigger_agent_ui_task(agent_id, window_title, shortcut, message, required_pr
         hwnd = all_wins[0][0]
         logging.info(f"Found non-browser {agent_id} window: {all_wins[0][1]}")
 
-        # Try UI Automation first for agents we have a confirmed-working
-        # Edit/Send-button mapping for (see UIA_AGENT_CONFIG). This sets the
-        # text via the accessibility ValuePattern and clicks Send via Invoke()
-        # - no keyboard/clipboard simulation, so it isn't affected by whatever
-        # synthetic-input filtering blocked plain Enter injection for kony.
+        # Try UI Automation first using exact HWND handle
         if agent_id in UIA_AGENT_CONFIG:
             with _ui_lock:
-                pid_out = ctypes.c_ulong(0)
-                ctypes.windll.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid_out))
-                if try_uia_send(agent_id, pid_out.value, message):
+                if try_uia_send(agent_id, hwnd, message, is_hwnd=True):
                     return True
             logging.info(f"[UIA] Fell back to keyboard/clipboard injection for {agent_id}.")
 
@@ -331,29 +363,34 @@ def trigger():
         logging.warning(f"Target '{target}' is marked as inactive (DND). Returning 404.")
         return jsonify({"status": "failed", "error": "agent_inactive"}), 404
     
+    is_test = data.get("is_test", False) or data.get("test_only", False)
+
     if target == "anti":
-        # PyAutoGUI로 Antigravity 창 직접 격발 시도, 실패 시 파일 폴백
-        anti_msg = (
-            "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
-            "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
-            "절대 자체적으로 백그라운드 태스크나 스케줄을 예약하지 마십시오. "
-            "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
-        )
-        # 2026-08-17: window_title="Antigravity" 매칭이 항상 실패했음 - 실제 창
-        # 제목이 앱 이름이 아니라 대화 주제 기반(예: "활기찬 하루 시작하기")이라
-        # 오늘 이미 코니/만복에서 겪은 것과 같은 문제. 프로세스명으로 강제 매칭.
+        if is_test:
+            anti_msg = (
+                "[TEST_ONLY / 3AI 모의 격발 테스트]\n\n"
+                "본 메시지는 3AI UIA 격발 배관 연결 테스트용입니다. "
+                "실제 파일 수정이나 작업을 일체 수행하지 마시고, "
+                "'격발 테스트 확인 완료'로만 짧게 응답해 주세요."
+            )
+        else:
+            anti_msg = (
+                "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
+                "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
+                "절대 자체적으로 백그라운드 태스크나 스케줄을 예약하지 마십시오. "
+                "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
+            )
         t = threading.Thread(
             target=trigger_agent_ui_task,
             args=("anti", "Antigravity", agent_info.get("shortcut", []), anti_msg, "Antigravity.exe")
         )
         t.start()
-        # 파일도 병행 기록 (anti_watchdog 호환)
         try:
             with open(r"D:\AI\AI_hub\status\trigger_anti.txt", "a", encoding="utf-8") as f:
-                f.write(f"triggered by mcp_server at {time.time()}\n")
+                f.write(f"triggered by mcp_server at {time.time()} (is_test={is_test})\n")
         except Exception:
             pass
-        return jsonify({"status": "success", "message": "anti triggered via PyAutoGUI"}), 200
+        return jsonify({"status": "success", "message": f"anti triggered via UI (is_test={is_test})"}), 200
 
     # nvidia_nim: API 타입 — PyAutoGUI 불필요, NIM 호출 후 텔레그램 발송
     if agent_info.get("type") == "api" and target == "nvidia_nim":
@@ -381,19 +418,23 @@ def trigger():
         threading.Thread(target=_nim_fallback).start()
         return jsonify({"status": "success", "message": "nvidia_nim fallback triggered"}), 200
 
-    # Window-finding is done once, safely, inside trigger_agent_ui_task itself
-    # (browser exclusion + process-name verification). No redundant pre-check
-    # here - a second, looser enum used to run here with none of those guards,
-    # which is how the kony trigger once matched master_watch.py's console
-    # window (title happened to contain "claude") instead of Claude.exe.
-    msg = get_dynamic_trigger_message(target)
+    if is_test:
+        msg = (
+            f"[TEST_ONLY / {target} 모의 격발 테스트]\n\n"
+            f"본 메시지는 3AI UIA 자동 격발 연결 시험용입니다. "
+            f"실제 작업/코드 수정/검증 절차를 진행하지 마시고, "
+            f"'{target} 격발 테스트 확인 완료'로만 응답해 주세요."
+        )
+    else:
+        msg = get_dynamic_trigger_message(target)
+
     required_process_name = agent_info.get("process_name")
     t = threading.Thread(
         target=trigger_agent_ui_task,
         args=(target, window_title, shortcut, msg, required_process_name)
     )
     t.start()
-    return jsonify({"status": "success", "message": f"{target} triggered (async)"}), 200
+    return jsonify({"status": "success", "message": f"{target} triggered (async, is_test={is_test})"}), 200
 
 @app.route("/trigger_inbox_check", methods=["POST"])
 def trigger_inbox_check():
