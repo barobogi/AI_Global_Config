@@ -233,7 +233,62 @@ class RuleGovernanceEngine:
             cursor = conn.execute("SELECT * FROM projects_status ORDER BY project_id ASC")
             return [dict(r) for r in cursor.fetchall()]
 
+    def list_active_rules(self, caller_ai: str) -> list:
+        """caller_ai(target_ai='all' 또는 본인)에게 해당하는 활성 규칙 전체를 trigger_tag 무관하게 반환.
+        코니처럼 세션 중 동적으로 DB를 조회할 수 없는 AI를 위한 정적 다이제스트 생성용."""
+        with self._get_connection(readonly=True) as conn:
+            cursor = conn.execute(
+                """
+                SELECT * FROM rules
+                WHERE is_active = 1 AND (target_ai = 'all' OR target_ai = ?)
+                ORDER BY target_ai ASC, id ASC
+                """,
+                (caller_ai,)
+            )
+            return [dict(r) for r in cursor.fetchall()]
+
+
+def _cli():
+    import argparse
+    parser = argparse.ArgumentParser(description="3AI Rule Governance Engine CLI (안티/만복 터미널 직접 조회용)")
+    sub = parser.add_subparsers(dest="cmd", required=True)
+
+    p_jit = sub.add_parser("jit", help="특정 trigger_tag 시점 규칙 조회 (JIT)")
+    p_jit.add_argument("--trigger", required=True, help="예: before_send, before_complete")
+    p_jit.add_argument("--caller", required=True, choices=["manbok", "kony", "anti"], help="호출 주체 AI")
+    p_jit.add_argument("--json", action="store_true", help="JSON 형식으로 출력 (기본은 사람이 읽기 좋은 텍스트)")
+
+    p_all = sub.add_parser("list-active", help="caller_ai 대상 전체 활성 규칙 조회 (trigger 무관)")
+    p_all.add_argument("--caller", required=True, choices=["manbok", "kony", "anti"])
+    p_all.add_argument("--json", action="store_true")
+
+    args = parser.parse_args()
+    engine = RuleGovernanceEngine()
+
+    if args.cmd == "jit":
+        rules = engine.get_jit_rules(args.trigger, caller_ai=args.caller)
+    else:
+        rules = engine.list_active_rules(args.caller)
+
+    if args.json:
+        print(json.dumps(rules, ensure_ascii=False, indent=2))
+        return
+
+    if not rules:
+        print(f"(해당 조건에 맞는 활성 규칙 없음)")
+        return
+    for r in rules:
+        print(f"[{r.get('rule_id', '?')}] {r.get('rule_name', '')} (대상: {r.get('target_ai')})")
+        body = r.get('rule_body', '')
+        if body:
+            print(f"  {body}")
+        print()
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding='utf-8')
-    engine = RuleGovernanceEngine()
-    print("Rule Governance Engine Ready.")
+    if len(sys.argv) > 1:
+        _cli()
+    else:
+        engine = RuleGovernanceEngine()
+        print("Rule Governance Engine Ready. 사용법: python rule_engine.py jit --trigger <tag> --caller <ai>")
