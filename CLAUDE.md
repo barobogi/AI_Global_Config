@@ -74,6 +74,18 @@
 - `_ai_workspace` = 초안/테스트 전용
 - **AI_hub 전담 관리자 = 만복** (타 AI 변경 시 만복 승인 필수)
 
+### git 커밋 협조락 (2026-08-20 추가)
+
+D:\AI 저장소에 수동으로 `git add`/`git commit`을 치기 전, master_watch.py의 백그라운드 자동 git sync와 충돌 방지를 위해 반드시 락을 잡을 것:
+
+```bash
+python D:\AI\Global_Define\git_sync_lock.py acquire   # 커밋 전
+git add ... && git commit -m "..."
+python D:\AI\Global_Define\git_sync_lock.py release   # 커밋 후 (실패해도 반드시 release)
+```
+
+> Why: 2026-08-20 오전, master_watch.py의 자동 sync와 만복의 수동 커밋이 같은 D:\AI 저장소를 동시에 건드리면서 `git add .`가 몇 분씩 정지하는 사고가 두 차례 발생(수동 kill+lock 삭제로 복구). 근본원인: 둘 다 `index.lock` 존재만 30초 확인하고 그 뒤엔 진행해버리는 약한 재시도 구조였음.
+
 ---
 
 ## 📢 AI 일일 성과 공유
