@@ -3,6 +3,17 @@
   "last_updated": "2026-07-17T15:50:00",
   "tasks": [
     {
+      "id": "T065ROOT_today_what_to_do",
+      "title": "[65번 뿌리 1호] 오늘뭐하지 — 공공데이터 기반 상황맞춤 장소·코스 추천 Android 앱",
+      "뿌리": 65,
+      "기간": "장기",
+      "담당": "바로보기님 (기획/발주) / 안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
+      "예정일": "2026-08-20 착수",
+      "설명": "바로보기님이 ChatGPT와 직접 논의해서 만든 44섹션 풀스펙 기획서(product_plan_v1.md) — 위치·동행자·날씨·예산 조건 입력 시 관광공사/기상청 공공API 조합해서 오늘 갈 코스 추천. Android(Kotlin+Compose) + Backend(FastAPI) + 3AI 파이프라인(AI-1 기획/AI-2 추천/AI-3 팩트체크) 구조. **65번 뿌리 신설**(26 실전뿌리 산하, 61~64 다음 순번) — '안드로이드앱(공공데이터)' 카테고리, 바로보기님 목표는 주 1개 페이스로 앱 시리즈 제작(이번이 1호). dashboard.html ROOT_CHILDREN 반영 완료. 원본 문서는 D:\\AI\\43_function_dev\\TEMP\\(경로검토 미완 상태)에 있던 걸 `D:\\AI\\65_android_apps\\today_what_to_do\\docs\\product_plan_v1.md`로 정식 이관. 만복 PM 검토의견: 문서 품질은 높으나 MVP치고 스코프가 큼 — Android/Backend 다 건너뛰고 공공API 3개(관광정보/반려동물동반/기상청단기예보) 호출해서 터미널에 추천결과 찍어보는 Phase 0 검증 스크립트부터 시작 권고. 다음 실제 작업: 공공데이터포털 API 3종 발급 신청 → 실데이터 100~1000건 확보 → AI 없는 규칙기반 추천엔진 프로토타입.",
+      "연결": []
+    },
+    {
       "id": "T064_awesome_cc",
       "title": "Awesome Claude Code 큐레이션을 후보 발굴 보조 소스로 채택",
       "뿌리": 43,
@@ -438,13 +449,13 @@
     },
     {
       "id": "T_TG_TOPIC",
-      "title": "Telegram 멀티 Topic 연동 시스템",
+      "title": "Telegram 1:1 및 멀티 Topic 라우팅 연동 시스템",
       "뿌리": 24,
       "기간": "단기",
       "담당": "안티 (구현) / 만복 (검수)",
-      "상태": "pending",
-      "예정일": "2026-07-26 전후 (뿌리체계 상황에 따라 당겨질 수 있음)",
-      "설명": "Hermes Agent 뽀개기 도출. 코니/안티/만복 개별 Topic 분리 + 메시지 라우팅. 현재 단일 채널 → 멀티태스크 추적 + 모바일 원격 제어 개선. T-GOAL-LOOP 이전 우선 착수."
+      "상태": "completed",
+      "완료일": "2026-08-20",
+      "설명": "Hermes Agent 뽀개기 도출. 기존 텔레그램 봇(n8n_telegram_bot.py)을 확장하여 1:1 대화방 및 포럼 멀티 토픽 환경 모두 지원. ①agent_registry.json에 AI별 토픽 메타데이터 등록 ②1:1 개인방에서 '안티야/만복아/코니야' 키워드 인식 시 해당 AI 즉시 UIA 격발+수신함 라우팅(미지정 시 만복 PM 자동 폴백) ③포럼 그룹방 사용 시 createForumTopic 자동 생성 및 message_thread_id 컨텍스트 라우팅 지원 ④send_approval.py 승인 토픽 격리 지원 완료."
     },
     {
       "id": "T_GOAL_LOOP",
