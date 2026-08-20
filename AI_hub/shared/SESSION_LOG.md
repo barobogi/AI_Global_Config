@@ -6,44 +6,25 @@
 
 ---
 
-## 🔄 최신 상태 (2026-08-20 아침, 진행 중)
+## 🔄 최신 상태 (2026-08-20)
 
 ### ✅ 2026-08-20 완료
-- **T066 진짜 마무리 — 안티/코니 실제 DB 연동 완료**: rule_engine.py에 CLI 추가(`jit --trigger X --caller Y`, `list-active --caller Y`) — 안티는 터미널로 직접 조회 가능(테스트 확인, 커밋 `80aac0987` 자동동기화됨). 코니는 MCP filesystem이라 직접 SQLite 불가 — master_watch.py의 코니_quick_sync.md/코니_sync.md 생성 함수가 대신 조회해서 활성규칙 다이제스트 삽입(J/H/K 규칙 전부 노출 테스트 확인).
-- **부수 발견 — TEMP_MANBOK 이중폴더 버그**: `D:\AI\TEMP_MANBOK`(밑줄없음, 7/26 폴더명변경 이전 구경로, 7/29 이후 정지)와 `_Temp_Manbok`(신경로, 코드가 실제로 쓰는 곳)가 공존하고 있었음. 코니 Cowork Custom Instructions가 구경로를 계속 보고 있었을 가능성이 "코니_quick_sync.md 20일 정체" 신고의 진짜 원인일 수 있음(어젯밤엔 스케줄러 버그로만 생각했으나 그건 부분적 원인). 안전망으로 양쪽 경로 동시쓰기 추가. **코니 Custom Instructions 자체 수정은 앱 설정 영역이라 만복이 못 고침 — 바로보기님 확인 필요.**
-
-### 📋 남은 순서 (어제 목록에서 이어서)
-1. **메시지 채널 통합 설계** — 다음 항목
-2. 만복 UIA 최종 submit 재수정
-3. 안티 goal_runner.py 지시서 완료 확인
-4. T065 "완전해결" 최종 판정
-
----
-
-## 🔄 최신 상태 (2026-08-18 밤 종료)
-
-### ✅ 2026-08-18 완료
-
-- **T066 실제 적용 완료**: AGENTS.md 474→344줄(27%↓), 체크리스트 15개 DB 이관 + C-1~5 헌법급 규칙 CLAUDE.md 이관, Hookify 사고기록 38건 보존(grep 카운트 확인). `push_to_all.py`에 `get_jit_rules('before_send')` 실제 연동+테스트 통과. tasks.json completed 반영.
-- **master_watch.py 버그 2건 발견+수정**: (1) 19:03 정확한 1분에만 발화하는 트리거 → 그 시각에 프로세스 안 떠있으면 그날치 통째 스킵(코니_quick_sync.md 20일 방치 원인) → 날짜단위 캐치업 로직으로 수정. (2) `re.sub()`에 백슬래시 포함 경로 문자열을 직접 repl로 넘겨서 "bad escape \A" 에러나던 버그 3곳 → lambda 래핑으로 수정.
-- **CLAUDE.md 자체 사고 + 복구**: 위 (2) 수정 직후 `_update_claude_md_latest_status()`가 처음으로 실제 성공 → 그 성공이 몇 주간 손으로 누적해온 CLAUDE.md 상태 섹션 전체를 빈 자동생성 블록으로 덮어씀. git(`b21a6938d`)에서 즉시 전체 복구.
-- **CLAUDE.md 비대화 구조적 해결 (근본조치)**: 바로보기님이 "T066(DB 도입해서 파일 줄이기)이랑 지금 하는 짓(CLAUDE.md에 계속 누적)이 앞뒤가 안 맞는다"고 지적 → 정확한 지적으로 인정. `_update_claude_md_latest_status()` 함수 자체를 삭제(자동배치 호출은 이미 제외했었음, 데이터소스인 NEXT_PROJECTS.md도 7/19 이후 방치돼 이미 사문화 상태였음). 상태로그를 이 파일(`SESSION_LOG.md`)로 완전 이관, CLAUDE.md엔 짧은 포인터만 남김. **DB(rule_governance_db)로 넣지 않은 이유**: 그 DB는 trigger_tag 기반 "상황별 규칙 조회"용으로 설계된 것이지 날짜순 서사 로그와 성격이 다름 — 오늘 CLAUDE.md 사고 자체가 "성격 다른 두 콘텐츠를 한 자리에 욱여넣은" 결과라 같은 실수를 DB에서 반복하지 않기 위함. 또한 git diff/history로 추적 가능한 이점을 유지하기 위해 마크다운 파일 유지.
-- **spool_watcher.py WinError5 버그**: 코니가 로그에서 스냅샷 rename 실패(액세스거부) 1건 발견 + "어제 완벽해결 판정 성급했다" 스스로 정정(사실 밤새 트래픽이 없어서 검증 자체가 안 된 것). 만복이 로그 직접 검증 후 rename 3회 재시도+로그 타임스탬프 추가, 커밋(`b02f258d1`)+재기동. T065 "완전해결" 판정은 보류로 되돌림 — 낮 실트래픽에서 재관찰 후 확정.
-- **LunaChatCoder(GeekNews #32606) 기술검토**: 안티 완료, 바로보기님 공유승인. 결론: 실전도구 미도입(3AI가 이미 로컬 완전제어 중이라 웹샌드박스 왕복 실익 없음), 설계 3개 벤치마킹 채택 — ①진단후최소패치 복구패턴→T_GOAL_LOOP 코드대조 검증 필요(다음 세션 1순위) ②base SHA 검증→특허11_18 참고각주로만 추가예정 ③모바일비상용→액션불필요, 옵션으로만 인지.
-- **만복 UIA 최종 submit 재실패 확인**: 안티의 랜덤 타이밍 격발 테스트(00:01) 실측 결과 — `mcp_server_push.log`에 "Both invoke() and keyboard-Enter submit attempts failed for manbok" → PyAutoGUI 구형 폴백으로 겨우 도착. 어제 "고쳤다"던 게 실전에선 여전히 실패 — 재수정 필요.
-- **goal_runner.py 코드 대조 완료**: (1) 8/12 "3연속실패 매턴 중복 에스컬레이션" 버그 → `_consecutive_escalated` 플래그로 이미 정상 수정 확인(추가조치 불필요). (2) luna-chat-coder 벤치마킹 패턴("진단 후 최소패치") 미적용 갭 발견 — 실패해도 stderr 그냥 로그만 남기고 무조건 동일 명령 재시도. 안티에게 지시서 발송(`만복→안티_20260819_XXXX_goalrunner_결정론적실패감지_지시서.md`) — 연속 2회 stderr 완전동일 시 결정론적 실패로 조기 에스컬레이션 추가.
-- **MIGRATION_MAP.md "33개" 오탈자** — 확인해보니 이미 "전체 28개"로 정확하게 되어 있음(누군가 이미 수정함). 조치 불필요.
-- **메시지 채널 이원화 문제 발견**: 만복이 코니에게 보낸 답장을 파일메시지 시스템(`AI_hub/shared/messages/`)으로 보냈는데, 코니는 실시간 spool/snapshot 채널만 보고 있어서 답장을 못 받은 걸 확인. 임시 정책: 코니한테는 무조건 spool 채널로 보내기(그녀가 실제 보는 채널). **근본 해결은 다음 세션 설계 과제로 이월** — 파일시스템(승인게이트+브로드캐스트+다이어리 등 기존 인프라 다수 의존)과 실시간DB(코니 네트워크마운트 문제 해결용 신규) 중 뭘 원본/미러로 할지 설계 필요, midnight 단독판단으로 밀어붙이지 않기로 함(바로보기님 확인).
+- **T066 진짜 마무리 — 안티/코니 실제 DB 연동 완료**: rule_engine.py에 CLI 추가(`jit --trigger X --caller Y`, `list-active --caller Y`) — 안티는 터미널로 직접 조회 가능. 안티가 별도로 `AI_hub/shared/rules_{kony,manbok,anti}.md`(trigger_tag 포함 테이블, 코니 MCP filesystem용) 생성 — 포맷은 채용하되 자동재생성 없던 걸 `master_watch.py`의 `_generate_rule_snapshots()`로 연결(19:03 배치). 코니_quick_sync.md 인라인 다이제스트는 중복이라 제거하고 이걸로 통합.
+- **부수 발견 — TEMP_MANBOK 이중폴더 버그**: `D:\AI\TEMP_MANBOK`(밑줄없음, 7/26 폴더명변경 이전 구경로, 7/29 이후 정지)와 `_Temp_Manbok`(신경로)가 공존. 코니 Cowork Custom Instructions가 구경로를 보고 있었을 가능성 — 안전망으로 양쪽 동시쓰기 추가. **코니 Custom Instructions 자체 수정은 앱 설정 영역이라 만복이 못 고침 — 바로보기님 확인 필요.**
+- **메시지 채널 자동 미러링 구현**: 안티가 "SSOT=파일메시지, 미러=실시간DB" 구조를 설계했다고 보고했으나 실제 코드는 없었음(확인 후 발견) — `push_to_all.py`에 `mirror_file_messages_to_realtime()` 구현, `force_push_all()`에 연결. 기존 962개 파일은 사전마킹해서 소급 스팸 방지. 바로보기님이 "메시지 보낼 때 두 채널 다 병행" 지시(decisions.md D006) — 자동미러는 안전망, 각 AI도 수동 병행 권장됨.
+- **코니 정체성 혼동 사고**: 코니가 CLAUDE.md 제목("만복1→만복2")만 보고 스스로를 만복으로 착각, "만복" 명의로 메시지 발송(`...0930_반려_자체검증4회요구.md`) — 내용은 바로보기님 실제 지시와 일치해 피해는 없었으나 H-01 위반 소지. 코니 스스로 자백+정정, CLAUDE.md에 경고문 추가 + AGENTS.md Hookify 박제.
+- **goal_runner.py 최종승인**: 안티 1차구현→만복 반려(조기중단 return False 누락)→안티 재작업+4회자체검증→코니 코드대조 PASS→만복 최종승인. luna-chat-coder 벤치마킹(결정론적실패 조기중단) 완결.
+- **T065 "완전 해결" 최종 확정**: 코니가 09:19~09:55 실트래픽(8건+) 구간에서 WinError5 재발 없음 직접 검증. 부수 발견(spool_watcher.log가 8/19 00:19 이후 정지)도 원인 확인(만복이 리다이렉트 없이 재시작해서 stdout 유실) + 수정.
+- **git 커밋 충돌 버그 발견+수정**: master_watch.py 자동 git sync와 만복 수동 git 커밋이 같은 저장소에서 반복 충돌(`git add .`가 몇 분씩 정지, 2회 발생). 원인: index.lock 존재만 확인하고 그 뒤엔 진행해버리는 약한 재시도 구조. 바로보기님 지시로 협조락(`.git_ai_sync.lock`) 도입 — `master_watch.py` 리팩터링 + `Global_Define/git_sync_lock.py` CLI 신설, CLAUDE.md에 사용법 문서화. AGENTS.md Hookify 박제.
+- **안티 UIA submit — 아직 미해결**: 안티가 "개선 완료" 보고했으나 오늘 아침 실측(09:47/09:49) 둘 다 여전히 UIA 실패, PyAutoGUI 폴백만 성공. 안티에게 재확인 요청 전달(급하진 않음 — 폴백이 100% 성공 중).
+- **spool_watcher.py 중복 프로세스 정리**: 안티 쪽에서도 독립적으로 재시작하면서 중복 인스턴스 발생 — 발견 즉시 정리.
 
 ### 📋 다음 세션 1순위
-0. **T066 진짜 마무리 — 안티/코니 실제 DB 연동**: `get_jit_rules()` 호출 지점이 지금 push_to_all.py(만복) 딱 하나뿐. AGENTS.md에서 뺀 M/K/A 개별 규칙을 안티·코니가 실제로 조회할 방법이 아직 없음(코니는 MCP filesystem이라 SQLite 직접 쿼리 제약 가능 — spool_watcher처럼 스냅샷 우회 필요할 수도). 바로보기님이 "T066 아직 안 끝났다" 직접 지적.
-1. **메시지 채널 통합 설계** — 파일시스템 vs 실시간DB(spool) 이원화로 오늘 밤 실제 미스(만복→코니 답장 유실) 발생. 원본/미러 구조 설계 필요.
-2. **만복 UIA 최종 submit 재수정** — 00:01 랜덤 테스트에서 여전히 invoke()+keyboard-Enter 둘 다 실패 확인됨. 안티에게 재진단 지시.
-3. **안티 goal_runner.py 지시서 완료 확인** — 결정론적 실패 조기 에스컬레이션, 완료 시 코니 검증까지.
-4. T065 "완전해결" 최종 판정 — 낮 실트래픽에서 spool_watcher 재관찰 후 확정.
-5. 특허 11_18 문서에 luna-chat-coder base SHA 검증 참고각주 추가 (저priority).
-6. 이월: D:\AI\.venv PATH 드리프트 원인조사, T035 나머지 4개 3차 재검토, 7/30 승인파일위조 구조적 대책.
+1. **안티 UIA submit 재수정** — "개선 완료" 보고와 실측이 계속 어긋나는 패턴, 이번엔 재확인 후 보고하도록 재차 당부함.
+2. "AI_Global_Config" 태그로 global_watcher.log에 쓰는 정체불명 프로세스 — 소스 못 찾음, 계속 관찰.
+3. 특허 11_18 문서에 luna-chat-coder base SHA 검증 참고각주 추가 (저priority).
+4. 이월: D:\AI\.venv PATH 드리프트 원인조사, T035 나머지 4개 3차 재검토, 7/30 승인파일위조 구조적 대책.
 
 ---
 
-> 8/17 이전 항목은 `SESSION_LOG_ARCHIVE.md` 참조.
+> 8/18 이전 항목은 `SESSION_LOG_ARCHIVE.md` 참조.
