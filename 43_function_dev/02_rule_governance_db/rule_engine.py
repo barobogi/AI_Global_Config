@@ -247,6 +247,43 @@ class RuleGovernanceEngine:
             )
             return [dict(r) for r in cursor.fetchall()]
 
+    def export_snapshots(self, output_dir: Path = None):
+        """
+        Export active rules as JSON and readable Markdown snapshots to shared directory.
+        Allows MCP-constrained AIs (like Kony via filesystem MCP) to read latest rules directly.
+        """
+        out_path = output_dir or Path(r"D:\AI\AI_hub\shared")
+        out_path.mkdir(parents=True, exist_ok=True)
+
+        for ai in ["kony", "anti", "manbok", "all"]:
+            rules = self.list_active_rules(ai if ai != "all" else "all")
+            
+            # 1. JSON Snapshot
+            json_file = out_path / f"rules_{ai}.json"
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump(rules, f, ensure_ascii=False, indent=2)
+
+            # 2. Human/Agent Readable Markdown Snapshot
+            md_file = out_path / f"rules_{ai}.md"
+            lines = [
+                f"# 📜 3AI 활성 규칙 스냅샷 ({ai.upper()})",
+                f"> 자동 생성 시각: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                f"> 소스 DB: `43_function_dev/02_rule_governance_db/rule_governance.db`",
+                "",
+                "| ID | 규칙명 | 대상 | Trigger Tag | 본문 |",
+                "| :--- | :--- | :---: | :---: | :--- |"
+            ]
+            for r in rules:
+                rid = r.get("rule_id", "")
+                rname = r.get("rule_name", "")
+                target = r.get("target_ai", "")
+                tag = r.get("trigger_tag", "")
+                body = r.get("rule_body", "").replace("\n", " ")
+                lines.append(f"| `{rid}` | **{rname}** | `{target}` | `{tag}` | {body} |")
+
+            with open(md_file, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines) + "\n")
+
 
 def _cli():
     import argparse
@@ -259,11 +296,18 @@ def _cli():
     p_jit.add_argument("--json", action="store_true", help="JSON 형식으로 출력 (기본은 사람이 읽기 좋은 텍스트)")
 
     p_all = sub.add_parser("list-active", help="caller_ai 대상 전체 활성 규칙 조회 (trigger 무관)")
-    p_all.add_argument("--caller", required=True, choices=["manbok", "kony", "anti"])
+    p_all.add_argument("--caller", required=True, choices=["manbok", "kony", "anti", "all"])
     p_all.add_argument("--json", action="store_true")
+
+    p_snap = sub.add_parser("export-snapshots", help="AI_hub/shared/ 디렉토리에 전원 규칙 스냅샷 (JSON/MD) 내보내기")
 
     args = parser.parse_args()
     engine = RuleGovernanceEngine()
+
+    if args.cmd == "export-snapshots":
+        engine.export_snapshots()
+        print("Successfully exported rules snapshots to AI_hub/shared/!")
+        return
 
     if args.cmd == "jit":
         rules = engine.get_jit_rules(args.trigger, caller_ai=args.caller)
