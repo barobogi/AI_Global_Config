@@ -455,7 +455,7 @@
       "담당": "안티 (구현) / 만복 (검수)",
       "상태": "completed",
       "완료일": "2026-08-20",
-      "설명": "Hermes Agent 뽀개기 도출. 기존 텔레그램 봇(n8n_telegram_bot.py)을 확장하여 1:1 대화방 및 포럼 멀티 토픽 환경 모두 지원. ①agent_registry.json에 AI별 토픽 메타데이터 등록 ②1:1 개인방에서 '안티야/만복아/코니야' 키워드 인식 시 해당 AI 즉시 UIA 격발+수신함 라우팅(미지정 시 만복 PM 자동 폴백) ③포럼 그룹방 사용 시 createForumTopic 자동 생성 및 message_thread_id 컨텍스트 라우팅 지원 ④send_approval.py 승인 토픽 격리 지원 완료."
+      "설명": "Hermes Agent 뽀개기 도출. 기존 텔레그램 봇(n8n_telegram_bot.py)을 확장하여 1:1 대화방 및 포럼 멀티 토픽 환경 모두 지원. ①agent_registry.json에 AI별 토픽 메타데이터 등록 ②1:1 개인방에서 '안티야/만복아/코니야' 키워드 인식 시 해당 AI 즉시 UIA 격발+수신함 라우팅(미지정 시 만복 PM 자동 폴백) ③포럼 그룹방 사용 시 createForumTopic 자동 생성 및 message_thread_id 컨텍스트 라우팅 지원 ④send_approval.py 승인 토픽 격리 지원 완료. (2026-08-20 10:50) 코니 1차감사 PASS(라인단위 코드대조, agent_registry/포럼라우팅/폴백/승인토픽격리/supervisor 백오프/test_goal_runner.py 4대시나리오 병합 전부 확인) + 만복 스팟체크 일치 확인. **만복 최종승인.** 단 코니가 스스로 명시한 한계(실행권한 없어 런타임 동작 미확인) 인정 — 텔레그램 실제 포럼토픽 생성/메시지 왕복은 코드는 맞지만 오늘 UIA 사례처럼 실측에서 다를 수 있음. 안티에게 실사용 트래픽 1회 확인 요청."
     },
     {
       "id": "T_GOAL_LOOP",
