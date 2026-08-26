@@ -10,31 +10,36 @@
 - 저장 위치: `../../.env` → `KTO_SERVICE_KEY` (git 커밋 금지, gitignore 처리됨)
 
 ## 검증 완료 (2026-08-20)
-`phase0/test_three_apis.py`의 `test_tour()`로 `areaCode2` 호출 → status 200, resultCode 0000, 지역코드 17건 정상 수신 확인.
+1. `phase0/test_three_apis.py`의 `test_tour()`로 `areaCode2` 호출 → status 200, resultCode 0000, 지역코드 17건 정상 수신 확인.
+2. `backend/data_collector.py`로 서울 주요 거점(시청/강남/홍대/잠실/종로) `locationBasedList2` 및 `detailIntro2` 실호출 및 응답 구조 분석 완료.
 
-## MVP에서 쓸 엔드포인트
-- `areaCode2` — 지역코드 조회 (검증용으로 이미 확인됨)
-- `locationBasedList2` — 현재 위치 기반 관광정보 조회 (핵심 — 사용자 GPS로 주변 장소 검색)
-- `searchKeyword2` — 키워드 검색
-- `searchFestival2` — 행사정보 조회
-- `detailCommon2` — 공통 상세정보 (운영시간·주소·전화 등)
-- `detailIntro2` — 소개정보 (휴무일 등)
-- `detailImage2` — 이미지정보
-- `detailPetTour2` — 반려동물 동반 정보
+## MVP 핵심 엔드포인트 및 응답 필드 구조
 
-## 공통 필수 파라미터
-| 파라미터 | 값 | 비고 |
-|---|---|---|
-| `serviceKey` | `.env`의 `KTO_SERVICE_KEY` | |
-| `numOfRows` | 요청 건수 | |
-| `pageNo` | 페이지 번호 | |
-| `MobileOS` | `ETC` | Android면 `AND` |
-| `MobileApp` | 앱 이름 (임의 문자열) | |
-| `_type` | `json` | 안 넣으면 XML 응답 |
+### 1. `locationBasedList2` (위치 기반 장소 조회)
+- **요청 파라미터**: `mapX`(경도), `mapY`(위도), `radius`(반경m, 최대 20000), `arrange=E`(거리순 정렬)
+- **주요 응답 필드**:
+  - `contentid`: 콘텐츠 고유 ID
+  - `contenttypeid`: 12(관광지), 14(문화시설), 15(축제), 28(레포츠), 38(쇼핑), 39(음식점)
+  - `title`: 장소명
+  - `addr1`: 기본 주소
+  - `mapx`, `mapy`: WGS84 좌표 (경도, 위도)
+  - `dist`: 중심점 기준 거리 (미터)
+  - `firstimage`: 대표 썸네일 이미지 URL
+  - `tel`: 전화번호
 
-## 이미지 저작권 주의
-관광정보 API의 사진은 데이터 본문과 별개 이용조건이 붙을 수 있음 — 상용 앱에서는 이미지마다 이용 가능 범위를 개별 확인 후 사용 (제품 기획서 6.1절 참조).
+### 2. `detailIntro2` (운영시간·휴무일·이용요금 상세소개)
+- **contentTypeId별 핵심 필드 매핑**:
+  | contentTypeId | 분류 | 이용시간 필드 | 휴무일 필드 | 이용요금 필드 | 체험연령 |
+  |---|---|---|---|---|---|
+  | **12** | 관광지 | `usetime` | `restdate` | `usefee` | `expagerange` |
+  | **14** | 문화시설 | `usetimeculture` | `restdateculture` | `usefeeculture` | `spendtime` |
+  | **15** | 축제/행사 | `usetimefestival` | `eventenddate` | `usefee` | `spendtimefestival` |
+  | **28** | 레포츠 | `usetimeleports` | `restdateleports` | `usefeeleports` | `expagerangeleports` |
+  | **38** | 쇼핑 | `opentime` | `restdateshopping` | - | - |
+  | **39** | 음식점 | `opentimefood` | `restdatefood` | - | `treatmenu` |
 
-## 다음 확인할 것
-- `locationBasedList2`에 실제 GPS 좌표 넣어서 응답 필드 구조 확인 (거리순 정렬 여부, 반환 필드 목록)
-- `detailIntro2`로 실제 휴무일 필드명 확인 (Hard Filter에 쓸 예정)
+## 9.1절 Hard Filter 연동 가이드
+- **영업 여부 (`is_open`)**: `restdate*` 필드에서 요일별 정기휴무 문자열(`매주 월요일`, `화요일 휴무` 등) 파싱 대조
+- **예산 검증 (`budget`)**: `usefee*` 필드에서 숫자(원 단위) 정규식 추출 후 `price > budget` 검사
+- **거리 계산 (`distance`)**: `mapx`, `mapy` 하버사인(Haversine) 거리 계산 (사용자 반경 필터링)
+- **실내/실외 구분**: `contenttypeid` 14/38/39 및 키워드(박물관/미술관/몰/실내) 기반 분류 ➔ 강수확률 60% 이상 시 실외 필터링/감점

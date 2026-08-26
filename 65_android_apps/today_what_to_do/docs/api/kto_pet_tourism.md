@@ -10,18 +10,29 @@
 - 저장 위치: `../../.env` → `KTO_PET_SERVICE_KEY` (git 커밋 금지)
 
 ## 검증 완료 (2026-08-20)
-`phase0/test_three_apis.py`의 `test_pet()`로 `areaCode2` 호출 → status 200, resultCode 0000, 지역코드 17건 정상 수신 확인. API 구조는 KorService2와 동일한 패턴(엔드포인트명, 파라미터명 공유).
+1. `phase0/test_three_apis.py`의 `test_pet()`로 `areaCode2` 호출 → status 200, resultCode 0000, 지역코드 17건 정상 수신 확인.
+2. `locationBasedList2` 및 `detailPetTour2` 실호출 및 응답 필드 분석 완료.
 
-## MVP에서 쓸 엔드포인트
-- `areaCode2` — 지역코드 조회 (검증용으로 이미 확인됨)
-- `locationBasedList2` — 현재 위치 기반 반려동물 동반 가능 장소 조회
-- `areaBasedList2` — 지역기반 조회
-- `detailPetTour2` — **반려동물 동반 조건 상세** (핵심 — Hard Filter의 `pet_allowed` 판정에 사용)
-- `detailCommon2` / `detailIntro2` — 공통/소개 정보
-- `detailImage2` — 이미지
+## MVP 핵심 엔드포인트 및 응답 필드 구조
 
-## 공통 필수 파라미터
-KorService2와 동일: `serviceKey`, `numOfRows`, `pageNo`, `MobileOS`, `MobileApp`, `_type=json`
+### 1. `locationBasedList2` (반려동물 동반 가능 장소 위치 검색)
+- KorService2와 동일한 요청 규격 (`mapX`, `mapY`, `radius`, `arrange=E`)
+- 반환되는 모든 장소는 기본적으로 반려동물 동반 관련 시설/여행지임.
+
+### 2. `detailPetTour2` (반려동물 동반 조건 상세)
+- **주요 응답 필드**:
+  - `acmpyTypeCd`: 동반 유형 코드 (동반 가능 / 조건부 동반 등)
+  - `acmpyNeedMtr`: 동반 시 필수 준비물 (목줄, 배변봉투, 케이지 등)
+  - `relaAcdntRiskMtr`: 사고 대비 주의사항
+  - `relaPosesFclty`: 구비 시설 (놀이터, 배변판 등)
+  - `relaFrnshPrdlst`: 비치 품목
+  - `etcAcmpyInfo`: 기타 동반 제한/안내 사항
+
+## 9.1절 Hard Filter 연동 가이드
+- **`user_with_pet = True` 시**:
+  1. `KorPetTourService2` 출처 데이터(`is_pet_spot=True`) 우선 통과
+  2. 일반 `KorService2` 데이터의 경우 제목/개요에 '반려견', '애견', '반려동물' 키워드가 포함된 장소만 통과
+  3. 그 외 장소는 `pet` 필터 단계에서 탈락 (`reject_reason: 반려동물 동반 불가/정보 없음`)
 
 ## 앱 연결 흐름
 ```

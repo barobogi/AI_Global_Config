@@ -134,20 +134,29 @@ def try_uia_send(agent_id: str, hwnd_or_pid: int, message: str, is_hwnd: bool = 
         return False
     try:
         if is_hwnd:
+            target_hwnd = hwnd_or_pid
             app = _UIAApplication(backend="uia").connect(handle=hwnd_or_pid)
             win = app.window(handle=hwnd_or_pid)
         else:
             app = _UIAApplication(backend="uia").connect(process=hwnd_or_pid)
             win = app.top_window()
+            target_hwnd = win.handle
 
         if cfg.get("match") == "position":
             edits = win.descendants(control_type="Edit")
             buttons = win.descendants(control_type="Button")
-            if not edits or not buttons:
-                logging.warning(f"[UIA] No Edit/Button controls found for {agent_id}.")
+            if not edits:
+                logging.warning(f"[UIA] No Edit controls found for {agent_id}.")
                 return False
             edit = edits[-1]
-            send_btn = buttons[-1]
+            send_btn = None
+            for b in reversed(buttons):
+                t = b.window_text().lower()
+                if any(kw in t for kw in ["send", "보내", "submit", "전송", "arrow", "play"]):
+                    send_btn = b
+                    break
+            if not send_btn and buttons:
+                send_btn = buttons[-1]
         else:
             edit = win.child_window(control_type="Edit", found_index=0)
             send_btn = win.child_window(title=cfg["send_button_title"], control_type="Button")
@@ -171,16 +180,36 @@ def try_uia_send(agent_id: str, hwnd_or_pid: int, message: str, is_hwnd: bool = 
         submitted = False
 
         # 1. Try UIA button invoke
-        try:
-            if hasattr(send_btn, "is_enabled") and send_btn.is_enabled():
-                send_btn.invoke()
-                submitted = _box_is_cleared()
-        except Exception as e:
-            logging.info(f"[UIA] invoke() raised for {agent_id}: {e}")
+        if send_btn:
+            try:
+                if hasattr(send_btn, "is_enabled") and send_btn.is_enabled():
+                    send_btn.invoke()
+                    submitted = _box_is_cleared()
+            except Exception as e:
+                logging.info(f"[UIA] invoke() raised for {agent_id}: {e}")
 
-        # 2. Fallback: Hardware scan code Enter + Ctrl+Enter + standard Enter
+        # 2. Fallback: Ensure target window has foreground focus before injecting hardware Enter + Ctrl+Enter
         if not submitted:
             try:
+                hwnd_active = ctypes.windll.user32.GetForegroundWindow()
+                if hwnd_active != target_hwnd:
+                    # Borrow focus privilege from current active window thread
+                    current_thread_id = ctypes.windll.kernel32.GetCurrentThreadId()
+                    fg_pid = ctypes.c_ulong(0)
+                    fg_thread_id = ctypes.windll.user32.GetWindowThreadProcessId(hwnd_active, ctypes.byref(fg_pid))
+                    attached = False
+                    if fg_thread_id and fg_thread_id != current_thread_id:
+                        attached = bool(ctypes.windll.user32.AttachThreadInput(current_thread_id, fg_thread_id, True))
+                    ctypes.windll.user32.ShowWindow(target_hwnd, 9)  # SW_RESTORE
+                    ctypes.windll.user32.BringWindowToTop(target_hwnd)
+                    ctypes.windll.user32.SetForegroundWindow(target_hwnd)
+                    if attached:
+                        ctypes.windll.user32.AttachThreadInput(current_thread_id, fg_thread_id, False)
+                    time.sleep(0.2)
+
+                edit.set_focus()
+                time.sleep(0.1)
+
                 # Hardware Scan code for Enter
                 ctypes.windll.user32.keybd_event(0x0D, 0x1C, 0, 0)
                 time.sleep(0.05)
@@ -190,6 +219,10 @@ def try_uia_send(agent_id: str, hwnd_or_pid: int, message: str, is_hwnd: bool = 
                 time.sleep(0.2)
                 pyautogui.press('enter')
                 submitted = _box_is_cleared()
+
+                # Restore previous foreground window if we changed it and submission succeeded
+                if submitted and hwnd_active and hwnd_active != target_hwnd:
+                    ctypes.windll.user32.SetForegroundWindow(hwnd_active)
             except Exception as e:
                 logging.info(f"[UIA] keyboard fallback raised for {agent_id}: {e}")
 

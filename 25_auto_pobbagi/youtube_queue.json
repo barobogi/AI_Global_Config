@@ -956,6 +956,126 @@
       "channel_name": "Matt Pocock",
       "status": "pending",
       "fallback": true
+    },
+    {
+      "video_id": "1JEosyzwvgU",
+      "title": "제로부터 월 1억까지, 노동이 아닌 시스템으로 돈 버는 법",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "wxlvbMHNZsQ",
+      "title": "[한영자막] 누구나 쓰는 에이전틱 영상 편집기는 어떻게 만들까? (Reelful 창업자 Ekaterina Deyneka)",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "-QwaaSwQIhE",
+      "title": "[한영자막] 앤스로픽이 직접 밝힌 Claude Code 토큰 낭비 막는 6가지 방법",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "VrWp8XTpQak",
+      "title": "[한영자막] 일론 머스크의 SpaceX 전사 미팅 발표를 시청해보세요",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "TMPUUyQC5aM",
+      "title": "A Week of Grok Bot Lessons in 10 Mins",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "lM3KWEmBdMg",
+      "title": "Practice Any Hard Conversation Before It Matters",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "zpS6JGJNaGg",
+      "title": "How to Sell Claude Workflows (Without Starting an Agency)",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "w0e6vBjYq3U",
+      "title": "[한영자막] AI 에이전트에게 DB 쓰기 권한을 주면 생기는 일과 Deno의 보안 해결책 (Ryan Dahl)",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "ymj8Ha0oBtU",
+      "title": "[한글자막] 코드 리뷰를 완전히 없애는 방법: diff 대신 의도를 검증하세요",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "ggOlrPsT5_c",
+      "title": "[한글자막] 평생 터미널만 쓰던 개발자가 결국 터미널을 버린 진짜 이유",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "LI3vfiDQh1s",
+      "title": "돈, 이렇게 써야 부자됩니다. 경제적 자유를 앞당기는 부자들의 돈 쓰는 기술",
+      "channel_name": "동기부여학파",
+      "status": "pending"
+    },
+    {
+      "video_id": "Ddx8yOzgw88",
+      "title": "[한영자막] 우버가 멀티모달 AI 에이전트를 대규모 실전에 배포하며 깨달은 핵심 평가 전략",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "lF8_DX2NxjI",
+      "title": "[한글자막] AI로 혼자서도 압도적인 실력을 쌓는 독학 방법",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "mXarWKKozmo",
+      "title": "[한글자막] 이번 주 GPT Astra 출시? Claude Opus 6도 곧 공개될까요?",
+      "channel_name": "Matt Pocock",
+      "status": "pending"
+    },
+    {
+      "video_id": "rhv61m8n3Nc",
+      "title": "This AI Cloned Me in 15 Seconds",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "tgjYMym_0-c",
+      "title": "Sell These 5 Most In Demand AI Automations in 2026",
+      "channel_name": "Nate Herk | AI Automation",
+      "status": "pending"
+    },
+    {
+      "video_id": "IyJNc5vpN1Q",
+      "title": "[한영자막] AI 시대에 소프트웨어 기본기가 중요한 이유를 엉클 밥에게 물었습니다",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "-CytzhsPU3g",
+      "title": "게리 탠: 당신의 지능을 소유하세요 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
+    },
+    {
+      "video_id": "koWXk2cjJh0",
+      "title": "에이전트에 툴을 다 몰아넣으면 안 되는 이유 #Shorts",
+      "channel_name": "Matt Pocock",
+      "status": "pending",
+      "fallback": true
     }
   ],
   "processed": [

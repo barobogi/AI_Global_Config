@@ -9,6 +9,53 @@ from datetime import datetime
 from pathlib import Path
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "approvals_db.json")
+TOPICS_CACHE_PATH = r"D:\AI\Global_Define\telegram_topics.json"
+
+def get_topics_cache():
+    if os.path.exists(TOPICS_CACHE_PATH):
+        try:
+            with open(TOPICS_CACHE_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+def save_topics_cache(cache):
+    try:
+        with open(TOPICS_CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"토픽 캐시 저장 실패: {e}", file=sys.stderr)
+
+def ensure_topics_for_chat(token, chat_id, registry):
+    """포럼(Forum Topics) 활성화된 채팅방일 경우 각 3AI 토픽 확인/생성"""
+    cache = get_topics_cache()
+    chat_key = str(chat_id)
+    chat_topics = cache.get(chat_key, {})
+    updated = False
+
+    for agent_id, data in registry.items():
+        topic_name = data.get("topic_name", data.get("name"))
+        if not topic_name:
+            continue
+        if agent_id not in chat_topics:
+            res = tg_api_call(token, "createForumTopic", {
+                "chat_id": chat_id,
+                "name": topic_name
+            })
+            if res and res.get("ok"):
+                thread_id = res["result"]["message_thread_id"]
+                chat_topics[agent_id] = {
+                    "thread_id": thread_id,
+                    "name": topic_name
+                }
+                updated = True
+                print(f"[{datetime.now()}] 텔레그램 새 토픽 생성 성공: {topic_name} (thread_id: {thread_id})")
+
+    if updated:
+        cache[chat_key] = chat_topics
+        save_topics_cache(cache)
+    return chat_topics
 
 def tg_api_call(token, method, payload):
     url = f"https://api.telegram.org/bot{token}/{method}"
@@ -192,10 +239,11 @@ def main():
                             "show_alert": True
                         })
 
-                # T024 VibeCoding 및 일반 메시지 수신 (N-AI 레지스트리 기반 동적 라우팅)
+                # T024 VibeCoding 및 일반 메시지 수신 (N-AI 레지스트리 + 멀티 토픽 기반 동적 라우팅)
                 elif "message" in update and "text" in update["message"]:
                     message = update["message"]
                     chat_id = message.get("chat", {}).get("id")
+                    thread_id = message.get("message_thread_id")
                     text = message.get("text", "")
                     
                     if text.strip() and chat_id:
@@ -203,27 +251,37 @@ def main():
                         now_str = datetime.now().strftime("%Y%m%d_%H%M%S")
                         messages_dir = r"D:\AI\AI_hub\shared\messages"
                         registry_path = r"D:\AI\Global_Define\agent_registry.json"
-                        
+
+                        # 레지스트리 및 토픽 맵 로드
+                        try:
+                            with open(registry_path, "r", encoding="utf-8") as f:
+                                registry = json.load(f)
+                        except Exception as e:
+                            print(f"레지스트리 로드 실패: {e}")
+                            registry = {}
+
+                        # 포럼 채팅방인 경우 토픽 자동 확인/생성
+                        chat_topics = ensure_topics_for_chat(token, chat_id, registry)
+
                         # 1. 상태/기절 스위치 (DND 명령어)
                         if text_lower.startswith("/status") or text_lower.startswith("/sleep") or text_lower.startswith("/wake"):
-                            try:
-                                with open(registry_path, "r", encoding="utf-8") as f:
-                                    registry = json.load(f)
-                            except:
-                                registry = {}
-                                
                             cmd_parts = text_lower.split()
                             cmd = cmd_parts[0]
                             target_kw = cmd_parts[1] if len(cmd_parts) > 1 else ""
                             
                             if cmd == "/status":
-                                status_msg = "🤖 <b>N-AI 상태 보고</b>\n"
+                                status_msg = "🤖 <b>N-AI 상태 및 토픽 보고</b>\n"
                                 sorted_agents = sorted(registry.items(), key=lambda x: x[1].get("fallback_priority", 99))
                                 for a_id, data in sorted_agents:
                                     icon = "🟢" if data.get("is_active", True) else "💤"
                                     pri = data.get("fallback_priority", 99)
-                                    status_msg += f"{icon} <b>{data.get('name', a_id)}</b> (우선순위: {pri})\n"
-                                tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": status_msg, "parse_mode": "HTML"})
+                                    topic_info = chat_topics.get(a_id, {})
+                                    t_str = f" [토픽 #{topic_info.get('thread_id')}]" if topic_info.get('thread_id') else ""
+                                    status_msg += f"{icon} <b>{data.get('name', a_id)}</b> (우선순위: {pri}){t_str}\n"
+                                send_payload = {"chat_id": chat_id, "text": status_msg, "parse_mode": "HTML"}
+                                if thread_id:
+                                    send_payload["message_thread_id"] = thread_id
+                                tg_api_call(token, "sendMessage", send_payload)
                                 continue
                                 
                             if target_kw:
@@ -242,11 +300,24 @@ def main():
                                     os.replace(tmp_path, registry_path)
                                     
                                     state_str = "💤 기절(Sleep)" if is_sleep else "🟢 활성(Wake)"
-                                    tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"✅ <b>{registry[found_id].get('name', found_id)}</b> 요원이 {state_str} 상태로 변경되었습니다.", "parse_mode": "HTML"})
+                                    send_payload = {
+                                        "chat_id": chat_id,
+                                        "text": f"✅ <b>{registry[found_id].get('name', found_id)}</b> 요원이 {state_str} 상태로 변경되었습니다.",
+                                        "parse_mode": "HTML"
+                                    }
+                                    if thread_id:
+                                        send_payload["message_thread_id"] = thread_id
+                                    tg_api_call(token, "sendMessage", send_payload)
                                 else:
-                                    tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"❌ '{target_kw}' 요원을 찾을 수 없습니다."})
+                                    send_payload = {"chat_id": chat_id, "text": f"❌ '{target_kw}' 요원을 찾을 수 없습니다."}
+                                    if thread_id:
+                                        send_payload["message_thread_id"] = thread_id
+                                    tg_api_call(token, "sendMessage", send_payload)
                             else:
-                                tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"⚠️ 사용법: {cmd} [요원이름]\n예: {cmd} 코니"})
+                                send_payload = {"chat_id": chat_id, "text": f"⚠️ 사용법: {cmd} [요원이름]\n예: {cmd} 코니"}
+                                if thread_id:
+                                    send_payload["message_thread_id"] = thread_id
+                                tg_api_call(token, "sendMessage", send_payload)
                             continue
 
                         # 2. VibeCoding 명시적 호출
@@ -261,26 +332,23 @@ def main():
                                     cwd=r"D:\AI\64_vibecoding"
                                 )
                             else:
-                                tg_api_call(token, "sendMessage", {
+                                send_payload = {
                                     "chat_id": chat_id,
                                     "text": "❌ VibeCoding 생성기 스크립트를 찾을 수 없습니다."
-                                })
+                                }
+                                if thread_id:
+                                    send_payload["message_thread_id"] = thread_id
+                                tg_api_call(token, "sendMessage", send_payload)
                             continue
 
-                        # 2. N-AI 레지스트리 기반 동적 라우팅
-                        try:
-                            with open(registry_path, "r", encoding="utf-8") as f:
-                                registry = json.load(f)
-                        except Exception as e:
-                            print(f"레지스트리 로드 실패: {e}")
-                            registry = {}
-
+                        # 3. 토픽 매핑 및 키워드 기반 동적 라우팅
                         target_agent = None
                         target_name = None
                         fallback_agent = None
                         fallback_name = None
                         fallback_priority_val = 999
 
+                        # (A) 1차: 명시적 키워드 검사
                         for agent_id, data in registry.items():
                             current_priority = data.get("fallback_priority", 999)
                             if current_priority < fallback_priority_val:
@@ -296,6 +364,16 @@ def main():
                             if target_agent:
                                 break
 
+                        # (B) 2차: 키워드가 없을 경우 발신된 토픽(message_thread_id) 기반 매핑
+                        if not target_agent and thread_id:
+                            for agent_id, t_info in chat_topics.items():
+                                if t_info.get("thread_id") == thread_id:
+                                    target_agent = agent_id
+                                    target_name = registry.get(agent_id, {}).get("name", agent_id)
+                                    print(f"[{datetime.now()}] 토픽 ID({thread_id}) 기반 라우팅 ➔ {target_name}({target_agent})")
+                                    break
+
+                        # (C) 3차: 폴백 에이전트
                         if not target_agent:
                             target_agent = fallback_agent
                             target_name = fallback_name
@@ -311,9 +389,23 @@ def main():
                                 f.write(content)
                             
                             subprocess.Popen([sys.executable, r"D:\AI\Global_Define\push_to_all.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=r"D:\AI\Global_Define")
-                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": f"✅ {target_name}에게 전달했습니다. (수신함 등록 및 알람 완료)"})
+                            
+                            send_payload = {
+                                "chat_id": chat_id,
+                                "text": f"✅ <b>{target_name}</b>에게 전달했습니다. (수신함 등록 및 알람 완료)",
+                                "parse_mode": "HTML"
+                            }
+                            # 해당 토픽으로 답장 전송
+                            target_thread_id = thread_id or chat_topics.get(target_agent, {}).get("thread_id")
+                            if target_thread_id:
+                                send_payload["message_thread_id"] = target_thread_id
+
+                            tg_api_call(token, "sendMessage", send_payload)
                         else:
-                            tg_api_call(token, "sendMessage", {"chat_id": chat_id, "text": "❌ 라우팅 대상을 찾을 수 없으며 폴백 에이전트도 없습니다."})
+                            send_payload = {"chat_id": chat_id, "text": "❌ 라우팅 대상을 찾을 수 없으며 폴백 에이전트도 없습니다."}
+                            if thread_id:
+                                send_payload["message_thread_id"] = thread_id
+                            tg_api_call(token, "sendMessage", send_payload)
 
         except Exception as e:
             print(f"[{datetime.now()}] 메인 루프 예외 발생: {e}", file=sys.stderr)

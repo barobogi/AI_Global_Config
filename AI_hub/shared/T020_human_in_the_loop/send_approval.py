@@ -8,6 +8,17 @@ import urllib.parse
 from datetime import datetime
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "approvals_db.json")
+TOPICS_CACHE_PATH = r"D:\AI\Global_Define\telegram_topics.json"
+
+def get_approval_thread_id(chat_id):
+    if os.path.exists(TOPICS_CACHE_PATH):
+        try:
+            with open(TOPICS_CACHE_PATH, "r", encoding="utf-8") as f:
+                cache = json.load(f)
+            return cache.get(str(chat_id), {}).get("approval", {}).get("thread_id")
+        except Exception:
+            pass
+    return None
 
 def main():
     parser = argparse.ArgumentParser(description="T020 텔레그램 승인 요청 송신 및 상태 관리 스크립트")
@@ -112,6 +123,9 @@ def main():
             ]]
         }
         payload = {"chat_id": chat_id, "text": message_text, "parse_mode": "HTML", "reply_markup": inline_keyboard}
+        appr_thread_id = get_approval_thread_id(chat_id)
+        if appr_thread_id:
+            payload["message_thread_id"] = appr_thread_id
         req_data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(tg_url, data=req_data, headers={"Content-Type": "application/json"}, method="POST")
         try:
@@ -176,6 +190,9 @@ def main():
             "parse_mode": "HTML",
             "reply_markup": inline_keyboard
         }
+        appr_thread_id = get_approval_thread_id(chat_id)
+        if appr_thread_id:
+            payload["message_thread_id"] = appr_thread_id
 
         req_data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(

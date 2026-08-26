@@ -1,0 +1,164 @@
+"""
+오늘뭐하지 앱 - 9.2절 Score 점수화 및 코스 추천 엔진
+위치: backend/recommend/score_engine.py
+Author: Anti (Operator)
+
+기획서 9.2절 가중치 공식:
+recommend_score = (
+    0.25 * condition_match +
+    0.20 * distance_score +
+    0.15 * weather_fit +
+    0.15 * time_fit +
+    0.10 * budget_fit +
+    0.10 * popularity +
+    0.05 * novelty
+)
+"""
+
+import math
+from datetime import datetime
+from typing import List, Dict, Any, Optional
+
+class ScoreEngine:
+    """9.2절 Score 점수화 및 코스 조합 추천 엔진"""
+    def __init__(self):
+        # 가중치 정의
+        self.weights = {
+            "condition_match": 0.25,
+            "distance_score": 0.20,
+            "weather_fit": 0.15,
+            "time_fit": 0.15,
+            "budget_fit": 0.10,
+            "popularity": 0.10,
+            "novelty": 0.05
+        }
+
+    def calculate_place_score(self, place: Dict[str, Any], user_profile: Dict[str, Any], weather_info: Dict[str, Any]) -> Dict[str, Any]:
+        """단일 장소에 대한 100점 만점 기준 세부 점수 계산"""
+        # 1. condition_match (조건 일치도, 100점 만점)
+        companion = user_profile.get("companion", "")
+        title = place.get("title", "")
+        overview = place.get("overview", "")
+        intro = place.get("detail_intro", {})
+        
+        c_score = 70.0
+        if "아이" in companion:
+            if any(k in title or k in overview for k in ["어린이", "아이", "체험", "과학", "애니메이션", "키즈", "박물관"]):
+                c_score = 95.0
+        elif "연인" in companion or "데이트" in companion:
+            if any(k in title or k in overview for k in ["전망", "미술관", "카페", "야경", "산책"]):
+                c_score = 95.0
+        elif user_profile.get("with_pet"):
+            if place.get("is_pet_spot"):
+                c_score = 100.0
+
+        # 2. distance_score (가까울수록 높은 점수, 0~10km)
+        dist_km = place.get("calculated_distance_km", 5.0)
+        max_dist = user_profile.get("max_distance_km", 10.0)
+        # 0km=100점, max_dist=0점 (선형 감점)
+        d_score = max(0.0, min(100.0, 100.0 * (1.0 - (dist_km / max(max_dist, 1.0)))))
+
+        # 3. weather_fit (날씨 적합도)
+        rain_prob = weather_info.get("rain_probability", 0)
+        ctid = str(place.get("contenttypeid", "12"))
+        is_indoor = ctid in ["14", "38", "39"] or any(k in title for k in ["박물관", "미술관", "몰", "실내", "체험관"])
+        
+        if rain_prob >= 60:
+            w_score = 100.0 if is_indoor else 30.0
+        elif rain_prob >= 30:
+            w_score = 90.0 if is_indoor else 70.0
+        else:
+            w_score = 90.0 if not is_indoor else 80.0  # 맑은 날은 야외 선호 약간 가산
+
+        # 4. time_fit (이용 가능 시간 및 소요시간 적합도)
+        available_hours = user_profile.get("available_hours", 3.0)
+        t_score = 85.0
+        # 기본 2~3시간 코스에 적합한 시설 가산
+        if ctid in ["12", "14"]:
+            t_score = 95.0
+
+        # 5. budget_fit (예산 여유도)
+        user_budget = user_profile.get("budget", 50000)
+        b_score = 80.0
+        fee_str = str(intro.get("usefee", "")) + str(intro.get("usefeeculture", ""))
+        if "무료" in fee_str or not fee_str.strip():
+            b_score = 100.0
+        else:
+            b_score = 85.0
+
+        # 6. popularity (대표 이미지 유무 및 기본 인기도)
+        p_score = 60.0
+        if place.get("firstimage"):
+            p_score += 25.0
+        if place.get("tel"):
+            p_score += 15.0
+
+        # 7. novelty (신선도 기본값)
+        n_score = 75.0
+
+        # 가중치 합산 (총 100점 만점)
+        total_score = (
+            self.weights["condition_match"] * c_score +
+            self.weights["distance_score"] * d_score +
+            self.weights["weather_fit"] * w_score +
+            self.weights["time_fit"] * t_score +
+            self.weights["budget_fit"] * b_score +
+            self.weights["popularity"] * p_score +
+            self.weights["novelty"] * n_score
+        )
+
+        place["score_breakdown"] = {
+            "total_score": round(total_score, 1),
+            "condition_match": round(c_score, 1),
+            "distance_score": round(d_score, 1),
+            "weather_fit": round(w_score, 1),
+            "time_fit": round(t_score, 1),
+            "budget_fit": round(b_score, 1),
+            "popularity": round(p_score, 1),
+            "novelty": round(n_score, 1)
+        }
+        place["final_score"] = round(total_score, 1)
+        return place
+
+    def rank_and_build_courses(self, filtered_places: List[Dict[str, Any]], user_profile: Dict[str, Any], weather_info: Dict[str, Any], top_k: int = 5) -> Dict[str, Any]:
+        """필터링된 장소들을 점수화하고 3코스 추천 세트를 조합"""
+        scored_places = [
+            self.calculate_place_score(p, user_profile, weather_info)
+            for p in filtered_places
+        ]
+        # 점수 내림차순 정렬
+        scored_places.sort(key=lambda x: x.get("final_score", 0), reverse=True)
+
+        top_candidates = scored_places[:top_k]
+
+        # 코스 조합 (메인 목적지 + 보조 방문지/휴식)
+        recommended_courses = []
+        if len(top_candidates) >= 2:
+            # 1. 꽉 찬 알찬 코스 (상위 1위 + 2위)
+            recommended_courses.append({
+                "course_name": "⭐ 베스트 맞춤 코스",
+                "places": [top_candidates[0], top_candidates[1]],
+                "estimated_duration_hours": min(user_profile.get("available_hours", 3.0), 3.5),
+                "summary": f"{top_candidates[0]['title']} 중심의 알찬 코스"
+            })
+        if len(top_candidates) >= 3:
+            # 2. 여유로운 힐링 코스
+            recommended_courses.append({
+                "course_name": "🌿 여유로운 힐링 코스",
+                "places": [top_candidates[0], top_candidates[2]],
+                "estimated_duration_hours": 2.5,
+                "summary": f"{top_candidates[0]['title']} 중심의 편안한 일정"
+            })
+        elif top_candidates:
+            recommended_courses.append({
+                "course_name": "📍 핵심 집중 코스",
+                "places": [top_candidates[0]],
+                "estimated_duration_hours": 2.0,
+                "summary": f"{top_candidates[0]['title']} 단독 집중 방문"
+            })
+
+        return {
+            "top_candidates": top_candidates,
+            "recommended_courses": recommended_courses,
+            "total_ranked": len(scored_places)
+        }
