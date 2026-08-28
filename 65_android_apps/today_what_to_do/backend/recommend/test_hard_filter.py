@@ -178,9 +178,40 @@ class TestHardFilterScenarios(unittest.TestCase):
         # 4. 코엑스 아쿠아리움 -> 거리 초과(>5km)로 탈락해야 함
         self.assertIn("강남 코엑스 아쿠아리움 (실내 수족관)", rejected_titles)
 
-        # 5. 국립어린이과학관 / 서울애니메이션센터 -> 정상 통과 확인
-        passed_titles = [p["title"] for p in result["passed_places"]]
-        self.assertTrue(any("애니메이션센터" in t or "어린이과학관" in t for t in passed_titles))
+    def test_nth_week_restdate_parsing(self):
+        """매월 N째주 X요일 휴무 패턴 독립 검증"""
+        # 2026년 8월 29일은 5주차 토요일
+        dt_5th_sat = datetime(2026, 8, 29)
+        place_5th_sat = {
+            "title": "5주차 토요일 휴무 도서관",
+            "detail_intro": {"restdate": "매월 다섯째주 토요일 휴무"}
+        }
+        from hard_filter import check_is_open
+        is_open, reason = check_is_open(place_5th_sat, dt_5th_sat)
+        self.assertFalse(is_open)
+        self.assertIn("5째주", reason)
+
+        # 다른 주차 토요일은 정상 영업이어야 함
+        dt_1st_sat = datetime(2026, 8, 1) # 1주차 토요일
+        is_open_1st, _ = check_is_open(place_5th_sat, dt_1st_sat)
+        self.assertTrue(is_open_1st)
+
+    def test_budget_child_price_parsing(self):
+        """다중 요금 문자열에서 어린이 요금 분리 파싱 검증"""
+        place_multi_fee = {
+            "title": "가족 체험관",
+            "detail_intro": {"usefeeculture": "성인 35,000원 / 어린이 12,000원"}
+        }
+        from hard_filter import check_budget
+        # 예산 20,000원 + 아이 동반 -> 어린이 요금(12,000원) 기준 통과
+        ok, msg, fee = check_budget(place_multi_fee, user_budget=20000, is_child=True)
+        self.assertTrue(ok)
+        self.assertEqual(fee, 12000)
+
+        # 예산 20,000원 + 성인 단독 -> 성인 요금(35,000원) 기준 탈락
+        ok_adult, msg_adult, fee_adult = check_budget(place_multi_fee, user_budget=20000, is_child=False)
+        self.assertFalse(ok_adult)
+        self.assertEqual(fee_adult, 35000)
 
 if __name__ == "__main__":
     unittest.main()

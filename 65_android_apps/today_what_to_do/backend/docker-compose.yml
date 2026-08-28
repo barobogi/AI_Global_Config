@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  today-what-to-do-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: today_what_to_do_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    volumes:
+      - ./data:/app/data

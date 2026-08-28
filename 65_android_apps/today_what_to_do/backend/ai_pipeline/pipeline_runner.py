@@ -3,17 +3,18 @@
 위치: backend/ai_pipeline/pipeline_runner.py
 Author: Anti (Operator)
 
-원칙:
-- AI-1 (기획): 자연어 입력 ➔ 정형 검색 파라미터 구조화 (규칙/LLM 하이브리드)
-- AI-2 (추천설명): 팩트에 기반한 따뜻하고 구체적인 코스 추천 코멘터리 생성
-- AI-3 (팩트체크): 추천 결과가 공공데이터 원본과 일치하는지 교차 검증 (Hallucination 0%)
+설계 원칙 (비용 0원 원칙):
+- 외부 유료 LLM API 종속 없이 100% 결정론적 규칙/템플릿 기반으로 0ms/0원으로 동작.
+- AI-1 (기획): 자연어 입력 ➔ 정형 검색 파라미터 구조화 (규칙 기반 인텐트 파서)
+- AI-2 (추천설명): 팩트에 기반한 따뜻하고 구체적인 코스 추천 코멘터리 및 추천 근거 생성
+- AI-3 (팩트체크): 추천 결과가 공공데이터 원본(주소/좌표/운영시간)과 일치하는지 교차 검증 (Hallucination 0%)
 """
 
 import re
 from typing import Dict, Any, List
 
 class AI1Planner:
-    """AI-1: 사용자 자연어 질의 해석 및 검색 조건 구조화"""
+    """AI-1: 사용자 자연어 질의 해석 및 검색 조건 구조화 (규칙 기반 파서)"""
     def parse_user_intent(self, text: str) -> Dict[str, Any]:
         result = {
             "companion": "혼자",
@@ -110,13 +111,13 @@ class AI3FactChecker:
         score = 40.0
         if checks["has_address"]:
             score += 20.0
-            checks["verification_notes"].append("도로명 주소 검증 완료")
+            checks["verification_notes"].append("공식 도로명 주소 검증 완료")
         if checks["has_coordinates"]:
             score += 20.0
-            checks["verification_notes"].append("GPS 좌표 유효성 확인")
+            checks["verification_notes"].append("공공데이터 GPS 좌표 유효성 확인")
         if checks["has_operating_info"]:
             score += 20.0
-            checks["verification_notes"].append("공공데이터 공식 운영시간 대조 완료")
+            checks["verification_notes"].append("공공데이터 공식 운영시간/휴무일 대조 완료")
 
         checks["confidence_score"] = score
         checks["is_verified"] = (score >= 80.0)
@@ -124,20 +125,34 @@ class AI3FactChecker:
 
 
 class ThreeAIPipeline:
-    """3AI 통합 파이프라인 러너"""
+    """3AI 통합 파이프라인 러너 (결정론적 추천 근거 카드 합성)"""
     def __init__(self):
         self.planner = AI1Planner()
         self.explainer = AI2Explainer()
         self.factchecker = AI3FactChecker()
 
     def enhance_recommendations(self, recommendation_result: Dict[str, Any], user_profile: Dict[str, Any], weather_info: Dict[str, Any]) -> Dict[str, Any]:
-        # 1. 코스별 AI-2 추천 이유 생성
+        # 1. 코스별 AI-2 추천 이유 및 Why Card 생성
         for course in recommendation_result.get("recommended_courses", []):
             course["ai_reason"] = self.explainer.generate_course_explanation(course, user_profile, weather_info)
+            # 추천 근거 카드 (Why Card) 구조화
+            places = course.get("places", [])
+            pass_reasons_summary = []
+            for p in places:
+                for r in p.get("filter_pass_reasons", []):
+                    if r not in pass_reasons_summary:
+                        pass_reasons_summary.append(r)
+            
+            course["why_card"] = {
+                "title": "🔍 왜 이 코스를 추천했나요?",
+                "badges": course.get("why_badges", []),
+                "verified_facts": pass_reasons_summary[:4],
+                "transparency_note": "광고/제휴 없는 100% 공공데이터 기반 순수 규칙 판정"
+            }
 
         # 2. 장소별 AI-3 팩트체크 검증
         for place in recommendation_result.get("top_places", []):
             place["fact_check"] = self.factchecker.verify_place_facts(place)
 
-        recommendation_result["ai_pipeline_status"] = "enhanced_by_3ai"
+        recommendation_result["ai_pipeline_status"] = "enhanced_by_3ai_rule_engine"
         return recommendation_result

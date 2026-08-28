@@ -2,6 +2,19 @@ package com.barobogi.todaywhattodo.data.model
 
 import com.google.gson.annotations.SerializedName
 
+data class FactCheck(
+    @SerializedName("is_verified") val isVerified: Boolean?,
+    @SerializedName("confidence_score") val confidenceScore: Double?,
+    @SerializedName("verification_notes") val verificationNotes: List<String>?
+)
+
+data class WhyCard(
+    @SerializedName("title") val title: String,
+    @SerializedName("badges") val badges: List<String>?,
+    @SerializedName("verified_facts") val verifiedFacts: List<String>?,
+    @SerializedName("transparency_note") val transparencyNote: String?
+)
+
 data class Place(
     @SerializedName("contentid") val contentId: String,
     @SerializedName("title") val title: String,
@@ -14,6 +27,8 @@ data class Place(
     @SerializedName("firstimage") val firstImage: String?,
     @SerializedName("calculated_distance_km") val distanceKm: Double?,
     @SerializedName("final_score") val finalScore: Double?,
+    @SerializedName("filter_pass_reasons") val filterPassReasons: List<String>?,
+    @SerializedName("fact_check") val factCheck: FactCheck?,
     @SerializedName("detail_intro") val detailIntro: DetailIntro?
 )
 
@@ -30,7 +45,10 @@ data class RecommendedCourse(
     @SerializedName("course_name") val courseName: String,
     @SerializedName("places") val places: List<Place>,
     @SerializedName("estimated_duration_hours") val durationHours: Double,
-    @SerializedName("summary") val summary: String
+    @SerializedName("summary") val summary: String,
+    @SerializedName("ai_reason") val aiReason: String?,
+    @SerializedName("why_badges") val whyBadges: List<String>?,
+    @SerializedName("why_card") val whyCard: WhyCard?
 )
 
 data class RecommendRequest(

@@ -42,15 +42,18 @@ class ScoreEngine:
         intro = place.get("detail_intro", {})
         
         c_score = 70.0
-        if "아이" in companion:
+        bonus = 0.0
+        if "아이" in companion or "어린이" in companion:
             if any(k in title or k in overview for k in ["어린이", "아이", "체험", "과학", "애니메이션", "키즈", "박물관"]):
-                c_score = 95.0
-        elif "연인" in companion or "데이트" in companion:
+                bonus += 25.0
+        if user_profile.get("with_pet"):
+            if place.get("is_pet_spot") or "반려" in title or "애견" in title:
+                bonus += 25.0
+        if "연인" in companion or "데이트" in companion:
             if any(k in title or k in overview for k in ["전망", "미술관", "카페", "야경", "산책"]):
-                c_score = 95.0
-        elif user_profile.get("with_pet"):
-            if place.get("is_pet_spot"):
-                c_score = 100.0
+                bonus += 25.0
+        
+        c_score = min(100.0, c_score + bonus)
 
         # 2. distance_score (가까울수록 높은 점수, 0~10km)
         dist_km = place.get("calculated_distance_km", 5.0)
@@ -61,7 +64,7 @@ class ScoreEngine:
         # 3. weather_fit (날씨 적합도)
         rain_prob = weather_info.get("rain_probability", 0)
         ctid = str(place.get("contenttypeid", "12"))
-        is_indoor = ctid in ["14", "38", "39"] or any(k in title for k in ["박물관", "미술관", "몰", "실내", "체험관"])
+        is_indoor = place.get("is_indoor", ctid in ["14", "38", "39"])
         
         if rain_prob >= 60:
             w_score = 100.0 if is_indoor else 30.0
@@ -73,7 +76,6 @@ class ScoreEngine:
         # 4. time_fit (이용 가능 시간 및 소요시간 적합도)
         available_hours = user_profile.get("available_hours", 3.0)
         t_score = 85.0
-        # 기본 2~3시간 코스에 적합한 시설 가산
         if ctid in ["12", "14"]:
             t_score = 95.0
 
@@ -81,7 +83,7 @@ class ScoreEngine:
         user_budget = user_profile.get("budget", 50000)
         b_score = 80.0
         fee_str = str(intro.get("usefee", "")) + str(intro.get("usefeeculture", ""))
-        if "무료" in fee_str or not fee_str.strip():
+        if "무료" in fee_str or not fee_str.strip() or place.get("estimated_fee", 0) == 0:
             b_score = 100.0
         else:
             b_score = 85.0
@@ -121,7 +123,7 @@ class ScoreEngine:
         return place
 
     def rank_and_build_courses(self, filtered_places: List[Dict[str, Any]], user_profile: Dict[str, Any], weather_info: Dict[str, Any], top_k: int = 5) -> Dict[str, Any]:
-        """필터링된 장소들을 점수화하고 3코스 추천 세트를 조합"""
+        """필터링된 장소들을 점수화하고 3코스 추천 세트 및 추천 근거 카드(Why Card)를 조합"""
         scored_places = [
             self.calculate_place_score(p, user_profile, weather_info)
             for p in filtered_places
@@ -130,31 +132,54 @@ class ScoreEngine:
         scored_places.sort(key=lambda x: x.get("final_score", 0), reverse=True)
 
         top_candidates = scored_places[:top_k]
+        rain_prob = weather_info.get("rain_probability", 0)
 
         # 코스 조합 (메인 목적지 + 보조 방문지/휴식)
         recommended_courses = []
         if len(top_candidates) >= 2:
             # 1. 꽉 찬 알찬 코스 (상위 1위 + 2위)
+            c1_places = [top_candidates[0], top_candidates[1]]
+            c1_fee_total = sum(p.get("estimated_fee", 0) for p in c1_places)
             recommended_courses.append({
+                "course_id": "course_1",
                 "course_name": "⭐ 베스트 맞춤 코스",
-                "places": [top_candidates[0], top_candidates[1]],
+                "places": c1_places,
                 "estimated_duration_hours": min(user_profile.get("available_hours", 3.0), 3.5),
-                "summary": f"{top_candidates[0]['title']} 중심의 알찬 코스"
+                "summary": f"{top_candidates[0]['title']} 중심의 알찬 코스",
+                "why_badges": [
+                    f"🌧️ 우천 안심 실내 코스" if rain_prob >= 60 else "🌤️ 날씨 최적화",
+                    f"💰 총 예상 경비 {c1_fee_total:,}원 (예산 내)",
+                    f"📍 {top_candidates[0]['calculated_distance_km']}km 초근접 이동"
+                ]
             })
         if len(top_candidates) >= 3:
             # 2. 여유로운 힐링 코스
+            c2_places = [top_candidates[0], top_candidates[2]]
+            c2_fee_total = sum(p.get("estimated_fee", 0) for p in c2_places)
             recommended_courses.append({
+                "course_id": "course_2",
                 "course_name": "🌿 여유로운 힐링 코스",
-                "places": [top_candidates[0], top_candidates[2]],
+                "places": c2_places,
                 "estimated_duration_hours": 2.5,
-                "summary": f"{top_candidates[0]['title']} 중심의 편안한 일정"
+                "summary": f"{top_candidates[0]['title']} 중심의 편안한 일정",
+                "why_badges": [
+                    "☕ 여유로운 이동 동선",
+                    f"💰 총 예상 경비 {c2_fee_total:,}원",
+                    "👶 가족/동행 맞춤 추천"
+                ]
             })
         elif top_candidates:
+            c3_places = [top_candidates[0]]
             recommended_courses.append({
+                "course_id": "course_3",
                 "course_name": "📍 핵심 집중 코스",
-                "places": [top_candidates[0]],
+                "places": c3_places,
                 "estimated_duration_hours": 2.0,
-                "summary": f"{top_candidates[0]['title']} 단독 집중 방문"
+                "summary": f"{top_candidates[0]['title']} 단독 집중 방문",
+                "why_badges": [
+                    "⏱️ 2시간 숏코스",
+                    f"💰 {top_candidates[0].get('estimated_fee', 0):,}원"
+                ]
             })
 
         return {

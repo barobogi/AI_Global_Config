@@ -25,10 +25,10 @@
 - [x] Step 2.1 — 공공데이터 수집 스크립트 작성 (`backend/data_collector.py`)
 - [x] Step 2.2 — 9.1절 규칙 기반 Hard Filter 순수 파이썬 모듈 구현 (`backend/recommend/hard_filter.py`)
 - [x] Step 2.3 — "7세 아이/서울/3만원/5km/비" 실전 시나리오 테스트 검증 (`backend/recommend/test_hard_filter.py`)
-- [ ] Step 2.5 — 주요 경쟁 앱 조사 (여기어때/캐치테이블류와 차별점 재확인)
-- [ ] Step 2.9 — 상용 이용조건 최종 확인 (이미지 저작권, API 트래픽 제한 등)
+- [x] Step 2.5 — 주요 경쟁 앱 조사 (데이트팝/AI콕콕 등 7종 분석 및 5대 차별점·WhyCard 반영 완료)
+- [x] Step 2.9 — 상용 이용조건 최종 확인 (KOGL 제1유형 출처표기 의무화 및 TourAPI 트래픽 가이드 준수)
 
-**다음 할 일**: 9.2절 Score 계산 및 코스 조합(Phase 2) ➔ FastAPI 백엔드 엔드포인트 연동(Phase 1).
+**다음 할 일**: 실기기 Android Studio 빌드 및 최종 배포 패키징 점검.
 
 ---
 
