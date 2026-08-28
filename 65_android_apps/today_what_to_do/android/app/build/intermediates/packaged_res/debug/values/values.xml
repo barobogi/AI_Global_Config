@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_amber">#FFA000</color>
+    <color name="background_light">#FAFAFA</color>
+    <color name="black">#000000</color>
+    <color name="primary_blue">#1E88E5</color>
+    <color name="secondary_teal">#26A69A</color>
+    <color name="white">#FFFFFF</color>
+    <string name="app_name">오늘뭐하지</string>
+    <style name="Theme.TodayWhatToDo" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primary_blue</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

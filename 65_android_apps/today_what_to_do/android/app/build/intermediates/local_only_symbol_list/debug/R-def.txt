@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+color accent_amber
+color background_light
+color black
+color primary_blue
+color secondary_teal
+color white
+string app_name
+style Theme.TodayWhatToDo
