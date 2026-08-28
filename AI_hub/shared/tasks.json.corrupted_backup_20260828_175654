@@ -1,0 +1,490 @@
+{
+  "version": "1.2",
+  "last_updated": "2026-07-17T15:50:00",
+  "tasks": [
+    {
+      "id": "T065ROOT_today_what_to_do",
+      "title": "[65번 뿌리 1호] 오늘뭐하지 — 공공데이터 기반 상황맞춤 장소·코스 추천 Android 앱",
+      "뿌리": 65,
+      "�      "상태": "completed",
+      "예정일": "2026-08-20 착수",
+      "완료일": "2026-08-20",
+      "설명": "바로보기님이 ChatGPT와 직접 논의해서 만든 44섹션 풀스펙 기획서(product_plan_v1.md) — 위치·동행자·날씨·예산 조건 입력 시 관광공사/기상청 공공API 조합해서 오늘 갈 코스 추천. Android(Kotlin+Compose) + Backend(FastAPI) + 3AI 파이프라인(AI-1 기획/AI-2 추천/AI-3 팩트체크) 구조. **65번 뿌리 신설**(26 실전뿌리 산하, 61~64 다음 순번) — '안드로이드앱(공공데이터)' 카테고리, 바로보기님 목표는 주 1개 페이스로 앱 시리즈 제작(이번이 1호). dashboard.html ROOT_CHILDREN 반영 완료. (2026-08-20 안티 전권 위임 수행 완료) ①Phase 0 (공공데이터 검증 & data_collector.py 수집기) ②Phase 1 (FastAPI 백엔드 서버 main.py) ③Phase 2 (9.1절 Hard Filter & 9.2절 Score 추천엔진 score_engine.py) ④Phase 3 (Kotlin + Jetpack Compose 8개 화면 안드로이드 앱 스캐폴딩 android/) ⑤Phase 4 (3AI 파이프라인 pipeline_runner.py 탑재) ⑥Phase 5 (10대 페르소나 E2E 시나리오 테스트 test_beta_scenarios.py & demo_full_pipeline.py 완비) ⑦Phase 6 (Google Play Store 출시용 docs/PRIVACY_POLICY.md, TERMS_OF_SERVICE.md, PLAY_STORE_METADATA.md 3종 공식 문서 완비). Phase 0~6 전체 개발 및 출시 준비 100% 완료.",
+      "연결": []ecommend/hard_filter.py 순수 파이썬 Hard Filter(영업일/거리/예산/반려동물/날씨POP 60%실외필터/연령) 구현 완료 ④backend/recommend/test_hard_filter.py 시나리오 테스트(7세아이/서울시청/3만원/5km/비) 검증 통과(야외공원/예산초과/성인클럽/거리초과 필터링 확인). (2026-08-20 11:10 Phase 1/2 완료) ①backend/recommend/score_engine.py 9.2절 7대 가중치(조건일치 0.25, 거리 0.20, 날씨 0.15, 소요시간 0.15, 예산 0.10, 인기도 0.10, 신선도 0.05) 점수화 및 3코스 추천 조합기 구현 완료 ②backend/main.py FastAPI 백엔드 프로토타입 서버(/api/health, /api/recommend, /api/places/search) 구현 완료 ③backend/test_api_server.py E2E 테스트 통과. (2026-08-20 11:15 Phase 3 Android MVP 완료) ①Gradle/Manifest/Kotlin 스캐폴딩(compileSdk 34, Material 3, Navigation Compose, Retrofit2/Gson) ②data/model/Place.kt 및 data/api/TodayApiService.kt API 클라이언트 완비 ③viewmodel/RecommendViewModel.kt StateFlow 기반 추천 상태 관리 ④HomeScreen, ConditionInputScreen, ResultScreen, MainActivity 등 8개 핵심 UI 플로우 구현 완료. (2026-08-20 11:20 Phase 4 AI 연결 파이프라인 완료) ①backend/ai_pipeline/pipeline_runner.py 구축: AI-1 자연어 검색의도 파서(/api/ai/parse-intent), AI-2 맞춤형 감성 추천 코멘터리 생성기, AI-3 공공데이터 원본 대조 팩트체크 검증기 탑재 ②Android DetailScreen(3AI 팩트체크 배지 및 길찾기/전화 연동), SavedScreen(북마크), MyPageScreen(공공데이터 출처 표기) 연동 완료. (2026-08-20 11:25 E2E 통합 실증 완료) demo_full_pipeline.py 구축 및 E2E 실증 완료: '7세 아이/3만원/우천' 질의 ➔ AI-1 의도파싱 ➔ Hard Filter ➔ Score 점수화 ➔ AI-2 추천이유 ➔ AI-3 팩트체크 ➔ 최종 3코스 도출 100% 무결성 동작 확인. Phase 0~4 전체 파이프라인 구축 완료.",
+      "연결": []
+    },
+    {
+      "id": "T064_awesome_cc",
+      "title": "Awesome Claude Code 큐레이션을 후보 발굴 보조 소스로 채택",
+      "뿌리": 43,
+      "기간": "단기",
+      "담당": "미정 (43_function_dev 사이클 배정 대기)",
+      "상태": "pending",
+      "설명": "2026-07-30 뽀개기2번(Cloud Codes 영상, T035 100% 중복으로 원본 반려)에서 살아남은 확장안. GeekNews 크롤링 단일 소스가 놓치는 Claude Code 생태계 특화 트렌드를 github.com/hesreallyhim/awesome-claude-code 등 큐레이션 README 스냅샷 비교로 보완. 코니 보강 2건 반영 필요: ①뿌리체계 관련성 스코어링 필터(신규항목 무제한 추출 폭주 방지) ②추출 항목 자동편입 금지, 3AI 검토 게이트 경유. 3AI 자가성장 43_function_dev 사이클 배정 대기중."
+    },
+    {
+      "id": "T065_realtime_3ai",
+      "title": "실시간 3AI 시스템 로드맵 — 1단계(인프라) 착수",
+      "뿌리": 28,
+      "기간": "장기",
+      "담당": "안티 (설계/구현) / 코니 (Auditor) / 만복 (PM)",
+      "상태": "in_progress",
+      "예정일": "2026-08-16 착수, 단계별 진행",
+      "설명": "바로보기님 최종목표: 바로보기 개입 전혀 없는 실시간 3AI 시스템(AI간 실시간 채팅+메시지교환+실시간DB). 안티 1차 기술검토(SQLite WAL+DuckDB 2-트랙, 파일폴링→이벤트드리븐 pub/sub, T_ARCH_LOCK 3-Tier 위험도 분리, 3~5턴 서킷브레이커) + 코니 2차 검토(인프라는 즉시 착수 찬성, 단 승인게이트 해제는 별도 트랙 — T_GOAL_LOOP 에스컬레이션 버그를 근거로 '섀도우모드'로 안정성 검증 후 Tier별 순차 해제 제안). 만복 승인 순서: ①DB화/pub-sub/코니headless화 인프라 트랙 즉시 착수 ②게이트는 유지한 채 섀도우모드 관찰 ③안정성 확인 후 Tier별 해제. 별도로 43_function_dev 신규 프로젝트 관리 규칙(순번+_counter.txt, [43-NN] 커밋 프리픽스, 회사 AI 전파 고려한 자기완결적 문서화) 확정 및 README 반영 완료. (2026-08-16) 01_realtime_3ai 1단계(인프라) 안티 구현 → 코니 1차반려(3건: 일별증분필터/서킷브레이커/동시쓰기 테스트 미흡) → 안티 보강 → 코니 2차 재검증 통과 → 만복 직접 재검증(4개 테스트 전부 실행, 전부 PASS, gitignore 정책 반영 확인) → 1단계 최종 승인 완료. (2026-08-16~17) 코니 메시지 DB 반복삭제/사칭사고 발견+대응: 해시체인 append-only 무결성로그(messages_append_log.jsonl) 추가, daemon_kony/daemon_manbok/anti_realtime_responder 등 사칭봇 전부 폐기. 근본원인(SQLite WAL이 네트워크마운트 -shm 비동기화로 데이터유실, SQLite 공식문서 확인) 특정 후 spool_watcher.py(파일드롭 릴레이+1초주기 snapshot) 구현, 코니 실제 다건 검증 완료. GUI 자동격발: 코니는 UI Automation(pywinauto SetValue+Invoke)으로 완전자동 성공. (2026-08-18) 안티/만복 UIA submit 고도화: UIA_AGENT_CONFIG에 anti(Antigravity.exe, position 매칭) 추가, _box_is_cleared 5회 폴링 검증 및 하드웨어 스캔코드+Ctrl+Enter 결합으로 전원 UIA 트리거 인프라 완비. 잔여 백로그: 코니 표본 확대 관찰(코니 본인 요청), 서킷브레이커 재시도 시 escalated 중복기록(저위험), duckdb 실설치환경 익스포트 경로 검증. (2026-08-18 밤) 코니가 어제 '완벽 해결' 판정을 스스로 정정: ①표본 부족(밤사이 트래픽 거의 없어 검증 안 된 것을 안정적으로 오판) ②spool_watcher.log에서 스냅샷 rename이 실제 WinError5(액세스거부)로 최소 1회 실패한 것 발견. 만복이 로그 직접 확인해 검증 후 spool_watcher.py에 rename 3회 재시도(0.15s 간격)+로그 타임스탬프 추가, 커밋(b02f258d1)+프로세스 재시작 완료. '완전 해결' 판정은 보류로 되돌림 — 내일 낮 실사용 트래픽에서 재관찰 후 최종 확정 예정. (2026-08-20 10:00) 코니 재관찰: 09:19~09:55 실트래픽 다수(goal_runner.py 반려/재검증 등 8건+) 구간에서 latest_snapshot.json generated_at 연속 정상 갱신 확인, spool 드롭 2건 모두 `_failed/` 없이 정상 릴레이 — WinError5 재발 징후 없음. **'완전해결' 판정 지지.** 단 별개 신규 발견: `spool_watcher.log`가 2026-08-19 00:19:08 이후 갱신이 멈춤(기능은 정상 작동 중이나 로그 관측성만 끊김) — 원인 미상, 안티 확인 요청 중(`코니→안티_만복_20260820_1000_T065UIA채널통합_검증결과.md`). (2026-08-20 10:02) 만복 원인 확인+수정: 오늘 아침 spool_watcher.py를 리다이렉트 없이 재시작해서(`python spool_watcher.py &`) stdout이 로그파일에 안 잡히고 있었음 — 기능엔 문제 없었고 순수 관측성 문제. `-RedirectStandardOutput`/`-RedirectStandardError` 지정해서 재시작, 로그 정상 기록 재개 확인. **T065 '완전 해결' 최종 확정.** [차기 백로그/만복 지시 대기] 안티 UIA 자동 격발 배관 완결: ①realtime_engine.py의 send_message()에서 `recipient == 'anti'`일 때 `_dispatch_popup_trigger('anti')` 호출 누락 보강 ②mcp_server.py의 target=='anti' 엔드포인트에 get_dynamic_trigger_message('anti') 동적 메시지 주입 연결 — 타 AI 발언 시 안티 무개입 자동 기동 달성 목적."
+    },
+    {
+      "id": "T066_rule_governance_db",
+      "title": "43_function_dev #2 — DuckDB 규칙거버넌스+프로젝트현황+검수원 패턴",
+      "뿌리": 25,
+      "기간": "장기",
+      "담당": "안티 (설계/구현) / 코니 (Auditor) / 만복 (PM)",
+      "상태": "completed",
+      "예정일": "2026-08-16 착수",
+      "완료일": "2026-08-17",
+      "설명": "T065(실시간3AI)의 DuckDB 인프라를 규칙 거버넌스까지 확장. (1) CLAUDE.md/AGENTS.md 최소화 + 세부규칙 DuckDB 이관 — 단 '부팅시 1회 로드'가 아니라 상황별(타AI 전송직전/완료보고직전 등) 재조회 트리거 태그 설계 필수(만복 지적). (2) 규칙 테이블 구조: 공통규칙 + 만복/안티/코니 개별 체크공간 + 확장용 2슬롯. (3) function_dev 프로젝트(01~) 현황 대시보드(구현완료/개발중/활용상태) — tasks.json grep 비효율 해소. (4) 방구석-클로드코드-세팅팩(D:\\AI\\_DEV_ITEM) 검토에서 채택: 검수원 패턴(Read/Grep/Glob 전용, Write 불가한 별도 검증 서브에이전트 — review_pass.py 자기선호편향 문제의 구조적 해법)과 'CLAUDE.md가 길어지면 규칙이 파묻힌다'는 자체진단. (5) 만복 추가제안: 규칙 조회 로그(실제 조회 빈도 추적) + 규칙 신선도 리뷰(일요일 정기리뷰에 편입). 뿌리25(학습뿌리, Dreams Consolidator 계보) 주소속 + 뿌리28(T065와 같은 DuckDB 인프라) 연결. function_dev 02번(counter.txt 갱신 완료). 2026-08-17 완료: JSON-fail-open 버그(반려 사유) 수정 확인 완료, 코니 3-Stage 3회연속 100% PASS, 만복 코드 직접 재확인 후 최종승인. 2026-08-18 실적용 완료: AGENTS.md 474→344줄(27%↓, 체크리스트15개 DB이관+C1~5 CLAUDE.md이관, Hookify 38건 보존), push_to_all.py에 get_jit_rules('before_send') 실제 연동+테스트 통과. 승인만 되고 미적용이던 상태에서 완전 실적용으로 전환. (2026-08-19 밤) 바로보기님 지적으로 재점검: get_jit_rules() 호출지점이 push_to_all.py(만복) 하나뿐, 안티·코니는 DB 조회 경로 없음 확인 — 진짜 완료 아니었음. (2026-08-20 아침) 안티/코니 실제 연동 완료: ①rule_engine.py에 CLI 추가(`jit --trigger X --caller Y`, `list-active --caller Y`) — 안티는 터미널로 직접 조회 가능(테스트 확인). ②코니는 MCP filesystem이라 직접 SQLite 불가 — master_watch.py의 `_generate_koni_quick_sync()`/`_generate_koni_sync()`가 대신 조회해서 코니_quick_sync.md/코니_sync.md에 활성규칙 다이제스트로 삽입(spool_watcher와 동일 대행패턴), 테스트로 J/H/K 규칙 전부 노출 확인. ③부수 발견: `D:\\AI\\TEMP_MANBOK`(밑줄없음, 7/26 폴더명변경 이전 구경로, 7/29 이후 정지)과 `_Temp_Manbok`(신경로) 두 폴더가 공존 — 코니 Cowork Custom Instructions가 구경로를 계속 보고 있었을 가능성이 코니_quick_sync.md 20일 정체의 진짜 원인일 수 있음. 안전망으로 양쪽 경로 동시쓰기 추가, 코니 Custom Instructions 자체 수정은 앱 설정 영역이라 만복이 직접 못 고침 — 바로보기님 확인 필요.",
+      "연결": ["T065_realtime_3ai"]
+    },
+    {
+      "id": "T011",
+      "title": "n8n + 코니 실시간 동기화 워크플로우",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "설명": "GitHub push 감지 → n8n → 코니_브리핑_최신.md 즉시 갱신. n8n: C:\\n8n v1.123.63. 워크플로우 저장: D:\\AI\\AI_hub\\n8n_workflows\\T011_코니동기화.json"
+    },
+    {
+      "id": "T018",
+      "title": "다중 채널 RSS 감시 + 자동 뽀개기 파이프라인",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "n8n RSS Trigger로 신규 영상 감지 → youtube_pobbagi.py → 학습카드 생성 → Firebase 개념노트 자동 등록. 감시 채널: ①호두(기존) ②기술노트with알렉(UCBtG00ljZ8R_DBQCTR4C00A, 447건 기완료) ③@with2511(안티 완료 후 추가)"
+    },
+    {
+      "id": "T013",
+      "title": "개념노트 자동 보충 스크립트",
+      "뿌리": 51,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "concept_booster.py (D:\\AI\\260623_1_study_all\\) 구현 완료. master_watch.py _daily_scheduler()에서 매일 21:00 자동 실행 연결. Firebase study_all/concepts 미이해 6개 미만 시 tasks.json에서 자동 채움. 버그 수정: line 58 count → total."
+    },
+    {
+      "id": "Moltbook",
+      "title": "Moltbook",
+      "뿌리": 42,
+      "기간": "단기",
+      "담당": "만복 (평가·방향 결정)",
+      "상태": "cancelled",
+      "설명": "3AI 참여 최종 보류 확정(2026-07-12). 사유: ①Meta 소유(광고·커머스 목적, 3AI 데이터 Meta 학습 리스크) ②Supabase 오설정 1.5M API 키 노출 이력(2026-01-31) — 보안 신뢰도 낮음. Early Access 신청은 완료 상태 유지(barobogi79@gmail.com). 향후 소유권·보안 구조 변경 시 재검토."
+    },
+    {
+      "id": "가족봇",
+      "title": "가족봇",
+      "뿌리": 72,
+      "기간": "장기",
+      "담당": "만복",
+      "상태": "holding",
+      "예정일": "미정",
+      "설명": "사모님 텔레그램 봇. 아키텍처 개선 5 완료 후 착수 예정으로 holding 전환 (2026-07-17)."
+    },
+    {
+      "id": "아키텍처_개선_1_(새벽_쿨다운)_→_2_(워치독_격리)_순차_진행",
+      "title": "아키텍처 개선 1·2 + supervisor.py 고도화",
+      "뿌리": 0,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "개선1: master_watch.py 새벽 쿨다운. 개선2: supervisor.py 신규+n8n_telegram_bot 감시 등록. 고도화(2026-07-12): 지수 백오프(60→120→240초) + 알림 전용 모드(3회 초과 시 재시작 중단+텔레그램 경고). 안티 제안2 채택 반영."
+    },
+    {
+      "id": "아키텍처_개선_3_(CI/CD)",
+      "title": "아키텍처 개선 3 (CI/CD)",
+      "뿌리": 0,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "_ai_workspace 변경 → 테스트 → T020 텔레그램 승인 → 메인 병합 반자동 체계. _ai_workspace 폴더는 8개 프로젝트에 이미 생성됨. 다음: master_watch.py에 _ai_workspace 변경 감지 → 테스트 실행 → T020 승인 요청 훅 추가."
+    },
+    {
+      "id": "아키텍처_개선_4_(API_Zero_메모리)",
+      "title": "아키텍처 개선 4 (API Zero 메모리)",
+      "뿌리": 0,
+      "기간": "단기",
+      "담당": "만복 (총괄) / 안티 (2단계 구현)",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "외부 API 요금 없는 로컬 지식 파이프라인. 1단계 완료: CLI subprocess 교체. 2단계 완료(2026-07-12): Firebase → 로컬 SQLite 마이그레이션 — local_db.py 신설(D:\\AI\\Global_Define\\), concept_booster.py + youtube_pobbagi.py 수정, n8n HTTP→Firebase 노드 삭제. concepts.json/videos.json D:\\AI\\AI_hub\\shared\\data\\ 자동 익스포트."
+    },
+    {
+      "id": "아키텍처_개선_5_(지능형_라우팅)",
+      "title": "아키텍처 개선 5 (지능형 라우팅)",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "LangGraph StateGraph + Router Node 패턴 도입. 만복(Router) → 코니(기획/검증) / 안티(구현) 조건부 분배 구조. 기존 '로컬 LLM 분산' 목표 보강 — 지능형 라우팅 코드로 확장. 산출물: D:\\AI\\Global_Define\\agent_router.py. 키워드 분류 + StateGraph 3-way 조건부 엣지 + inbox.md 로깅 + push_to_all.py --route 연동."
+    },
+    {
+      "id": "T028",
+      "title": "3AI 상태 기반(Stateful) 워크플로우 엔진",
+      "뿌리": 23,
+      "기간": "중기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "LangGraph 기반 3AI 상태 추적 엔진. AgentState SQLite 영속화 + 코니 반려 시 안티 자동 재시도 순환 사이클(최대 3회) + 통과 시 만복 최종 승인 요청. 산출물: D:\\AI\\Global_Define\\workflow_engine.py. CLI: workflow_engine.py --approve/--reject/--status."
+    },
+    {
+      "id": "T019",
+      "title": "3AI 병렬 리서치 스킬 (Genspark급 API 우회 검색)",
+      "뿌리": 41,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수·연동·보강)",
+      "상태": "completed",
+      "첫_실사용_시점": "Moltbook 리서치(2026-07-12) — 속도 우위 확인, 품질 한계 발견 → 즉시 보강",
+      "설명": "ddgs + Wikipedia REST API 보강 완료(2026-07-12). 위치: D:\\AI\\Global_Define\\parallel_search.py. 보강 내용: ①duckduckgo_search→ddgs 패키지 업그레이드 ②검색결과 중 Wikipedia URL 자동 감지→전문 summary 추가(키 불필요) ③stdout UTF-8 강제(Windows cp949 충돌 해결). 검증: Moltbook Meta 인수/보안사고 쿼리에서 TechCrunch·Wiz 발견 기사 정상 반환. 한계: DuckDuckGo 특성상 쿼리가 모호하면 동일 소스 반복 — 구체적 쿼리 작성이 품질 관건. Brave Search API 추가는 추후 옵션."
+    },
+    {
+      "id": "T020",
+      "title": "3AI 에이전틱 자동화 통제 모듈 (Human-in-the-loop)",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "최종 완료(2026-07-12). 텔레그램 [승인]/[반려] 버튼 → n8n resume 정상. 24시간 Timeout 자동반려 + 텔레그램 메시지 자동편집(--edit-timeout) 구현. E2E 검증: 자동반려(Exec 7214) + 수동반려(Exec 7219) 모두 성공. 산출물: D:\\AI\\AI_hub\\shared\\T020_human_in_the_loop\\. supervisor.py 감시 등록 완료."
+    },
+    {
+      "id": "T021",
+      "title": "T063 착수 전 저작권 게이트 체크리스트 문서화",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "설명": "T063 유튜브 파이프라인 착수 전 완료 필수. 저작권 4대 철칙(소스/TTS/시각자료/BGM) 기반 체크리스트 문서 작성. 위치: D:\\AI\\63_youtube_creator\\copyright_checklist.md. 마감: T063 착수 전."
+    },
+    {
+      "id": "T022",
+      "title": "Auto Security Patch 파이프라인",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "첫_실사용_시점": "Daily_for_Barobogi CSP 취약점 — T020 텔레그램 승인 → git push 자동 완료 (2026-07-12)",
+      "설명": "E2E 완료(2026-07-12). ZAP→Claude CLI 패치→T020 승인 버튼→git push 전체 흐름 검증. patch_generator.py T022 모드 + n8n_telegram_bot.py T022 케이스 추가. master_watch.py GitHub Pages push 후 3분 대기→보안 스캔 자동 훅 추가(1시간 쿨다운). 커밋: e167b16 (Daily_for_Barobogi CSP fix). [잔여] 1차 스캔 발견 취약점 5건(Anti-clickjacking, SRI 누락 등) 순차 처리 + 자동패치 화이트리스트 정의 (정적파일 수정=자동OK, 서버설정류=추가 리뷰) — 안티 제안1 병합 반영(2026-07-12)."
+    },
+    {
+      "id": "T_inbox",
+      "title": "3AI 통합 수신함 (inbox.md) 단일화",
+      "뿌리": 0,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "수신함 분산(messages/+tasks+코니브리핑+텔레그램) → AI_hub/status/inbox.md 단일 집계. master_watch.py 5분마다 + messages/ 변경 시 즉시 갱신. 세션 시작 시 이 파일만 읽으면 누락 제로. 3AI 단체 Hall(확인 없이 결론) 재발 방지 목적."
+    },
+    {
+      "id": "T_sotto",
+      "title": "Sotto Pro — 음성 vibe coding (Google Cloud STT)",
+      "뿌리": 24,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "Whisper tiny(STT)만으로 경량 구현 확정(2026-07-12). 마이크 홀드 단축키→음성녹음→Whisper→Claude CLI 입력 자동 전달. Qwen 로컬LLM 제외(RAM 부족). 설치: D:\\Dev\\sotto_pro\\. 완료 조건: idle CPU≈0% + 단축키 충돌 없음 확인."
+    },
+    {
+      "id": "T063",
+      "title": "3AI 유튜브 채널 자동화 파이프라인",
+      "뿌리": 63,
+      "기간": "장기",
+      "담당": "3AI (안티/만복/코니)",
+      "상태": "completed",
+      "완료일": "2026-07-12",
+      "설명": "1단계 완료(2026-07-12): 쇼츠 파이프라인(타이핑이펙트+TTS+웨이브폼) + EP.12 업로드. 2단계 로드맵: ③Public 자동전환→④본편 제작→⑤댓글 자동 대응. 댓글 분류: 단순감사 자동/기술질문 T020 승인/부정적 수동. 경로: D:\\AI\\63_youtube_creator\\pipeline\\"
+    },
+    {
+      "id": "T026",
+      "title": "MSA 통신구조 — 하이브리드 로깅 파이프라인",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "만복↔안티 실시간 이벤트 통신 + 하이브리드 로깅(API 트리거 + 마크다운 파일 병행). 코니는 비상주 세션이라 실시간 수신 불가 → 파일 기반(inbox.md) 유지. 1차 파일럿: 만복↔안티 사이클. n8n Webhook 재사용 권장. 뿌리 23 신설. (2026-07-17 Kony 자동감시 워치독 및 MCP 연동 완료)"
+    },
+    {
+      "id": "T025",
+      "title": "Docker 컨테이너화 Phase1 — 리서치 모듈 대상",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-30",
+      "예정일": "2026-07-27(월) 착수 확정",
+      "설명": "parallel_search.py 등 리서치 모듈 Docker 컨테이너화. 착수 전 확인: Volume 마운트 경로 목록 / Windows WSL2 파일 I/O 속도 / 아웃바운드 네트워크 설정. 뿌리 23 하위. (2026-07-24) 블로커(T026) 해소 후 6일 방치 — 코니 재차 지적으로 착수일 확정. (2026-07-30) 안티 1차 구현 완료보고 → 만복 검수 결과 조건부 반려: docker-compose.yml 누락(보고서엔 산출물로 명시됐으나 실제 파일 없음). Docker daemon 미가동시 로컬 폴백 3회 재현 검증은 통과. 안티가 즉시 docker-compose.yml 보완(291 bytes, 볼륨마운트+이미지태그+환경변수) → 만복 재검증 통과 → 최종 승인 완료."
+    },
+    {
+      "id": "T024",
+      "title": "VibeCoding 웹앱 제너레이터",
+      "뿌리": 64,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "텔레그램 봇으로 자연어 입력 → Claude CLI subprocess 방식(API 회피 원칙 준수) → 웹앱 코드 생성 → 로컬 배포. google.genai 직접 호출 반려 후 Claude CLI subprocess로 원복 완료. 코니 리뷰에서 response.text→result.stdout 버그 발견·수정. 완료: app_generator.py (D:\\AI\\64_vibecoding\\)."
+    },
+    {
+      "id": "T027",
+      "title": "Improve_stock 시계열 분석 강화",
+      "뿌리": 61,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-16",
+      "설명": "ADSP CRISP-DM 기반 시계열 모듈 강화 완료(2026-07-16). Phase: MA 5/20/60 → 볼린저밴드 → EDA 자동 리포트. 산출물: time_series_analyzer.py + eda_reporter.py (D:\\AI\\Improve_stock\\). Global_Define/concepts.json 등록 완료. AI_Study 게시판 업로드 완료. ImproveStock v1.1 Phase 4(텔레그램 통합)에서 generate_chart() 호출로 이미지 자동 생성 가능."
+    },
+    {
+      "id": "T063_슬라이드",
+      "title": "T063 2단계 — python-pptx 슬라이드 자동화 모듈",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "T063 2단계 ③시각가이드라인 내 python-pptx 기반 슬라이드 자동 생성 모듈 추가. 대본→슬라이드→화면녹화→업로드 파이프라인. T026 + ImproveStock v1.1 병행 후 착수."
+    },
+    {
+      "id": "ImproveStock_v1.1",
+      "title": "Improve_stock v1.1 — 내러티브 모멘텀 + 외국인 매수 필터 확장",
+      "뿌리": 61,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "VCP(0.5) + 외국인매수(0.2) + 내러티브모멘텀(0.3) 3중 필터. Phase1: RSS수집+Claude테마추출(7/18) → Phase2: 외국인매수필터(7/19) → Phase3: 섹터-종목 매핑+NarrativeScore(7/20~21) → Phase4: 합산+텔레그램통합(7/22~24). 신규파일: narrative_scanner.py, foreign_filter.py, sector_mapping.json. 호두 유튜브 3개 영상 뽀개기 리뷰(2026-07-16) 기반 기획. 코니 검토 완료."
+    },
+    {
+      "id": "T063_젠컷",
+      "title": "T063 영상 커편집 자동화 — 젠컷(Zencut) 연동 검토",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
+      "설명": "T063 영상 커편집 자동화 모듈 silence_cutter.py 1차 안티 구현 완료 (FFmpeg silencedetect 기반 무음 구간 감지 & 무손실 자동 컷팅 Jump Cut). test_silence_cutter.py (7초 -> 3초 컷팅) 검증 통과. 코니/만복 2차 검증 진행중."
+    },
+    {
+      "id": "T029",
+      "title": "Improve_stock 백테스트 검증 엔진",
+      "뿌리": 61,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "pending",
+      "예정일": "KIS API 모의투자 승인 후",
+      "설명": "CRISP-DM 감사 결과 Evaluation 단계 전무. 과거 데이터(2024~2026) 기반 VCP+외국인매수 신호 백테스트. Sharpe Ratio·Max Drawdown 등 위험지표 자동 측정. KIS API 승인 전 설계 단계만 착수 가능."
+    },
+    {
+      "id": "T030",
+      "title": "지식자동화 팩트체크 루프 (Devil's Advocate)",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (검증) / 만복 (최종승인)",
+      "상태": "completed",
+      "완료일": "2026-07-25",
+      "설명": "CRISP-DM 감사 결과 Evaluation 단계 보완. Gemini 2.5 Flash 기반 Devil's Advocate 페르소나를 활용해 요약본과 원본 STT 자막 대조·환각 검출. D:\\AI\\25_auto_pobbagi\\fact_checker.py 코드 구현 완료, daily_pobbagi_runner.py 필수 게이트 통합까지 완료. 단, 2026-07-24 만복 검토 결과 (1) GEMINI_API_KEY 외부 유료 API 신규 도입이 사전 보고 없이 진행됨(코딩 표준 위반) (2) daily 파이프라인의 필수 하드 게이트로 편입되어 API 장애/쿼터 소진 시 전체 뽀개기 파이프라인이 통째로 멈추는 단일장애점(SPOF) 리스크 확인. 안티의 무료 티어 확인 회신 + SPOF 완화(폴백) 방안 확인 후 completed 전환 예정이었음. (2026-07-25 만복 최종승인) 무료티어 확인 + SPOF 폴백(API 실패 시 WARNING만 찍고 return True로 파이프라인 안 막음) 둘 다 확인되어 최종 승인 — 근거 `만복→안티_20260725_트리거버그4_허위보고_지적_및_T030T031승인.md`. (2026-07-26 코니 확인) 만복 승인 후 tasks.json 갱신 누락되어 있던 것 발견해 completed 정정."
+    },
+    {
+      "id": "T032",
+      "title": "push_to_all.py — 3AI 완전 동시 격발 시스템",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "코니+만복+안티 3AI 완전 동시 격발 달성. 코니: MCP 포커스 탈취. 만복: VS Code Ctrl+Shift+I + 클립보드 주입. 안티: 파일 트리거. E2E 테스트 2026-07-17 18:37 바로보기님 직접 확인 완료."
+    },
+    {
+      "id": "T033",
+      "title": "BytePlus Playwright 자동화 — Seedream 이미지·Seedance 영상 무료 생성",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-18",
+      "설명": "방향 전환(2026-07-17): BytePlus → Kling AI 무료 플랜 Playwright 자동화. BytePlus는 카드 등록 없이 모델 활성화 불가 확인. Kling AI로 이미지/영상 생성 → 로컬 저장. T063 배경영상·썸네일 자동화 통합 목표. byteplus_auto.py 기반 코드 재활용. kling_auto.py 완성+검증(kling_test.jpg) 완료(2026-07-18 17:19). 단, 이후 EP.01 30장 대량 생성 적용 중 Kling UI 영어개편+DOM구조 변경으로 자동화 붕괴(ARR Autonomous 기준 미달) → 로보네오(RoboNeo) 우회 파이프라인으로 전환(2026-07-20, roboneo_auto.py v0.1)."
+    },
+    {
+      "id": "T034",
+      "title": "gps_check.py — 지시서 GPS 구조 자동 검증 도구",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-17",
+      "설명": "만복→안티 지시서 파일(.md)에 G(Goal)/P(Proof)/S(Steps) 3항목 포함 여부 자동 검증. 반려 시 누락 항목 명시. Sandeep Swadia 뽀개기(2026-07-17)에서 도출한 GPS Check 원칙 구현."
+    },
+    {
+      "id": "T031",
+      "title": "VibeCoding Syntax 검증 파이프라인",
+      "뿌리": 64,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (검증)",
+      "상태": "completed",
+      "완료일": "2026-07-25",
+      "설명": "CRISP-DM 감사 결과 Evaluation 단계 전무. 생성된 HTML/CSS/JS 코드 Syntax 검사(W3C·ESLint) + 로컬 런타임 테스트 + UI/UX 체크리스트 자동화. T063 QA 스크립트 재활용. (2026-07-25 만복 최종승인) 안티 재작업으로 3가지 보완조건(①에스컬레이션: 3회 실패 시 시스템→코니_만복 실패알림 파일 생성 ②보안스캔: eval/innerHTML/API키 정규식 탐지 ③접근성: img alt/h1 체크) 모두 코드로 직접 해결 확인, 코니 2차검증 후 만복 최종승인 — 근거 `만복→안티_20260725_트리거버그4_허위보고_지적_및_T030T031승인.md`. [잔여·블로커아님] 실패알림 파일명 고정이라 연속실패 시 덮어쓰기 → 타임스탬프 붙이는 개선 여유 있을 때(만복도 동의). (2026-07-26 코니 확인) 만복 승인 후 tasks.json 갱신 누락되어 있던 것 발견해 completed 정정."
+    },
+    {
+      "id": "T035",
+      "title": "GitHub10 보류 항목 3일 주기 재검토",
+      "뿌리": 23,
+      "기간": "반복",
+      "담당": "만복 (주관) / 코니·안티 (의견)",
+      "상태": "진행중 (반복)",
+      "예정일": "2026-07-27 (3일 주기, 전원 동의 시까지 반복)",
+      "설명": "2026-07-24 코니 2차 검토 결과 중 1티어(#8 RepoMix, #5 Devil's Advocate)·2티어(#9 Agent Memory 파일럿, #2 CodeGraph, #4 Marketing Skills)는 즉시 착수 승인, 안티 구현 진행. 나머지 보류 항목은 3일 주기로 재검토: #1 Dify(오버엔지니어링 우려), #10 ViMax/AutoCameo(EP.03+ 시점 재검토), #6 OpenHuman(tasks.json 전면교체 리스크로 거부 유지, 한계 부딪히면 재검토), #7 Cloak Browser(봇탐지 우회 툴 — ToS 회색지대라 3AI 기술판단 대상 아님, 바로보기님 결정 대기). #3 Awesome Claude Code는 (2026-07-30) 뽀개기2번(Cloud Codes 영상)이 본 리스트와 100% 동일 구성임을 코니가 발견·원본 반려 처리하면서 확장안으로 최종 승인 — 43_function_dev 후보 발굴 보조 소스로 채택, 이 항목은 보류 루프에서 제외(해결됨). 3AI 전원 동의 도달 시 해당 항목만 종료 처리. (2026-08-20 만복2 재검토, 24일 경과분) #1 Dify: T065/T066으로 자체 DuckDB 인프라(상태시각화+규칙거버넌스)가 이미 구축돼 도입 명분이 오히려 더 약해짐 — 보류 유지. #10 ViMax/AutoCameo: 최근 진행은 EP.02(7/24 완료)+T063_젠컷(in_progress)뿐, EP.03 미착수 — 조건 미충족, 보류 유지. #6 OpenHuman: 8/18 밤 '메시지 채널 이원화' 실제 이슈가 있었으나 tasks.json 자체의 한계는 아니고 T065 트랙(메시지 채널 통합 설계, 다음 세션 1순위)에서 자체 해결 예정이라 이 이슈가 OpenHuman 도입 근거는 못 됨 — 거부 유지. #7 Cloak Browser: 바로보기님께 직접 확인 — 대체수단(Pollinations API)이 문제없이 돌아가는 중이라 ToS 리스크를 새로 질 이유가 약하다는 만복 의견 전달, 바로보기님 '보류' 승인 — 보류 유지(영구거부 아님, Pollinations 한계 부딪히면 재검토).",
+      "다음검토일": "2026-08-23 (3일 주기, 2026-08-20 재검토 완료 — 4건 전부 보류/거부 유지, 전원 동의 상태 아니므로 계속)"
+    },
+    {
+      "id": "T_plugin_4",
+      "title": "클로드 코드 공식 플러그인 4개 설치 + 효과 추적",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "만복",
+      "상태": "completed",
+      "완료일": "2026-07-19",
+      "설명": "Session Report / Claude MD Management / Hookify / Serena MCP 4개 설치 완료. 캐시 히트율 98.5% 확인. 2026-07-26(일) 1주일 효과 리뷰 예정. 하네스 엔지니어링(Mitchell Hashimoto) = 우리 Hall 방지 체계와 동일 개념 확인."
+    },
+    {
+      "id": "T25_pobbagi_v2",
+      "title": "뽀개기 자동화 파이프라인 v2 — 매일 18:00 자동 실행",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
+      "완료일": "",
+      "설명": "2026-07-20 첫 가동 완료. 버그 수정: QUOTA 선착순→채널당 3개 제한(총 15개), 기술노트 채널 ID 수정(UCBtG00ljZ8R_DBQCTR4C00A), emoji 인코딩 에러 수정, processed dict/str 혼용 에러 수정. 만복 3건 STT 완료, 안티 3건 inbox 전달. master_watch 재시작 누락으로 18:00 자동 미발동 → CLAUDE.md 세션 시작 절차에 master_watch 체크 항목 추가 완료. 운영 중. (2026-07-22) 중복 할당 사고 발생(7/20 완료건 재할당) → daily_pobbagi_runner.py 버그 수정 + GPS 검증(gps_check.py) 연결 완료. 안티 담당 2건(OpenArt Director, Matt Pocock)은 T063 작업 우선으로 내일(7/23)로 이월. 7/23은 만복 3건만 준비, 안티 할당 없음."
+    },
+    {
+      "id": "T_ticket_planner",
+      "title": "ticket_planner 스킬 — Matt Pocock GPS 자동 분해",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현 완료) / 만복 (최종 승인)",
+      "상태": "completed",
+      "완료일": "2026-07-20",
+      "설명": "Matt Pocock Grill+Spec+Tickets 방법론 구현. 코니 보강 2가지(역면접 기준 명확화, GPS 자동 검증 로직) 반영 완료. 바로보기님 도입 승인 + 만복 최종 승인. 게시판 카드 등록 예정."
+    },
+    {
+      "id": "T026_eval_pipeline",
+      "title": "AI 스킬 자동 Eval 파이프라인 — 매일 23:00 자동 테스트",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (첫 번째 Eval 보고)",
+      "상태": "completed",
+      "완료일": "2026-07-25",
+      "설명": "안티 뽀개기 1번(Eval #Shorts) 도출. 매일 23:00 등록된 모든 스킬 테스트 케이스 자동 실행 → 성공/실패 보고. 산출물: D:\\AI\\AI_hub\\shared\\eval_logs\\YYYYMMDD_eval_report.md. AGENTS.md 스킬 Eval 의무화 규정과 연동. 2026-07-24: 파이프라인 자체는 정상 작동 확인(첫 E2E 실행), 단 기존 7개 스킬이 Eval 의무화(7/20 신설) 이전 제작물이라 테스트케이스/채점기준 부재로 전원 FAIL. 안티 보강안 작성→코니 1차검토(3개 승인: deploy_vercel/ticket_planner/genspark_search, 4개 재작업: cinematic_shot_builder/context_manager/rule_manager/session_report — fact_checker.py 재활용 채점 방식 제안)→만복 최종 승인(2026-07-24) 완료. 2026-07-25: T030 API 사전보고/SPOF 조건 해소 완료 후 나머지 4개 스킬도 fact_checker.py 연동 완료, 코니 2차검증(SKILL.md 직접 확인)+만복 최종 승인으로 7개 전체 완료."
+    },
+    {
+      "id": "T028_hormozi_b",
+      "title": "T028 우리 맞춤형 4대 기준 아이디어 필터 (방안 B)",
+      "뿌리": 25,
+      "기간": "단기",
+      "담당": "안티 (구현) / 코니 (기준 검증)",
+      "상태": "completed",
+      "완료일": "2026-07-21",
+      "설명": "Hormozi 4대 기준을 3AI 맞춤형으로 재설계. EXPENSIVE → STRATEGIC(장기 전략 정렬), 가중치: FEASIBLE 45% / SUSTAINABLE 35% / UNIQUE 15% / STRATEGIC 5%. 극단값 플래그(1개 항목 30점 미만 경고) 포함. 방안B 채택(코니 권장). business_filter.py 구현 완료 + 게시판 카드 20260721-1 등록 완료."
+    },
+    {
+      "id": "T_ARCH_LOCK",
+      "title": "4대 기본 원칙 아키텍처 Lock — Python 강제 방어벽",
+      "뿌리": 23,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-07-21",
+      "설명": "안티 제안(2026-07-20): CLAUDE.md 텍스트 의존 말고 Python 아키텍처 단에서 4대 원칙 강제 Lock. ①사용자 승인 없는 타 AI 전송 → 스크립트 실행 전 차단 하드코딩(push_to_all.py/push_to_coni.py) ②master_watch_guard.py 신설로 master_watch 미실행 시 자동 재시작+경고 ③inbox.md 미읽음 30분 초과 시 텔레그램 강제 알람. E2E 테스트(무단전송 차단 확인) 완료. 게시판 카드 20260720-1 2차 업데이트 아직 미반영."
+    },
+    {
+      "id": "S02_대본",
+      "title": "[S.02] 빅데이터 3V 대본 작성",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "코니",
+      "상태": "completed",
+      "마감": "2026-07-20",
+      "설명": "제목: [S.02] 빅데이터 3V — 데이터의 진짜 본질 #Shorts. 30~60초, 씬 5~7개. 저장: D:\\AI\\63_youtube_creator\\scripts\\S02_빅데이터3V_대본.md. 완료 후 안티+만복 CC.",
+      "완료일": "2026-07-21",
+      "url": "https://www.youtube.com/watch?v=jztIKzr453M"
+    },
+    {
+      "id": "S03_대본",
+      "title": "[S.03] 병렬 리서치 대본 작성",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "코니",
+      "상태": "completed",
+      "마감": "2026-07-22",
+      "완료일": "2026-07-22",
+      "설명": "제목: [S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 #Shorts. 30~60초, 씬 5~7개. 저장: D:\\AI\\63_youtube_creator\\scripts\\S03_병렬리서치_대본.md. (2026-07-25 코니 확인) 렌더링·업로드까지 완료된 상태였으나 tasks.json 갱신 누락 발견 — D:\\AI\\63_youtube_creator\\pipeline\\output\\published\\S03\\info.md 기준 2026-07-23경 업로드 완료."
+    },
+    {
+      "id": "EP02_대본",
+      "title": "[EP.02] 좀비 프로세스 + 뽀개기 자동화 대본",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "코니",
+      "상태": "completed",
+      "마감": "2026-07-24",
+      "완료일": "2026-07-24",
+      "설명": "제목: [EP.02] 완벽한 시스템을 뻗게 만든 좀비 프로세스 사태와 유튜브 지식창고 자동화. EP.01 쿠키 연결 → 텔레그램 봇 무한루프 사태 → Watchdog 해결 → 뽀개기 자동화 v2 공개. 저장: D:\\AI\\63_youtube_creator\\scripts\\EP02_대본.md. (2026-07-25 코니 확인) 대본 779자→2,380자 확장 + 자막싱크 버그수정 + 렌더링(Main_EP02_System_Evolution.mp4) 2차검증 PASS, 3차(만복) 승인요청 발송 완료 — 업로드 최종승인은 메시지 채널로 별도 추적 중."
+    },
+    {
+      "id": "T_TG_TOPIC",
+      "title": "Telegram 1:1 및 멀티 Topic 라우팅 연동 시스템",
+      "뿌리": 24,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "completed",
+      "완료일": "2026-08-20",
+      "설명": "Hermes Agent 뽀개기 도출. 기존 텔레그램 봇(n8n_telegram_bot.py)을 확장하여 1:1 대화방 및 포럼 멀티 토픽 환경 모두 지원. ①agent_registry.json에 AI별 토픽 메타데이터 등록 ②1:1 개인방에서 '안티야/만복아/코니야' 키워드 인식 시 해당 AI 즉시 UIA 격발+수신함 라우팅(미지정 시 만복 PM 자동 폴백) ③포럼 그룹방 사용 시 createForumTopic 자동 생성 및 message_thread_id 컨텍스트 라우팅 지원 ④send_approval.py 승인 토픽 격리 지원 완료. (2026-08-20 10:50) 코니 1차감사 PASS(라인단위 코드대조, agent_registry/포럼라우팅/폴백/승인토픽격리/supervisor 백오프/test_goal_runner.py 4대시나리오 병합 전부 확인) + 만복 스팟체크 일치 확인. **만복 최종승인.** 단 코니가 스스로 명시한 한계(실행권한 없어 런타임 동작 미확인) 인정 — 텔레그램 실제 포럼토픽 생성/메시지 왕복은 코드는 맞지만 오늘 UIA 사례처럼 실측에서 다를 수 있음. 안티에게 실사용 트래픽 1회 확인 요청."
+    },
+    {
+      "id": "T_GOAL_LOOP",
+      "title": "/goal 자가치유 루프 통합 — 뽀개기 7~8단계 자동 재시도",
+      "뿌리": 28,
+      "기간": "중기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "in_progress",
+      "설명": "Hermes Agent 뽀개기 도출. 자가치유 실행 엔진 goal_runner.py 1차 안티 구현 완료 (독립 CLI 모듈 + 20턴/1시간/3회 연속 실패 에스컬레이션 하드 캡 적용). D:\\AI\\AI_hub\\shared\\eval_logs\\ 로그 기록 연동 및 daily_pobbagi_runner.py 7~8단계 연동 유닛테스트 통과. 코니/만복 2차 검증 진행중. (2026-08-18 밤) LunaChatCoder 기술검토(안티) 벤치마킹 결론 반영 — luna-chat-coder의 '실패 시 무작정 재시도 금지, 로그·부분결과 진단 후 최소패치만 적용' 복구 패턴을 goal_runner.py가 실제로 따르고 있는지 코드 대조 검증 필요 (8/12에 잡힌 '에스컬레이션 3연속실패부터 매턴 중복발동' 버그도 이 패턴과 연관 가능성). **다음 세션 1순위**로 지정 — goal_runner.py 재시도 로직 직접 열어서 대조, 미흡하면 안티에게 개선 지시서 전달. (2026-08-19 새벽) 만복 코드 대조 완료: 8/12 에스컬레이션 중복발동 버그는 `_consecutive_escalated` 플래그로 이미 정상 수정 확인(안티도 별도로 재검증의뢰+실증테스트 보고 제출, 상호 검증 일치) — 이 서브이슈는 완료. luna-chat-coder 벤치마킹 갭(무작정 재시도, 결정론적 실패 미판별)은 신규 이슈로 안티에게 지시서 발송(연속2회 stderr 동일 시 조기 에스컬레이션 추가) — 이 부분 완료 전까지 태스크 전체는 in_progress 유지. (2026-08-20) 안티 1차 구현 제출 → 만복 코드 대조 검증: phase별 stderr 비교/결정론적 판정/`_consecutive_escalated` 중복방지/성공시 리셋은 정확히 구현됨. 단 결정론적 실패 감지 후 `_escalate()`만 호출하고 `return False`가 없어 루프가 max_turns까지 계속 도는 누락 발견(09:23 1차 피드백, 09:30경 재확인 후 정식 반려로 전환) — **반려**. 재작업 요구사항: ①`_handle_failure()`가 `is_deterministic` 리턴 ②`execute()`에서 결정론적이면 `continue` 대신 즉시 `return False` ③`test_goal_runner.py`에 조기중단 케이스 추가 ④(신규) 재검증 의뢰 전 안티 자체 검증 4회(성공/비결정론적3회재시도/결정론적조기중단/phase다른케이스 회귀) 실행 후 증거 첨부 의무화, 바로보기님 지시로 반영. 근거: `만복→안티_20260820_0930_goalrunner_반려_자체검증4회요구.md`(주의: 발신자 표기 정정 — 이 반려는 실제로는 코니(Cowork 세션)가 만복 명의로 잘못 발송한 것이었음, 실질 내용은 진짜 만복의 0923 피드백과 결론 일치해 유효, 정정 근거: `코니→만복_안티_20260820_0937_정정_0930메시지_발신자오귀속.md`). (2026-08-20 09:38) 안티 재제출(4회 자체검증 4/4 PASS 보고, `안티→코니_20260820_0932_...재검증요청.md`) → 코니 코드 직접 대조 검증(105~197줄, 4개 시나리오 전부 로직 일치 확인) — **PASS**. 경미 후속조치(블로커 아님): 안티가 4회 검증을 `_ai_workspace\\안티\\test_goal_runner.py`(초안)에서만 수행, 정식 `Global_Define\\test_goal_runner.py`엔 미병합 — 다음 기회에 병합 권고. 근거: `코니→만복_안티_20260820_0938_goalrunner_검증완료_PASS.md`. **(2026-08-20 09:50) 만복 최종승인**: 코니 검증(105~197줄 코드대조, 4개 시나리오 PASS) 확인, luna-chat-coder 벤치마킹 갭(결정론적실패 감지+조기중단) 이슈 완결 처리. 경미 후속조치(test_goal_runner.py 정식 병합)는 저priority로 남겨두고 T_GOAL_LOOP 본 태스크는 계속 in_progress(뽀개기 7~8단계 통합이 상위 목표라 이 서브이슈만으로 completed 전환 안 함)."
+    },
+    {
+      "id": "T_VPS_DEPLOY",
+      "title": "here.now VPS 자동 배포 파이프라인 — 24/7 운영 인프라",
+      "뿌리": 23,
+      "기간": "장기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "pending",
+      "예정일": "2026-08 중순 (인프라 검토 필요)",
+      "설명": "Hermes Agent 뽀개기 도출. 로컬 머신 의존 → VPS 전환으로 PC 꺼도 에이전트 24/7 운영. 비용 검토 필요. T-TG-TOPIC / T-GOAL-LOOP 완료 후 착수."
+    },
+    {
+      "id": "T064_RoboNeo",
+      "title": "로보네오 Playwright 자동화 테스트 및 이식",
+      "뿌리": 63,
+      "기간": "단기",
+      "담당": "안티 (구현) / 만복 (검수)",
+      "상태": "abandoned",
+      "완료일": "2026-07-22",
+      "설명": "로보네오 웹사이트(Playwright/GUI) 기반 영상 생성 자동화 파이프라인 고도화. 기존 Kling 우회 파이프라인 교체 테스트 목적. (2026-07-22) 브라우저 탈취+PyAutoGUI 매크로 방식의 근본적 취약성(마우스 뺏김, 대기시간, UI변경 리스크) 확인 후 폐기. Pollinations.ai 무료 API(requests 직접 호출) 방식으로 완전 대체 → T063 참조."
+    }
+  ]
+}
