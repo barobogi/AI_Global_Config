@@ -53,3 +53,7 @@ venv/
 # IDE
 .vscode/
 .idea/
+
+# 설치된 앱 (실수로 커밋된 것, git 추적 제외)
+Antigravity IDE/
+paseo/
