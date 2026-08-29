@@ -116,6 +116,9 @@ def main():
             title=args.title + shorts_suffix,
             description=desc,
             tags=tags or ["3AI", "AI자동화", "만복", "코니", "안티"],
+            privacy_status=args.privacy,  # 2026-08-29 Hookify: --privacy 인자가 정의만 되고
+            # upload_video()로 안 넘어가서 항상 unlisted로만 올라가던 버그(EP.03 "공개" 요청이
+            # unlisted로 올라간 사고) 수정.
         )
         # 업로드 결과 저장
         approvals = load_approvals()
