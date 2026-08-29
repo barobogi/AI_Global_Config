@@ -10,10 +10,12 @@ CLI 사용법 (goal_runner.py --final-check-command 등에서 재사용 가능):
   python verifiers.py video <mp4_path>
   python verifiers.py json <path>
   python verifiers.py pytest <test_path_or_dir>
+  python verifiers.py dup <youtube_video_id>
 
 exit 0 = PASS, exit 1 = FAIL, exit 2 = 사용법 오류
 """
 import json
+import sqlite3
 import subprocess
 import sys
 from pathlib import Path
@@ -73,10 +75,46 @@ def check_pytest(test_path) -> tuple[bool, str]:
     return ok, summary
 
 
+def check_not_duplicate(video_id) -> tuple[bool, str]:
+    """뽀개기 선택 전 중복 확인 — pobbagi_history.db + 과거 메시지 파일 이중 대조.
+    2026-08-29: 만복이 7/19에 이미 배정됐던 jdbOVepEtUE를 다시 뽀개기로 선택한 실수에서
+    도출. DB만 보면 못 잡는다는 게 실제로 확인됨(그 배정은 메시지 파일에만 남아있고
+    DB엔 기록된 적이 없었음) — 그래서 메시지 폴더 텍스트 검색까지 같이 한다."""
+    hits = []
+    db_path = Path(r"D:\AI\25_auto_pobbagi\pobbagi_history.db")
+    if db_path.exists():
+        try:
+            conn = sqlite3.connect(str(db_path))
+            c = conn.cursor()
+            c.execute("SELECT title, pobbagi_date, assignee FROM pobbagi_history WHERE video_id=?", (video_id,))
+            row = c.fetchone()
+            conn.close()
+            if row:
+                hits.append(f"DB: {row[1]} {row[2]} 담당 [{row[0]}]")
+        except Exception:
+            pass
+
+    messages_dir = Path(r"D:\AI\AI_hub\shared\messages")
+    if messages_dir.exists():
+        for f in messages_dir.glob("*.md"):
+            if "뽀개기후보목록" in f.name:
+                continue  # 후보 풀 나열일 뿐 실제 배정/완료 근거 아님 — 매일 재노출되는 미처리 항목까지 오탐 방지
+            try:
+                if video_id in f.read_text(encoding="utf-8", errors="ignore"):
+                    hits.append(f"메시지: {f.name}")
+            except Exception:
+                continue
+
+    if hits:
+        return False, "이미 처리/배정된 이력 있음 — " + " | ".join(hits[:5])
+    return True, "신규 (중복 이력 없음)"
+
+
 CHECKS = {
     "video": check_video_integrity,
     "json": check_json_valid,
     "pytest": check_pytest,
+    "dup": check_not_duplicate,
 }
 
 
