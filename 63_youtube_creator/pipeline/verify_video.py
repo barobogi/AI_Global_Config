@@ -1,4 +1,3 @@
-import subprocess
 import sys
 from pathlib import Path
 
@@ -10,32 +9,11 @@ try:
 except ImportError:
     from moviepy import VideoFileClip
 
+# 2026-08-29: 프레임 무결성 체크를 43_function_dev/03_verification_framework로
+# 승격 — 다른 파이프라인(goal_runner.py --final-check-command 등)도 재사용 가능하게.
+sys.path.insert(0, str(Path(r"D:\AI\43_function_dev\03_verification_framework")))
+from verifiers import check_video_integrity as check_frame_integrity
 
-def check_frame_integrity(mp4_path) -> tuple[bool, str]:
-    """실제 프레임 디코딩 검증 — 2026-08-29 Hookify: 해상도/길이 메타데이터는
-    멀쩡한데 H.264 스트림 자체가 손상되어 프레임 0개 디코딩되는 영상(EP.03)이
-    이 체크 없이 '검증 통과'로 잘못 판정된 사고 발생. moviepy는 메타데이터만
-    읽고 전체 디코딩은 안 하므로 별도로 ffmpeg 풀디코딩을 돌려야 실제로 잡힘."""
-    try:
-        import imageio_ffmpeg
-        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
-    except ImportError:
-        ffmpeg_exe = "ffmpeg"  # PATH에 있으면 폴백
-
-    try:
-        result = subprocess.run(
-            [ffmpeg_exe, "-v", "error", "-i", str(mp4_path), "-f", "null", "-"],
-            capture_output=True, text=True, timeout=120
-        )
-    except Exception as e:
-        return False, f"ffmpeg 실행 실패: {e}"
-
-    stderr = result.stderr
-    if "Invalid NAL unit" in stderr or "Error splitting the input" in stderr:
-        return False, "H.264 스트림 손상 감지 (Invalid NAL unit)"
-    if result.returncode != 0:
-        return False, f"ffmpeg 디코딩 실패(exit {result.returncode}): {stderr[:300]}"
-    return True, "프레임 디코딩 정상"
 
 def verify_shorts_video(mp4_path):
     print(f"🔍 자체 검증 시작: {mp4_path}")
