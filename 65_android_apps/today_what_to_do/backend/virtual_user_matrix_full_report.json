@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-29T20:19:58.404873",
-  "total_scenarios": 16800,
-  "passed_count": 16800,
+  "timestamp": "2026-08-29T20:23:57.190414",
+  "total_scenarios": 18480,
+  "passed_count": 18480,
   "failed_count": 0,
   "pass_rate": "100.00%",
-  "elapsed_seconds": 93.25,
+  "elapsed_seconds": 114.62,
   "dimension_breakdown": {
     "locations": 10,
-    "personas": 10,
+    "personas": 11,
     "distances": 7,
     "budgets": 6,
     "indoor_options": 2,

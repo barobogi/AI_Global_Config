@@ -125,7 +125,7 @@ fun ConditionInputScreen(
             Column {
                 Text("누구와 함께 가나요? 👥", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.height(8.dp))
-                val companionList = listOf("영유아", "7세 아이", "초등학생", "연인", "반려동물", "부모님", "친구", "혼자")
+                val companionList = listOf("가족", "영유아", "7세 아이", "초등학생", "고등학생 가족", "대학생 가족", "연인", "반려동물", "부모님", "친구", "혼자")
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(companionList) { item ->
                         FilterChip(

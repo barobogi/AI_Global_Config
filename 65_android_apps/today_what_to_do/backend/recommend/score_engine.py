@@ -155,7 +155,25 @@ class ScoreEngine:
         # 점수 내림차순 정렬
         scored_places.sort(key=lambda x: x.get("final_score", 0), reverse=True)
 
-        top_candidates = scored_places[:top_k]
+        # 카테고리 다양성 보장 로직 (동일 카테고리 쏠림 방지 — 데이트팝 불만 사례 방지)
+        top_candidates = []
+        seen_categories = {}
+        for p in scored_places:
+            cat = p.get("cat2") or p.get("contenttypeid") or "etc"
+            count = seen_categories.get(cat, 0)
+            if count < 2 or len(top_candidates) < 2:
+                top_candidates.append(p)
+                seen_categories[cat] = count + 1
+            if len(top_candidates) >= top_k:
+                break
+        
+        # 보충
+        if len(top_candidates) < top_k:
+            for p in scored_places:
+                if p not in top_candidates:
+                    top_candidates.append(p)
+                    if len(top_candidates) >= top_k:
+                        break
         rain_prob = weather_info.get("rain_probability", 0)
 
         # 코스 조합 (메인 목적지 + 보조 방문지/휴식)

@@ -32,6 +32,7 @@ sys.path.insert(0, str(CURRENT_DIR / "ai_pipeline"))
 from main import RecommendRequest, get_recommendations
 
 PERSONAS = [
+    {"name": "가족 전체(3~4인)", "companion": "가족"},
     {"name": "영유아(0~3세)", "companion": "영유아"},
     {"name": "어린이(4~7세)", "companion": "7세 아이"},
     {"name": "초등학생 자녀", "companion": "초등학생"},
