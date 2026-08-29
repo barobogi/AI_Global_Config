@@ -1,3 +1,4 @@
+import subprocess
 import sys
 from pathlib import Path
 
@@ -8,6 +9,33 @@ try:
     from moviepy.editor import VideoFileClip
 except ImportError:
     from moviepy import VideoFileClip
+
+
+def check_frame_integrity(mp4_path) -> tuple[bool, str]:
+    """실제 프레임 디코딩 검증 — 2026-08-29 Hookify: 해상도/길이 메타데이터는
+    멀쩡한데 H.264 스트림 자체가 손상되어 프레임 0개 디코딩되는 영상(EP.03)이
+    이 체크 없이 '검증 통과'로 잘못 판정된 사고 발생. moviepy는 메타데이터만
+    읽고 전체 디코딩은 안 하므로 별도로 ffmpeg 풀디코딩을 돌려야 실제로 잡힘."""
+    try:
+        import imageio_ffmpeg
+        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    except ImportError:
+        ffmpeg_exe = "ffmpeg"  # PATH에 있으면 폴백
+
+    try:
+        result = subprocess.run(
+            [ffmpeg_exe, "-v", "error", "-i", str(mp4_path), "-f", "null", "-"],
+            capture_output=True, text=True, timeout=120
+        )
+    except Exception as e:
+        return False, f"ffmpeg 실행 실패: {e}"
+
+    stderr = result.stderr
+    if "Invalid NAL unit" in stderr or "Error splitting the input" in stderr:
+        return False, "H.264 스트림 손상 감지 (Invalid NAL unit)"
+    if result.returncode != 0:
+        return False, f"ffmpeg 디코딩 실패(exit {result.returncode}): {stderr[:300]}"
+    return True, "프레임 디코딩 정상"
 
 def verify_shorts_video(mp4_path):
     print(f"🔍 자체 검증 시작: {mp4_path}")
@@ -63,6 +91,15 @@ def verify_shorts_video(mp4_path):
             is_passed = False
         else:
             print("✅ 쇼츠 해상도 검증 통과")
+
+    # 3. 프레임 무결성 체크 (실제 디코딩) — 메타데이터만으론 못 잡는 손상 스트림 탐지
+    frame_ok, frame_msg = check_frame_integrity(path)
+    print(f"🎞️ 프레임 무결성: {frame_msg}")
+    if frame_ok:
+        print("✅ 프레임 디코딩 검증 통과")
+    else:
+        print(f"❌ 실패: {frame_msg}")
+        is_passed = False
 
     if is_passed:
         print("\n🎉 모든 자체 검증 프로세스를 통과했습니다! (게시 가능)")
