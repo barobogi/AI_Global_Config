@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-08-29T20:23:57.190414",
+  "timestamp": "2026-08-29T20:37:52.886291",
   "total_scenarios": 18480,
   "passed_count": 18480,
   "failed_count": 0,
   "pass_rate": "100.00%",
-  "elapsed_seconds": 114.62,
+  "elapsed_seconds": 111.91,
   "dimension_breakdown": {
     "locations": 10,
     "personas": 11,

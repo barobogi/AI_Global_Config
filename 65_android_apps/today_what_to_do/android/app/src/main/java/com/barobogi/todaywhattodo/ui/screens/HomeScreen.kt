@@ -116,6 +116,32 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
+            // 0. 코니 Auditor 4대 안심 선언 배너 (Barobogi-nim 지시 반영)
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = CardDefaults.cardColors(containerColor = PrimaryBlue.copy(alpha = 0.08f))
+                ) {
+                    Column(modifier = Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("🔒 ", fontSize = 14.sp)
+                            Text(
+                                text = "회원가입·로그인 없음 · 개인정보 수집 0건 · 100% 안심 무료",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryBlue
+                            )
+                        }
+                        Text(
+                            text = "🏛️ 한국관광공사 국문 공공데이터 3중 팩트체크 검증 완료 (신상 핫플 순차 반영 중)",
+                            fontSize = 11.sp,
+                            color = Color.Gray
+                        )
+                    }
+                }
+            }
+
             // 1. 핵심 바로가기 메인 배너 (그래디언트 톤)
             item {
                 Card(
