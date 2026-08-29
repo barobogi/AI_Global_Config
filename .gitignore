@@ -57,3 +57,6 @@ venv/
 # 설치된 앱 (실수로 커밋된 것, git 추적 제외)
 Antigravity IDE/
 paseo/
+
+# 공공데이터 카탈로그 DB (92MB, 로컬 재생성용 - fetch_catalog.py로 재생성)
+43_function_dev/04_public_data_catalog/catalog.duckdb
