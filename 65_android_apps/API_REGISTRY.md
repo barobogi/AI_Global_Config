@@ -9,10 +9,11 @@
 | 반려동물 동반여행 (KorPetTourService2) | B551011 | ✅ 승인 | today_what_to_do (1탄) | `today_what_to_do/docs/api/kto_pet_tourism.md` |
 | 기상청 단기예보 (VilageFcstInfoService_2.0) | 1360000 | ✅ 승인 | today_what_to_do (1탄) | `today_what_to_do/docs/api/kma_weather.md` |
 | 공공데이터포털 목록조회 (odcloud) | 15077093 | ✅ 승인 | (연결검증용) | `today_what_to_do/phase0/test_odcloud_key.py` |
-| 한국교통안전공단 주차정보 (Parking) | B553881 | ✅ 승인 (2026-08-20 밤 확인, 기존 계정키와 동일값) | parking_where (2탄 예정, 착수는 1탄 완료 후) | End Point: `https://apis.data.go.kr/B553881/Parking`, 데이터포맷 JSON+XML, 참고문서 `65_android_apps/Idea/주차정보시스템_기술문서_수정본_20240702.docx` |
+| 한국교통안전공단 주차정보 (Parking) | B553881 | ✅ 승인 (2026-08-20 밤 확인, 기존 계정키와 동일값) | parking_where (3탄으로 순연, 착수는 1탄 완료 후 + 기획 다이어트 필요) | End Point: `https://apis.data.go.kr/B553881/Parking`, 데이터포맷 JSON+XML, 참고문서 `65_android_apps/Idea/주차정보시스템_기술문서_수정본_20240702.docx` |
+| 행안부 한국지역정보개발원 공공도서관 열람실 실시간 정보 | B551982 | ✅ 승인 (2026-08-29 즉시 자동승인, 기존 계정키와 동일값, 활용기간 2026-08-29~2028-08-29) | (신규 2탄 예정 — "지금 빈자리 있는 도서관") | End Point: `https://apis.data.go.kr/B551982/plr_v2`, 데이터포맷 JSON+XML |
 
 ## 활용신청 절차 (참고용 — 현재 대상 API 전부 승인 완료)
 1. data.go.kr 해당 API 상세 페이지 접속 → 로그인
 2. [오픈API 상세] → [활용신청] → 활용목적 간단 입력
-3. 승인 후 마이페이지에서 인증키 확인 (지금까지 5개 전부 동일 계정키로 확인됨)
+3. 승인 후 마이페이지에서 인증키 확인 (지금까지 6개 전부 동일 계정키로 확인됨 — `apis.data.go.kr` 구형 체계는 키는 공유되지만 API별 활용신청은 매번 개별로 필요함, 2026-08-29 재확인)
 4. 이 표의 상태를 ✅로 갱신
