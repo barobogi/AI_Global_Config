@@ -68,11 +68,12 @@
 
 ## 📱 6. 구글 플레이스토어 (Google Play Console) 등록 규격 무결성 체크
 
-1. **[앱 기본 정보]**:
-   - **패키지명**: `com.barobogi.todaywhattodo`
+1. **[앱 및 개발자 기본 정보]**:
+   - **공식 개발자 계정**: `hanbogi7979@gmail.com`
+   - **패키지명**: `com.barobogi.todaywhattodo` (Release) / `com.barobogi.todaywhattodo.debug` (Debug 분리 완료)
    - **앱 이름**: 오늘뭐하지 — 주말 나들이 & 데이트 코스 추천
-   - **targetSdkVersion**: 34 (Android 14 최신 기준 준수)
-   - **minSdkVersion**: 24 (Android 7.0 이상 99.8% 기기 지원)
+   - **targetSdkVersion**: 36 (Android 16 API 36 규격 적용)
+   - **minSdkVersion**: 26 (Android 8.0 이상 기기 지원)
 2. **[권한 및 개인정보 보호]**:
    - **필수 권한**: `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION` (위치 기반 5km 나들이 추천용).
    - **개인정보 수집**: **0건 (회원가입/로그인 없음, 서버 저장 0건)** ➔ 구글 데이터 세이프티(Data Safety) 선언 시 "데이터 수집 없음" 처리 가능.

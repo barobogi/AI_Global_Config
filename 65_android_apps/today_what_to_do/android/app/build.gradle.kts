@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.barobogi.todaywhattodo"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.barobogi.todaywhattodo"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
 
@@ -23,13 +23,16 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("release.keystore")
-            storePassword = "today1234"
-            keyAlias = "todaywhattodo"
-            keyPassword = "today1234"
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "today1234"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "todaywhattodo"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "today1234"
         }
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
