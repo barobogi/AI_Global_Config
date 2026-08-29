@@ -10,25 +10,30 @@
 
 > 8/20~8/28 사이는 세션 로그 갱신이 비어있었음(일일 다이어리도 8/19 이후 공백) — 아래는 8/29 새벽 세션에서 발견·처리한 것.
 
-### ✅ 2026-08-29 완료
-- **tasks.json 8/28 동시쓰기 충돌 복구**: 두 프로세스가 동시에 써서 바이트가 뒤섞여 JSON 문법이 깨져있던 것을 코니가 발견·복구(백업: `tasks.json.corrupted_backup_20260828_175654`). 만복이 재검증(48개 태스크 정상 파싱) 확인.
-- **오늘뭐하지 hard_filter N째주 휴무 판정 버그 수정**: "매월 다섯째주 토요일 휴무" 같은 패턴이 일반 요일휴무 검사에 먼저 걸려 1~4주차에도 오판정되던 순서역전 버그. 안티가 지시서 받고 수정 → 만복이 pytest 8/8 직접 재검증 → 커밋.
-- **9일간(8/20~8/29) git push 전면 중단 근본 해결**: `D:\AI\Antigravity IDE\`, `D:\AI\paseo\` — 설치된 앱 폴더 전체(40,784개 파일, 100MB+ exe 다수)가 `master_watch.py`의 `git add .`에 실수로 통째로 쓸려들어가 있었음. GitHub이 100MB+ 파일 push를 서버에서 거부하고 있었던 게 진짜 원인, loose object 65,038개 폭증(모든 git 명령이 몇 분씩 멈춤)은 그 결과였음. `.gitignore` 처리 + `git rm --cached` + `git filter-repo`로 히스토리 전체에서 제거(.git 808MB→326MB) → force-push 성공.
-- **재발방지 2종 구현+커밋+push** (`Global_Define/master_watch.py`, 별도 저장소): ① `git add .` 전 30MB 초과 파일 감지 시 해당 사이클 전체 스킵+경고 (조용한 오커밋 차단) ② 매일 04:15 전체 등록 프로젝트 `git gc --auto` 실행 (loose object 재폭증 방지).
-- **오늘뭐하지 Render.com 무료 배포 완료**: Dockerfile/render.yaml/docker-compose.yml/requirements.txt/DEPLOY_GUIDE.md 작성, 바로보기님이 직접 Render 대시보드에서 배포 진행(GitHub App 권한 설정 등 단계별 안내) → `/api/health` 정상 응답 확인.
-- **유튜브 EP.03 최종게시 반려**: 안티가 "렌더링 완료" 보고했으나 실제 파일(`Main_EP03_AI_Remembers_Me.mp4`)은 메타데이터만 정상이고 H.264 스트림이 손상돼 프레임 0개 디코딩(ffmpeg 직접 검증, `frame=0`). 재렌더링+로컬 재생테스트 후 재제출 요청.
-- **"오늘뭐하지" Deep Search 기획안**: 바로보기님 실사용 피드백("상용앱 대비 단촐함") → 트리플/데이트팝/캐치테이블/핫플가이드/마이리얼트립 5종 조사, 킬러기능 TOP5 도출(`docs/COMPETITOR_DEEPSEARCH_PROPOSAL.md`) — 코니 Auditor 검토 요청 발송, 아직 검토 전.
-- **주차 API(15099883) 활용신청 재확인**: `API_REGISTRY.md`에 이미 8/20 밤 승인완료(계정 공용키 동일값) 기록돼있던 것 확인 — 별도 조치 불필요, 완료 처리.
-- **`.git_ai_sync.lock` 협조락 신뢰성 문제 재확인**: 8/20에 도입했음에도 이번 세션에서도 acquire 실패/멈춘 프로세스가 반복 발생(git.exe 5개가 68분간 거의 무CPU로 좀비화) — 근본 해결 아니었던 것으로 확인, 원인은 파악 못 함(추정: 60분+ TTL 없는 무한 재시도 구조).
+### ✅ 2026-08-29 완료 (밤샘 대형 세션 — 새벽 2시~자정)
+- **tasks.json 8/28 동시쓰기 충돌 복구**: 코니 발견·복구, 만복 재검증(48개 태스크 정상).
+- **오늘뭐하지 hard_filter N째주 휴무 순서역전 버그 수정** — 안티 수정, pytest 8/8 재검증.
+- **9일간 git push 전면 중단 근본 해결(AI_Global_Config)**: `Antigravity IDE`/`paseo` 앱 폴더 전체(40,784파일, 100MB+ exe)가 실수로 커밋되어 GitHub이 push 거부 중이었음. `git filter-repo`로 히스토리 제거(.git 808MB→326MB) → force-push 성공.
+- **"AI_Global_Config 태그 정체불명 프로세스" 정체 규명(8/20 이월 항목 해결)**: `global_watcher.log`(master_watch.py 자기 로그)가 125MB까지 방치되며 Global_Define 저장소 push도 별도로 막고 있었음 — gitignore+filter-repo로 해결.
+- **재발방지 3종을 master_watch.py에 상시 장착**: ① 30MB 초과 파일 감지 시 커밋 스킵 ② 매일 04:15 전체 `git gc --auto` ③ 매일 ahead-count 10개 초과 시 텔레그램 경보(이 체크로 upstream 추적 누락도 즉시 발견해 자가수정).
+- **오늘뭐하지 Render.com 무료 배포 완료** — `/api/health` 정상 확인.
+- **유튜브 EP.03**: 1차 반려(H.264 스트림손상, frame=0) → 안티 재인코딩 → 5차까지 코니 재검증 반복(4차에서 계정분리 오탐 있었음, 5차 PASS) → 만복 최종 독립검증 → **8/29 23:xx 공개(public) 게시 완료** (`youtube.com/watch?v=VtBeHJtM3mc`). `approve_and_upload.py`의 `--privacy` 미반영 버그도 발견·수정.
+- **오늘뭐하지 Play Store 등록**: keystore 노출 2회(파일 커밋 → 재발급했으나 비밀번호 하드코딩 잔존) 만복이 직접 재검증으로 발견·반려 → 안티 수정(local.properties + fallback 제거) → 5차 검증 끝에 최종 승인. targetSdk 36 대응 완료. 개발자 계정(`hanbogi7979@gmail.com`, 3AI LABS) 생성+결제+기기인증 완료, 신분증 승인 메일 대기 중(도착 시 APK 업로드+프로덕션 심사 제출).
+- **계정분리 원칙(H-04) 규칙화**: git=barobogi79@gmail.com / 스토어·채널=hanbogi7979@gmail.com 영구 방침을 rule_governance_db에 등록, 코니 4차 오탐 재발 방지.
+- **뽀개기 3건**: #1 Cursor Composer훈련(→완료보고 자동검증 원칙 신설), #2 Langfuse Stop Burning Tokens(→verify_video.py/goal_runner.py/AGENTS.md 3건 실개선), #3은 7/19 중복 발견(check_not_duplicate 체커 신설 계기) → 대체 영상으로 재선정 후 게시판 스킵 판단. 게시판 등록 2건(20260829-1, -2).
+- **43_function_dev 신규 4건**: `03_verification_framework`(video/json/pytest/dup 검증기, verify_video.py가 이걸 import하도록 리팩터링), `04_public_data_catalog`(odcloud 전체 96,472건 DuckDB화, `query.py` 검색 CLI).
+- **65번 뿌리 신규 앱 시리즈 착수 프로세스 확정 + 순서 재조정**: 만복+코니 기획 → 이전탄 등록완료 후 안티 착수 원칙을 AGENTS.md에 명문화. 2탄을 "도서관/열람실"(신규 발견, 실시간성 최상)로, 기존 2탄이던 "주차 어디가?"(WEB-GPT V2, 인프라 과설계 확인)는 3탄으로 순연 — 도서관 API(B551982) 활용신청 즉시승인 완료.
+- **매주 일요일 11시 완료보고 준수현황 자동감사** 클라우드 루틴 신설(이메일 발송, `trig_011HmLMFu3MozbDLBQP6uG7t`) — 첫 실행 8/30(내일) 11시.
 
 ### 📋 다음 세션 1순위
-1. **코니 Deep Search 기획안 Auditor 검토 대기** — `COMPETITOR_DEEPSEARCH_PROPOSAL.md`, 검토 결과 받으면 안티에게 구현 지시.
-2. **안티 EP.03 재렌더링 대기** — 반려 회신 확인, 재제출 시 이번엔 프레임 디코딩 자체를 만복이 직접 재검증.
-3. **`.git_ai_sync.lock` 근본 원인 조사** — 협조락이 왜 반복적으로 멈추는지(90초 timeout/180초 stale 임계치로는 부족했던 정황), 더 견고한 구조 필요할지 검토.
-4. **안티 UIA submit** — 8/20부터 이월, "개선 완료" 보고와 실측이 계속 어긋나는 패턴 지속 확인 필요.
-5. "AI_Global_Config" 태그로 global_watcher.log에 쓰는 정체불명 프로세스 — 소스 못 찾음, 계속 관찰 (8/20 이월).
-6. tasks.json 비대화 — 각 태스크 설명 append-only로 계속 길어짐, 아카이브 분리 구조 검토 필요 (8/20 이월).
-7. 이월: 특허 11_18 각주, D:\AI\.venv PATH 드리프트, T035 재검토, 7/30 승인파일위조 구조적 대책.
+1. **AI Study 게시판 미등록분 2건 등록** (바로보기님이 "내일 첫 업무로" 지정) — ① git push 9일 대장애 근본해결 서사 ② 고신호 검증 프레임워크+공공데이터 카탈로그 구축기. POSTING_GUIDE.md 형식으로 초안 → 확인 → 등록.
+2. **Play Store 신분증 승인 메일 대기** — 도착 시 `app-release.apk` 업로드 + 프로덕션 심사 제출까지 안티와 함께 마무리.
+3. **일요일 11시 첫 완료보고 준수현황 메일 확인** (내일 오전, `barobogi79@gmail.com` 수신함).
+4. **코니 2차 Deep Search(사용자후기 다른 각도)** 결과 대기 — 만복 요청은 보냈으나 아직 회신 안 옴.
+5. **65번 뿌리 후속 아이디어**: 코니·안티에게 `04_public_data_catalog` 공유하며 4탄 이후 아이디어 요청해둠 — 회신 오면 정리.
+6. **주차 어디가(3탄) 기획 다이어트**: PostgreSQL/Redis/결제 등 과설계된 WEB-GPT V2안을 Lean MVP로 축소하는 작업, 만복이 계속 진행.
+7. **안티 UIA submit** — 8/20부터 계속 이월, 여전히 미해결(폴백은 정상 작동 중이라 급하지 않음).
+8. 이월: 특허 11_18 각주, D:\AI\.venv PATH 드리프트, T035 재검토, tasks.json 비대화 아카이브 분리.
 
 ---
 
