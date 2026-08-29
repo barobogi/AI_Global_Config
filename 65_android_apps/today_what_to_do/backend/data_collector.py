@@ -11,6 +11,9 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_PATH = BASE_DIR / ".env"
 DATA_DIR = BASE_DIR / "backend" / "data"
@@ -29,14 +32,20 @@ def load_env(path: Path) -> dict:
         env[key.strip()] = value
     return env
 
-# 서울 주요 좌표 (WGS84)
-SEOUL_SPOTS = [
-    {"name": "서울시청", "mapx": "126.9780", "mapy": "37.5665", "radius": "5000"},
-    {"name": "강남역", "mapx": "127.0276", "mapy": "37.4979", "radius": "5000"},
-    {"name": "홍대입구", "mapx": "126.9227", "mapy": "37.5563", "radius": "5000"},
-    {"name": "잠실 롯데월드", "mapx": "127.0982", "mapy": "37.5113", "radius": "5000"},
-    {"name": "종로/인사동", "mapx": "126.9858", "mapy": "37.5744", "radius": "5000"},
+# 수도권 및 주요 지역 좌표 (WGS84)
+NATIONWIDE_SPOTS = [
+    {"name": "수원 화성/행궁동", "mapx": "127.0134", "mapy": "37.2847", "radius": "8000"},
+    {"name": "수원 영통/광교호수공원", "mapx": "127.0601", "mapy": "37.2830", "radius": "8000"},
+    {"name": "성남 분당/율동공원", "mapx": "127.1481", "mapy": "37.3775", "radius": "8000"},
+    {"name": "성남 판교테크노밸리", "mapx": "127.1112", "mapy": "37.3948", "radius": "8000"},
+    {"name": "용인 보정동/에버랜드", "mapx": "127.1822", "mapy": "37.2856", "radius": "8000"},
+    {"name": "서울시청/명동", "mapx": "126.9780", "mapy": "37.5665", "radius": "5000"},
+    {"name": "서울 강남역/서초", "mapx": "127.0276", "mapy": "37.4979", "radius": "5000"},
+    {"name": "서울 홍대/합정", "mapx": "126.9227", "mapy": "37.5563", "radius": "5000"},
+    {"name": "서울 잠실 롯데월드", "mapx": "127.0982", "mapy": "37.5113", "radius": "5000"},
+    {"name": "서울 종로/인사동", "mapx": "126.9858", "mapy": "37.5744", "radius": "5000"},
 ]
+SEOUL_SPOTS = NATIONWIDE_SPOTS
 
 def fetch_location_based(service_key: str, spot: dict, num_rows: int = 50) -> list:
     url = "https://apis.data.go.kr/B551011/KorService2/locationBasedList2"

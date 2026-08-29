@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Gradient Circle Background -->
+    <path
+        android:pathData="M54,4C26.39,4 4,26.39 4,54C4,81.61 26.39,104 54,104C81.61,104 104,81.61 104,54C104,26.39 81.61,4 54,4Z"
+        android:fillColor="#1E88E5"/>
+    <!-- Location Pin Body -->
+    <path
+        android:pathData="M54,24C41.85,24 32,33.85 32,46C32,62.5 54,84 54,84C54,84 76,62.5 76,46C76,33.85 66.15,24 54,24Z"
+        android:fillColor="#FFFFFF"/>
+    <!-- Inner Pin Circle -->
+    <path
+        android:pathData="M54,36C48.48,36 44,40.48 44,46C44,51.52 48.48,56 54,56C59.52,56 64,51.52 64,46C64,40.48 59.52,36 54,36Z"
+        android:fillColor="#0D47A1"/>
+    <!-- Sparkle Star Accent -->
+    <path
+        android:pathData="M78,22L80.5,27.5L86,30L80.5,32.5L78,38L75.5,32.5L70,30L75.5,27.5Z"
+        android:fillColor="#FFD54F"/>
+</vector>

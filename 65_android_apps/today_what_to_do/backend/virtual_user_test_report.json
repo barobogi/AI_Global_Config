@@ -1,0 +1,309 @@
+{
+  "timestamp": "2026-08-29T19:48:05.171761",
+  "total": 30,
+  "passed": 30,
+  "failed": 0,
+  "success_rate": "100.0%",
+  "details": [
+    {
+      "id": 1,
+      "location": "수원 영통",
+      "persona": "개인(혼자)",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "커피 바이브",
+      "errors": []
+    },
+    {
+      "id": 2,
+      "location": "수원 영통",
+      "persona": "개인(혼자)",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "광교 프라이부르크전망대",
+      "errors": []
+    },
+    {
+      "id": 3,
+      "location": "수원 영통",
+      "persona": "연인(데이트)",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "티크닉 앨리웨이 광교점",
+      "errors": []
+    },
+    {
+      "id": 4,
+      "location": "수원 영통",
+      "persona": "어린자녀 1명",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "국립지도박물관",
+      "errors": []
+    },
+    {
+      "id": 5,
+      "location": "수원 영통",
+      "persona": "어린자녀 2명",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "경기미디저트페스타",
+      "errors": []
+    },
+    {
+      "id": 6,
+      "location": "수원 영통",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "티크닉 앨리웨이 광교점",
+      "errors": []
+    },
+    {
+      "id": 7,
+      "location": "수원 영통",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "경기미디저트페스타",
+      "errors": []
+    },
+    {
+      "id": 8,
+      "location": "수원 영통",
+      "persona": "대학생 자녀 둔 가족 4명",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "수원컨벤션센터",
+      "errors": []
+    },
+    {
+      "id": 9,
+      "location": "서울 종로",
+      "persona": "개인(혼자)",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "인사동",
+      "errors": []
+    },
+    {
+      "id": 10,
+      "location": "서울 종로",
+      "persona": "연인(데이트)",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "백악미술관",
+      "errors": []
+    },
+    {
+      "id": 11,
+      "location": "서울 종로",
+      "persona": "어린자녀 1명",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "모인화랑",
+      "errors": []
+    },
+    {
+      "id": 12,
+      "location": "서울 종로",
+      "persona": "어린자녀 1명",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "모인화랑",
+      "errors": []
+    },
+    {
+      "id": 13,
+      "location": "서울 종로",
+      "persona": "어린자녀 2명",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "쌈지길",
+      "errors": []
+    },
+    {
+      "id": 14,
+      "location": "서울 종로",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "쌈지길",
+      "errors": []
+    },
+    {
+      "id": 15,
+      "location": "서울 종로",
+      "persona": "대학생 자녀 둔 가족 4명",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "인사동",
+      "errors": []
+    },
+    {
+      "id": 16,
+      "location": "성남 분당",
+      "persona": "개인(혼자)",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "책테마파크도서관",
+      "errors": []
+    },
+    {
+      "id": 17,
+      "location": "성남 분당",
+      "persona": "개인(혼자)",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "천은정사",
+      "errors": []
+    },
+    {
+      "id": 18,
+      "location": "성남 분당",
+      "persona": "연인(데이트)",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "성남 중앙공원",
+      "errors": []
+    },
+    {
+      "id": 19,
+      "location": "성남 분당",
+      "persona": "어린자녀 1명",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "분당올림픽스포츠센터 아이스링크",
+      "errors": []
+    },
+    {
+      "id": 20,
+      "location": "성남 분당",
+      "persona": "어린자녀 2명",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "앤갤러리",
+      "errors": []
+    },
+    {
+      "id": 21,
+      "location": "성남 분당",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "천은정사",
+      "errors": []
+    },
+    {
+      "id": 22,
+      "location": "성남 분당",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "천은정사",
+      "errors": []
+    },
+    {
+      "id": 23,
+      "location": "성남 분당",
+      "persona": "대학생 자녀 둔 가족 4명",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "천은정사",
+      "errors": []
+    },
+    {
+      "id": 24,
+      "location": "부산 해운대",
+      "persona": "개인(혼자)",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "알토이미술관",
+      "errors": []
+    },
+    {
+      "id": 25,
+      "location": "부산 해운대",
+      "persona": "연인(데이트)",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "알토이미술관",
+      "errors": []
+    },
+    {
+      "id": 26,
+      "location": "부산 해운대",
+      "persona": "어린자녀 1명",
+      "distance": "1.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "용인시박물관",
+      "errors": []
+    },
+    {
+      "id": 27,
+      "location": "부산 해운대",
+      "persona": "어린자녀 1명",
+      "distance": "50.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "동백호수공원",
+      "errors": []
+    },
+    {
+      "id": 28,
+      "location": "부산 해운대",
+      "persona": "어린자녀 2명",
+      "distance": "30.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "알토이미술관",
+      "errors": []
+    },
+    {
+      "id": 29,
+      "location": "부산 해운대",
+      "persona": "고등학생 자녀 둔 가족 4명",
+      "distance": "10.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "수풀로 영문리",
+      "errors": []
+    },
+    {
+      "id": 30,
+      "location": "부산 해운대",
+      "persona": "대학생 자녀 둔 가족 4명",
+      "distance": "5.0km",
+      "budget": "무제한",
+      "status": "PASS",
+      "top_place_sample": "동백호수공원",
+      "errors": []
+    }
+  ]
+}

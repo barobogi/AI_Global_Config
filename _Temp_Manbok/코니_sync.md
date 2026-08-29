@@ -1,5 +1,5 @@
 # 코니 세션 싱크 파일
-**자동 생성**: 2026-08-29 19:03 (master_watch.py)
+**자동 생성**: 2026-08-29 20:39 (master_watch.py)
 **읽는 법**: 이 파일 내용을 코니에게 붙여넣으면 만복이와 즉시 동기화됨.
 
 ---
@@ -48,6 +48,9 @@
 - ed10cca auto: 현재가 갱신 2026-08-29T06:00 현재가:35개
 
 **Daily_for_Barobogi**
+- d74b390 auto: Cowork/CLI 동기화 2026-08-29 20:11
+- 76a9ef2 auto: Cowork/CLI 동기화 2026-08-29 20:05
+- eef37ed auto: Cowork/CLI 동기화 2026-08-29 19:11
 - 186a8bc auto: Cowork/CLI 동기화 2026-08-29 18:00
 - 80fae3f auto: Cowork/CLI 동기화 2026-08-29 12:00
 - dd4d922 auto: Cowork/CLI 동기화 2026-08-29 06:10
@@ -55,6 +58,21 @@
 - c81a60a auto: Cowork/CLI 동기화 2026-08-29 06:00
 
 **AI_Global_Config**
+- f7d704869 feat(ui): add Connie 4 trust principles banner (privacy 0-collect, public data factcheck) verified across 18,480 test scenarios
+- ce98b388f fix: verify_video.py 프레임 디코딩 체크 추가 + Auditor 원칙 고신호 체크리스트화
+- b2a97eae5 feat(youtube): submit EP.03 re-rendered video review request to Manbok and Connie after passing verify_video.py
+- 5a44f3939 feat(ui): add general family chip, category diversity in score engine, verified across 18,480 test scenarios
+- ab879868f test(matrix): expand dynamic virtual user test matrix to 16,800 full scenarios with 100% pass rate
+- 4ffd6f7fb docs: 오늘뭐하지 출시 전 회피 체크리스트 추가 (경쟁앱 후기 Deep Search)
+- 1b806c3f8 feat(ui): add real user review search links and interactive cafe review dialog after 2,520 test verification
+- 10529cd04 rule: mandate virtual user test matrix report submission to Manbok and Connie for 3AI audit
+- dce89450d feat(ui): add 5 popular theme cards, Kakao/Naver map links, and nearby 1km cafe recommendations after 100% 2,520 test verification
+- f75193277 rule: update AGENTS.md with App Development Pre-Flight Checklist
+- 08f45f0d3 docs(debug): update DEBUG_LOG.md with all session fixes and AGENTS.md permanent testing rule
+- db582d13a docs: 완료보고 자동검증 우선 원칙 Hookify 강화 (AGENTS.md)
+- bd1bcd082 feat(tourapi): add 429 real TourAPI public data spots and Smart Auto Mode UI
+- 495854e7d auto: Cowork/CLI 동기화 2026-08-29 19:31
+- 25055758f fix(gps): add nationwide dynamic GPS location adaptation and client fail-safe fallback
 - 9a86ad97a docs: SESSION_LOG 8/29 세션 갱신, 8/20 항목 아카이브 이관
 - 8a477b223 auto: Cowork/CLI 동기화 2026-08-29 04:00
 - a8a35dd44 auto: Cowork/CLI 동기화 2026-08-29 04:47
@@ -73,7 +91,10 @@
 - 3b6ce4f0f auto: Cowork/CLI 동기화 2026-08-29 00:03
 
 **Global_Define**
-- f74ddfc feat: 재발방지 2종 — 대용량파일 커밋가드 + 일일 git gc
+- 60d4d69 chore: 로그 파일 git 추적 제외 (global_watcher.log 125MB로 push 차단 사고)
+- 09c8926 auto: Cowork/CLI 동기화 2026-08-29 20:35
+- b8f6a24 feat: 일일 git gc에 push 밀림(ahead count) 조기감지 + 텔레그램 알림 추가
+- 4252c40 feat: 재발방지 2종 — 대용량파일 커밋가드 + 일일 git gc
 
 ---
 
