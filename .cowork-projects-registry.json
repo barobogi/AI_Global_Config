@@ -114,8 +114,8 @@
       "name": "⑤_자동화_Daily_for_Barobogi",
       "path": "D:\\AI\\⑤_자동화_Daily_for_Barobogi",
       "type": "unknown",
-      "description": "신규 프로젝트 — 2026-07-09",
-      "enabled": true
+      "description": "폴더 실체 없음(2026-08-29 git 헬스체크에서 발견) — Daily_for_Barobogi로 이름 정리되며 남은 구 등록부 잔재로 추정, 비활성화",
+      "enabled": false
     }
   ]
 }
