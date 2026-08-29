@@ -19,8 +19,8 @@ interface TodayApiService {
     suspend fun checkHealth(): Map<String, Any>
 
     companion object {
-        // 로컬 개발 시 10.0.2.2 (Android 에뮬레이터) 또는 로컬 PC IP
-        private const val BASE_URL = "http://10.0.2.2:8000/"
+        // Render.com 상시 클라우드 배포 서버 주소
+        private const val BASE_URL = "https://today-what-to-do-api.onrender.com/"
 
         fun create(): TodayApiService {
             val logging = HttpLoggingInterceptor().apply {

@@ -1,6 +1,8 @@
 package com.barobogi.todaywhattodo.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -23,10 +25,12 @@ fun ConditionInputScreen(
     onBack: () -> Unit
 ) {
     var companion by remember { mutableStateOf(initialCompanion) }
-    var budgetSlider by remember { mutableStateOf(30000f) }
-    var hoursSlider by remember { mutableStateOf(3.0f) }
-    var withPet by remember { mutableStateOf(initialCompanion == "반려동물") }
-    var preferIndoor by remember { mutableStateOf(false) }
+    var customInput by remember { mutableStateOf(viewModel.customCompanionInput) }
+    var radiusSlider by remember { mutableStateOf(viewModel.currentRadiusKm.toFloat()) }
+    var budgetSlider by remember { mutableStateOf(viewModel.currentBudget.toFloat()) }
+    var hoursSlider by remember { mutableStateOf(viewModel.currentHours.toFloat()) }
+    var withPet by remember { mutableStateOf(viewModel.withPet) }
+    var preferIndoor by remember { mutableStateOf(viewModel.preferIndoor) }
 
     Scaffold(
         topBar = {
@@ -43,6 +47,8 @@ fun ConditionInputScreen(
             Button(
                 onClick = {
                     viewModel.currentCompanion = companion
+                    viewModel.customCompanionInput = customInput
+                    viewModel.currentRadiusKm = radiusSlider.toDouble()
                     viewModel.currentBudget = budgetSlider.toInt()
                     viewModel.currentHours = hoursSlider.toDouble()
                     viewModel.withPet = withPet
@@ -54,7 +60,7 @@ fun ConditionInputScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(52.dp),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue)
             ) {
                 Text("맞춤 장소 추천받기 🚀", fontSize = 16.sp, fontWeight = FontWeight.Bold)
@@ -69,23 +75,53 @@ fun ConditionInputScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // 1. 동행자 선택
-            Text("누구와 함께 가나요?", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                val list = listOf("7세 아이", "반려동물", "연인", "혼자", "친구")
-                list.forEach { item ->
-                    FilterChip(
-                        selected = (companion == item),
-                        onClick = {
-                            companion = item
-                            if (item == "반려동물") withPet = true
-                        },
-                        label = { Text(item) }
-                    )
+            // 1. 동행자 선택 (세분화 칩)
+            Column {
+                Text("누구와 함께 가나요? 👥", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                Spacer(modifier = Modifier.height(8.dp))
+                val companionList = listOf("영유아", "7세 아이", "초등학생", "연인", "반려동물", "부모님", "친구", "혼자")
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    items(companionList) { item ->
+                        FilterChip(
+                            selected = (companion == item && customInput.isBlank()),
+                            onClick = {
+                                companion = item
+                                customInput = ""
+                                if (item == "반려동물") withPet = true
+                            },
+                            label = { Text(item) }
+                        )
+                    }
                 }
+                Spacer(modifier = Modifier.height(10.dp))
+                OutlinedTextField(
+                    value = customInput,
+                    onValueChange = { customInput = it },
+                    label = { Text("✍️ 직접 입력 (예: 100일 아기와 시부모님)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    singleLine = true
+                )
             }
 
-            // 2. 예산 설정
+            // 2. 이동 가능 반경 (핫플가이드 벤치마킹)
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text("이동 가능 반경 📍", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                    Text("${radiusSlider.toInt()}km 이내", fontWeight = FontWeight.Bold, color = PrimaryBlue)
+                }
+                Slider(
+                    value = radiusSlider,
+                    onValueChange = { radiusSlider = it },
+                    valueRange = 1f..15f,
+                    steps = 13
+                )
+            }
+
+            // 3. 예산 설정
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -102,7 +138,7 @@ fun ConditionInputScreen(
                 )
             }
 
-            // 3. 가용 시간
+            // 4. 가용 시간
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -119,9 +155,9 @@ fun ConditionInputScreen(
                 )
             }
 
-            // 4. 추가 옵션
+            // 5. 추가 옵션
             Card(
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {

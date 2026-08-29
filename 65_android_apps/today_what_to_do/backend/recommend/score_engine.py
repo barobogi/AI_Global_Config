@@ -20,18 +20,42 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 class ScoreEngine:
-    """9.2절 Score 점수화 및 코스 조합 추천 엔진"""
-    def __init__(self):
-        # 가중치 정의
-        self.weights = {
-            "condition_match": 0.25,
-            "distance_score": 0.20,
-            "weather_fit": 0.15,
-            "time_fit": 0.15,
-            "budget_fit": 0.10,
-            "popularity": 0.10,
-            "novelty": 0.05
+    """9.2절 Score 점수화 및 코스 조합 추천 엔진 (상용급 가중치 프리셋 연동)"""
+    PRESET_WEIGHTS = {
+        "default": {
+            "condition_match": 0.25, "distance_score": 0.20, "weather_fit": 0.15,
+            "time_fit": 0.15, "budget_fit": 0.10, "popularity": 0.10, "novelty": 0.05
+        },
+        "가족": {
+            "condition_match": 0.20, "distance_score": 0.23, "weather_fit": 0.15,
+            "time_fit": 0.15, "budget_fit": 0.15, "popularity": 0.10, "novelty": 0.02
+        },
+        "아이": {
+            "condition_match": 0.20, "distance_score": 0.23, "weather_fit": 0.15,
+            "time_fit": 0.15, "budget_fit": 0.15, "popularity": 0.10, "novelty": 0.02
+        },
+        "연인": {
+            "condition_match": 0.20, "distance_score": 0.20, "weather_fit": 0.18,
+            "time_fit": 0.15, "budget_fit": 0.07, "popularity": 0.10, "novelty": 0.10
+        },
+        "친구": {
+            "condition_match": 0.17, "distance_score": 0.20, "weather_fit": 0.15,
+            "time_fit": 0.15, "budget_fit": 0.10, "popularity": 0.15, "novelty": 0.08
+        },
+        "혼자": {
+            "condition_match": 0.28, "distance_score": 0.20, "weather_fit": 0.15,
+            "time_fit": 0.20, "budget_fit": 0.10, "popularity": 0.05, "novelty": 0.02
         }
+    }
+
+    def __init__(self, companion_type: str = "default"):
+        self.weights = self._select_weights(companion_type)
+
+    def _select_weights(self, companion_type: str) -> Dict[str, float]:
+        for key in self.PRESET_WEIGHTS:
+            if key in companion_type:
+                return self.PRESET_WEIGHTS[key]
+        return self.PRESET_WEIGHTS["default"]
 
     def calculate_place_score(self, place: Dict[str, Any], user_profile: Dict[str, Any], weather_info: Dict[str, Any]) -> Dict[str, Any]:
         """단일 장소에 대한 100점 만점 기준 세부 점수 계산"""
