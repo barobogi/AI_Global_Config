@@ -1,5 +1,5 @@
 # 코니 세션 싱크 파일
-**자동 생성**: 2026-08-28 21:21 (master_watch.py)
+**자동 생성**: 2026-08-29 19:03 (master_watch.py)
 **읽는 법**: 이 파일 내용을 코니에게 붙여넣으면 만복이와 즉시 동기화됨.
 
 ---
@@ -41,35 +41,39 @@
 
 ## 오늘 커밋 요약
 
+**stock_dashboard**
+- 0fb2ae9 auto: Cowork/CLI 동기화 2026-08-29 19:00
+- 3d5d218 auto: 현재가 갱신 2026-08-29T18:00 현재가:35개
+- f843b7d auto: 현재가 갱신 2026-08-29T12:00 현재가:35개
+- ed10cca auto: 현재가 갱신 2026-08-29T06:00 현재가:35개
+
 **Daily_for_Barobogi**
-- ddc2cdb auto: Cowork/CLI 동기화 2026-08-28 16:40
+- 186a8bc auto: Cowork/CLI 동기화 2026-08-29 18:00
+- 80fae3f auto: Cowork/CLI 동기화 2026-08-29 12:00
+- dd4d922 auto: Cowork/CLI 동기화 2026-08-29 06:10
+- 0057d92 auto: Cowork/CLI 동기화 2026-08-29 06:09
+- c81a60a auto: Cowork/CLI 동기화 2026-08-29 06:00
 
 **AI_Global_Config**
-- 2f0b99d61 auto: Cowork/CLI 동기화 2026-08-28 16:37
-- 4c242ebda auto: Cowork/CLI 동기화 2026-08-28 16:30
-- cb8c1d868 auto: Cowork/CLI 동기화 2026-08-28 16:27
-- 2635c0974 auto: Cowork/CLI 동기화 2026-08-28 16:20
-- 71dff37d8 auto: Cowork/CLI 동기화 2026-08-28 16:17
-- baa0df2d8 auto: Cowork/CLI 동기화 2026-08-28 16:12
-- 7f40f7942 auto: Cowork/CLI 동기화 2026-08-28 16:05
-- e65fdeeda auto: Cowork/CLI 동기화 2026-08-28 16:02
-- a0c02f0bc auto: Cowork/CLI 동기화 2026-08-28 15:55
-- 97c1341b4 auto: Cowork/CLI 동기화 2026-08-28 15:52
-- ba2eef51f auto: Cowork/CLI 동기화 2026-08-28 15:45
-- f5bb18d09 auto: Cowork/CLI 동기화 2026-08-28 15:42
-- 1f0a2dbe6 auto: Cowork/CLI 동기화 2026-08-28 15:36
-- 4be603376 auto: Cowork/CLI 동기화 2026-08-28 15:31
-- f71b14648 auto: Cowork/CLI 동기화 2026-08-28 15:28
-- ad05a12e7 auto: Cowork/CLI 동기화 2026-08-28 15:21
-- 3e84d4057 auto: Cowork/CLI 동기화 2026-08-28 15:18
-- 0cba4430c auto: Cowork/CLI 동기화 2026-08-28 15:12
-- 580799a48 auto: Cowork/CLI 동기화 2026-08-28 15:08
-- fcca9cf63 auto: Cowork/CLI 동기화 2026-08-28 15:03
-- 11c7c5fbb auto: Cowork/CLI 동기화 2026-08-28 14:59
-- dbc173ac5 auto: Cowork/CLI 동기화 2026-08-28 14:55
-- 08d2ec393 auto: Cowork/CLI 동기화 2026-08-28 14:50
-- bdcd67cac auto: Cowork/CLI 동기화 2026-08-28 14:45
-- 7158e3641 auto: Cowork/CLI 동기화 2026-08-28 14:40
+- 9a86ad97a docs: SESSION_LOG 8/29 세션 갱신, 8/20 항목 아카이브 이관
+- 8a477b223 auto: Cowork/CLI 동기화 2026-08-29 04:00
+- a8a35dd44 auto: Cowork/CLI 동기화 2026-08-29 04:47
+- 13a557627 auto: Cowork/CLI 동기화 2026-08-29 04:01
+- 74b8aa685 fix: 오늘뭐하지 hard_filter N째주 휴무 판정 순서 버그 수정 + 배포 인프라 추가
+- cb7eb69c6 auto: Cowork/CLI 동기화 2026-08-29 02:48
+- a87154fa3 auto: Cowork/CLI 동기화 2026-08-29 00:47
+- 993ad7bae auto: Cowork/CLI 동기화 2026-08-29 00:43
+- 2329d81df auto: Cowork/CLI 동기화 2026-08-29 00:37
+- e36344619 auto: Cowork/CLI 동기화 2026-08-29 00:33
+- c5e007571 auto: Cowork/CLI 동기화 2026-08-29 00:27
+- cb51aff66 auto: Cowork/CLI 동기화 2026-08-29 00:23
+- 9cbf53c5b auto: Cowork/CLI 동기화 2026-08-29 00:17
+- c11d6138a auto: Cowork/CLI 동기화 2026-08-29 00:13
+- 547d3fe95 auto: Cowork/CLI 동기화 2026-08-29 00:07
+- 3b6ce4f0f auto: Cowork/CLI 동기화 2026-08-29 00:03
+
+**Global_Define**
+- f74ddfc feat: 재발방지 2종 — 대용량파일 커밋가드 + 일일 git gc
 
 ---
 
@@ -93,4 +97,4 @@
 ## 코니 안내
 - 전역 지시사항: `C:\Users\82102\.claude\CLAUDE.md`
 - 세션 브릿지:   `D:\AI\CLAUDE.md`
-- 만복2 오늘 요약: `D:\AI\TEMP_MANBOK\만복2_오늘정리_20260828.md`
+- 만복2 오늘 요약: `D:\AI\TEMP_MANBOK\만복2_오늘정리_20260829.md`

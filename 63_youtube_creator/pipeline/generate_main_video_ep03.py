@@ -128,18 +128,18 @@ def fast_ffmpeg_concat(clip_paths, output_path):
             f.write(f"file '{escaped_path}'\n")
             
     ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
-    print(f"🚀 [ffmpeg Stream Copy] 재인코딩 0% 순간 합성 실행 중 (바이너리: {os.path.basename(ffmpeg_exe)})...")
+    print(f"🚀 [ffmpeg Concat & Encode] 무결성 표준 인코딩 실행 중 (바이너리: {os.path.basename(ffmpeg_exe)})...")
     
     cmd = [
         ffmpeg_exe, "-y", "-f", "concat", "-safe", "0",
-        "-i", list_file, "-c", "copy", output_path
+        "-i", list_file, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", output_path
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode == 0:
-        print(f"🎉 [대성공] 1초 만에 무손실 순간 합성 완수! -> {output_path}")
+        print(f"🎉 [성공] 무결성 비디오 합성 완수! -> {output_path}")
         return True
     else:
-        print(f"⚠️ [Warning] ffmpeg Stream Copy 실패 ({res.stderr})")
+        print(f"⚠️ [Warning] ffmpeg Concat 실패 ({res.stderr})")
         return False
 
 def build_fast_modular_pipeline(target_scenes_to_rerender=None):

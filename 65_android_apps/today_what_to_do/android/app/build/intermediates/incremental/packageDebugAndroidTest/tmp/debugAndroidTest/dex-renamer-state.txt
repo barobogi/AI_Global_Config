@@ -1,0 +1,4 @@
+#Sat Aug 29 05:20:26 KST 2026
+base.0=D\:\\AI\\65_android_apps\\today_what_to_do\\android\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=0/classes.dex
+renamed.0=classes.dex

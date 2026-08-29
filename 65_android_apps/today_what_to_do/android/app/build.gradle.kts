@@ -72,6 +72,9 @@ dependencies {
     // Coil for Compose (Image Loading)
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    // Location Services (GPS)
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+
     testImplementation("junit:junit:4.13.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

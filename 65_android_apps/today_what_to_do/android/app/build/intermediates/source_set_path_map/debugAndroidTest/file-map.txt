@@ -1,0 +1,4 @@
+com.barobogi.todaywhattodo.test.app-androidTest-0 D:\AI\65_android_apps\today_what_to_do\android\app\build\generated\res\resValues\androidTest\debug
+com.barobogi.todaywhattodo.test.app-mergeDebugAndroidTestResources-1 D:\AI\65_android_apps\today_what_to_do\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.barobogi.todaywhattodo.test.app-mergeDebugAndroidTestResources-2 D:\AI\65_android_apps\today_what_to_do\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.barobogi.todaywhattodo.test.app-merged_res-3 D:\AI\65_android_apps\today_what_to_do\android\app\build\intermediates\merged_res\debugAndroidTest
