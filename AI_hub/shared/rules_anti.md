@@ -1,6 +1,6 @@
 # 📜 3AI 활성 규칙 스냅샷 (ANTI)
-> 자동 생성/동기화: `43_function_dev/02_rule_governance_db/rule_governance.db` (2026-08-29 20:39)
-> 용도: ANTI 직접 조회용 JIT 규칙 스냅샷
+> 자동 생성 시각: 2026-08-29 23:11:31
+> 소스 DB: `43_function_dev/02_rule_governance_db/rule_governance.db`
 
 | ID | 규칙명 | 대상 | Trigger Tag | 본문 |
 | :--- | :--- | :---: | :---: | :--- |
@@ -19,6 +19,7 @@
 | `H-01_ZERO_SIMULATION` | **모의 대화/사칭 대필 절대 금지** | `all` | `before_send` | 타 AI 본체가 직접 발화하지 않은 모의/대필 데이터를 절대 실제 발언으로 포장하지 말 것. |
 | `H-02_USER_APPROVAL_GATE` | **선보고 후승인 원칙** | `all` | `before_send` | 타 AI 인계 전 반드시 바로보기님의 명시적 승인을 득할 것. |
 | `H-03_ROOT_FOLDER_PROTECT` | **D:\AI 루트 폴더 생성 금지** | `all` | `before_file_io` | D:\AI 최상위에는 뿌리체계 프로젝트 폴더 외 임의 산출물 생성을 엄금할 것. |
+| `H-04_ACCOUNT_SEPARATION` | **계정 분리 원칙 (git vs 배포/채널)** | `all` | `before_complete` | git 커밋/저장소 작성자 계정(barobogi79@gmail.com)과 앱스토어/유튜브 등 배포·채널 운영 계정(hanbogi7979@gmail.com)은 의도적으로 분리된 별개 계정 — 프로젝트 문서 안에서 이메일이 다르게나온다고 불일치 오류로 오탐하지 말 것. 적용 기준: git 설정 파일(.git/config, commit author 등)은barobogi79@gmail.com 유지, 사용자 대면 문서(개인정보처리방침/이용약관/스토어메타데이터/릴리즈리포트등)는 hanbogi7979@gmail.com 사용. 2026-08-29 바로보기님 직접 확정, 모든 향후 앱/채널에 공통 적용. (Why: 코니가 4차 검증에서 이 방침을 몰라 정상 상태를 이메일 불일치 오류로 반려한 실수 발생) |
 | `A-01_3STAGE_VERIFY` | **양산형 최종본 3-Stage 자체 실증** | `anti` | `before_submit` | Read-Only 검수원 선제 통과 및 3회 연속 스트레스 테스트 증거를 첨부할 것. |
 | `A-02_TEST_ISOLATION` | **테스트 전용 격리 경로 준수** | `anti` | `before_test` | _ai_workspace/안티/test_messages/ 경로에만 테스트 픽스처를 생성할 것. |
 | `A-03_ENV_CROSS_CHECK` | **Windows cp949 및 WAL 저널 크로스체크** | `anti` | `before_build` | 콘솔 이모지 인코딩 및 멀티프로세스 락을 사전에 방어할 것. |
