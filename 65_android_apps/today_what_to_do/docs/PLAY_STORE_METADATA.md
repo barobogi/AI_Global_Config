@@ -8,7 +8,7 @@
 - **패키지명 (Application ID)**: `com.barobogi.todaywhattodo`
 - **카테고리**: 여행 및 지역정보 / 라이프스타일
 - **콘텐츠 등급**: 전체이용가 (만 3세 이상)
-- **대표 이메일**: `barobogi79@gmail.com`
+- **대표 이메일**: `hanbogi7979@gmail.com`
 - **개인정보처리방침 URL**: `https://raw.githubusercontent.com/barobogi/AI/main/65_android_apps/today_what_to_do/docs/PRIVACY_POLICY.md`
 
 ---
