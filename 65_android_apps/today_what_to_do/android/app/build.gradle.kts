@@ -1,6 +1,15 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+}
+
+val localProps = Properties().apply {
+    val propFile = rootProject.file("local.properties")
+    if (propFile.exists()) {
+        propFile.inputStream().use { load(it) }
+    }
 }
 
 android {
@@ -23,9 +32,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("release.keystore")
-            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "today1234"
-            keyAlias = System.getenv("KEY_ALIAS") ?: "todaywhattodo"
-            keyPassword = System.getenv("KEY_PASSWORD") ?: "today1234"
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: localProps.getProperty("KEYSTORE_PASSWORD") ?: error("KEYSTORE_PASSWORD missing from local.properties!")
+            keyAlias = System.getenv("KEY_ALIAS") ?: localProps.getProperty("KEY_ALIAS") ?: error("KEY_ALIAS missing from local.properties!")
+            keyPassword = System.getenv("KEY_PASSWORD") ?: localProps.getProperty("KEY_PASSWORD") ?: error("KEY_PASSWORD missing from local.properties!")
         }
     }
 
