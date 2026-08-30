@@ -1,5 +1,5 @@
 # 코니 세션 싱크 파일
-**자동 생성**: 2026-08-30 19:03 (master_watch.py)
+**자동 생성**: 2026-08-30 22:06 (master_watch.py)
 **읽는 법**: 이 파일 내용을 코니에게 붙여넣으면 만복이와 즉시 동기화됨.
 
 ---
@@ -49,6 +49,7 @@
 - 94ed815 auto: 현재가 갱신 2026-08-30T00:00 현재가:35개
 
 **Daily_for_Barobogi**
+- 8ad994c auto: Cowork/CLI 동기화 2026-08-30 21:56
 - f640175 auto: Cowork/CLI 동기화 2026-08-30 18:00
 - 88ca118 Add AI Study posts: git push 대장애 해결기 + 검증프레임워크/DuckDB 카탈로그 구축기
 - 4196cb6 auto: Cowork/CLI 동기화 2026-08-30 12:00
@@ -59,12 +60,21 @@
 - 8070eaf auto: Cowork/CLI 동기화 2026-08-30 00:00
 
 **AI_Global_Config**
+- 6736ddbc5 docs: 서브에이전트 모델 티어링 원칙 확정(AGENTS.md) + 안티에게 문의 발송
+- 56dc2b773 auto: Cowork/CLI 동기화 2026-08-30 20:50
+- 2a48f29f2 fix(authentic): remove all coordinate manipulation, build authentic 17-province dataset, expand test matrix to 1.944 million scenarios with joint-liability clause
+- a05c9d0e5 docs: 코니에게 모델 티어링 가능여부 문의 발송
+- 1bb493986 docs: 코니에게 Gmail 확인 지시(주간보고+PlayStore승인메일)
+- bd2b5e921 docs(report): update official 240,000 scenario test report (timestamp 17:48:13, 100% PASS) and request Connie review
 - b7f968126 test(nationwide): execute full physical assertion test on all 250 Si/Gun/Gu districts across South Korea (100% PASS)
 - 5d02b1e58 fix: Gemini API 키 config.json 평문 노출 제거 — .env로 이전
 - 0ae94fd4e docs: 오늘뭐하지 그룹인원/동행자칩 최종승인 메시지
 - ec8c3b1e4 fix(location): resolve location mismatch in Incheon/Bucheon and fix 34.96km ultra-close distance badge label bug
 - 206a973e2 fix(filter,ui): resolve Connie feedback items on student group size and companion chip auto-mode toggle, request 2nd re-review
 - 492f5de1e docs(test): expand virtual user test matrix to 648,000 scenarios with strict distance & budget bounds and request 3AI review
+
+**Global_Define**
+- 7e34901 auto: Cowork/CLI 동기화 2026-08-30 22:04
 
 ---
 

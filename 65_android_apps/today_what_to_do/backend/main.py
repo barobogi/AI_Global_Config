@@ -208,16 +208,6 @@ def get_recommendations(req: RecommendRequest):
         filter_result = hard_filter_engine.filter_candidates(places, fallback_profile, weather_info)
         passed_places = filter_result["passed_places"]
 
-    # 거리가 제한을 넘지 않도록 위치 보정 스케일링 적용
-    adjusted_places = []
-    for p in (passed_places or places):
-        p_copy = dict(p)
-        orig_dist = p_copy.get("calculated_distance_km", 0.0)
-        if orig_dist > req.max_distance_km:
-            p_copy["calculated_distance_km"] = round(req.max_distance_km * 0.85, 2)
-        adjusted_places.append(p_copy)
-    passed_places = adjusted_places
-
     # 3. Score 점수화 및 코스 조합 (동행자 가중치 프리셋 연동)
     custom_score_engine = ScoreEngine(companion_type=req.companion or "default")
     ranking_result = custom_score_engine.rank_and_build_courses(passed_places, user_profile, weather_info, top_k=5)
