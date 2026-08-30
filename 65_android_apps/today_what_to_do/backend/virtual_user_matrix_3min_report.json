@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-30T23:37:23.976759",
+  "timestamp": "2026-08-31T00:06:18.222618",
   "total_scenarios": 2500,
-  "places_recommended_count": 685,
-  "places_recommended_rate": "27.40%",
-  "honest_empty_count": 1815,
-  "honest_empty_rate": "72.60%",
+  "places_recommended_count": 975,
+  "places_recommended_rate": "39.00%",
+  "honest_empty_count": 1525,
+  "honest_empty_rate": "61.00%",
   "strict_failed_count": 0,
   "strict_fail_rate": "0.00%",
   "system_health_rate": "100.00%",
-  "elapsed_seconds": 24.59,
+  "elapsed_seconds": 120.29,
   "failures": []
 }
