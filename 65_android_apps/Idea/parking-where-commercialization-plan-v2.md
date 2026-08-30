@@ -594,3 +594,44 @@ FastAPI 공식 문서는 Linux 컨테이너/Docker를 일반적인 배포 방식
 ## 23.6 문서-코드 정합성 — 수치는 항상 소스 대조
 1탄 `FINAL_RELEASE_REPORT.md`에 minSdk/targetSdk 등 실제 코드와 다른 수치가 여러 번 남아있었음(코니가 매번 직접 소스 대조해서 잡아냄).
 - 2탄 `docs/production-plan.md` 등 문서에 SDK 버전/의존성 버전 같은 구체적 수치를 적을 때마다, 그 문서를 업데이트하는 시점에 실제 `build.gradle.kts`/`requirements.txt`와 대조하는 걸 완료 기준에 포함.
+
+---
+
+# 24. Lean MVP 다이어트 (만복, 2026-08-30)
+
+> WEB-GPT V2안은 "완성된 상용 플랫폼" 청사진으로는 훌륭하지만, **1탄이 실제로 성공한 방식**(FastAPI 단일 서비스 + 로컬 저장 + Lean MVP 먼저 돌리고 반복개선)과 결이 다르다. 이 섹션은 V2의 장기 비전(Section 1~22)은 그대로 두고, **실제 최초 빌드 범위만 좁게 재정의**한다. "삭제"가 아니라 "순서 조정"이다 — 잘라낸 것들은 전부 v1.1/Phase2 이후 재검토 대상으로 남긴다.
+
+## 24.1 백엔드 — Section 11의 6개 서비스 중 3개만 v1에
+
+| Section 11 서비스 | v1(Lean MVP) | 사유 |
+|---|---|---|
+| `recommendation` | ✅ 포함 | 핵심 가치, 뺄 수 없음 |
+| `data_quality` | ✅ 포함(단순화) | Section 5의 5개 지표 전부 말고 `freshness`만 우선 |
+| `pricing` | ✅ 포함 | Hard Filter에 이미 필요 |
+| `prediction` | ❌ v1.1로 | "성공확률" 계산 자체는 남기되, 별도 서비스로 안 쪼개고 recommendation 안에 함수로 |
+| `entrance` | ❌ 데이터 있으면만 | 차량입구 좌표(Section 7)가 공공데이터에 실제로 있는지 Phase 0에서 먼저 확인 — 없으면 통째로 스킵, MVP에서 억지로 안 만듦 |
+| `auth` / `user` / `navigation` / `notification` | ❌ v2 이후 | 로그인/계정/알림은 1탄도 없음. 지도 길찾기는 외부 지도앱 딥링크로 대체(자체 구현 안 함) |
+
+## 24.2 인프라 — PostgreSQL/Redis 제외, 1탄과 동일하게
+
+Section 12의 `PostgreSQL → Redis` 파이프라인은 **v1에서 통째로 뺀다.** 1탄처럼 로컬 파일(JSON/SQLite)로 시작 — 실제 사용자가 생기고 동시접속이 문제될 때 그때 도입할 것(Section 5 확장성 고려사항의 "겹치는 게 확인되면 그때 판단" 원칙 그대로).
+
+## 24.3 Killer Feature 3개 중 우선순위
+
+- **3.1 Parking Success Probability** ✅ v1 필수 — 이게 제품의 핵심 차별화
+- **3.3 Plan B** ✅ v1 필수 — 구현 부담 적음(top-3 재순위 정도), 가치는 큼
+- **3.2 Data Confidence 등급** ❌ v1.1로 — Section 5의 5개 지표 계산 로직이 무거움, v1은 "최근 확인 시각"만 보여주는 걸로 단순화
+
+## 24.4 제외 항목 — Phase 3 전체(Section 17)
+
+로그인/계정/주차타이머/알림/지도경로/예약제휴는 **v1에 전혀 안 들어간다.** 1탄도 계정 없이 추천만 하는 구조로 성공적으로 런칭했다 — 3탄도 같은 패턴을 따른다. Section 6(현장신고)도 사용자 식별 없이 신고받는 건 어려워서 v1.1로 미룸.
+
+## 24.5 v1 Lean MVP 최종 범위 (Phase 0~1, 1탄과 동일한 속도로)
+
+```text
+Phase 0: 공공데이터(주차정보 B553881, 이미 활용신청 완료) 실측 + 차량입구 필드 존재여부 확인
+Phase 1: FastAPI 단일서비스(recommendation+data_quality+pricing) + 로컬 저장
+         + 성공확률 계산 + Plan A/B/C + Android 2~3개 화면(입력→결과)
+```
+
+Section 1~10, 13~16, 18~22의 장기 비전(제품 포지셔닝, KPI, 보안원칙, 최종방향)은 전부 유효 — 다만 **"언제 만드느냐"만 재배치**했다. 실제 안티 착수 지시는 이 v1 범위 기준으로 나갈 예정이다.
