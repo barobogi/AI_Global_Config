@@ -60,3 +60,6 @@ paseo/
 
 # 공공데이터 카탈로그 DB (92MB, 로컬 재생성용 - fetch_catalog.py로 재생성)
 43_function_dev/04_public_data_catalog/catalog.duckdb
+
+# 25_auto_pobbagi API 키 (config.json에 평문 노출됐던 사고, 2026-08-30)
+25_auto_pobbagi/config.json
