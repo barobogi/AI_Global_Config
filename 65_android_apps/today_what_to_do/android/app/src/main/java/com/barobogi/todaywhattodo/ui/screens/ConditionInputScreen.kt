@@ -133,6 +133,7 @@ fun ConditionInputScreen(
                             onClick = {
                                 companion = item
                                 customInput = ""
+                                isAuto = false
                                 if (item == "반려동물") withPet = true
                             },
                             label = { Text(item) }
@@ -142,7 +143,10 @@ fun ConditionInputScreen(
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
                     value = customInput,
-                    onValueChange = { customInput = it },
+                    onValueChange = {
+                        customInput = it
+                        if (it.isNotBlank()) isAuto = false
+                    },
                     label = { Text("✍️ 직접 입력 (예: 100일 아기와 시부모님)") },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
@@ -150,7 +154,7 @@ fun ConditionInputScreen(
                 )
             }
 
-            // 2. 이동 가능 반경 (자동 모드 시 안내)
+            // 2. 이동 가능 반경
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -158,48 +162,45 @@ fun ConditionInputScreen(
                 ) {
                     Text("이동 가능 반경 📍", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                     Text(
-                        if (isAuto) "스마트 자동 (5km)" else "${radiusSlider.toInt()}km 이내",
+                        "${radiusSlider.toInt()}km 이내",
                         fontWeight = FontWeight.Bold,
                         color = PrimaryBlue
                     )
                 }
-                if (!isAuto) {
-                    Slider(
-                        value = radiusSlider,
-                        onValueChange = { radiusSlider = it },
-                        valueRange = 1f..15f,
-                        steps = 13
-                    )
-                } else {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("스마트 자동 모드에서는 GPS 위치 기반 최적 거리 5km가 자동 지정됩니다.", fontSize = 12.sp, color = Color.Gray)
-                }
+                Slider(
+                    value = radiusSlider,
+                    onValueChange = {
+                        radiusSlider = it
+                        isAuto = false
+                    },
+                    valueRange = 1f..15f,
+                    steps = 13
+                )
             }
 
-            // 3. 예산 설정 (자동 모드 시 안내)
+            // 3. 예산 설정
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("예산 한도 💰", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                    val budgetText = if (budgetSlider == 0f) "무료 (0원)" else "${budgetSlider.toInt() / 10000}만 원 이하"
                     Text(
-                        if (isAuto) "스마트 자동 (3만 원)" else "${budgetSlider.toInt() / 10000}만 원 이하",
+                        budgetText,
                         fontWeight = FontWeight.Bold,
                         color = PrimaryBlue
                     )
                 }
-                if (!isAuto) {
-                    Slider(
-                        value = budgetSlider,
-                        onValueChange = { budgetSlider = it },
-                        valueRange = 0f..100000f,
-                        steps = 9
-                    )
-                } else {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("동행자($companion)에 맞춘 표준 예산 3만원이 자동 세팅됩니다.", fontSize = 12.sp, color = Color.Gray)
-                }
+                Slider(
+                    value = budgetSlider,
+                    onValueChange = {
+                        budgetSlider = it
+                        isAuto = false
+                    },
+                    valueRange = 0f..100000f,
+                    steps = 9
+                )
             }
 
             // 4. 가용 시간

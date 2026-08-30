@@ -84,7 +84,7 @@ def check_is_open(place: Dict[str, Any], target_dt: datetime) -> Tuple[bool, str
     return True, "정상 영업 중"
 
 # 2. 예산 적합도 판정 (price <= budget)
-def check_budget(place: Dict[str, Any], user_budget: Optional[int], is_child: bool = False) -> Tuple[bool, str, int]:
+def check_budget(place: Dict[str, Any], user_budget: Optional[int], is_child: bool = False, companion: str = "") -> Tuple[bool, str, int]:
     if user_budget is None or user_budget <= 0:
         return True, "예산 무제한/미지정", 0
 
@@ -117,10 +117,21 @@ def check_budget(place: Dict[str, Any], user_budget: Optional[int], is_child: bo
             parsed_prices = [int(p.replace(',', '')) for p in prices]
             target_price = min(parsed_prices) if is_child else max(parsed_prices)
 
-    if target_price > user_budget:
-        return False, f"이용 요금({target_price:,}원) > 예산 한도({user_budget:,}원)", target_price
+    # 동행자 그룹 인원 수 자동 추정
+    group_size = 1
+    if any(kw in companion for kw in ["가족", "부모님", "시부모님"]):
+        group_size = 4
+    elif any(kw in companion for kw in ["연인", "친구"]):
+        group_size = 2
+    elif any(kw in companion for kw in ["아이", "어린이", "학생", "자녀", "유아"]):
+        group_size = 3
 
-    return True, f"예산 범위 내({target_price:,}원)", target_price
+    total_est = target_price * group_size
+
+    if total_est > user_budget:
+        return False, f"총 예상 경비({total_est:,}원/{group_size}인) > 예산 한도({user_budget:,}원)", total_est
+
+    return True, f"예산 범위 내({total_est:,}원/{group_size}인)", total_est
 
 # 3. 이동 거리 판정 (distance <= max_distance_km)
 def check_distance(place: Dict[str, Any], user_lat: float, user_lon: float, max_dist_km: float) -> Tuple[bool, str, float]:
@@ -234,7 +245,7 @@ class HardFilterEngine:
             pass_reasons.append(f"📍 거리 {dist_km:.1f}km (반경 내)")
 
             # 3. 예산 체크
-            ok_budget, msg_budget, est_fee = check_budget(p, budget, is_child=is_child)
+            ok_budget, msg_budget, est_fee = check_budget(p, budget, is_child=is_child, companion=companion)
             if not ok_budget:
                 rejected.append({"place": p, "reason": msg_budget, "stage": "budget"})
                 continue
