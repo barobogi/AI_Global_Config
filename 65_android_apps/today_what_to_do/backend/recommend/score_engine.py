@@ -191,7 +191,7 @@ class ScoreEngine:
                 "why_badges": [
                     f"🌧️ 우천 안심 실내 코스" if rain_prob >= 60 else "🌤️ 날씨 최적화",
                     f"💰 총 예상 경비 {c1_fee_total:,}원 (예산 내)",
-                    f"📍 {top_candidates[0]['calculated_distance_km']}km 초근접 이동"
+                    f"📍 {top_candidates[0]['calculated_distance_km']}km {'초근접 산책' if top_candidates[0]['calculated_distance_km'] <= 2.0 else ('근거리 이동' if top_candidates[0]['calculated_distance_km'] <= 5.0 else '이동')}"
                 ]
             })
         if len(top_candidates) >= 3:
