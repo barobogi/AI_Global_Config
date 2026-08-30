@@ -29,7 +29,7 @@ app = FastAPI(
     version="0.2.0"
 )
 
-# 사용자 GPS 위치에 맞춘 동적 데이터셋 로더 (전국 어디서나 1~10km 내 실데이터 추천 보장)
+# 사용자 GPS 위치에 맞춘 동적 데이터셋 로더 (전국 17개 시도 실존 데이터 기반 100% 진품 좌표 조용)
 def get_adapted_dataset(user_lat: float, user_lon: float) -> List[Dict[str, Any]]:
     places = load_sample_dataset()
     scored_places = []
@@ -47,25 +47,8 @@ def get_adapted_dataset(user_lat: float, user_lon: float) -> List[Dict[str, Any]
 
     if scored_places:
         scored_places.sort(key=lambda x: x[0])
-        closest_dist = scored_places[0][0]
-        # 거리가 10km 이상 떨어진 지역(예: 인천, 부천 등)일 경우, 위치 적응형 좌표 동적 보정으로 근거리 추천 보장
-        if closest_dist > 5.0:
-            adapted = []
-            for idx, (_, p) in enumerate(scored_places[:35]):
-                p_copy = dict(p)
-                # 사용자 GPS 중심 반경 0.5~3.0km 이내로 좌표 적응형 프로젝션
-                offset_lat = ((idx % 5) - 2) * 0.006 + 0.003
-                offset_lon = ((idx % 7) - 3) * 0.008 + 0.004
-                adapted_lat = user_lat + offset_lat
-                adapted_lon = user_lon + offset_lon
-                p_copy["mapy"] = str(round(adapted_lat, 6))
-                p_copy["mapx"] = str(round(adapted_lon, 6))
-                calc_d = calculate_haversine_distance(user_lat, user_lon, adapted_lat, adapted_lon)
-                p_copy["calculated_distance_km"] = round(calc_d, 2)
-                adapted.append(p_copy)
-            return adapted
-
-        return [p for _, p in scored_places[:35]]
+        # 좌표 왜곡 없이 실존 장소의 100% 진품 좌표 거리순 반환
+        return [p for _, p in scored_places[:40]]
 
     return places
 
@@ -75,15 +58,28 @@ ai_pipeline = ThreeAIPipeline()
 ai_planner = AI1Planner()
 
 
-# 인메모리 기본 픽스처 데이터 로더
+# 인메모리 기본 픽스처 및 17개 시도 정속 데이터 로더
 def load_sample_dataset() -> List[Dict[str, Any]]:
+    all_places = []
     raw_path = CURRENT_DIR / "data" / "places_raw.json"
+    regional_path = CURRENT_DIR / "data" / "regional_authentic_places.json"
+    
+    if regional_path.exists():
+        try:
+            with open(regional_path, "r", encoding="utf-8") as f:
+                all_places.extend(json.load(f))
+        except Exception:
+            pass
+
     if raw_path.exists():
         try:
             with open(raw_path, "r", encoding="utf-8") as f:
-                return json.load(f)
+                all_places.extend(json.load(f))
         except Exception:
             pass
+
+    if all_places:
+        return all_places
     # 폴백 픽스처 데이터셋
     return [
         {
