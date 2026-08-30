@@ -173,6 +173,30 @@ fun ResultScreen(
                         }
                     }
 
+                    // 0.5. 인근 광역 명소 대체 안내 배너 (바로보기님 UX 대안 제안 아이디어)
+                    if (!uiState.fallbackNoticeMessage.isNullOrBlank()) {
+                        item {
+                            Card(
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.8f)),
+                                shape = RoundedCornerShape(14.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(14.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = uiState.fallbackNoticeMessage,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        lineHeight = 18.sp
+                                    )
+                                }
+                            }
+                        }
+                    }
+
                     // 1. 메인 AI 코스 조립 카드 (이유 포함)
                     if (courses.isNotEmpty()) {
                         item {

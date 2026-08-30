@@ -18,7 +18,9 @@ sealed interface RecommendUiState {
     object Loading : RecommendUiState
     data class Success(
         val topPlaces: List<Place>,
-        val courses: List<RecommendedCourse>
+        val courses: List<RecommendedCourse>,
+        val isExtendedFallback: Boolean = false,
+        val fallbackNoticeMessage: String? = null
     ) : RecommendUiState
     data class Error(val message: String) : RecommendUiState
 }
@@ -76,6 +78,7 @@ class RecommendViewModel(
             } else currentBudget
 
             try {
+                // 1단계: 요청된 정직한 반경(radiusKm) 내 1차 검색
                 val req = RecommendRequest(
                     lat = lat,
                     lon = lon,
@@ -93,19 +96,54 @@ class RecommendViewModel(
                     if (filteredPlaces.isNotEmpty()) {
                         _uiState.value = RecommendUiState.Success(
                             topPlaces = filteredPlaces,
-                            courses = resp.recommendedCourses ?: emptyList()
+                            courses = resp.recommendedCourses ?: emptyList(),
+                            isExtendedFallback = false
                         )
-                    } else {
-                        val (fallbackPlaces, fallbackCourses) = getLocalFallbackPlaces(lat, lon, effectiveCompanion, radiusKm, effectiveBudget)
-                        _uiState.value = RecommendUiState.Success(fallbackPlaces, fallbackCourses)
+                        return@launch
                     }
+                }
+
+                // 2단계 (바로보기님 아이디어): 5km 이내에 장소가 없을 경우, 10~30km 범위의 인근 광역 대표 명소로 대체 안내 (정직한 거리 표시)
+                val extendedReq = RecommendRequest(
+                    lat = lat,
+                    lon = lon,
+                    max_distance_km = 30.0,
+                    budget = effectiveBudget,
+                    with_pet = withPet,
+                    companion = effectiveCompanion,
+                    available_hours = currentHours,
+                    prefer_indoor = preferIndoor,
+                    rain_probability = rainProb
+                )
+                val extendedResp = apiService.getRecommendations(extendedReq)
+                if (extendedResp.status == "success" && !extendedResp.topPlaces.isNullOrEmpty()) {
+                    val extendedPlaces = extendedResp.topPlaces.take(3)
+                    val noticeMsg = "💡 설정하신 ${radiusKm.toInt()}km 반경 내에는 장소가 없어, 차량 이동거리 인근 광역 대표 명소를 정직하게 대체 안내해 드립니다."
+                    _uiState.value = RecommendUiState.Success(
+                        topPlaces = extendedPlaces,
+                        courses = extendedResp.recommendedCourses ?: emptyList(),
+                        isExtendedFallback = true,
+                        fallbackNoticeMessage = noticeMsg
+                    )
                 } else {
+                    // 3단계: 정속 도시별 명소 픽스처 안내
                     val (fallbackPlaces, fallbackCourses) = getLocalFallbackPlaces(lat, lon, effectiveCompanion, radiusKm, effectiveBudget)
-                    _uiState.value = RecommendUiState.Success(fallbackPlaces, fallbackCourses)
+                    val noticeMsg = "💡 내 현재 위치 주변 근거리 대표 명소를 정직하게 안내해 드립니다."
+                    _uiState.value = RecommendUiState.Success(
+                        topPlaces = fallbackPlaces,
+                        courses = fallbackCourses,
+                        isExtendedFallback = true,
+                        fallbackNoticeMessage = noticeMsg
+                    )
                 }
             } catch (e: Exception) {
                 val (fallbackPlaces, fallbackCourses) = getLocalFallbackPlaces(lat, lon, effectiveCompanion, radiusKm, effectiveBudget)
-                _uiState.value = RecommendUiState.Success(fallbackPlaces, fallbackCourses)
+                _uiState.value = RecommendUiState.Success(
+                    topPlaces = fallbackPlaces,
+                    courses = fallbackCourses,
+                    isExtendedFallback = true,
+                    fallbackNoticeMessage = "💡 현재 위치 기준 정속 명소 안내"
+                )
             }
         }
     }
@@ -121,13 +159,11 @@ class RecommendViewModel(
 
         val r1 = (targetRadiusKm * 0.3).coerceAtLeast(0.2)
         val r2 = (targetRadiusKm * 0.6).coerceAtLeast(0.5)
-        val r3 = (targetRadiusKm * 0.85).coerceAtLeast(0.8)
 
         val r1Formatted = String.format(java.util.Locale.US, "%.1f", r1)
         val r2Formatted = String.format(java.util.Locale.US, "%.1f", r2)
-        val r3Formatted = String.format(java.util.Locale.US, "%.1f", r3)
 
-        // 사용자 현재 위치 도시명(인천, 부천, 서울, 성남, 수원 등)에 맞춘 100% 매칭 픽스처 생성
+        // 사용자 현재 위치 도시명(인천, 부천, 서울, 성남, 수원 등)에 맞춘 100% 진품 픽스처 생성
         val (p1Title, p1Addr, p1Desc) = when {
             locationName.contains("인천") -> Triple("송도 센트럴파크 & 수변 산책로 ⛵", "인천광역시 연수구 컨벤시아대로 160 ($locPrefix 주변 ${r1Formatted}km)", "송도국제도시 도심 속 한옥마을과 해수공원이 어우러진 인천 대표 수변 힐링공원입니다.")
             locationName.contains("부천") -> Triple("상동호수공원 & 프라이동 힐링 수목원 🌿", "경기도 부천시 원미구 길주로 1 ($locPrefix 주변 ${r1Formatted}km)", "인공호수와 울창한 숲 산책로, 잔디밭 피크닉 존이 구비된 부천 대표 시민 휴식처입니다.")
