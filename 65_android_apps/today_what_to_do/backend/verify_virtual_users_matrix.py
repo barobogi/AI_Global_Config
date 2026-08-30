@@ -39,14 +39,20 @@ PERSONAS = [
     {"name": "연인과 데이트", "companion": "연인"},
     {"name": "댕댕이(반려동물)", "companion": "반려동물"},
     {"name": "부모님과 산책", "companion": "부모님"},
+    {"name": "시부모님+아이 3대", "companion": "시부모님"},
     {"name": "친구들과 모임", "companion": "친구"},
     {"name": "나 혼자 힐링", "companion": "혼자"},
+    {"name": "1인 직장인 혼밥", "companion": "혼자"},
     {"name": "고등학생 가족", "companion": "고등학생 가족"},
-    {"name": "대학생 가족", "companion": "부모님 및 대학생"}
+    {"name": "대학생 가족", "companion": "부모님 및 대학생"},
+    {"name": "대학생 데이트", "companion": "연인"},
+    {"name": "댕댕이+가족 동반", "companion": "반려동물 및 가족"}
 ]
 
-DISTANCES = [1.0, 3.0, 5.0, 10.0, 20.0, 30.0, 50.0]
-BUDGETS = [0, 10000, 30000, 50000, 100000, None]
+DISTANCES = [0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0, 15.0, 20.0, 30.0]
+BUDGETS = [0, 10000, 20000, 30000, 50000, 80000, 100000, 150000, None]
+HOURS_LIST = [1.0, 2.0, 4.0, 6.0]
+RAIN_LIST = [0, 50, 80]
 
 LOCATIONS = [
     {"name": "수원 영통", "lat": 37.2830, "lon": 127.0601},
@@ -83,19 +89,22 @@ def run_dynamic_virtual_user_matrix_test():
                 for budget in BUDGETS:
                     for indoor in INDOOR_OPTIONS:
                         for pet in PET_OPTIONS:
-                            test_cases.append({
-                                "loc": loc,
-                                "persona": persona,
-                                "dist": dist,
-                                "budget": budget,
-                                "indoor": indoor,
-                                "pet": pet
-                            })
+                            for hours in HOURS_LIST:
+                                for rain in RAIN_LIST:
+                                    test_cases.append({
+                                        "loc": loc,
+                                        "persona": persona,
+                                        "dist": dist,
+                                        "budget": budget,
+                                        "indoor": indoor,
+                                        "pet": pet,
+                                        "hours": hours,
+                                        "rain": rain
+                                    })
 
     total_scenarios = len(test_cases)
     print(f"📦 동적 확장된 총 검증 시나리오: {total_scenarios:,}건 (100% 전수 테스트)")
 
-    # 16,800건 시나리오 속도 최적화 수행
     for idx, tc in enumerate(test_cases, 1):
         total_tests += 1
         loc = tc["loc"]
@@ -104,6 +113,8 @@ def run_dynamic_virtual_user_matrix_test():
         budget = tc["budget"]
         indoor = tc["indoor"]
         pet = tc["pet"]
+        hours = tc["hours"]
+        rain = tc["rain"]
 
         req = RecommendRequest(
             lat=loc["lat"],
@@ -112,9 +123,9 @@ def run_dynamic_virtual_user_matrix_test():
             budget=budget,
             with_pet=pet,
             companion=persona["companion"],
-            available_hours=3.0,
+            available_hours=hours,
             prefer_indoor=indoor,
-            rain_probability=70 if indoor else 10
+            rain_probability=rain
         )
 
         try:
@@ -146,6 +157,18 @@ def run_dynamic_virtual_user_matrix_test():
                 if "준비 중" in p1.get("overview", ""):
                     is_ok = False
                     error_reasons.append("Placeholder overview")
+                
+                # 거리 반경 엄격성 검증 (요청 반경 초과 여부 체크)
+                calc_dist = p1.get("calculated_distance_km", 0.0)
+                if calc_dist > dist:
+                    is_ok = False
+                    error_reasons.append(f"Distance exceeded: {calc_dist}km > {dist}km")
+
+                # 예산 한도 엄격성 검증 (요청 예산 초과 여부 체크)
+                est_fee = p1.get("estimated_fee", 0)
+                if budget is not None and budget > 0 and est_fee > budget:
+                    is_ok = False
+                    error_reasons.append(f"Budget exceeded: {est_fee}원 > {budget}원")
 
             if is_ok:
                 passed_tests += 1
@@ -198,7 +221,9 @@ def run_dynamic_virtual_user_matrix_test():
                 "distances": len(DISTANCES),
                 "budgets": len(BUDGETS),
                 "indoor_options": len(INDOOR_OPTIONS),
-                "pet_options": len(PET_OPTIONS)
+                "pet_options": len(PET_OPTIONS),
+                "hours_options": len(HOURS_LIST),
+                "rain_options": len(RAIN_LIST)
             },
             "failures": failure_details
         }, f, ensure_ascii=False, indent=2)

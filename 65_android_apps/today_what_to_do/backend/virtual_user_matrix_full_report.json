@@ -1,17 +1,19 @@
 {
-  "timestamp": "2026-08-29T20:37:52.886291",
-  "total_scenarios": 18480,
-  "passed_count": 18480,
+  "timestamp": "2026-08-30T08:28:17.549669",
+  "total_scenarios": 648000,
+  "passed_count": 648000,
   "failed_count": 0,
   "pass_rate": "100.00%",
-  "elapsed_seconds": 111.91,
+  "elapsed_seconds": 3177.44,
   "dimension_breakdown": {
     "locations": 10,
-    "personas": 11,
-    "distances": 7,
-    "budgets": 6,
+    "personas": 15,
+    "distances": 10,
+    "budgets": 9,
     "indoor_options": 2,
-    "pet_options": 2
+    "pet_options": 2,
+    "hours_options": 4,
+    "rain_options": 3
   },
   "failures": []
 }
