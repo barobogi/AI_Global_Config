@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-08-30T23:16:18.495665",
+  "total_scenarios": 90000,
+  "passed_count": 90000,
+  "failed_count": 0,
+  "pass_rate": "100.00%",
+  "elapsed_seconds": 801.92,
+  "dimension_breakdown": {
+    "locations": 250,
+    "personas": 15,
+    "distances": 2,
+    "budgets": 3,
+    "indoor_options": 2,
+    "pet_options": 2
+  },
+  "failures": []
+}
