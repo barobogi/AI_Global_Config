@@ -134,7 +134,7 @@ class RecommendViewModel(
                 val extendedResp = apiService.getRecommendations(extendedReq)
                 if (extendedResp.status == "success" && !extendedResp.topPlaces.isNullOrEmpty()) {
                     val extendedPlaces = extendedResp.topPlaces.take(3)
-                    val noticeMsg = "💡 설정하신 ${radiusKm.toInt()}km 반경 내에는 장소가 없어, 차량 이동거리 인근 광역 대표 명소를 정직하게 대체 안내해 드립니다."
+                    val noticeMsg = "💡 설정하신 ${radiusKm.toInt()}km 반경 내에는 장소가 없어, 직선거리 기준 인근 광역 대표 명소를 정직하게 대체 안내해 드립니다. (실제 차량 이동거리는 지형에 따라 다를 수 있습니다)"
                     _uiState.value = RecommendUiState.Success(
                         topPlaces = extendedPlaces,
                         courses = extendedResp.recommendedCourses ?: emptyList(),
@@ -144,7 +144,7 @@ class RecommendViewModel(
                 } else {
                     // 3단계: 코니 수혈 가이드 100% 이식 — 실좌표 하버사인 계산 기반 정속 전국 랜드마크 폴백
                     val (fallbackPlaces, fallbackCourses) = getLocalFallbackPlaces(lat, lon, effectiveCompanion, radiusKm, effectiveBudget)
-                    val noticeMsg = "💡 내 현재 위치 기준 최근접 전국 대표 명소를 정직한 실거리로 안내해 드립니다."
+                    val noticeMsg = "💡 내 현재 위치 기준 최근접 전국 대표 명소를 정직한 직선거리로 안내해 드립니다."
                     _uiState.value = RecommendUiState.Success(
                         topPlaces = fallbackPlaces,
                         courses = fallbackCourses,
@@ -183,9 +183,9 @@ class RecommendViewModel(
             val distFormatted = String.format(java.util.Locale.US, "%.1f", distKm)
             val withinRadius = distKm <= targetRadiusKm
             val reasonMsg = when {
-                withinRadius -> "📍 내 위치에서 실거리 약 ${distFormatted}km (${targetRadiusKm.toInt()}km 반경 이내)"
-                distKm > 50.0 -> "📍 정말 멀리 떨어져 있지만 (약 ${distFormatted}km) 내 위치에서 가장 가까운 전국 대표 명소를 정직하게 안내합니다"
-                else -> "📍 내 위치에서 실거리 약 ${distFormatted}km (요청하신 ${targetRadiusKm.toInt()}km 반경보다 멀지만, 주변 조건에 맞는 곳이 없어 가장 가까운 전국 대표 명소를 정직하게 안내합니다)"
+                withinRadius -> "📍 내 위치에서 직선거리 약 ${distFormatted}km (${targetRadiusKm.toInt()}km 반경 이내)"
+                distKm > 50.0 -> "📍 정말 멀리 떨어져 있지만 (직선거리 약 ${distFormatted}km) 내 위치에서 가장 가까운 전국 대표 명소를 정직하게 안내합니다"
+                else -> "📍 내 위치에서 직선거리 약 ${distFormatted}km (요청하신 ${targetRadiusKm.toInt()}km 반경보다 멀지만, 주변 조건에 맞는 곳이 없어 가장 가까운 전국 대표 명소를 정직하게 안내합니다)"
             }
 
             Place(
