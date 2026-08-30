@@ -171,16 +171,25 @@ class RecommendViewModel(
         targetRadiusKm: Double,
         targetBudget: Int
     ): Pair<List<Place>, List<RecommendedCourse>> {
-        val ranked = NationwideLandmarks.ALL
+        val rankedAll = NationwideLandmarks.ALL
             .map { landmark -> landmark to haversineKm(lat, lon, landmark.lat, landmark.lon) }
             .sortedBy { it.second }
-            .take(2)
+
+        val closestDist = rankedAll.firstOrNull()?.second ?: 0.0
+        val displayCount = if (closestDist > 50.0) 1 else 2
+        val ranked = rankedAll.take(displayCount)
 
         val places = ranked.map { (landmark, distKm) ->
             val distFormatted = String.format(java.util.Locale.US, "%.1f", distKm)
             val withinRadius = distKm <= targetRadiusKm
+            val reasonMsg = when {
+                withinRadius -> "📍 내 위치에서 실거리 약 ${distFormatted}km (${targetRadiusKm.toInt()}km 반경 이내)"
+                distKm > 50.0 -> "📍 정말 멀리 떨어져 있지만 (약 ${distFormatted}km) 내 위치에서 가장 가까운 전국 대표 명소를 정직하게 안내합니다"
+                else -> "📍 내 위치에서 실거리 약 ${distFormatted}km (요청하신 ${targetRadiusKm.toInt()}km 반경보다 멀지만, 주변 조건에 맞는 곳이 없어 가장 가까운 전국 대표 명소를 정직하게 안내합니다)"
+            }
+
             Place(
-                contentId = "landmark_${landmark.name.hashCode()}",
+                contentId = landmark.contentId,    // 순수 숫자 문자열 100% 사용 (음수 hashCode 예방)
                 title = landmark.name,
                 contentTypeId = "12",
                 address = landmark.address,
@@ -191,10 +200,7 @@ class RecommendViewModel(
                 distanceKm = distKm,               // 실거리 100% 그대로
                 finalScore = 90.0,
                 filterPassReasons = listOf(
-                    if (withinRadius)
-                        "📍 내 위치에서 실거리 약 ${distFormatted}km (${targetRadiusKm.toInt()}km 반경 이내)"
-                    else
-                        "📍 내 위치에서 실거리 약 ${distFormatted}km (요청하신 ${targetRadiusKm.toInt()}km 반경보다 멀지만, 주변 조건에 맞는 곳이 없어 가장 가까운 전국 대표 명소를 정직하게 안내합니다)",
+                    reasonMsg,
                     "🛡️ 한국관광공사 공공데이터 검증",
                     "👶 $companion 맞춤 안심 장소"
                 ),
