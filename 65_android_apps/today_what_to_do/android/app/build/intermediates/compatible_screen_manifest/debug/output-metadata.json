@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.barobogi.todaywhattodo",
+  "applicationId": "com.barobogi.todaywhattodo.debug",
   "variantName": "debug",
   "elements": []
 }

@@ -6,5 +6,6 @@ color black
 color primary_blue
 color secondary_teal
 color white
+drawable ic_launcher_today
 string app_name
 style Theme.TodayWhatToDo
