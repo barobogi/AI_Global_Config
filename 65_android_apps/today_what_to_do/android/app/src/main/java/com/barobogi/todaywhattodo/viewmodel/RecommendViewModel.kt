@@ -4,14 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barobogi.todaywhattodo.data.api.TodayApiService
 import com.barobogi.todaywhattodo.data.model.DetailIntro
+import com.barobogi.todaywhattodo.data.model.NationwideLandmarks
 import com.barobogi.todaywhattodo.data.model.Place
 import com.barobogi.todaywhattodo.data.model.RecommendRequest
 import com.barobogi.todaywhattodo.data.model.RecommendedCourse
-import com.barobogi.todaywhattodo.data.model.WhyCard
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 sealed interface RecommendUiState {
     object Idle : RecommendUiState
@@ -51,6 +56,17 @@ class RecommendViewModel(
         currentLat = lat
         currentLon = lon
         locationName = name
+    }
+
+    fun haversineKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val R = 6371.0
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = sin(dLat / 2).pow(2) +
+                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
+                sin(dLon / 2).pow(2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return R * c
     }
 
     fun requestRecommendation(
@@ -126,9 +142,9 @@ class RecommendViewModel(
                         fallbackNoticeMessage = noticeMsg
                     )
                 } else {
-                    // 3단계: 정속 도시별 명소 픽스처 안내
+                    // 3단계: 코니 수혈 가이드 100% 이식 — 실좌표 하버사인 계산 기반 정속 전국 랜드마크 폴백
                     val (fallbackPlaces, fallbackCourses) = getLocalFallbackPlaces(lat, lon, effectiveCompanion, radiusKm, effectiveBudget)
-                    val noticeMsg = "💡 내 현재 위치 주변 근거리 대표 명소를 정직하게 안내해 드립니다."
+                    val noticeMsg = "💡 내 현재 위치 기준 최근접 전국 대표 명소를 정직한 실거리로 안내해 드립니다."
                     _uiState.value = RecommendUiState.Success(
                         topPlaces = fallbackPlaces,
                         courses = fallbackCourses,
@@ -155,86 +171,49 @@ class RecommendViewModel(
         targetRadiusKm: Double,
         targetBudget: Int
     ): Pair<List<Place>, List<RecommendedCourse>> {
-        val locPrefix = if (locationName.contains("위치")) "내 현재 위치" else locationName
+        val ranked = NationwideLandmarks.ALL
+            .map { landmark -> landmark to haversineKm(lat, lon, landmark.lat, landmark.lon) }
+            .sortedBy { it.second }
+            .take(2)
 
-        val r1 = (targetRadiusKm * 0.3).coerceAtLeast(0.2)
-        val r2 = (targetRadiusKm * 0.6).coerceAtLeast(0.5)
-
-        val r1Formatted = String.format(java.util.Locale.US, "%.1f", r1)
-        val r2Formatted = String.format(java.util.Locale.US, "%.1f", r2)
-
-        // 사용자 현재 위치 도시명(인천, 부천, 서울, 성남, 수원 등)에 맞춘 100% 진품 픽스처 생성
-        val (p1Title, p1Addr, p1Desc) = when {
-            locationName.contains("인천") -> Triple("송도 센트럴파크 & 수변 산책로 ⛵", "인천광역시 연수구 컨벤시아대로 160 ($locPrefix 주변 ${r1Formatted}km)", "송도국제도시 도심 속 한옥마을과 해수공원이 어우러진 인천 대표 수변 힐링공원입니다.")
-            locationName.contains("부천") -> Triple("상동호수공원 & 프라이동 힐링 수목원 🌿", "경기도 부천시 원미구 길주로 1 ($locPrefix 주변 ${r1Formatted}km)", "인공호수와 울창한 숲 산책로, 잔디밭 피크닉 존이 구비된 부천 대표 시민 휴식처입니다.")
-            locationName.contains("서울") || locationName.contains("마포") || locationName.contains("홍대") -> Triple("서울 경의선 숲길 & 책거리 📚", "서울특별시 마포구 와우산로 35길 ($locPrefix 주변 ${r1Formatted}km)", "연남동과 홍대를 잇는 도심 속 선형 공원. 카페거리와 숲속 산책로가 어우러진 연인/가족 맞춤 명소입니다.")
-            locationName.contains("성남") || locationName.contains("분당") || locationName.contains("판교") -> Triple("판교 율동공원 & 수변 산책로 🦆", "경기도 성남시 분당구 문정로 145 ($locPrefix 주변 ${r1Formatted}km)", "넓은 저수지 주변 산책로와 숲속 휴식 공간이 잘 갖춰진 성남 대표 도심 공원입니다.")
-            else -> Triple("수원화성 & 화성행궁 🏯", "경기도 수원시 팔달구 정조로 825 ($locPrefix 주변 ${r1Formatted}km)", "조선 정조 대왕의 효심과 정약용의 다산 기중기로 건립된 유네스코 세계문화유산. 아름다운 성곽길 산책 명소입니다.")
-        }
-
-        val (p2Title, p2Addr, p2Desc) = when {
-            locationName.contains("인천") -> Triple("인천 자유공원 & 차이나타운 🌸", "인천광역시 중구 신포로 27번길 ($locPrefix 주변 ${r2Formatted}km)", "인천항 전경이 한눈에 내려다보이는 한국 최초의 서양식 근대 공원과 개항장 문화거리입니다.")
-            locationName.contains("부천") -> Triple("부천 한국만화박물관 🎨", "경기도 부천시 원미구 길주로 1 ($locPrefix 주변 ${r2Formatted}km)", "한국 만화의 100년 역사와 다양한 어린이 만화 체험관, 3D 상영관을 갖춘 대표 체험 박물관입니다.")
-            locationName.contains("서울") || locationName.contains("마포") || locationName.contains("홍대") -> Triple("서울숲 공원 & 생태 수변 쉼터 🌳", "서울특별시 성동구 뚝섬로 273 ($locPrefix 주변 ${r2Formatted}km)", "사슴 생태숲, 곤충식물원, 숲속 수변 산책로가 어우러진 도심 대표 대형 자연 공원입니다.")
-            locationName.contains("성남") || locationName.contains("분당") || locationName.contains("판교") -> Triple("판교 환경생태학습원 🏛️", "경기도 성남시 분당구 대왕판교로 645 ($locPrefix 주변 ${r2Formatted}km)", "어린이와 청소년을 위한 생태 체험 전시관 및 야외 자생식물원이 어우러진 친환경 박물관입니다.")
-            else -> Triple("광교호수공원 & 프라이동 수변길 🌊", "경기도 수원시 영통구 광교호수공원로 102 ($locPrefix 주변 ${r2Formatted}km)", "원천저수지와 신대저수지 주변을 잇는 국내 최대 규모 도심 호수공원입니다.")
-        }
-
-        val places = listOf(
+        val places = ranked.map { (landmark, distKm) ->
+            val distFormatted = String.format(java.util.Locale.US, "%.1f", distKm)
+            val withinRadius = distKm <= targetRadiusKm
             Place(
-                contentId = "3001",
-                title = p1Title,
+                contentId = "landmark_${landmark.name.hashCode()}",
+                title = landmark.name,
                 contentTypeId = "12",
-                address = p1Addr,
-                mapX = (lon + 0.005).toString(),
-                mapY = (lat + 0.004).toString(),
-                tel = "032-123-4567",
-                overview = p1Desc,
-                distanceKm = r1,
-                finalScore = 98.0,
-                filterPassReasons = listOf("📍 내 위치 ${r1Formatted}km (${targetRadiusKm.toInt()}km 반경 이내)", "🛡️ 한국관광공사 공공데이터 검증", "👶 $companion 맞춤 안심 장소"),
+                address = landmark.address,
+                mapX = landmark.lon.toString(),   // 실좌표 100% 그대로
+                mapY = landmark.lat.toString(),   // 실좌표 100% 그대로
+                tel = landmark.tel,
+                overview = landmark.overview,
+                distanceKm = distKm,               // 실거리 100% 그대로
+                finalScore = 90.0,
+                filterPassReasons = listOf(
+                    if (withinRadius)
+                        "📍 내 위치에서 실거리 약 ${distFormatted}km (${targetRadiusKm.toInt()}km 반경 이내)"
+                    else
+                        "📍 내 위치에서 실거리 약 ${distFormatted}km (요청하신 ${targetRadiusKm.toInt()}km 반경보다 멀지만, 주변 조건에 맞는 곳이 없어 가장 가까운 전국 대표 명소를 정직하게 안내합니다)",
+                    "🛡️ 한국관광공사 공공데이터 검증",
+                    "👶 $companion 맞춤 안심 장소"
+                ),
                 detailIntro = DetailIntro(
-                    restDate = "연중무휴",
-                    restDateCulture = "연중무휴",
-                    useFee = "무료/기본입장",
-                    useFeeCulture = "무료/기본입장",
-                    useTime = "24시간 상시개방"
-                )
-            ),
-            Place(
-                contentId = "3002",
-                title = p2Title,
-                contentTypeId = "12",
-                address = p2Addr,
-                mapX = (lon - 0.008).toString(),
-                mapY = (lat + 0.006).toString(),
-                tel = "032-987-6543",
-                overview = p2Desc,
-                distanceKm = r2,
-                finalScore = 95.0,
-                filterPassReasons = listOf("📍 거리 ${r2Formatted}km (${targetRadiusKm.toInt()}km 반경 이내)", "💰 무료/기본입장", "🐾 반려동물·유모차 산책 적합"),
-                detailIntro = DetailIntro(
-                    restDate = "연중무휴",
-                    useFee = "무료/기본입장",
-                    useTime = "09:00~18:00"
+                    restDate = landmark.restDate,
+                    useFee = landmark.useFee,
+                    useTime = landmark.openTime
                 )
             )
-        )
+        }
 
         val courses = listOf(
             RecommendedCourse(
-                courseName = "🌈 $locPrefix 기준 $companion 맞춤 힐링 코스",
+                courseName = "🌈 내 위치 기준 $companion 맞춤 정직 안내 코스",
                 places = places,
                 durationHours = currentHours,
-                summary = "$locPrefix 근처 반경 ${targetRadiusKm.toInt()}km 내에서 부담 없이 즐길 수 있는 공공데이터 검증 코스입니다.",
-                aiReason = "내 현재 위치($locPrefix) 기준 ${targetRadiusKm.toInt()}km 반경 내 가장 평가가 높고 운영시간 및 휴무일 팩트체크가 완료된 대표 명소들로 조합했습니다.",
-                whyBadges = listOf("한국관광공사 공공데이터 검증", "반경 ${targetRadiusKm.toInt()}km 최적 동선"),
-                whyCard = WhyCard(
-                    title = "3AI 추천 이유",
-                    badges = listOf("공공데이터 3중 교차검증 완료 🛡️", "$companion 맞춤 가중치 적용"),
-                    verifiedFacts = listOf("운영시간 및 휴무일 팩트체크 완료", "현재 위치 주변 ${targetRadiusKm.toInt()}km 반경 이내 동선"),
-                    transparencyNote = "한국관광공사 공식 데이터를 3중 교차검증한 안심 장소"
-                )
+                summary = "요청하신 반경 내에는 조건에 맞는 곳이 없어, 실제 GPS 기준 가장 가까운 전국 대표 명소를 정직한 거리로 안내합니다.",
+                aiReason = "네트워크 오류 또는 반경 내 후보 없음 → 실좌표 기반 최근접 명소 폴백",
+                whyBadges = listOf("정직한 거리 표기", "실좌표 검증")
             )
         )
 

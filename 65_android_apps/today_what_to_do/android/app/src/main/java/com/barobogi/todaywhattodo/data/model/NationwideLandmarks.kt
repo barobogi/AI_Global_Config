@@ -1,0 +1,271 @@
+package com.barobogi.todaywhattodo.data.model
+
+data class NationwideLandmark(
+    val contentId: String,
+    val name: String,
+    val address: String,
+    val lat: Double,
+    val lon: Double,
+    val overview: String,
+    val tel: String = "",
+    val restDate: String = "연중무휴",
+    val useFee: String = "무료/기본입장",
+    val openTime: String = "24시간 상시개방"
+)
+
+object NationwideLandmarks {
+    val ALL = listOf(
+        NationwideLandmark(
+            contentId = "1001",
+            name = "경복궁 & 광화문 광장 🏯",
+            address = "서울특별시 종로구 사직로 161",
+            lat = 37.5796,
+            lon = 126.9770,
+            overview = "조선 왕조의 으뜸 궁궐이자 대한민국을 대표하는 역사 문화 유적지. 아름다운 경회루와 향원지, 광화문 광장 산책이 우수합니다.",
+            tel = "02-3700-3900",
+            restDate = "매주 화요일 휴무",
+            useFee = "성인 3,000원",
+            openTime = "09:00~18:00"
+        ),
+        NationwideLandmark(
+            contentId = "1002",
+            name = "서울 N서울타워 & 남산공원 🗼",
+            address = "서울특별시 용산구 남산공원길 105",
+            lat = 37.5512,
+            lon = 126.9882,
+            overview = "서울 도심 전경이 한눈에 내려다보이는 남산 정상의 랜드마크. 케이블카와 남산 순환 산책로가 대표적입니다.",
+            tel = "02-3455-9277",
+            restDate = "연중무휴",
+            useFee = "공원 입장 무료",
+            openTime = "10:00~22:30"
+        ),
+        NationwideLandmark(
+            contentId = "1003",
+            name = "서울숲 공원 & 수변 산책로 🌳",
+            address = "서울특별시 성동구 뚝섬로 273",
+            lat = 37.5444,
+            lon = 127.0374,
+            overview = "사슴 생태숲, 곤충식물원, 숲속 수변 산책로가 어우러진 도심 대표 대형 자연 공원.",
+            tel = "02-460-2905",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "2001",
+            name = "송도 센트럴파크 & 해수공원 ⛵",
+            address = "인천광역시 연수구 컨벤시아대로 160",
+            lat = 37.3925,
+            lon = 126.6394,
+            overview = "대한민국 최초의 해수공원이자 송도국제도시 도심 속 한옥마을과 수변 보트 체험이 어우러진 힐링 명소.",
+            tel = "032-453-7860",
+            restDate = "연중무휴",
+            useFee = "공원 입장 무료",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "2002",
+            name = "인천 차이나타운 & 자유공원 🌸",
+            address = "인천광역시 중구 신포로27번길",
+            lat = 37.4754,
+            lon = 126.6186,
+            overview = "한국 짜장면의 발상지이자 개항장 근대 역사 문화 거리. 인천항이 바라보이는 자유공원 연계 산책 코스.",
+            tel = "032-777-1330",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "3001",
+            name = "부천 상동호수공원 & 수목원 🌿",
+            address = "경기도 부천시 원미구 길주로 1",
+            lat = 37.5054,
+            lon = 126.7533,
+            overview = "인공호수와 울창한 숲 산책로, 잔디밭 피크닉 존이 구비된 부천 대표 시민 휴식처.",
+            tel = "032-320-3000",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "3002",
+            name = "수원화성 & 화성행궁 🏯",
+            address = "경기도 수원시 팔달구 정조로 825",
+            lat = 37.2856,
+            lon = 127.0158,
+            overview = "조선 정조 대왕의 효심과 건축기술이 어우러진 유네스코 세계문화유산. 아름다운 성곽길 산책 명소.",
+            tel = "031-290-3600",
+            restDate = "연중무휴",
+            useFee = "성인 1,500원",
+            openTime = "09:00~18:00"
+        ),
+        NationwideLandmark(
+            contentId = "3003",
+            name = "광교호수공원 & 프라이동 수변길 🌊",
+            address = "경기도 수원시 영통구 광교호수공원로 102",
+            lat = 37.2842,
+            lon = 127.0601,
+            overview = "원천저수지와 신대저수지 주변을 잇는 국내 최대 규모 도심 호수공원.",
+            tel = "031-228-4198",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "4001",
+            name = "부산 해운대 해수욕장 & 동백섬 🌊",
+            address = "부산광역시 해운대구 달맞이길 62",
+            lat = 35.1587,
+            lon = 129.1604,
+            overview = "대한민국 최고의 해변 휴양지이자 아름다운 해안 산책로와 동백나무 숲이 어우러진 명소.",
+            tel = "051-749-5700",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "4002",
+            name = "부산 광안리 해수욕장 & 광안대교 🌉",
+            address = "부산광역시 수영구 광안해변로 219",
+            lat = 35.1532,
+            lon = 129.1189,
+            overview = "다이아몬드 브릿지 야경과 드론쇼, 카페거리가 펼쳐지는 부산 도심 해변 명소.",
+            tel = "051-610-4216",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "5001",
+            name = "대구 김광석 다시그리기길 🎸",
+            address = "대구광역시 중구 달구벌대로 2238",
+            lat = 35.8604,
+            lon = 128.6067,
+            overview = "고(故) 김광석의 삶과 음악을 벽화와 야외 공연장, 감성 카페로 조성한 테마 거리.",
+            tel = "053-661-2625",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "6001",
+            name = "국립아시아문화전당 (ACC) 🏛️",
+            address = "광주광역시 동구 문화전당로 38",
+            lat = 35.1466,
+            lon = 126.9204,
+            overview = "아시아 복합 문화 예술 복합 공간이자 아름다운 지하 정원과 예술 전시 체험관.",
+            tel = "1899-5566",
+            restDate = "매주 월요일 휴무",
+            useFee = "기본 입장 무료",
+            openTime = "10:00~18:00"
+        ),
+        NationwideLandmark(
+            contentId = "7001",
+            name = "대전 한밭수목원 & 엑스포 시민광장 🌿",
+            address = "대전광역시 서구 둔산대로 169",
+            lat = 36.3685,
+            lon = 127.3882,
+            overview = "정부대전청사 북측에 위치한 도심 속 최대 규모 인공 수목원이자 열대식물원.",
+            tel = "042-270-8452",
+            restDate = "매주 월요일 휴무(동원)",
+            useFee = "무료/기본입장",
+            openTime = "06:00~21:00"
+        ),
+        NationwideLandmark(
+            contentId = "8001",
+            name = "울산 태화강 국가정원 & 십리대숲 🎋",
+            address = "울산광역시 중구 태화강국가정원길 154",
+            lat = 35.5488,
+            lon = 129.2982,
+            overview = "태화강을 따라 십리(4km)에 걸쳐 펼쳐진 대나무 숲길과 대한민국 제2호 국가정원.",
+            tel = "052-229-8582",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "9001",
+            name = "세종호수공원 & 국립세종수목원 🌊",
+            address = "세종특별자치시 호수공원길 155",
+            lat = 36.4965,
+            lon = 127.2721,
+            overview = "국내 최대 인공 호수공원과 사계절 전시 온실이 갖춰진 대한민국 대표 친환경 도시 정원.",
+            tel = "044-300-3000",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "10001",
+            name = "강릉 경포대 & 경포호수공원 🌊",
+            address = "강원특별자치도 강릉시 경포로 365",
+            lat = 37.7952,
+            lon = 128.8967,
+            overview = "동해 바다와 호수가 어우러진 관동팔경 으뜸 명소이자 소나무 숲길 산책로.",
+            tel = "033-640-5119",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "11001",
+            name = "전주 한옥마을 & 경기전 🏯",
+            address = "전북특별자치도 전주시 완산구 기린대로 99",
+            lat = 35.8148,
+            lon = 127.1524,
+            overview = "700여 동의 한옥이 군락을 이룬 대한민국 대표 전통 문화 체험 거리이자 조선 태조 이성계 영정이 모셔진 경기전.",
+            tel = "063-282-1330",
+            restDate = "연중무휴",
+            useFee = "경기전 성인 3,000원",
+            openTime = "09:00~19:00"
+        ),
+        NationwideLandmark(
+            contentId = "12001",
+            name = "여수 돌산공원 & 해양케이블카 🚡",
+            address = "전라남도 여수시 돌산읍 돌산로 3600-1",
+            lat = 34.7292,
+            lon = 127.7472,
+            overview = "여수 밤바다 전망과 돌산대교 야경, 자산공원을 잇는 국내 최초 해양케이블카 명소.",
+            tel = "061-664-7301",
+            restDate = "연중무휴",
+            useFee = "공원 입장 무료",
+            openTime = "09:30~21:30"
+        ),
+        NationwideLandmark(
+            contentId = "13001",
+            name = "경주 첨성대 & 대릉원 🌸",
+            address = "경상북도 경주시 첨성로 140-25",
+            lat = 35.8348,
+            lon = 129.2190,
+            overview = "신라 1천년 역사의 상징인 동양 최선의 천문대 첨성대와 거대한 고분군 대릉원 산책길.",
+            tel = "054-779-8740",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "14001",
+            name = "통영 동피랑 벽화마을 🎨",
+            address = "경상남도 통영시 동피랑1길 6-18",
+            lat = 34.8452,
+            lon = 128.4282,
+            overview = "통영 항구가 내려다보이는 언덕 마을에 형형색색의 벽화와 카페가 어우러진 대표 관광지.",
+            tel = "055-650-0580",
+            restDate = "연중무휴",
+            useFee = "무료/기본입장",
+            openTime = "24시간 상시개방"
+        ),
+        NationwideLandmark(
+            contentId = "15001",
+            name = "제주 성산일출봉 🌅",
+            address = "제주특별자치도 서귀포시 성산읍 일출로 284-12",
+            lat = 33.4581,
+            lon = 126.9426,
+            overview = "유네스코 세계자연유산에 등재된 해돋이 명소이자 분화구 정상 전망이 유려한 제주 대표 화산구.",
+            tel = "064-783-0959",
+            restDate = "매월 첫째 월요일 휴무",
+            useFee = "성인 5,000원",
+            openTime = "07:30~19:00"
+        )
+    )
+}
