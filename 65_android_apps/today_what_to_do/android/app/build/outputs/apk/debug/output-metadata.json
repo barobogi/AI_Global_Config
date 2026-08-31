@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.barobogi.todaywhattodo",
+  "applicationId": "com.barobogi.todaywhattodo.debug",
   "variantName": "debug",
   "elements": [
     {

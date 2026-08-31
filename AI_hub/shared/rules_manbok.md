@@ -1,5 +1,5 @@
 # 📜 3AI 활성 규칙 스냅샷 (MANBOK)
-> 자동 생성/동기화: `43_function_dev/02_rule_governance_db/rule_governance.db` (2026-08-30 22:06)
+> 자동 생성/동기화: `43_function_dev/02_rule_governance_db/rule_governance.db` (2026-08-31 21:06)
 > 용도: MANBOK 직접 조회용 JIT 규칙 스냅샷
 
 | ID | 규칙명 | 대상 | Trigger Tag | 본문 |
