@@ -2,6 +2,7 @@ package com.barobogi.todaywhattodo.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,11 +12,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.barobogi.todaywhattodo.data.model.Place
 import com.barobogi.todaywhattodo.ui.theme.PrimaryBlue
 import com.barobogi.todaywhattodo.ui.theme.SecondaryTeal
@@ -26,6 +31,7 @@ data class NearbySpot(
     val distanceText: String,
     val priceText: String,
     val featureText: String,
+    val imageUrl: String = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80",
     val rating: String = "4.8",
     val reviewCount: String = "1,420",
     val sampleReviews: List<String> = listOf(
@@ -50,13 +56,10 @@ fun DetailScreen(
             category = "카페·디저트",
             distanceText = "도보 350m",
             priceText = "아메리카노 5,000원",
-            featureText = "인기 성곽/호수 뷰 & 수제 에그타르트",
+            featureText = "인기 스페셜티 뷰 & 수제 에그타르트",
+            imageUrl = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80",
             rating = "4.8",
-            reviewCount = "1,420",
-            sampleReviews = listOf(
-                "성곽 산책하다 들렀는데 뷰가 예술이에요. 아이랑 같이 와서 디저트 먹기 좋습니다.",
-                "주차 공간도 넉넉하고 저녁에 야경 보면서 차 마시기 강력 추천합니다."
-            )
+            reviewCount = "1,420"
         ),
         NearbySpot(
             name = "🥐 $placeNameClean 수변 대형 베이커리",
@@ -64,12 +67,9 @@ fun DetailScreen(
             distanceText = "도보 480m",
             priceText = "음료 6,000원대",
             featureText = "갓 구운 소금빵 & 넓은 테라스석",
+            imageUrl = "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
             rating = "4.7",
-            reviewCount = "980",
-            sampleReviews = listOf(
-                "갓 구운 소금빵이 정말 맛있고 테라스 좌석 뷰가 대단히 훌륭합니다.",
-                "가족 단위로 방문하기 넓고 쾌적한 힐링 스팟입니다."
-            )
+            reviewCount = "980"
         ),
         NearbySpot(
             name = "🍲 $placeNameClean 가족 맞춤 한정식/식당",
@@ -77,14 +77,17 @@ fun DetailScreen(
             distanceText = "도보 620m",
             priceText = "1인 15,000원",
             featureText = "가족 담소용 넓은 좌석 & 영양 돌솥밥",
+            imageUrl = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80",
             rating = "4.9",
-            reviewCount = "2,150",
-            sampleReviews = listOf(
-                "음식이 정갈하고 간이 자극적이지 않아 부모님 모시고 오기 좋습니다.",
-                "직원분들도 매우 친절하시고 영양 돌솥밥이 일품이에요."
-            )
+            reviewCount = "2,150"
         )
     )
+
+    val mainImageUrl = if (!place.firstImage.isNullOrBlank()) {
+        place.firstImage
+    } else {
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+    }
 
     Scaffold(
         topBar = {
@@ -163,6 +166,39 @@ fun DetailScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // 0. 대표 장소 메인 고화질 배경/썸네일 이미지 (Barobogi-nim 배경 이미지 요구사항 100% 반영)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(16.dp))
+            ) {
+                AsyncImage(
+                    model = mainImageUrl,
+                    contentDescription = place.title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.7f))
+                            )
+                        )
+                )
+                Text(
+                    text = place.title,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp)
+                )
+            }
+
             // 1. 팩트체크 인증 배지 (AI-3)
             Card(
                 shape = RoundedCornerShape(12.dp),
@@ -239,7 +275,7 @@ fun DetailScreen(
 
             HorizontalDivider()
 
-            // 5. 이 장소 주변 1km 연계 추천 (카페 & 맛집) (터치 시 상세 정보 + 이용 후기 팝업)
+            // 5. 이 장소 주변 1km 연계 추천 (카페 & 맛집) (배경 이미지 카드 탑재)
             Text("📍 이 장소 주변 1km 연계 추천 (카페 & 맛집) ☕", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             Text("👇 카드를 터치하면 해당 장소의 상세 소개 및 다른 사람의 실제 이용후기를 볼 수 있습니다.", fontSize = 12.sp, color = Color.Gray)
 
@@ -248,35 +284,58 @@ fun DetailScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { selectedSpotForReview = spot },
-                    shape = RoundedCornerShape(12.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    shape = RoundedCornerShape(14.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
                 ) {
-                    Column(modifier = Modifier.padding(14.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                    Column {
+                        // 카드 상단 고화질 썸네일 이미지
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
                         ) {
-                            Text(spot.name, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                            AsyncImage(
+                                model = spot.imageUrl,
+                                contentDescription = spot.name,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.6f))
+                                        )
+                                    )
+                            )
                             Surface(
-                                shape = RoundedCornerShape(4.dp),
-                                color = PrimaryBlue.copy(alpha = 0.1f)
+                                shape = RoundedCornerShape(6.dp),
+                                color = PrimaryBlue,
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .padding(8.dp)
                             ) {
                                 Text(
                                     text = spot.distanceText,
                                     fontSize = 11.sp,
-                                    color = PrimaryBlue,
+                                    color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text("💰 ${spot.priceText} · ${spot.featureText}", fontSize = 12.sp, color = Color.Gray)
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("⭐ ${spot.rating}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color(0xFFFF9800))
-                            Text(" (${spot.reviewCount}개 리뷰) · 터치 시 상세 후기 보기 ➔", fontSize = 11.sp, color = PrimaryBlue)
+
+                        // 카드 하단 텍스트 상세
+                        Column(modifier = Modifier.padding(14.dp)) {
+                            Text(spot.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text("💰 ${spot.priceText} · ${spot.featureText}", fontSize = 12.sp, color = Color.Gray)
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("⭐ ${spot.rating}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color(0xFFFF9800))
+                                Text(" (${spot.reviewCount}개 리뷰) · 터치 시 상세 후기 보기 ➔", fontSize = 11.sp, color = PrimaryBlue)
+                            }
                         }
                     }
                 }
@@ -298,7 +357,7 @@ fun DetailScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue)
                 ) {
-                    Text("🟢 실시간 네이버/카카오 후기 1,000+개 보기 ➔", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text("네이버 실시간 리뷰 보기 ➔", color = Color.White, fontWeight = FontWeight.Bold)
                 }
             },
             dismissButton = {
@@ -306,30 +365,32 @@ fun DetailScreen(
                     Text("닫기")
                 }
             },
-            title = { Text(spot.name, fontWeight = FontWeight.Bold, fontSize = 16.sp) },
+            title = {
+                Text(spot.name, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = PrimaryBlue.copy(alpha = 0.1f)
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // 팝업 상단 이미지
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(130.dp)
+                            .clip(RoundedCornerShape(8.dp))
                     ) {
-                        Text(
-                            text = "📍 ${spot.distanceText} | 💰 ${spot.priceText}",
-                            fontSize = 12.sp,
-                            color = PrimaryBlue,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        AsyncImage(
+                            model = spot.imageUrl,
+                            contentDescription = spot.name,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
-
-                    Text("📝 장소 특징 & 상세 소개", fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                    Text(spot.featureText, fontSize = 13.sp, color = Color.DarkGray)
-
+                    Text("📍 거리: ${spot.distanceText} (${spot.category})", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text("💰 대표가격: ${spot.priceText}", fontSize = 13.sp)
+                    Text("✨ 특징: ${spot.featureText}", fontSize = 13.sp)
                     HorizontalDivider()
-
-                    Text("⭐ 다른 사람들 실제 이용후기 요약 (${spot.reviewCount}건)", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    Text("💬 대표 방문자 후기 요약:", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = PrimaryBlue)
                     spot.sampleReviews.forEach { review ->
-                        Text("💬 \"$review\"", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                        Text("• \"$review\"", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurface)
                     }
                 }
             }

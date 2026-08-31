@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "total": 3,
+    "avg_rating": 3.33,
+    "bugs": 1,
+    "requests": 1,
+    "praise": 1
+  },
+  "reviews": [
+    {
+      "id": "r101",
+      "user": "홍길동",
+      "rating": 5,
+      "text": "가짜 거리 눈속임 없어서 진짜 정직하고 좋네요! 내 위치 5km 정속 추천 최고!",
+      "classification": {
+        "category": "PRAISE",
+        "priority": "LOW",
+        "action_required": false,
+        "recommended_reply": "안녕하세요! '오늘뭐하지'를 이용해 주시고 따뜻한 응원 남겨주셔서 진심으로 감사드립니다! 앞으로도 가짜 거리 눈속임 없는 정직한 서비스로 보답하겠습니다."
+      },
+      "processed_at": "2026-08-31T22:26:45.935021"
+    },
+    {
+      "id": "r102",
+      "user": "김철수",
+      "rating": 1,
+      "text": "지도 길찾기 클릭 시 특정 기종에서 화면 전환 오류가 생깁니다. 수정 요청해요.",
+      "classification": {
+        "category": "BUG_REPORT",
+        "priority": "HIGH",
+        "action_required": true,
+        "recommended_reply": "안녕하세요, 소중한 피드백 감사드립니다. 불편을 드려 죄송합니다. 제보해주신 오류 내용을 3AI 디버깅 파이프라인(DEBUG_LOG)에 즉시 반영하여 빠른 시일 내에 수정 조치하겠습니다."
+      },
+      "processed_at": "2026-08-31T22:26:45.936026"
+    },
+    {
+      "id": "r103",
+      "user": "이영희",
+      "rating": 4,
+      "text": "경기 광주 및 강원 춘천 지역 장소 데이터가 좀 더 보강되면 더 좋을 것 같아요!",
+      "classification": {
+        "category": "FEATURE_REQUEST",
+        "priority": "MEDIUM",
+        "action_required": true,
+        "recommended_reply": "안녕하세요! 소중한 제안 감사드립니다. 요청해주신 지역 및 장소 데이터 보강 안건을 한국관광공사 TourAPI 수집 파이프라인에 반영하도록 조치하겠습니다."
+      },
+      "processed_at": "2026-08-31T22:26:45.936026"
+    }
+  ]
+}

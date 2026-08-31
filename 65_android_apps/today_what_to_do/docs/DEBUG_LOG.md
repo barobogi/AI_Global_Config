@@ -66,3 +66,5 @@
 - **조치 내용**:
   1. `backend/verify_virtual_users_matrix.py`: 총 2,520건 전수 카테시안 곱 가상 유저 통합 매트릭스 스트레스 테스트 스크립트 작성 및 **2,520건 전수 통과 (통과율 100.00%, 실패 0건)** 완수.
   2. `d:\AI\.agents\AGENTS.md`: **[신규 앱 제작 시 가상 유저 케이스 테스트(Virtual User Matrix Integration Test) 의무화 (2026-08-29 박제)]** 규칙 영구 박제.
+
+- [2026-08-31 22:26] [Play Store User Review Bug] 사용자: 김철수 | 평점: 1점 | 내용: "지도 길찾기 클릭 시 특정 기종에서 화면 전환 오류가 생깁니다. 수정 요청해요."

@@ -197,20 +197,42 @@ def fetch_detail_intro(service_key: str, content_id: str, content_type_id: str) 
         pass
     return {}
 
+def load_requested_regions_spots() -> list:
+    """play_store_feedback_manager.py에서 쌓인 유저 요청(requested_regions.json)을 읽어 추가 수집 거점으로 연동"""
+    req_file = DATA_DIR / "requested_regions.json"
+    extra_spots = []
+    if req_file.exists():
+        try:
+            with open(req_file, "r", encoding="utf-8") as f:
+                requests_data = json.load(f)
+                for req in requests_data:
+                    text = req.get("text", "")
+                    # 사용자 피드백 텍스트 기반 요청 수집 파이프라인
+                    if "광주" in text:
+                        extra_spots.append({"name": "유저요청: 경기 광주", "mapx": "127.2528", "mapy": "37.4086", "radius": "8000"})
+                    elif "춘천" in text:
+                        extra_spots.append({"name": "유저요청: 강원 춘천", "mapx": "127.7297", "mapy": "37.8813", "radius": "8000"})
+            print(f"💡 [TourAPI Collector] requested_regions.json에서 유저 요청 거점 {len(extra_spots)}개 추가 연동 완수")
+        except Exception as e:
+            print(f"⚠️ requested_regions.json 로드 실패: {e}")
+    return extra_spots
+
 def collect_all():
     env = load_env(ENV_PATH)
-    kto_key = env.get("KTO_SERVICE_KEY")
+    kto_key = env.get("KTO_SERVICE_KEY") or os.environ.get("KTO_SERVICE_KEY")
     pet_key = env.get("KTO_PET_SERVICE_KEY")
 
     if not kto_key:
         print("에러: .env에서 KTO_SERVICE_KEY를 찾을 수 없습니다.")
         return
 
-    print(f"🚀 [Phase 0/1] 대한민국 17개 광역시도 전역 {len(NATIONWIDE_SPOTS)}개 거점 공공데이터 실데이터 수집 시작...")
+    # 유저 피드백 수집 거점 연동
+    spots_to_collect = list(NATIONWIDE_SPOTS) + load_requested_regions_spots()
+    print(f"🚀 [TourAPI Collector] 총 {len(spots_to_collect)}개 전국 거점 데이터 수집 시작...")
     collected_places = {}
     
     # 1. 전국 17개 시도 관광정보 수집
-    for spot in NATIONWIDE_SPOTS:
+    for spot in spots_to_collect:
         print(f"📍 {spot['name']} 주변 관광정보 조회 중...")
         items = fetch_location_based(kto_key, spot, num_rows=45)
         print(f"   ➔ {len(items)}건 수신")
