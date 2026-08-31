@@ -102,9 +102,11 @@ def get_chat_ui():
 def get_chat_history(limit: int = 50):
     with db_engine._get_connection() as conn:
         cursor = conn.execute(
-            "SELECT * FROM messages ORDER BY id ASC LIMIT ?", (limit,)
+            "SELECT * FROM messages ORDER BY id DESC LIMIT ?", (limit,)
         )
-        return {"messages": [dict(r) for r in cursor.fetchall()]}
+        rows = [dict(r) for r in cursor.fetchall()]
+        rows.reverse()
+        return {"messages": rows}
 
 @app.websocket("/ws/{agent_name}")
 async def websocket_endpoint(websocket: WebSocket, agent_name: str):
