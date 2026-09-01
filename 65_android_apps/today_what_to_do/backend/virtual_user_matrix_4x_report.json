@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-09-01T19:11:16.902911",
+  "total_runs": 4,
+  "consecutive_4x_pass": true,
+  "total_elapsed_seconds": 74301.03,
+  "runs": [
+    {
+      "run_index": 1,
+      "timestamp": "2026-09-01T03:13:53.088910",
+      "health_rate": "100.00%",
+      "strict_fail_count": 0,
+      "elapsed_seconds": 16857.23,
+      "status": "PASS"
+    },
+    {
+      "run_index": 2,
+      "timestamp": "2026-09-01T07:28:41.289789",
+      "health_rate": "100.00%",
+      "strict_fail_count": 0,
+      "elapsed_seconds": 15287.19,
+      "status": "PASS"
+    },
+    {
+      "run_index": 3,
+      "timestamp": "2026-09-01T13:19:59.775718",
+      "health_rate": "100.00%",
+      "strict_fail_count": 0,
+      "elapsed_seconds": 21077.44,
+      "status": "PASS"
+    },
+    {
+      "run_index": 4,
+      "timestamp": "2026-09-01T19:11:15.873170",
+      "health_rate": "100.00%",
+      "strict_fail_count": 0,
+      "elapsed_seconds": 21075.08,
+      "status": "PASS"
+    }
+  ]
+}

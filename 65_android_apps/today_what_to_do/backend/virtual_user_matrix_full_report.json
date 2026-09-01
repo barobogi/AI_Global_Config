@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-01T13:19:59.775212",
+  "timestamp": "2026-09-01T19:11:15.872166",
   "total_scenarios": 960000,
   "places_recommended_count": 338820,
   "places_recommended_rate": "35.29%",
@@ -8,6 +8,6 @@
   "strict_failed_count": 0,
   "strict_fail_rate": "0.00%",
   "system_health_rate": "100.00%",
-  "elapsed_seconds": 21077.44,
+  "elapsed_seconds": 21075.08,
   "failures": []
 }
