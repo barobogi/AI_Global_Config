@@ -1,5 +1,5 @@
 # 코니 세션 싱크 파일
-**자동 생성**: 2026-08-31 21:06 (master_watch.py)
+**자동 생성**: 2026-09-01 22:52 (master_watch.py)
 **읽는 법**: 이 파일 내용을 코니에게 붙여넣으면 만복이와 즉시 동기화됨.
 
 ---
@@ -42,43 +42,37 @@
 ## 오늘 커밋 요약
 
 **stock_dashboard**
-- 962aba9 auto: 현재가 갱신 2026-08-31T20:44 현재가:34개
-- 831735e auto: 현재가 갱신 2026-08-31T18:42 현재가:35개
-- 7011ac4 auto: 현재가 갱신 2026-08-31T16:39 현재가:35개
-- f0003da auto: 현재가 갱신 2026-08-31T15:41 현재가:35개
-- 4359e08 auto: 현재가 갱신 2026-08-31T14:41 현재가:35개
-- 15913bb auto: 현재가 갱신 2026-08-31T13:42 현재가:35개
-- ce8a0ae auto: 현재가 갱신 2026-08-31T12:41 현재가:34개
-- a0509ec auto: 현재가 갱신 2026-08-31T11:42 현재가:35개
-- 4d88033 auto: 현재가 갱신 2026-08-31T10:41 현재가:35개
-- dfe0367 auto: 현재가 갱신 2026-08-31T09:41 현재가:34개
-- 517740c auto: 현재가 갱신 2026-08-31T08:43 현재가:34개
-- df32472 auto: 현재가 갱신 2026-08-31T06:00 현재가:35개
-- 4656e0e auto: 현재가 갱신 2026-08-31T04:13 현재가:32개
-- 51db76c auto: 현재가 갱신 2026-08-31T02:02 현재가:35개
-- 3366377 auto: 현재가 갱신 2026-08-31T00:16 현재가:34개
-
-**Daily_for_Barobogi**
-- 9e07939 auto: Cowork/CLI 동기화 2026-08-31 00:16
+- b47c588 auto: 현재가 갱신 2026-09-01T22:38 현재가:35개
+- fad5e9a auto: 현재가 갱신 2026-09-01T20:39 현재가:35개
+- 9af2806 auto: 현재가 갱신 2026-09-01T18:38 현재가:35개
+- 9d35ad8 auto: 현재가 갱신 2026-09-01T16:37 현재가:35개
+- 5899f42 auto: 현재가 갱신 2026-09-01T15:40 현재가:35개
+- b11e0cc auto: 현재가 갱신 2026-09-01T14:40 현재가:35개
+- f00803c auto: 현재가 갱신 2026-09-01T13:42 현재가:35개
+- f9e6e2d auto: 현재가 갱신 2026-09-01T12:42 현재가:35개
+- 3e785d1 auto: 현재가 갱신 2026-09-01T11:40 현재가:35개
+- d6f58a7 auto: 현재가 갱신 2026-09-01T10:39 현재가:35개
+- 2567c1e auto: 현재가 갱신 2026-09-01T09:38 현재가:35개
+- f6edaa4 auto: 현재가 갱신 2026-09-01T08:39 현재가:35개
+- 61bd2e6 auto: 현재가 갱신 2026-09-01T06:40 현재가:35개
+- f20341e auto: 현재가 갱신 2026-09-01T04:40 현재가:35개
+- ea6b042 auto: 현재가 갱신 2026-09-01T02:41 현재가:35개
+- b7361ec auto: 현재가 갱신 2026-09-01T00:21 현재가:34개
 
 **AI_Global_Config**
-- 842b09efd docs(release): submit Google Play Store Production Registration Standard Verification Request to Connie and Manbok (developer hanbogi7979@gmail.com, package com.barobogi.todaywhattodo)
-- 77a04a9ae auto: Cowork/CLI 동기화 2026-08-31 00:21
-- a3f4fe4a9 chore: 전국 커버리지 확장 3대 증명 만복 최종 검증 승인
-- 1c57aab06 auto: Cowork/CLI 동기화 2026-08-31 00:14
-- 7321b74a1 auto: Cowork/CLI 동기화 2026-08-31 00:13
-- c70c817f8 auto: Cowork/CLI 동기화 2026-08-31 00:12
-- ad2365103 auto: Cowork/CLI 동기화 2026-08-31 00:09
-- 7a0d281c7 auto: Cowork/CLI 동기화 2026-08-31 00:08
-- 4e648dd5d docs(proof): submit 3 proof points for nationwide coverage expansion (2,060 places, 5km recommendation rate 27.4% -> 39.0%) to Manbok and Connie
-- 35daa8ca4 auto: Cowork/CLI 동기화 2026-08-31 00:06
-- d0e94f453 auto: Cowork/CLI 동기화 2026-08-31 00:05
-- e41d9a3b3 auto: Cowork/CLI 동기화 2026-08-31 00:04
-- 86d1bd764 auto: Cowork/CLI 동기화 2026-08-31 00:04
-- 93170518b auto: Cowork/CLI 동기화 2026-08-31 00:04
-- 00d8cf6b2 auto: Cowork/CLI 동기화 2026-08-31 00:04
-- 50a40ae9d auto: Cowork/CLI 동기화 2026-08-31 00:03
-- f01635e62 auto: Cowork/CLI 동기화 2026-08-31 00:00
+- 91b53b4ae auto: Cowork/CLI 동기화 2026-09-01 21:51
+- 407ab5fda auto: Cowork/CLI 동기화 2026-09-01 18:55
+- 12b9bc850 auto: Cowork/CLI 동기화 2026-09-01 03:19
+- 2526e5cea auto: Cowork/CLI 동기화 2026-09-01 12:53
+- b7305c3e4 auto: Cowork/CLI 동기화 2026-09-01 11:50
+- ea893c69d auto: Cowork/CLI 동기화 2026-09-01 09:26
+- c9bff21d4 auto: Cowork/CLI 동기화 2026-09-01 08:23
+- e84ea44be auto: Cowork/CLI 동기화 2026-09-01 08:16
+- 23ba2e122 auto: Cowork/CLI 동기화 2026-09-01 06:46
+- bea359a52 auto: Cowork/CLI 동기화 2026-09-01 05:21
+- 7123d202d auto: Cowork/CLI 동기화 2026-09-01 04:20
+- 6701482d2 auto: Cowork/CLI 동기화 2026-09-01 03:24
+- 34daee073 auto: Cowork/CLI 동기화 2026-08-31 23:19
 
 ---
 
@@ -102,4 +96,4 @@
 ## 코니 안내
 - 전역 지시사항: `C:\Users\82102\.claude\CLAUDE.md`
 - 세션 브릿지:   `D:\AI\CLAUDE.md`
-- 만복2 오늘 요약: `D:\AI\TEMP_MANBOK\만복2_오늘정리_20260831.md`
+- 만복2 오늘 요약: `D:\AI\TEMP_MANBOK\만복2_오늘정리_20260901.md`
