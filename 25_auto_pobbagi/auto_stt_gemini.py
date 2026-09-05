@@ -34,7 +34,10 @@ def extract_subtitle(video_url, output_txt_path):
             os.remove(audio_path)
         
         print(f'Downloading audio for {video_url}...')
-        subprocess.run(['yt-dlp', '--cookies', 'D:/AI/25_auto_pobbagi/cookies.txt', '-f', 'bestaudio[ext=m4a]', video_url, '-o', audio_path], check=True)
+        cmd = ['yt-dlp', '--js-runtimes', 'node', '-f', 'ba/b[ext=m4a]/best', video_url, '-o', audio_path]
+        if os.path.exists('D:/AI/25_auto_pobbagi/cookies.txt'):
+            cmd.extend(['--cookies', 'D:/AI/25_auto_pobbagi/cookies.txt'])
+        subprocess.run(cmd, check=True)
         
         print('Audio downloaded. Uploading to Gemini...')
         client = genai.Client(api_key=api_key)

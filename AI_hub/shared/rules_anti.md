@@ -1,5 +1,5 @@
 # 📜 3AI 활성 규칙 스냅샷 (ANTI)
-> 자동 생성/동기화: `43_function_dev/02_rule_governance_db/rule_governance.db` (2026-09-01 22:52)
+> 자동 생성/동기화: `43_function_dev/02_rule_governance_db/rule_governance.db` (2026-09-04 19:03)
 > 용도: ANTI 직접 조회용 JIT 규칙 스냅샷
 
 | ID | 규칙명 | 대상 | Trigger Tag | 본문 |
