@@ -29,8 +29,14 @@ app = FastAPI(
     version="0.2.0"
 )
 
+_ADAPTED_CACHE: Dict[tuple, List[Dict[str, Any]]] = {}
+
 # 사용자 GPS 위치에 맞춘 동적 데이터셋 로더 (전국 17개 시도 실존 데이터 기반 100% 진품 좌표 조용)
 def get_adapted_dataset(user_lat: float, user_lon: float) -> List[Dict[str, Any]]:
+    cache_key = (round(user_lat, 4), round(user_lon, 4))
+    if cache_key in _ADAPTED_CACHE:
+        return _ADAPTED_CACHE[cache_key]
+
     places = load_sample_dataset()
     scored_places = []
     for p in places:
@@ -48,8 +54,11 @@ def get_adapted_dataset(user_lat: float, user_lon: float) -> List[Dict[str, Any]
     if scored_places:
         scored_places.sort(key=lambda x: x[0])
         # 좌표 왜곡 없이 실존 장소의 100% 진품 좌표 거리순 반환
-        return [p for _, p in scored_places[:40]]
+        res = [p for _, p in scored_places[:40]]
+        _ADAPTED_CACHE[cache_key] = res
+        return res
 
+    _ADAPTED_CACHE[cache_key] = places
     return places
 
 hard_filter_engine = HardFilterEngine()
@@ -58,8 +67,14 @@ ai_pipeline = ThreeAIPipeline()
 ai_planner = AI1Planner()
 
 
+_CACHED_DATASET: Optional[List[Dict[str, Any]]] = None
+
 # 인메모리 기본 픽스처 및 17개 시도 정속 데이터 로더
 def load_sample_dataset() -> List[Dict[str, Any]]:
+    global _CACHED_DATASET
+    if _CACHED_DATASET is not None:
+        return _CACHED_DATASET
+
     all_places = []
     raw_path = CURRENT_DIR / "data" / "places_raw.json"
     regional_path = CURRENT_DIR / "data" / "regional_authentic_places.json"
@@ -79,9 +94,10 @@ def load_sample_dataset() -> List[Dict[str, Any]]:
             pass
 
     if all_places:
-        return all_places
+        _CACHED_DATASET = all_places
+        return _CACHED_DATASET
     # 폴백 픽스처 데이터셋
-    return [
+    _CACHED_DATASET = [
         {
             "contentid": "1001",
             "title": "국립어린이과학관",
@@ -201,13 +217,28 @@ def get_recommendations(req: RecommendRequest):
     passed_places = filter_result["passed_places"]
 
     # 2. 통과 장소가 없을 경우 조건 순차 완화 (실내/반려동물/예산)
+    is_condition_fallback = False
+    fallback_reasons = []
+
     if not passed_places:
+        is_condition_fallback = True
         fallback_profile = user_profile.copy()
+        if user_profile.get("with_pet"):
+            fallback_reasons.append("반려동물 동반 가능 장소 부재로 일반 명소 완화 추천")
+        if user_profile.get("prefer_indoor"):
+            fallback_reasons.append("실내 장소 부재로 야외 명소 완화 추천")
+        if user_profile.get("budget"):
+            fallback_reasons.append("설정 예산 범위 내 장소 부재로 전체 명소 완화 추천")
+
         fallback_profile["prefer_indoor"] = False
         fallback_profile["with_pet"] = False
         fallback_profile["budget"] = None
         filter_result = hard_filter_engine.filter_candidates(places, fallback_profile, weather_info)
         passed_places = filter_result["passed_places"]
+        for p in passed_places:
+            p["is_condition_fallback"] = True
+            p["is_pet_fallback"] = req.with_pet
+            p["fallback_reasons"] = fallback_reasons
 
     # 3. 그럼에도 통과 장소가 부족할 경우: 인근 광역 대표 명소로 반경 확장 (정직한 거리 표기)
     if not passed_places:
@@ -219,7 +250,10 @@ def get_recommendations(req: RecommendRequest):
         filter_result = hard_filter_engine.filter_candidates(places, extended_profile, weather_info)
         passed_places = filter_result["passed_places"]
         for p in passed_places:
+            p["is_condition_fallback"] = True
             p["is_extended_fallback"] = True
+            p["is_pet_fallback"] = req.with_pet
+            p["fallback_reasons"] = fallback_reasons + ["주변 명소 부족으로 탐색 반경 광역 확장"]
 
     # 3. Score 점수화 및 코스 조합 (동행자 가중치 프리셋 연동)
     custom_score_engine = ScoreEngine(companion_type=req.companion or "default")
