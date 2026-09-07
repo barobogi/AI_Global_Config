@@ -200,13 +200,26 @@ def get_recommendations(req: RecommendRequest):
     filter_result = hard_filter_engine.filter_candidates(places, user_profile, weather_info)
     passed_places = filter_result["passed_places"]
 
-    # 2. 통과 장소가 없을 경우 조건 완화하되, 이동 거리는 사용자 설정 max_distance_km 내로 무조건 스케일링 보장
+    # 2. 통과 장소가 없을 경우 조건 순차 완화 (실내/반려동물/예산)
     if not passed_places:
         fallback_profile = user_profile.copy()
         fallback_profile["prefer_indoor"] = False
         fallback_profile["with_pet"] = False
+        fallback_profile["budget"] = None
         filter_result = hard_filter_engine.filter_candidates(places, fallback_profile, weather_info)
         passed_places = filter_result["passed_places"]
+
+    # 3. 그럼에도 통과 장소가 부족할 경우: 인근 광역 대표 명소로 반경 확장 (정직한 거리 표기)
+    if not passed_places:
+        extended_profile = user_profile.copy()
+        extended_profile["max_distance_km"] = max(req.max_distance_km * 3.0, 30.0)
+        extended_profile["budget"] = None
+        extended_profile["prefer_indoor"] = False
+        extended_profile["with_pet"] = False
+        filter_result = hard_filter_engine.filter_candidates(places, extended_profile, weather_info)
+        passed_places = filter_result["passed_places"]
+        for p in passed_places:
+            p["is_extended_fallback"] = True
 
     # 3. Score 점수화 및 코스 조합 (동행자 가중치 프리셋 연동)
     custom_score_engine = ScoreEngine(companion_type=req.companion or "default")

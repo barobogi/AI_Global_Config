@@ -30,6 +30,18 @@ def check_is_open(place: Dict[str, Any], target_dt: datetime) -> Tuple[bool, str
         # 상세정보가 없으면 기본 통과 (위치기반 데이터만 있는 경우)
         return True, "상세 영업정보 미제공(기본 통과)"
 
+    # 행사/축제(contenttypeid 15) 기간 만료 여부 판정 (과거 행사 추천 원천 차단)
+    event_end = intro.get("eventenddate") or place.get("eventenddate")
+    if event_end:
+        try:
+            end_clean = str(event_end).strip().replace("-", "").replace(".", "")[:8]
+            if len(end_clean) == 8 and end_clean.isdigit():
+                current_ymd = target_dt.strftime("%Y%m%d")
+                if end_clean < current_ymd:
+                    return False, f"행사/축제 기간 만료 (종료일: {end_clean} < 현재: {current_ymd})"
+        except Exception:
+            pass
+
     # 휴무일 문자열 검사
     rest_date_fields = ["restdate", "restdateculture", "restdateleports", "restdateshopping", "restdatefood"]
     rest_str = ""

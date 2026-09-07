@@ -1,0 +1,65 @@
+{
+  "verified_at": "2026-09-07T17:19:33.473298",
+  "total_sigungu_count": 250,
+  "total_scenarios": 7500,
+  "passed_scenarios": 7500,
+  "empty_result_count": 0,
+  "pass_rate_percent": 100.0,
+  "seoul_mismatch_count": 0,
+  "expired_event_count": 0,
+  "distance_overflow_count": 0,
+  "decimal_overflow_count": 0,
+  "elapsed_seconds": 489.66,
+  "sigungu_sample_results": {
+    "서울 종로구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 중구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 용산구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 성동구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 광진구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 동대문구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 중랑구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 성북구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 강북구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    },
+    "서울 도봉구": {
+      "total": 30,
+      "passed": 30,
+      "pass_rate": 100.0
+    }
+  }
+}
