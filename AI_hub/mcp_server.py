@@ -210,15 +210,25 @@ def try_uia_send(agent_id: str, hwnd_or_pid: int, message: str, is_hwnd: bool = 
                 edit.set_focus()
                 time.sleep(0.1)
 
-                # Hardware Scan code for Enter
+                # Try each Enter-submission method in turn, checking after each one -
+                # firing all three unconditionally caused the same message to be
+                # submitted twice when an earlier method already succeeded but the
+                # compose box hadn't visually cleared yet (Kony double-message bug).
                 ctypes.windll.user32.keybd_event(0x0D, 0x1C, 0, 0)
                 time.sleep(0.05)
                 ctypes.windll.user32.keybd_event(0x0D, 0x1C, 2, 0)
-                time.sleep(0.2)
-                pyautogui.hotkey('ctrl', 'enter')
-                time.sleep(0.2)
-                pyautogui.press('enter')
+                time.sleep(0.3)
                 submitted = _box_is_cleared()
+
+                if not submitted:
+                    pyautogui.hotkey('ctrl', 'enter')
+                    time.sleep(0.3)
+                    submitted = _box_is_cleared()
+
+                if not submitted:
+                    pyautogui.press('enter')
+                    time.sleep(0.3)
+                    submitted = _box_is_cleared()
 
                 # Restore previous foreground window if we changed it and submission succeeded
                 if submitted and hwnd_active and hwnd_active != target_hwnd:
@@ -407,12 +417,7 @@ def trigger():
                 "'격발 테스트 확인 완료'로만 짧게 응답해 주세요."
             )
         else:
-            anti_msg = (
-                "새로운 메시지가 수신함(inbox.md)에 도착했습니다.\n\n"
-                "[시스템 경고] 수신함 감시는 외부 워치독(master_watch.py)이 자동 수행합니다. "
-                "절대 자체적으로 백그라운드 태스크나 스케줄을 예약하지 마십시오. "
-                "inbox.md를 한 번 읽고 필요한 응답만 하면 됩니다."
-            )
+            anti_msg = get_dynamic_trigger_message("anti")
         t = threading.Thread(
             target=trigger_agent_ui_task,
             args=("anti", "Antigravity", agent_info.get("shortcut", []), anti_msg, "Antigravity.exe")
