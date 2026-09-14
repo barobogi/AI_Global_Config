@@ -41,8 +41,9 @@ DATA_DIR = BASE_DIR / "data"
 # -------------------------------------------------------------
 # 1. 경로 듀얼 폴백 해석 (로컬 우선, 클라우드 환경에서는 ./data)
 # -------------------------------------------------------------
-LOCAL_RENDER_DIR = Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/renders")
-RENDER_DIR = LOCAL_RENDER_DIR if LOCAL_RENDER_DIR.exists() else (DATA_DIR / "renders")
+RENDER_DIR = BASE_DIR / "renders"
+RENDER_DIR.mkdir(parents=True, exist_ok=True)
+
 
 LOCAL_PLAN_PATH = Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/weekly_plan.json")
 PLAN_PATH = LOCAL_PLAN_PATH if LOCAL_PLAN_PATH.exists() else (DATA_DIR / "weekly_plan.json")
@@ -129,10 +130,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 정적 오디오/비디오 및 업로드 이미지 서빙
-if RENDER_DIR.exists():
-    app.mount("/static/renders", StaticFiles(directory=str(RENDER_DIR)), name="renders")
+@app.get("/static/renders/{filename:path}")
+def serve_renders_file(filename: str):
+    if filename.endswith(".apk"):
+        return FileResponse(
+            path=str(V17_APK_PATH),
+            filename="SecondBrain_v1.7.apk",
+            content_disposition_type="attachment",
+            media_type="application/vnd.android.package-archive"
+        )
+    target = RENDER_DIR / filename
+    if not target.exists():
+        creator_target = Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/renders") / filename
+        if creator_target.exists():
+            target = creator_target
+        else:
+            raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(path=str(target))
+
 app.mount("/static/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+
 
 # -------------------------------------------------------------
 # 4. 데이터 모델 정의
@@ -158,10 +175,38 @@ class SendMessageRequest(BaseModel):
 def health_check():
     return {
         "status": "OK",
-        "service": "Barobogi Second Brain & 3AI Live Hub",
-        "database": str(DB_PATH),
-        "renders": str(RENDER_DIR)
+        "timestamp": datetime.now().isoformat(),
+        "db": "Connected" if DB_PATH.exists() else "Missing"
     }
+
+V18_APK_PATH = Path("D:/AI/65_android_apps/barobogi_second_brain/SecondBrain_v1.8.apk")
+
+@app.get("/download/v1.8")
+@app.get("/download/SecondBrain_v1.8.apk")
+@app.get("/download/app-debug.apk")
+@app.get("/download/SecondBrain_v1.7.apk")
+@app.get("/download/latest")
+@app.get("/dl")
+def download_second_brain_v18_apk():
+    target = V18_APK_PATH
+    if not target.exists():
+        target = Path("D:/AI/65_android_apps/barobogi_second_brain/android/app/build/outputs/apk/debug/app-debug.apk")
+    if not target.exists():
+        raise HTTPException(status_code=404, detail="SecondBrain v1.8 APK file not found")
+    
+    file_size = target.stat().st_size
+    return FileResponse(
+        path=str(target),
+        filename="SecondBrain_v1.8.apk",
+        content_disposition_type="attachment",
+        media_type="application/octet-stream",
+        headers={
+            "Content-Length": str(file_size),
+            "Accept-Ranges": "bytes"
+        }
+    )
+
+
 
 @app.get("/api/v1/briefings/latest")
 def get_latest_briefing(target_date: str = None):
@@ -204,36 +249,168 @@ def get_latest_briefing(target_date: str = None):
         "dialogue": matched["dialogue"]
     }
 
+def parse_clean_knowledge_content(content: str) -> str:
+    """트랜스크립트 파일에서 동영상 정보 메타데이터 및 STT 지침 문구를 제외한 순수 지식 노하우 본문만 추출"""
+    lines = content.splitlines()
+    clean_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if any(stripped.startswith(prefix) for prefix in [
+            "[동영상 정보]", "제목:", "URL:", "출처 채널:", "NotebookLM Source ID:",
+            "글자수:", "추출일시:", "[자막 및 트랜스크립트 전문]", "이 오디오의 내용을", "한국어 자막"
+        ]):
+            continue
+        clean_lines.append(stripped)
+    return " ".join(clean_lines)
+
+SUMMARIES_PATH = DATA_DIR / "knowledge_summaries.json"
+
+@app.get("/api/v1/knowledge/list")
+def list_all_knowledge():
+    """184개 실데이터 지식 DB 전수 목록 반환 (Gemini 2.5 Flash 3-Tier 지식 DB 반영)"""
+    if SUMMARIES_PATH.exists():
+        try:
+            with open(SUMMARIES_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            items = data.get("items", [])
+            for item in items:
+                item["audio_url"] = f"/api/v1/knowledge/audio/{item['id']}"
+                if "snippet" not in item:
+                    item["snippet"] = item.get("three_line_summary", "")[:200]
+            return {"total_entries": len(items), "items": items}
+        except Exception:
+            pass
+
+    items = []
+    if TRANSCRIPTS_DIR.exists():
+        files = sorted(glob.glob(os.path.join(str(TRANSCRIPTS_DIR), "*.txt")) + glob.glob(os.path.join(str(TRANSCRIPTS_DIR), "*.vtt")))
+        for filepath in files:
+            try:
+                fname = os.path.basename(filepath)
+                ext = fname.split(".")[-1]
+                title = fname
+                snippet = ""
+                with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+                    raw_content = f.read(3000)
+                    for line in raw_content.splitlines()[:6]:
+                        if line.startswith("제목:"):
+                            title = line.replace("제목:", "").strip()
+                            break
+                    clean_body = parse_clean_knowledge_content(raw_content)
+                    snippet = clean_body[:200]
+                items.append({
+                    "id": fname,
+                    "title": title,
+                    "ext": ext,
+                    "snippet": snippet,
+                    "audio_url": f"/api/v1/knowledge/audio/{fname}"
+                })
+            except Exception:
+                continue
+    return {"total_entries": len(items), "items": items}
+
+@app.get("/api/v1/knowledge/audio/{item_id:path}")
+async def get_knowledge_item_audio(item_id: str):
+    """지식 DB 특정 항목 전용 1분 앵커 TTS 동적 합성 및 스트리밍 서빙"""
+    title = item_id
+    tts_text = ""
+
+    if SUMMARIES_PATH.exists():
+        try:
+            with open(SUMMARIES_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for item in data.get("items", []):
+                if item.get("id") == item_id or item.get("id") == f"{item_id}.txt":
+                    title = item.get("title", item_id)
+                    tts_text = item.get("tts_script", "")
+                    break
+        except Exception:
+            pass
+
+    if not tts_text:
+        target_file = TRANSCRIPTS_DIR / item_id
+        if not target_file.exists():
+            target_file = TRANSCRIPTS_DIR / f"{item_id}.txt"
+        if target_file.exists():
+            try:
+                with open(target_file, "r", encoding="utf-8", errors="ignore") as f:
+                    raw_content = f.read(3000)
+                    for line in raw_content.splitlines()[:6]:
+                        if line.startswith("제목:"):
+                            title = line.replace("제목:", "").strip()
+                            break
+                    clean_body = parse_clean_knowledge_content(raw_content)
+                    tts_text = f"지식 DB 항목. {title}. 요약 노하우: {clean_body[:250]}"
+            except Exception:
+                pass
+
+    if not tts_text:
+        tts_text = f"지식 DB 항목. {title}"
+
+    safe_name = "".join([c if c.isalnum() else "_" for c in item_id])
+    cached_mp3 = RENDER_DIR / f"item_tts_v3_{safe_name}.mp3"
+    
+    if not cached_mp3.exists() or cached_mp3.stat().st_size == 0:
+        import edge_tts
+        processed_text = tts_text.replace("3AI", "쓰리에이아이").replace("AI", "에이아이").replace("DB", "디비").replace("API", "에이피아이")
+        communicate = edge_tts.Communicate(processed_text, "ko-KR-HyunsuMultilingualNeural", rate="+2%")
+        await communicate.save(str(cached_mp3))
+
+    return FileResponse(path=str(cached_mp3), media_type="audio/mpeg", filename=f"{safe_name}.mp3")
+
+
 @app.get("/api/v1/knowledge/search")
 def search_knowledge(q: str = Query(..., min_length=1)):
-    """지식 풀텍스트 검색 (제목 및 132개 트랜스크립트 탐색)"""
+    """지식 풀텍스트 및 키워드/요약 검색"""
     results = []
+    q_lower = q.lower()
+
+    if SUMMARIES_PATH.exists():
+        try:
+            with open(SUMMARIES_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for item in data.get("items", []):
+                text_to_search = f"{item.get('title', '')} {' '.join(item.get('keywords', []))} {item.get('three_line_summary', '')} {item.get('deep_insights', '')} {item.get('category', '')}"
+                if q_lower in text_to_search.lower():
+                    results.append({
+                        "file": item.get("title", item.get("id")),
+                        "id": item.get("id"),
+                        "category": item.get("category", ""),
+                        "snippet": item.get("three_line_summary", "")[:200],
+                        "audio_url": f"/api/v1/knowledge/audio/{item['id']}"
+                    })
+            if results:
+                return {"query": q, "total_matches": len(results), "results": results}
+        except Exception:
+            pass
+
     if TRANSCRIPTS_DIR.exists():
         files = glob.glob(os.path.join(str(TRANSCRIPTS_DIR), "*.txt"))
         for filepath in files:
             try:
                 with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
                     content = f.read()
-                    if q.lower() in content.lower():
-                        # 동영상 정보 헤더에서 제목 추출
+                    if q_lower in content.lower():
                         title = os.path.basename(filepath)
                         for line in content.splitlines()[:6]:
                             if line.startswith("제목:"):
                                 title = line.replace("제목:", "").strip()
                                 break
                                 
-                        idx = content.lower().find(q.lower())
+                        idx = content.lower().find(q_lower)
                         snippet = content[max(0, idx - 40): min(len(content), idx + 160)]
                         results.append({
                             "file": title,
-                            "snippet": snippet.replace("\n", " ")
+                            "id": os.path.basename(filepath),
+                            "snippet": snippet,
+                            "audio_url": f"/api/v1/knowledge/audio/{os.path.basename(filepath)}"
                         })
-                        if len(results) >= 20:
-                            break
             except Exception:
                 continue
-                
-    return {"query": q, "total_matches": len(results), "items": results}
+    return {"query": q, "total_matches": len(results), "results": results}
+
 
 @app.post("/api/v1/knowledge/share")
 def ingest_shared_item(req: ShareRequest):
@@ -486,6 +663,28 @@ async def websocket_endpoint(websocket: WebSocket, agent_name: str):
     except WebSocketDisconnect:
         manager.disconnect(websocket, agent_name)
 
+@app.get("/dl-hodu")
+async def download_hodu_apk():
+    apk_path = Path("D:/AI/65_android_apps/hodu_ai/android/app/build/outputs/apk/debug/app-debug.apk")
+    if not apk_path.exists():
+        raise HTTPException(status_code=404, detail="Hodu AI APK NOT FOUND.")
+    return FileResponse(
+        path=apk_path,
+        media_type="application/vnd.android.package-archive",
+        filename="HoduAI_v0.2.apk"
+    )
+
+@app.get("/dl-video")
+async def download_video():
+    video_path = Path("D:/AI/AutoVideo_Final.mp4")
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="Video NOT FOUND.")
+    return FileResponse(
+        path=video_path,
+        media_type="video/mp4",
+        filename="AutoVideo_Final.mp4"
+    )
+
 @app.get("/dl")
 async def download_apk():
     apk_path = Path("D:/AI/65_android_apps/barobogi_second_brain/android/app/build/outputs/apk/debug/app-debug.apk")
@@ -497,7 +696,45 @@ async def download_apk():
         media_type="application/vnd.android.package-archive"
     )
 
+LEARNING_REVIEW_DIR = Path("D:/AI/65_android_apps/hodu_ai/learning_review")
+LEARNING_REVIEW_DIR.mkdir(parents=True, exist_ok=True)
+
+@app.post("/learning_review")
+async def receive_learning_data(request: Request):
+    """Android 호두AI 앱에서 수집한 학습 데이터(텍스트+음성 경로)를 수신"""
+    try:
+        payload = await request.json()
+        count = payload.get("count", 0)
+        device = payload.get("device", "unknown")
+        app_ver = payload.get("appVersion", "?")
+        examples = payload.get("examples", [])
+
+        # 파일로 저장
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        save_path = LEARNING_REVIEW_DIR / f"learning_{ts}.json"
+        with open(save_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+
+        audio_count = sum(1 for ex in examples if ex.get("hasAudio"))
+
+        # 3AI 실시간 채팅에 알림
+        notify_msg = (
+            f"📚 [호두AI 학습 데이터 도착]\n"
+            f"기기: {device} | 버전: v{app_ver}\n"
+            f"총 {count}건 수신 (음성 포함: {audio_count}건)\n"
+            f"저장 위치: {save_path.name}\n"
+            f"→ 3AI 검토 요청: D:/AI/65_android_apps/hodu_ai/learning_review/"
+        )
+        try:
+            engine_3ai.save_message("시스템", notify_msg)
+        except Exception:
+            pass
+
+        return JSONResponse({"status": "ok", "received": count, "saved": str(save_path.name)})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 8765))
+    port = int(os.environ.get("PORT", 8090))
     uvicorn.run(app, host="0.0.0.0", port=port)
