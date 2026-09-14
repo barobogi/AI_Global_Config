@@ -16,7 +16,7 @@ object ServerConfig {
     private const val KEY_SELECTED_MODE = "key_selected_mode" // "AUTO", "INTERNAL", "EXTERNAL"
 
     const val DEFAULT_INTERNAL_URL = "http://192.168.55.75:8765"
-    const val DEFAULT_EXTERNAL_URL = "https://arrives-engine-structures-depends.trycloudflare.com"
+    const val DEFAULT_EXTERNAL_URL = "https://notes-allowance-dozen-pieces.trycloudflare.com"
 
     @Volatile
     var activeBaseUrl: String = DEFAULT_EXTERNAL_URL
