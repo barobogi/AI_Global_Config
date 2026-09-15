@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": 1789377512.6230254,
+    "timestamp_iso": "2026-09-14T09:18:32Z",
+    "provider": "google.genai",
+    "model": "gemini-2.5-flash",
+    "status_code": 200,
+    "latency_sec": 14.105,
+    "input_hash": "155383cbe7bde1aa",
+    "output_hash": "82a69a24a7e2fa85"
+  },
+  {
+    "timestamp": 1789377526.0733266,
+    "timestamp_iso": "2026-09-14T09:18:46Z",
+    "provider": "google.genai",
+    "model": "gemini-2.5-flash",
+    "status_code": 200,
+    "latency_sec": 13.449,
+    "input_hash": "068bb240e979d6b1",
+    "output_hash": "58af24f5e2bbe898"
+  },
+  {
+    "timestamp": 1789377536.990414,
+    "timestamp_iso": "2026-09-14T09:18:56Z",
+    "provider": "google.genai",
+    "model": "gemini-2.5-flash",
+    "status_code": 200,
+    "latency_sec": 10.909,
+    "input_hash": "befed916402ec038",
+    "output_hash": "25a613f375d87bf9"
+  }
+]

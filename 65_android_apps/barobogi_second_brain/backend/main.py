@@ -29,8 +29,21 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from pydantic import BaseModel
 
-sys.path.insert(0, r"D:\AI\43_function_dev\01_realtime_3ai")
-from realtime_engine import Realtime3AIEngine, _get_agent_secret
+_LOCAL_REALTIME_DIR = r"D:\AI\43_function_dev\01_realtime_3ai"
+if os.path.isdir(_LOCAL_REALTIME_DIR):
+    sys.path.insert(0, _LOCAL_REALTIME_DIR)
+    from realtime_engine import Realtime3AIEngine, _get_agent_secret
+else:
+    # Render 등 로컬 PC 경로가 없는 클라우드 환경 - 3AI 채팅 트리거만 비활성화(no-op), 나머지 API는 정상 동작
+    class Realtime3AIEngine:
+        def send_message(self, *args, **kwargs):
+            return None
+
+        def save_message(self, *args, **kwargs):
+            return None
+
+    def _get_agent_secret(name):
+        return None
 
 engine_3ai = Realtime3AIEngine()
 CLINE_WEBHOOK_TOKEN = os.environ.get("CLINE_SESSION_TOKEN") or _get_agent_secret("cline")
