@@ -184,12 +184,16 @@ class SendMessageRequest(BaseModel):
 # -------------------------------------------------------------
 # 5. 세컨드 브레인 API 라우트
 # -------------------------------------------------------------
+@app.get("/")
+@app.get("/health")
+@app.get("/api/health")
 @app.get("/api/v1/health")
 def health_check():
     return {
         "status": "OK",
+        "service": "Barobogi Second Brain & 3AI Real-Time Hub API",
         "timestamp": datetime.now().isoformat(),
-        "db": "Connected" if DB_PATH.exists() else "Missing"
+        "db": "Connected" if DB_PATH.exists() else "Cloud (No Local DB)"
     }
 
 V18_APK_PATH = Path("D:/AI/65_android_apps/barobogi_second_brain/SecondBrain_v1.8.apk")
