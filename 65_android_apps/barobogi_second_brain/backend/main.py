@@ -145,13 +145,6 @@ app.add_middleware(
 
 @app.get("/static/renders/{filename:path}")
 def serve_renders_file(filename: str):
-    if filename.endswith(".apk"):
-        return FileResponse(
-            path=str(V17_APK_PATH),
-            filename="SecondBrain_v1.7.apk",
-            content_disposition_type="attachment",
-            media_type="application/vnd.android.package-archive"
-        )
     target = RENDER_DIR / filename
     if not target.exists():
         creator_target = Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/renders") / filename
@@ -159,7 +152,8 @@ def serve_renders_file(filename: str):
             target = creator_target
         else:
             raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(path=str(target))
+    media_type = "application/vnd.android.package-archive" if filename.endswith(".apk") else None
+    return FileResponse(path=str(target), media_type=media_type)
 
 app.mount("/static/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
