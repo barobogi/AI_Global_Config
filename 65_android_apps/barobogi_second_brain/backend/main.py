@@ -231,7 +231,9 @@ def get_latest_briefing(target_date: str = None):
     if not plan:
         raise HTTPException(status_code=404, detail="Empty briefing plan")
         
-    today_str = target_date or datetime.now().strftime("%Y-%m-%d")
+    from datetime import timezone, timedelta
+    KST = timezone(timedelta(hours=9))
+    today_str = target_date or datetime.now(KST).strftime("%Y-%m-%d")
     
     matched = None
     for item in plan:
