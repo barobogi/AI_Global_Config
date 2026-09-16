@@ -1,52 +1,257 @@
 {
-    "pending_shorts": [],
-    "pending_full": [
-        {
-            "video_id": "cogwbtcNMjw",
-            "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
-            "type": "full",
-            "status": "unlisted",
-            "uploaded_at": "2026-07-25 07:33:19"
-        },
-        {
-            "video_id": "10D8uhjM-mI",
-            "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
-            "type": "full",
-            "status": "unlisted",
-            "uploaded_at": "2026-07-25 20:05:17"
-        },
-        {
-            "video_id": "vjwA1NWQFD8",
-            "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
-            "type": "full",
-            "status": "unlisted",
-            "uploaded_at": "2026-07-25 20:05:35"
-        }
-    ],
-    "published": [
-        {
-            "video_id": "UArosVpcjVo",
-            "title": "[S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 #Shorts",
-            "type": "shorts",
-            "status": "public",
-            "uploaded_at": "2026-07-23 20:41:37",
-            "published_at": "2026-07-23 20:42:11"
-        },
-        {
-            "video_id": "GiC8vPxyvG0",
-            "title": "[S.04] 코딩 몰라도 인기 유튜브 채널 벤치마킹하는 법 #Shorts",
-            "type": "shorts",
-            "status": "public",
-            "uploaded_at": "2026-07-28 20:39:05",
-            "published_at": "2026-07-28 22:00:12"
-        },
-        {
-            "video_id": "zjo3RHbeUGU",
-            "title": "[S.05] AI는 어떻게 유튜브를 보고 스스로 진화할까? #Shorts",
-            "type": "shorts",
-            "status": "public",
-            "uploaded_at": "2026-07-30 03:30:34",
-            "published_at": "2026-08-13 22:00:18"
-        }
-    ]
+  "pending_shorts": [
+    {
+      "episode_id": "DAILY_20260907",
+      "title": "[2026-09-07 월요일] AI가 사람처럼 기억을 저장하는 방법 (Git-native Memory) #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: AI가 사람처럼 기억을 저장하는 방법 (Git-native Memory)\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260907.mp4",
+      "scheduled_date": "2026-09-07",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260908",
+      "title": "[2026-09-08 화요일] 오픈소스는 돈 못 번다? 충격적인 딥시크(DeepSeek) 근황 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 오픈소스는 돈 못 번다? 충격적인 딥시크(DeepSeek) 근황\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260908.mp4",
+      "scheduled_date": "2026-09-08",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260909",
+      "title": "[2026-09-09 수요일] 구글이 웹사이트를 AI 에이전트용으로 바꾸기 시작했다 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 구글이 웹사이트를 AI 에이전트용으로 바꾸기 시작했다\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260909.mp4",
+      "scheduled_date": "2026-09-09",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260910",
+      "title": "[2026-09-10 목요일] OpenAI GPT-6 Astra 공개와 2026 AGI 선언 분석 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: OpenAI GPT-6 Astra 공개와 2026 AGI 선언 분석\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260910.mp4",
+      "scheduled_date": "2026-09-10",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260911",
+      "title": "[2026-09-11 금요일] Cloudflare Workers 기반 비용 0원 AI 에이전트 구축 실무 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: Cloudflare Workers 기반 비용 0원 AI 에이전트 구축 실무\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260911.mp4",
+      "scheduled_date": "2026-09-11",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260912",
+      "title": "[2026-09-12 토요일] 하루가 다르게 진화하는 생성형 영상 AI와 텍스트-투-비디오 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 하루가 다르게 진화하는 생성형 영상 AI와 텍스트-투-비디오\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260912.mp4",
+      "scheduled_date": "2026-09-12",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260913",
+      "title": "[2026-09-13 일요일] 1인 AI 기업의 무기, 3AI 협업 거버넌스와 세컨드 브레인 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 1인 AI 기업의 무기, 3AI 협업 거버넌스와 세컨드 브레인\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260913.mp4",
+      "scheduled_date": "2026-09-13",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "video_id": "Pdr-dHLbHiI",
+      "title": "[S.07] 960,000건 전수 테스트와 20인 테스터 비밀 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-09-13 16:30:41"
+    },
+    {
+      "video_id": "Gbur2TOKztY",
+      "title": "[바로보기 세컨드 브레인] 왜 만들었나 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-09-14 07:08:42"
+    },
+    {
+      "video_id": "DLhiazSU3Fc",
+      "title": "[S.08] 판단이 세 번 바뀐 날 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-09-15 18:01:59"
+    },
+    {
+      "episode_id": "DAILY_20260914",
+      "title": "[2026-09-14 월요일] 바로보기 세컨드 브레인 v1.2 출시와 179개 전수 지식 라이브러리 연동 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 바로보기 세컨드 브레인 v1.2 출시와 179개 전수 지식 라이브러리 연동\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260914_v4.mp4",
+      "scheduled_date": "2026-09-14",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260915",
+      "title": "[2026-09-15 화요일] 최신 AI 테크 딥다이브 #1 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 최신 AI 테크 딥다이브 #1\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260915_v4.mp4",
+      "scheduled_date": "2026-09-15",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260916",
+      "title": "[2026-09-16 수요일] 3AI 실시간 무인 자동화 및 Render 클라우드 무장애 서빙 파이프라인 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 3AI 실시간 무인 자동화 및 Render 클라우드 무장애 서빙 파이프라인\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260916_v4.mp4",
+      "scheduled_date": "2026-09-16",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260917",
+      "title": "[2026-09-17 목요일] D-1 사전 생성 파이프라인과 이중 안전망을 통한 지식 서빙 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: D-1 사전 생성 파이프라인과 이중 안전망을 통한 지식 서빙\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260917_v4.mp4",
+      "scheduled_date": "2026-09-17",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260918",
+      "title": "[2026-09-18 금요일] Edge-TTS 기반 3AI 다중 화자 음성 합성 파이프라인 무인화 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: Edge-TTS 기반 3AI 다중 화자 음성 합성 파이프라인 무인화\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260918_v4.mp4",
+      "scheduled_date": "2026-09-18",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260919",
+      "title": "[2026-09-19 토요일] faster-whisper 단어 단위 타임스탬프 기반 자동 자막 및 V4 렌더링 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: faster-whisper 단어 단위 타임스탬프 기반 자동 자막 및 V4 렌더링\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260919_v4.mp4",
+      "scheduled_date": "2026-09-19",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    },
+    {
+      "episode_id": "DAILY_20260920",
+      "title": "[2026-09-20 일요일] 세컨드 브레인 1인 AI 기업 자동화 시스템 1주간 완전 정착 총결산 #3AI라디오 #Shorts",
+      "description": "3AI(만복, 코니, 안티)의 매일 아침 테크 브리핑!\n\n오늘의 주제: 세컨드 브레인 1인 AI 기업 자동화 시스템 1주간 완전 정착 총결산\n\n#AI #인공지능 #테크브리핑 #3AI연구소 #Shorts",
+      "video_path": "D:\\AI\\63_youtube_creator\\pipeline\\daily_briefing\\renders\\DAILY_20260920_v4.mp4",
+      "scheduled_date": "2026-09-20",
+      "type": "daily_shorts",
+      "status": "ready_to_upload"
+    }
+  ],
+  "pending_full": [
+    {
+      "video_id": "cogwbtcNMjw",
+      "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
+      "type": "full",
+      "status": "unlisted",
+      "uploaded_at": "2026-07-25 07:33:19"
+    },
+    {
+      "video_id": "10D8uhjM-mI",
+      "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
+      "type": "full",
+      "status": "unlisted",
+      "uploaded_at": "2026-07-25 20:05:17"
+    },
+    {
+      "video_id": "vjwA1NWQFD8",
+      "title": "[EP.02] 완벽한 시스템을 뻗게 만든 '무한 루프' 사태와 유튜브 지식창고 자동화",
+      "type": "full",
+      "status": "unlisted",
+      "uploaded_at": "2026-07-25 20:05:35"
+    },
+    {
+      "video_id": "hZ6Sx5drKyw",
+      "title": "[3AI 브리핑] AI가 사람처럼 기억을 저장하는 방법 (구글 OKF 스펙 기반 okf-agent-memory) #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-07 07:09:46"
+    },
+    {
+      "video_id": "F3KJi660s7g",
+      "title": "[3AI 브리핑] 오픈소스는 돈 못 번다? 딥시크(DeepSeek V4)의 충격적 흑자 근황 #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-08 07:00:11"
+    },
+    {
+      "video_id": "jp1g24yrPkA",
+      "title": "[3AI 브리핑] AI 에이전트용 웹 규격(llms.txt) 논쟁: 구글의 냉정한 시선과 크롤링의 현실 #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-09 07:00:09"
+    },
+    {
+      "video_id": "je59ifs1uBM",
+      "title": "[3AI 브리핑] OpenAI GPT-6 Astra 공개와 알트먼의 연내 자체정의 AGI 달성 예고(단 아직 미도달) #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-10 07:00:24"
+    },
+    {
+      "video_id": "SLyk9tZweyU",
+      "title": "[3AI 브리핑] Cloudflare Workers 기반 비용 0원 AI 에이전트 구축 실무 #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-11 07:00:15"
+    },
+    {
+      "video_id": "zlhvZmuvSOo",
+      "title": "[3AI 브리핑] 1인 AI 기업의 무기, 3AI 협업 거버넌스와 세컨드 브레인 #shorts",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-13 07:00:16"
+    },
+    {
+      "video_id": "kOZEqLAucnk",
+      "title": "[EP.04] 사람 없이 대화하는 AI들 — 실시간 3AI 채널 구축기",
+      "type": "full",
+      "status": "public",
+      "uploaded_at": "2026-09-13 16:48:48"
+    }
+  ],
+  "published": [
+    {
+      "video_id": "UArosVpcjVo",
+      "title": "[S.03] 젠스파크 착안, 10초 컷 병렬 리서치 공개 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-07-23 20:41:37",
+      "published_at": "2026-07-23 20:42:11"
+    },
+    {
+      "video_id": "GiC8vPxyvG0",
+      "title": "[S.04] 코딩 몰라도 인기 유튜브 채널 벤치마킹하는 법 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-07-28 20:39:05",
+      "published_at": "2026-07-28 22:00:12"
+    },
+    {
+      "video_id": "zjo3RHbeUGU",
+      "title": "[S.05] AI는 어떻게 유튜브를 보고 스스로 진화할까? #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-07-30 03:30:34",
+      "published_at": "2026-08-13 22:00:18"
+    },
+    {
+      "video_id": "IMvLlOGYiuk",
+      "title": "[S.06] 화면이 꺼져도 배관은 살아있었다 #Shorts",
+      "type": "shorts",
+      "status": "public",
+      "uploaded_at": "2026-09-08 22:15:50",
+      "published_at": "2026-09-08 22:15:50"
+    }
+  ]
 }
