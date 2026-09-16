@@ -474,6 +474,49 @@ def get_chat_history(limit: int = 50):
         rows.reverse()
         return {"messages": rows}
 
+@app.post("/api/v1/chat/sync")
+async def sync_chat_messages(request: Request):
+    """로컬 3AI DB 메시지를 Render 클라우드 백엔드로 실시간/배치 동기화 수신"""
+    try:
+        payload = await request.json()
+        msgs = payload.get("messages", [])
+        if not msgs:
+            return {"status": "ok", "synced": 0}
+
+        synced_count = 0
+        with get_db_connection() as conn:
+            for m in msgs:
+                try:
+                    meta_str = m.get("metadata")
+                    if isinstance(meta_str, dict):
+                        meta_str = json.dumps(meta_str, ensure_ascii=False)
+                    conn.execute(
+                        """
+                        INSERT OR IGNORE INTO messages (msg_id, conversation_id, sender, recipient, content, tier, status, metadata, created_at, auth_signature, log_hash)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            m.get("msg_id"),
+                            m.get("conversation_id", "general"),
+                            m.get("sender"),
+                            m.get("recipient", "all"),
+                            m.get("content"),
+                            m.get("tier", 1),
+                            m.get("status", "read"),
+                            meta_str or "{}",
+                            m.get("created_at"),
+                            m.get("auth_signature", "0" * 64),
+                            m.get("log_hash", "0" * 64)
+                        )
+                    )
+                    synced_count += 1
+                except Exception:
+                    continue
+            conn.commit()
+        return {"status": "ok", "synced": synced_count}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/api/cline/webhook")
 async def cline_webhook(request: Request, authorization: Optional[str] = Header(None)):
     """Cline 확장(saoudrizwan.claude-dev)의 TaskStart/PostToolUse/TaskComplete 훅이 쏘는 이벤트 수신.
