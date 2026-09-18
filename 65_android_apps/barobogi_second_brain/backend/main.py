@@ -143,17 +143,34 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/download/{item:path}")
 @app.get("/static/renders/{filename:path}")
-def serve_renders_file(filename: str):
-    target = RENDER_DIR / filename
-    if not target.exists():
-        creator_target = Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/renders") / filename
-        if creator_target.exists():
-            target = creator_target
-        else:
-            raise HTTPException(status_code=404, detail="File not found")
-    media_type = "application/vnd.android.package-archive" if filename.endswith(".apk") else None
-    return FileResponse(path=str(target), media_type=media_type)
+def serve_renders_file(filename: str = "", item: str = ""):
+    target_name = filename or item
+    if target_name in ["v2.1", "v2.1.apk", "SecondBrain_v2.1.apk"]:
+        target_name = "SecondBrain_v2.1.apk"
+    elif target_name in ["v2.0", "v2.0.apk", "SecondBrain_v2.0.apk"]:
+        target_name = "SecondBrain_v2.0.apk"
+        
+    candidates = [
+        RENDER_DIR / target_name,
+        BASE_DIR / target_name,
+        BASE_DIR.parent / target_name,
+        Path("D:/AI") / target_name,
+        Path("D:/AI/63_youtube_creator/pipeline/daily_briefing/renders") / target_name
+    ]
+    
+    target = None
+    for cand in candidates:
+        if cand.exists() and cand.is_file():
+            target = cand
+            break
+            
+    if not target:
+        raise HTTPException(status_code=404, detail=f"APK/File '{target_name}' not found")
+        
+    media_type = "application/vnd.android.package-archive" if target_name.endswith(".apk") else None
+    return FileResponse(path=str(target), media_type=media_type, filename=target.name)
 
 app.mount("/static/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
@@ -175,6 +192,18 @@ class SendMessageRequest(BaseModel):
     metadata: Optional[dict] = None
     auth_token: Optional[str] = None
 
+class PobbagiDesignateRequest(BaseModel):
+    item_id: str
+    title: str
+    snippet: Optional[str] = ""
+
+class VoiceRecordRequest(BaseModel):
+    title: Optional[str] = ""
+    transcript: Optional[str] = ""
+    audio_base64: Optional[str] = None
+
+POBBAGI_DB_PATH = DATA_DIR / "pobbagi_db.json"
+
 # -------------------------------------------------------------
 # 5. 세컨드 브레인 API 라우트
 # -------------------------------------------------------------
@@ -190,25 +219,25 @@ def health_check():
         "db": "Connected" if DB_PATH.exists() else "Cloud (No Local DB)"
     }
 
-V18_APK_PATH = Path("D:/AI/65_android_apps/barobogi_second_brain/SecondBrain_v1.8.apk")
+V21_APK_PATH = Path("D:/AI/65_android_apps/barobogi_second_brain/SecondBrain_v2.1.apk")
 
-@app.get("/download/v1.8")
-@app.get("/download/SecondBrain_v1.8.apk")
-@app.get("/download/app-debug.apk")
-@app.get("/download/SecondBrain_v1.7.apk")
+@app.get("/download/v2.1")
+@app.get("/download/SecondBrain_v2.1.apk")
+@app.get("/download/v2.0")
+@app.get("/download/SecondBrain_v2.0.apk")
 @app.get("/download/latest")
 @app.get("/dl")
-def download_second_brain_v18_apk():
-    target = V18_APK_PATH
+def download_second_brain_v21_apk():
+    target = V21_APK_PATH
     if not target.exists():
         target = Path("D:/AI/65_android_apps/barobogi_second_brain/android/app/build/outputs/apk/debug/app-debug.apk")
     if not target.exists():
-        raise HTTPException(status_code=404, detail="SecondBrain v1.8 APK file not found")
+        raise HTTPException(status_code=404, detail="SecondBrain v2.1 APK file not found")
     
     file_size = target.stat().st_size
     return FileResponse(
         path=str(target),
-        filename="SecondBrain_v1.8.apk",
+        filename="SecondBrain_v2.1.apk",
         content_disposition_type="attachment",
         media_type="application/octet-stream",
         headers={
@@ -450,6 +479,48 @@ def ingest_shared_item(req: ShareRequest):
         json.dump(queue, f, ensure_ascii=False, indent=2)
         
     return {"status": "SUCCESS", "message": "URL queued for 3AI Second Brain ingestion"}
+
+@app.post("/api/v1/knowledge/pobbagi/designate")
+def designate_pobbagi_item(req: PobbagiDesignateRequest):
+    """모바일 4번째 탭 [🔨 뽀개기 지정] 수신 및 3AI 뽀개기 파이프라인 가동"""
+    from pobbagi_pipeline_runner import run_pobbagi_pipeline
+    run_pobbagi_pipeline(req.item_id, req.title, req.snippet or "")
+    return {
+        "status": "success",
+        "message": f"3AI 뽀개기 파이프라인 가동 (1차 초안 작성 ➔ 만복이 검수 전달 완료)",
+        "item_id": req.item_id
+    }
+
+@app.get("/api/v1/knowledge/pobbagi/results")
+def get_pobbagi_results():
+    """모바일 5번째 탭 [🔥 뽀개기 리포트] 서빙"""
+    if POBBAGI_DB_PATH.exists():
+        try:
+            with open(POBBAGI_DB_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            items = data.get("items", [])
+            return {"total_entries": len(items), "items": items}
+        except Exception:
+            pass
+    return {"total_entries": 0, "items": []}
+
+@app.post("/api/v1/audio/record_ingest")
+def record_voice_ingest(req: VoiceRecordRequest):
+    """PLAUD 대체 모바일 마이크 1-Tap 원터치 음성 녹음 수신 및 3AI 뽀개기 자동 인제스트"""
+    now_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    item_id = f"VOICE_REC_{now_str}"
+    title = req.title or f"🎙️ 1-Tap 음성 아이디어 브리핑 ({datetime.now().strftime('%m/%d %H:%M')})"
+    snippet = req.transcript or "스마트폰 1-Tap 원터치 녹음으로 수신된 바로보기님의 음성 아이디어 메모입니다."
+
+    from pobbagi_pipeline_runner import run_pobbagi_pipeline
+    run_pobbagi_pipeline(item_id, title, snippet)
+    return {
+        "status": "success",
+        "message": "PLAUD 대체 1-Tap 음성 녹음 수신 완료! 3AI 뽀개기 4대 규격 파이프라인 가동",
+        "item_id": item_id
+    }
+
+
 
 # -------------------------------------------------------------
 # 6. 실시간 3AI 채팅 API 라우트 (hub_server 통합)
