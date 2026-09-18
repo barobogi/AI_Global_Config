@@ -102,6 +102,7 @@ fun SecondBrainApp(
 
     var selectedTab by remember { mutableStateOf(0) }
     var showSettingsDialog by remember { mutableStateOf(false) }
+    var showVoiceRecordDialog by remember { mutableStateOf(false) }
     var isExternal by remember { mutableStateOf(ServerConfig.isExternalMode) }
     var isCheckingNetwork by remember { mutableStateOf(false) }
 
@@ -109,10 +110,11 @@ fun SecondBrainApp(
     var searchQuery by remember { mutableStateOf("") }
     var searchResults by remember { mutableStateOf<List<KnowledgeMatch>>(emptyList()) }
     var knowledgeList by remember { mutableStateOf<List<com.barobogi.secondbrain.data.KnowledgeItem>>(emptyList()) }
+    var pobbagiReports by remember { mutableStateOf<List<com.barobogi.secondbrain.data.PobbagiReportItem>>(emptyList()) }
+    var designatedItemIds by remember { mutableStateOf<Set<String>>(emptySet()) }
     var playingAudioUrl by remember { mutableStateOf<String?>(null) }
     var playingItemId by remember { mutableStateOf<String?>(null) }
     var selectedKnowledgeDetailItem by remember { mutableStateOf<com.barobogi.secondbrain.data.KnowledgeItem?>(null) }
-
 
     // 3AI 채팅 관련 상태
     var chatMessages by remember { mutableStateOf<List<com.barobogi.secondbrain.data.ChatMessage>>(emptyList()) }
@@ -129,6 +131,7 @@ fun SecondBrainApp(
 
         repository.fetchLatestBriefing().onSuccess { latestBriefing = it }
         repository.fetchKnowledgeList().onSuccess { knowledgeList = it }
+        repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
         repository.fetchChatHistory().onSuccess { 
             chatMessages = it
             if (it.isNotEmpty()) {
@@ -156,8 +159,11 @@ fun SecondBrainApp(
             repository.fetchLatestBriefing().onSuccess { latestBriefing = it }
         } else if (selectedTab == 3) {
             repository.fetchKnowledgeList().onSuccess { knowledgeList = it }
+        } else if (selectedTab == 4) {
+            repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
         }
     }
+
 
     Scaffold(
         topBar = {
@@ -185,6 +191,9 @@ fun SecondBrainApp(
                     }
                 },
                 actions = {
+                    IconButton(onClick = { showVoiceRecordDialog = true }) {
+                        Icon(Icons.Default.Mic, contentDescription = "1-Tap PLAUD 음성 녹음", tint = Color(0xFFF43F5E))
+                    }
                     IconButton(onClick = { showSettingsDialog = true }) {
                         Icon(Icons.Default.Settings, contentDescription = "서버 설정", tint = Color.White)
                     }
@@ -218,8 +227,14 @@ fun SecondBrainApp(
                 NavigationBarItem(
                     selected = selectedTab == 3,
                     onClick = { selectedTab = 3 },
-                    icon = { Icon(Icons.Default.MenuBook, contentDescription = "184 DB") },
-                    label = { Text("184 DB") }
+                    icon = { Icon(Icons.Default.MenuBook, contentDescription = "지식 DB") },
+                    label = { Text("지식 DB") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 4,
+                    onClick = { selectedTab = 4 },
+                    icon = { Icon(Icons.Default.Build, contentDescription = "🔥 뽀개기") },
+                    label = { Text("🔥 뽀개기") }
                 )
             }
         },
@@ -484,13 +499,14 @@ fun SecondBrainApp(
                     }
                 }
                 3 -> {
-                    // [탭 4] 184개 전수 지식 DB 라이브러리 & 오디오 플레이어
+                    // [탭 4] 전수 지식 DB 라이브러리 & 오디오 플레이어
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("📚 184개 전수 지식 DB 라이브러리", color = Color(0xFF38BDF8), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        val countDisplay = if (knowledgeList.isNotEmpty()) knowledgeList.size else 353
+                        Text("📚 전수 지식 DB 라이브러리 (${countDisplay}개)", color = Color(0xFF38BDF8), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                         IconButton(onClick = {
                             scope.launch {
                                 repository.fetchKnowledgeList().onSuccess { knowledgeList = it }
@@ -500,7 +516,7 @@ fun SecondBrainApp(
                         }
                     }
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("총 ${if (knowledgeList.isNotEmpty()) knowledgeList.size else 184}건의 유튜브/Obsidian 노하우 중 원하시는 항목을 클릭해 청취하세요.", color = Color.Gray, fontSize = 12.sp)
+                    Text("총 ${if (knowledgeList.isNotEmpty()) knowledgeList.size else 353}건의 유튜브/Obsidian 노하우 중 원하시는 항목을 클릭해 청취하세요.", color = Color.Gray, fontSize = 12.sp)
                     Spacer(modifier = Modifier.height(12.dp))
 
                     if (knowledgeList.isEmpty()) {
@@ -628,13 +644,33 @@ fun SecondBrainApp(
                                                 )
                                             }
 
+                                            val isDesignated = designatedItemIds.contains(item.id)
+                                            Button(
+                                                onClick = {
+                                                    scope.launch {
+                                                        designatedItemIds = designatedItemIds + item.id
+                                                        repository.designatePobbagiItem(item.id, item.title, item.threeLineSummary ?: item.snippet ?: "")
+                                                    }
+                                                },
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = if (isDesignated) Color(0xFF6366F1) else Color(0xFFE11D48)
+                                                ),
+                                                shape = RoundedCornerShape(6.dp),
+                                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                                modifier = Modifier.height(30.dp)
+                                            ) {
+                                                Icon(Icons.Default.Build, contentDescription = "뽀개기", tint = Color.White, modifier = Modifier.size(13.dp))
+                                                Spacer(modifier = Modifier.width(3.dp))
+                                                Text(if (isDesignated) "🔨 진행중..." else "🔨 뽀개기 지정", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                                            }
+
                                             Row(
                                                 verticalAlignment = Alignment.CenterVertically,
                                                 modifier = Modifier.clickable { selectedKnowledgeDetailItem = item }
                                             ) {
                                                 Icon(Icons.Default.MenuBook, contentDescription = "상세보기", tint = Color(0xFF38BDF8), modifier = Modifier.size(16.dp))
                                                 Spacer(modifier = Modifier.width(4.dp))
-                                                Text("상세 노하우 읽기", color = Color(0xFF38BDF8), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                                Text("상세", color = Color(0xFF38BDF8), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                             }
                                         }
                                     }
@@ -644,9 +680,144 @@ fun SecondBrainApp(
                         }
                     }
                 }
+                4 -> {
+                    // [탭 5] 3AI 뽀개기 리포트 & 실시간 사후 승인 상태
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🔥 3AI 뽀개기 최종 리포트", color = Color(0xFFF43F5E), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        IconButton(onClick = {
+                            scope.launch {
+                                repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
+                            }
+                        }) {
+                            Icon(Icons.Default.Refresh, contentDescription = "새로고침", tint = Color(0xFFF43F5E))
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text("바로보기님이 지정하신 과제의 3AI 4대 규격(딥서치·뿌리편입·구현확장·AI학습안) 리포트입니다.", color = Color.Gray, fontSize = 12.sp)
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    if (pobbagiReports.isEmpty()) {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Icon(Icons.Default.Build, contentDescription = "뽀개기 없음", tint = Color.Gray, modifier = Modifier.size(48.dp))
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text("아직 지정된 뽀개기 과제가 없습니다.", color = Color.Gray, fontSize = 14.sp)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text("4번째 [지식 DB] 탭에서 [🔨 뽀개기 지정] 버튼을 눌러보세요.", color = Color(0xFF38BDF8), fontSize = 12.sp)
+                            }
+                        }
+                    } else {
+                        LazyColumn(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                            items(pobbagiReports) { report ->
+                                val reportAudioUrl = report.audioUrl ?: "/api/v1/knowledge/audio/${report.id}"
+                                val isThisPlaying = playingAudioUrl == reportAudioUrl && playingItemId == "POBBAGI_${report.id}"
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1B4B)),
+                                    shape = RoundedCornerShape(16.dp)
+                                ) {
+                                    Column(modifier = Modifier.padding(16.dp)) {
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Surface(
+                                                shape = RoundedCornerShape(8.dp),
+                                                color = Color(0xFFF43F5E).copy(alpha = 0.2f)
+                                            ) {
+                                                Text(
+                                                    "🔥 3AI 뽀개기 리포트",
+                                                    color = Color(0xFFFB7185),
+                                                    fontSize = 11.sp,
+                                                    fontWeight = FontWeight.Bold,
+                                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                )
+                                            }
+                                            Surface(
+                                                shape = RoundedCornerShape(8.dp),
+                                                color = Color(0xFFEAB308).copy(alpha = 0.2f)
+                                            ) {
+                                                Text(
+                                                    "⏳ 만복이 사후 승인 대기중",
+                                                    color = Color(0xFFFDE047),
+                                                    fontSize = 11.sp,
+                                                    fontWeight = FontWeight.SemiBold,
+                                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                )
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Text(report.title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                        Text("지정시각: ${report.designatedAt}\n작성: ${report.author}", color = Color.Gray, fontSize = 11.sp, lineHeight = 15.sp)
+
+                                        Spacer(modifier = Modifier.height(12.dp))
+
+                                        Text("🔍 ① 딥서치 (Deep Search) 분석", color = Color(0xFF38BDF8), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(report.deepSearch, color = Color(0xFFE2E8F0), fontSize = 12.sp, lineHeight = 18.sp)
+
+                                        Spacer(modifier = Modifier.height(10.dp))
+
+                                        Text("🌳 ② 뿌리 체계 편입 방안", color = Color(0xFF4ADE80), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(report.rootIntegration, color = Color(0xFFE2E8F0), fontSize = 12.sp, lineHeight = 18.sp)
+
+                                        Spacer(modifier = Modifier.height(10.dp))
+
+                                        Text("🚀 ③ 구현 후 확장 방안", color = Color(0xFFA855F7), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(report.expansionPlan, color = Color(0xFFE2E8F0), fontSize = 12.sp, lineHeight = 18.sp)
+
+                                        Spacer(modifier = Modifier.height(10.dp))
+
+                                        Text("🧠 ④ AI 학습안 및 프롬프트 반영", color = Color(0xFFF59E0B), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(report.aiLearningPlan, color = Color(0xFFE2E8F0), fontSize = 12.sp, lineHeight = 18.sp)
+
+                                        Spacer(modifier = Modifier.height(14.dp))
+
+                                        Button(
+                                            onClick = {
+                                                if (isThisPlaying) {
+                                                    onStopAudio()
+                                                    playingAudioUrl = null
+                                                    playingItemId = null
+                                                } else {
+                                                    onPlayAudio(reportAudioUrl)
+                                                    playingAudioUrl = reportAudioUrl
+                                                    playingItemId = "POBBAGI_${report.id}"
+                                                }
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = if (isThisPlaying) Color(0xFFEF4444) else Color(0xFF0284C7)
+                                            ),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            shape = RoundedCornerShape(8.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = if (isThisPlaying) Icons.Default.Stop else Icons.Default.PlayArrow,
+                                                contentDescription = if (isThisPlaying) "정지" else "재생",
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(if (isThisPlaying) "1분 뽀개기 음성 정지" else "1분 뽀개기 음성 브리핑 듣기", fontSize = 12.sp)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
+
 
     // 지식 DB 상세 노하우 다이얼로그 (3-Tier 전체 읽기 및 오디오/유튜브 연결)
     selectedKnowledgeDetailItem?.let { detail ->
@@ -778,6 +949,73 @@ fun SecondBrainApp(
                 }
             },
             containerColor = Color(0xFF1E293B)
+        )
+    }
+
+    // PLAUD 대체 1-Tap 원터치 음성 녹음 & 3AI 뽀개기 전송 다이얼로그
+    if (showVoiceRecordDialog) {
+        var ideaTitle by remember { mutableStateOf("") }
+        var ideaTranscript by remember { mutableStateOf("") }
+        var isSubmitting by remember { mutableStateOf(false) }
+
+        AlertDialog(
+            onDismissRequest = { showVoiceRecordDialog = false },
+            title = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Default.Mic, contentDescription = null, tint = Color(0xFFF43F5E))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("🎙️ 1-Tap PLAUD 음성 녹음", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
+                }
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("PLAUD AI 녹음기 필요 없이 스마트폰 음성 메모를 3AI 뽀개기 파이프라인으로 즉시 전송합니다.", fontSize = 12.sp, color = Color(0xFFCBD5E1))
+                    OutlinedTextField(
+                        value = ideaTitle,
+                        onValueChange = { ideaTitle = it },
+                        label = { Text("아이디어/회의 제목") },
+                        placeholder = { Text("예: 1인 AI 기업 신규 자동화 구상") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedTextColor = Color.White, unfocusedTextColor = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = ideaTranscript,
+                        onValueChange = { ideaTranscript = it },
+                        label = { Text("음성 녹음 내용 / 아이디어 요약") },
+                        placeholder = { Text("운전 중 떠오른 생각이나 미팅 음성 녹음 텍스트...") },
+                        modifier = Modifier.fillMaxWidth().height(100.dp),
+                        colors = OutlinedTextFieldDefaults.colors(focusedTextColor = Color.White, unfocusedTextColor = Color.White)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        if (ideaTranscript.isNotBlank() || ideaTitle.isNotBlank()) {
+                            isSubmitting = true
+                            scope.launch {
+                                repository.recordVoiceIngest(ideaTitle, ideaTranscript).onSuccess {
+                                    showVoiceRecordDialog = false
+                                    selectedTab = 4
+                                    repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
+                                }
+                                isSubmitting = false
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF43F5E)),
+                    enabled = !isSubmitting
+                ) {
+                    Text(if (isSubmitting) "전송중..." else "⚡ 3AI 뽀개기 전송")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showVoiceRecordDialog = false }) {
+                    Text("취소", color = Color.Gray)
+                }
+            },
+            containerColor = Color(0xFF1E1B4B)
         )
     }
 
