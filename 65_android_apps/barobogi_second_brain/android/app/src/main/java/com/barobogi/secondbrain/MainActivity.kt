@@ -5,7 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
+import android.util.Base64
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import kotlinx.coroutines.delay
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -952,67 +960,208 @@ fun SecondBrainApp(
         )
     }
 
-    // PLAUD 대체 1-Tap 원터치 음성 녹음 & 3AI 뽀개기 전송 다이얼로그
+    // PLAUD 대체 1-Tap 원터치 실시간 음성 녹음 & 3AI 뽀개기 전송 다이얼로그
     if (showVoiceRecordDialog) {
-        var ideaTitle by remember { mutableStateOf("") }
-        var ideaTranscript by remember { mutableStateOf("") }
+        var isRecording by remember { mutableStateOf(false) }
         var isSubmitting by remember { mutableStateOf(false) }
+        var recordTimeSec by remember { mutableStateOf(0) }
+        var mediaRecorder by remember { mutableStateOf<MediaRecorder?>(null) }
+        var outputFile by remember { mutableStateOf<File?>(null) }
+        var optionalNote by remember { mutableStateOf("") }
+        var statusMessage by remember { mutableStateOf("버튼을 누르면 스마트폰 마이크 수음이 시작됩니다.") }
+
+        LaunchedEffect(isRecording) {
+            if (isRecording) {
+                while (isRecording) {
+                    delay(1000L)
+                    recordTimeSec++
+                }
+            }
+        }
+
+        DisposableEffect(Unit) {
+            onDispose {
+                try {
+                    mediaRecorder?.stop()
+                    mediaRecorder?.release()
+                } catch (e: Exception) { }
+            }
+        }
+
+        val formattedTime = String.format("%02d:%02d", recordTimeSec / 60, recordTimeSec % 60)
 
         AlertDialog(
-            onDismissRequest = { showVoiceRecordDialog = false },
+            onDismissRequest = {
+                if (!isRecording && !isSubmitting) {
+                    showVoiceRecordDialog = false
+                }
+            },
             title = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Mic, contentDescription = null, tint = Color(0xFFF43F5E))
+                    Icon(
+                        Icons.Default.Mic,
+                        contentDescription = null,
+                        tint = if (isRecording) Color(0xFFEF4444) else Color(0xFFF43F5E),
+                        modifier = Modifier.size(24.dp)
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("🎙️ 1-Tap PLAUD 음성 녹음", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
+                    Text("🎙️ PLAUD AI 원터치 음성 녹음", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
                 }
             },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("PLAUD AI 녹음기 필요 없이 스마트폰 음성 메모를 3AI 뽀개기 파이프라인으로 즉시 전송합니다.", fontSize = 12.sp, color = Color(0xFFCBD5E1))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = if (isRecording) "🔴 음성 녹음 진행 중..." else "스마트폰 마이크로 회의/아이디어를 바로 수음합니다.",
+                        fontSize = 12.sp,
+                        color = Color(0xFFCBD5E1)
+                    )
+
+                    // Timer & Pulse Box
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        color = if (isRecording) Color(0xFF7F1D1D) else Color(0xFF1E293B),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Text(
+                                text = formattedTime,
+                                fontSize = 36.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isRecording) Color(0xFFFCA5A5) else Color(0xFF94A3B8)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = statusMessage,
+                                fontSize = 12.sp,
+                                color = Color.White
+                            )
+                        }
+                    }
+
+                    // Optional Note text box
                     OutlinedTextField(
-                        value = ideaTitle,
-                        onValueChange = { ideaTitle = it },
-                        label = { Text("아이디어/회의 제목") },
-                        placeholder = { Text("예: 1인 AI 기업 신규 자동화 구상") },
+                        value = optionalNote,
+                        onValueChange = { optionalNote = it },
+                        label = { Text("추가 텍스트 메모 (선택사항)") },
+                        placeholder = { Text("제목이나 내용을 적지 않아도 자동 수음·분석됩니다.") },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
-                        colors = OutlinedTextFieldDefaults.colors(focusedTextColor = Color.White, unfocusedTextColor = Color.White)
-                    )
-                    OutlinedTextField(
-                        value = ideaTranscript,
-                        onValueChange = { ideaTranscript = it },
-                        label = { Text("음성 녹음 내용 / 아이디어 요약") },
-                        placeholder = { Text("운전 중 떠오른 생각이나 미팅 음성 녹음 텍스트...") },
-                        modifier = Modifier.fillMaxWidth().height(100.dp),
                         colors = OutlinedTextFieldDefaults.colors(focusedTextColor = Color.White, unfocusedTextColor = Color.White)
                     )
                 }
             },
             confirmButton = {
-                Button(
-                    onClick = {
-                        if (ideaTranscript.isNotBlank() || ideaTitle.isNotBlank()) {
-                            isSubmitting = true
-                            scope.launch {
-                                repository.recordVoiceIngest(ideaTitle, ideaTranscript).onSuccess {
-                                    showVoiceRecordDialog = false
-                                    selectedTab = 4
-                                    repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    if (!isRecording && !isSubmitting) {
+                        // [🔴 녹음 시작]
+                        Button(
+                            onClick = {
+                                try {
+                                    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                                    val audioFile = File(context.cacheDir, "plaud_rec_$timeStamp.m4a")
+                                    outputFile = audioFile
+
+                                    val recorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                        MediaRecorder(context)
+                                    } else {
+                                        @Suppress("DEPRECATION")
+                                        MediaRecorder()
+                                    }
+
+                                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+                                    recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+                                    recorder.setOutputFile(audioFile.absolutePath)
+                                    recorder.prepare()
+                                    recorder.start()
+
+                                    mediaRecorder = recorder
+                                    recordTimeSec = 0
+                                    isRecording = true
+                                    statusMessage = "🔴 마이크 수음 중... 말씀하세요."
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    statusMessage = "녹음 시작 오류: ${e.message}"
                                 }
-                                isSubmitting = false
-                            }
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(Icons.Default.RadioButtonChecked, contentDescription = null)
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("🔴 녹음 시작", fontWeight = FontWeight.Bold)
                         }
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF43F5E)),
-                    enabled = !isSubmitting
-                ) {
-                    Text(if (isSubmitting) "전송중..." else "⚡ 3AI 뽀개기 전송")
+                    } else if (isRecording) {
+                        // [⏹️ 녹음 종료 및 3AI 전송]
+                        Button(
+                            onClick = {
+                                try {
+                                    mediaRecorder?.stop()
+                                    mediaRecorder?.release()
+                                    mediaRecorder = null
+                                    isRecording = false
+                                    statusMessage = "⏹️ 녹음 완료! 3AI 인제스트 전송 중..."
+                                    isSubmitting = true
+
+                                    scope.launch {
+                                        val timeStr = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+                                        val titleText = if (optionalNote.isNotBlank()) optionalNote else "PLAUD 음성 메모 ($timeStr)"
+                                        
+                                        var base64Data: String? = null
+                                        outputFile?.let { file ->
+                                            if (file.exists()) {
+                                                val bytes = file.readBytes()
+                                                base64Data = Base64.encodeToString(bytes, Base64.NO_WRAP)
+                                            }
+                                        }
+
+                                        repository.recordVoiceIngest(titleText, "스마트폰 마이크 음성 수음 레코딩", base64Data).onSuccess {
+                                            showVoiceRecordDialog = false
+                                            selectedTab = 4
+                                            repository.fetchPobbagiResults().onSuccess { pobbagiReports = it }
+                                        }
+                                        isSubmitting = false
+                                    }
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    isRecording = false
+                                    isSubmitting = false
+                                    statusMessage = "녹음 종료 실패: ${e.message}"
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF38BDF8)),
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = !isSubmitting
+                        ) {
+                            Icon(Icons.Default.Stop, contentDescription = null)
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(if (isSubmitting) "전송 중..." else "⏹️ 녹음 종료 & 3AI 뽀개기 자동 전송", fontWeight = FontWeight.Bold)
+                        }
+                    }
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showVoiceRecordDialog = false }) {
-                    Text("취소", color = Color.Gray)
+                if (!isSubmitting) {
+                    TextButton(onClick = {
+                        try {
+                            mediaRecorder?.stop()
+                            mediaRecorder?.release()
+                        } catch (e: Exception) { }
+                        mediaRecorder = null
+                        isRecording = false
+                        showVoiceRecordDialog = false
+                    }) {
+                        Text("취소", color = Color.Gray)
+                    }
                 }
             },
             containerColor = Color(0xFF1E1B4B)
